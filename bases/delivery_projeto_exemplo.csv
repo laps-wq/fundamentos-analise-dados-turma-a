@@ -1,0 +1,73 @@
+﻿pedido_id;data_pedido;bairro;distancia_km;chuva;experiencia_entregador_meses;canal;tempo_entrega_min;nota_cliente;valor_pedido;forma_pagamento;cupom
+D501;19/04/2026;Torre;3,2;Sim;26;Telefone;39;4;84,69;Pix;
+D502;21/04/2026;Imbiribeira;1,7;Não;16;Telefone;24;5;96,70;Cartão;FRETE0
+D503;30/04/2026;Casa Forte;1,1;Não;8;Telefone;14;5;52,80;Pix;PRIMEIRA
+D504;31/03/2026;Casa Forte;2,9;Não;23;Telefone;31;5;50,08;cartao;FRETE0
+D505;30/04/2026;Imbiribeira;4,6;Não;25;App;17;5;36,76;cartão;
+D506;13/03/2026;Imbiribeira;5,8;Sim;6;App;43;3;51,79;Dinheiro;
+D507;25/03/2026;Madalena;3,9;Sim;27;Telefone;40;5;75,54;Pix;PRIMEIRA
+D508;01/03/2026;Madalena;4,6;Sim;18;App;42;5;;Dinheiro;
+D509;02/04/2026;Espinheiro;5,1;Não;1;App;35;5;28,86;Cartão;
+D510;29/03/2026;Espinheiro;7,3;Não;34;App;50;4;110,99;Dinheiro;PRIMEIRA
+D511;10/03/2026;BOA VIAGEM;2,4;Sim;35;Telefone;31;4;67,45;Dinheiro;
+D512;11/04/2026;Graças;6,6;Não;12;Telefone;37;4;102,80;Cartão;
+D513;07/04/2026;Madalena;9,2;Sim;7;Telefone;58;4;74,23;Pix;
+D514;14/03/2026;Boa Viagem;2,8;Não;27;App;17;5;46,70;Pix;
+D515;01/03/2026;Espinheiro;8,4;Sim;29;Telefone;55;5;53,45;Dinheiro;PRIMEIRA
+D516;23/04/2026;boa viagem;4,5;Não;14;App;31;4;39,53;Cartão;
+D517;03/04/2026;Madalena;3,7;Não;19;App;36;4;54,92;Dinheiro;PRIMEIRA
+D518;13/04/2026;Graças;3,4;Não;30;App;23;4;47,90;Cartão;
+D519;08/04/2026;Boa Viagem ;4,0;Sim;5;App;48;4;91,21;Cartão;FRETE0
+D520;08/03/2026;madalena;9,3;Não;39;App;52;4;82,02;Dinheiro;
+D521;29/04/2026;Madalena;5,5;Não;31;App;24;5;79,23;Dinheiro;
+D522;10/04/2026;Madalena;7,9;Não;45;App;39;5;104,23;Pix;
+D523;04/04/2026;Imbiribeira;6,3;Não;24;App;39;3;54,55;Pix;
+D524;31/03/2026;Imbiribeira;5,1;Não;1;App;35;5;67,98;Pix;PRIMEIRA
+D525;24/04/2026;Graças;0,9;Não;39;App;24;5;70,48;Pix;
+D526;13/04/2026;Casa Forte;1,5;Sim;8;App;31;4;34,94;Cartão;FRETE0
+D527;03/04/2026;Graças;8,4;Sim;16;App;59;3;76,94;Cartão;
+D528;20/04/2026;Boa Viagem;4,6;Não;33;Telefone;32;4;;Pix;FRETE0
+D529;21/04/2026;Espinheiro;8,2;Não;27;App;49;3;130,53;Dinheiro;
+D530;30/03/2026;Torre;2,8;Sim;11;Telefone;35;4;94,94;Dinheiro;
+D531;09/03/2026;Boa Viagem;8,2;Não;40;Telefone;38;4;50,89;Pix;PRIMEIRA
+D532;09/04/2026;Casa Forte;3,0;Não;8;App;29;5;48,18;Dinheiro;
+D533;27/03/2026;Torre;3,4;Sim;39;Telefone;31;5;84,02;PIX;
+D534;22/03/2026;Boa Viagem;7,1;Não;38;Telefone;36;4;55,53;Pix;
+D535;19/03/2026;Imbiribeira;6,4;Sim;45;App;49;4;55,54;Pix;
+D555;17/04/2026;Espinheiro ;5,5;Não;10;Telefone;34;4;65,94;Cartão;
+D536;;Graças;7,0;Não;23;App;43;5;54,60;Pix;PRIMEIRA
+D537;20/03/2026;Casa Forte;6,5;Não;42;App;37;4;113,27;Cartão;
+D538;22/03/2026;Graças;6,1;Não;31;Telefone;35;5;41,88;Dinheiro;
+D539;05/03/2026;Casa Forte;0,9;Não;34;App;15;5;80,34;Pix;
+D540;09/04/2026;Casa Forte;6,1;Não;33;App;38;5;107,70;Pix;
+D541;14/03/2026;Imbiribeira;4,3;Sim;13;App;48;3;;Dinheiro;
+D542;08/04/2026;Espinheiro;7,1;Não;15;Telefone;39;5;;Cartão;
+D543;13/03/2026;Imbiribeira;8,1;Não;41;Telefone;62;3;54,02;Pix;
+D544;09/03/2026;Torre;7,5;Sim;3;App;53;3;86,89;Pix;FRETE0
+D545;06/03/2026;Boa Viagem;5,4;Sim;36;App;48;3;82,21;Pix;
+D546;16/04/2026;Espinheiro;9,0;Não;12;Telefone;60;2;51,43;Dinheiro;
+D547;22/03/2026;Torre;7,4;Não;26;Telefone;39;3;60,10;Dinheiro;PRIMEIRA
+D548;15/04/2026;Madalena;3,8;Não;30;Telefone;28;5;96,29;Cartão;PRIMEIRA
+D549;16/03/2026;Madalena;8,7;Sim;10;App;62;3;71,45;Dinheiro;
+D550;31/03/2026;Boa Viagem;1,0;Sim;17;App;29;4;8026,00;Dinheiro;FRETE0
+D551;08/03/2026;Casa Forte;2,6;Não;29;Telefone;30;5;;Cartão;
+D552;26/03/2026;Boa Viagem;3,8;Sim;41;App;45;4;76,74;Dinheiro;FRETE0
+D553;17/03/2026;Torre;7,1;Sim;16;App;55;4;80,38;Dinheiro;
+D554;05/03/2026;Graças;4,8;Não;35;App;34;5;86,29;Pix;FRETE0
+D555;17/04/2026;Espinheiro ;5,5;Não;10;Telefone;34;4;65,94;Cartão;
+D556;18/04/2026;casa forte;3,1;Sim;33;Telefone;46;4;43,64;Cartão;FRETE0
+D557;18/03/2026;Torre;3,0;Não;32;App;23;5;91,44;dinheiro;
+D558;13/03/2026;Boa Viagem;6,2;Sim;5;App;51;3;80,45;Cartão;
+D559;31/03/2026;Boa Viagem;8,3;Não;42;App;48;4;79,63;Pix;
+D560;13/04/2026;Casa Forte;7,3;Sim;18;App;56;4;64,88;Cartão;
+D561;04/13/2026;Espinheiro;2,4;Não;34;App;18;5;101,37;Dinheiro;
+D562;27/04/2026;Boa Viagem;3,0;Não;36;Telefone;24;5;42,04;Dinheiro;PRIMEIRA
+D563;;Espinheiro;3,6;Não;11;Telefone;29;4;31,57;Dinheiro;
+D564;25/04/2026;Madalena;8,3;Não;13;App;43;4;29,19;Dinheiro;PRIMEIRA
+D565;24/03/2026;Boa Viagem;1,6;Não;7;App;17;5;67,49;Pix;PRIMEIRA
+D566;02/04/2026;Casa Forte;6,5;Não;12;Telefone;39;4;78,37;Cartão;
+D567;23/03/2026;Boa Viagem;5,6;Não;20;Telefone;46;2;79,84;pix;PRIMEIRA
+D511;10/03/2026;BOA VIAGEM;2,4;Sim;35;Telefone;31;4;67,45;Dinheiro;
+D568;03/03/2026;Graças;9,2;Não;33;App;51;4;100,11;Dinheiro;
+D569;06/04/2026;Imbiribeira;9,1;Sim;2;Telefone;63;2;104,69;Dinheiro;
+D570;;Boa Viagem;9,1;Não;3;App;54;3;49,47;Cartão;FRETE0

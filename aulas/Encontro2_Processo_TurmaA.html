@@ -1,0 +1,1099 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Encontro 2 · Processo de Análise</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: aula em cenas empilhadas (rolagem) que viram slides no "Modo aula"; laboratórios em cartões com barra laranja, como no template CESAR School */
+:root{
+  --paper:#FEF7EE; --surface:#FFFCF8; --sunk:#FBEEE1; --ink:#212121; --ink-2:#4B4540; --muted:#7D7168;
+  --line:#E5C8B2; --line-soft:#F0E0D0; --orange:#FF6002; --orange-ink:#B84300; --orange-soft:#FFE7D6;
+  --good:#2E7A4C; --good-soft:#E2F1E7; --warn:#93600F; --warn-soft:#FBEED6; --bad:#B53228; --bad-soft:#F8E0DC;
+  --c1:#FF6002; --c2:#212121; --c3:#C99A70; --c4:#5F8A84;
+  --cover:#212121; --cover-ink:#FEF7EE; --cover-cream:#FEF7EE;
+  --f-disp:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  --f-body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:14px; --maxw:1280px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1A1918; --surface:#24221F; --sunk:#2C2825; --ink:#FEF7EE; --ink-2:#E3D8CC; --muted:#B3A597;
+    --line:#4D4036; --line-soft:#352C26; --orange:#FF6A14; --orange-ink:#FF8C4A; --orange-soft:#3B2517;
+    --good:#72C792; --good-soft:#1E3327; --warn:#E6B453; --warn-soft:#3A2F17; --bad:#F2806F; --bad-soft:#3E201C;
+    --c1:#FF6A14; --c2:#FEF7EE; --c3:#C99A70; --c4:#7FB0A9;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1A1918; --surface:#24221F; --sunk:#2C2825; --ink:#FEF7EE; --ink-2:#E3D8CC; --muted:#B3A597;
+  --line:#4D4036; --line-soft:#352C26; --orange:#FF6A14; --orange-ink:#FF8C4A; --orange-soft:#3B2517;
+  --good:#72C792; --good-soft:#1E3327; --warn:#E6B453; --warn-soft:#3A2F17; --bad:#F2806F; --bad-soft:#3E201C;
+  --c1:#FF6A14; --c2:#FEF7EE; --c3:#C99A70; --c4:#7FB0A9;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:clamp(16px,0.55vw + 12px,22px)}
+html.aula{font-size:clamp(19px,1vw + 3px,28px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+h1,h2,h3{font-family:var(--f-disp);font-weight:700;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:.005em}
+p{margin:0}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:6px}
+.num{font-variant-numeric:tabular-nums}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ---------- topo ---------- */
+.topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line-soft)}
+.topo .wrap{display:flex;align-items:center;gap:14px;padding-block:10px}
+.logo{display:block;width:44px;height:40px;flex:none;background:var(--ink);-webkit-mask:url("data:image/png;base64,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") center/contain no-repeat;mask:url("data:image/png;base64,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") center/contain no-repeat}
+.topo-titulo{font-family:var(--f-disp);font-weight:700;font-size:1.15rem;line-height:1.1;min-width:0}
+.topo-titulo small{display:block;font-family:var(--f-body);font-weight:500;font-size:.78rem;color:var(--muted);letter-spacing:.02em}
+.topo-acoes{margin-left:auto;display:flex;gap:8px;align-items:center}
+.topo select{max-width:220px;padding:7px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:600;font-size:.95rem;line-height:1.2}
+.btn:hover{border-color:var(--orange)}
+.btn.prim{background:var(--orange);border-color:var(--orange);color:#fff}
+.btn.prim:hover{filter:brightness(1.06)}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+@media (max-width:640px){.topo-titulo small{display:none}.topo select{max-width:130px}.topo-titulo{font-size:1rem}}
+@media (max-width:420px){.topo-titulo{display:none}}
+
+/* ---------- cenas ---------- */
+.cena{padding-block:72px;border-bottom:1px solid var(--line-soft)}
+.eyebrow{font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:10px}
+.cena h2{font-size:clamp(2.3rem,4.8vw,3.5rem);margin-bottom:16px}
+.lede{font-size:1.2rem;color:var(--ink-2);max-width:68ch}
+.pilha{display:flex;flex-direction:column;gap:28px}
+.grade2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.grade3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:820px){.grade2,.grade3{grid-template-columns:1fr}}
+
+.cartao{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:20px 22px;position:relative;overflow:hidden}
+.cartao.barra::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--orange)}
+.cartao h3{font-family:var(--f-body);font-weight:700;font-size:1.15rem;margin-bottom:6px;letter-spacing:0}
+.cartao p{color:var(--ink-2);font-size:1rem}
+
+/* ---------- capa ---------- */
+.capa{background:var(--cover);color:var(--cover-ink);position:relative;overflow:hidden;border-bottom:none;padding-block:84px 120px}
+.capa .wrap{position:relative;z-index:2}
+.capa .logo{background:var(--cover-ink);width:72px;height:64px;margin-bottom:28px}
+.capa h1{font-style:italic;text-transform:uppercase;font-size:clamp(2.6rem,7vw,5rem);max-width:12ch;letter-spacing:.01em}
+.capa .sub{margin-top:22px;font-weight:700;font-size:clamp(1.1rem,2.2vw,1.4rem);max-width:30ch}
+.capa .meta{margin-top:14px;display:flex;flex-direction:column;gap:2px;font-size:1.02rem;color:#E9DED2}
+.capa .meta b{color:var(--cover-ink)}
+.capa .tag{display:inline-block;margin-top:24px;background:var(--orange);color:#fff;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;padding:6px 12px;border-radius:999px}
+.forma{position:absolute;z-index:1;pointer-events:none}
+.f1{width:min(46vw,520px);aspect-ratio:1;border-radius:50%;background:var(--orange);right:-14vw;top:10%;clip-path:inset(0 0 0 0)}
+.f2{width:min(30vw,340px);aspect-ratio:1;border-radius:50%;background:var(--orange);right:min(22vw,250px);top:4%;clip-path:inset(0 50% 0 0)}
+.f3{width:min(34vw,300px);aspect-ratio:2/1;border-radius:300px 300px 0 0;background:var(--cover-cream);left:-40px;bottom:0}
+.f4{width:min(24vw,210px);aspect-ratio:2/1;border-radius:210px 210px 0 0;background:var(--orange);left:min(28vw,240px);bottom:0}
+.f5{width:min(16vw,150px);aspect-ratio:1;border:2px solid var(--cover-ink);border-radius:0 100% 0 0;border-left:2px solid var(--cover-ink);border-bottom:2px solid var(--cover-ink);left:min(48vw,450px);bottom:-2px;border-top-left-radius:0}
+@media (max-width:700px){.f1{right:-40vw;top:auto;bottom:18%;width:70vw}.f2{display:none}.f5{display:none}.capa{padding-block:56px 110px}}
+
+/* ---------- laboratório ---------- */
+.lab{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:24px 26px 22px 30px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:18px}
+.lab::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--orange)}
+.lab-cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.lab-cab .eyebrow{margin:0}
+.lab-cab h3{font-size:2.1rem;flex-basis:100%}
+.instrucao{color:var(--ink-2);max-width:72ch;font-size:1.08rem}
+.instrucao b{color:var(--ink)}
+.conta{border-top:1px dashed var(--line);padding-top:12px}
+.conta summary{cursor:pointer;font-weight:600;color:var(--muted);font-size:.95rem;list-style:none;display:inline-flex;align-items:center;gap:8px}
+.conta summary::-webkit-details-marker{display:none}
+.conta summary::before{content:"+";display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);font-size:.9rem;line-height:1}
+.conta[open] summary::before{content:"−"}
+.conta .corpo{margin-top:10px;background:var(--sunk);border-radius:10px;padding:12px 14px;font-size:.95rem;color:var(--ink-2)}
+.excel{background:var(--sunk);border-radius:12px;padding:14px 16px;font-size:.96rem;color:var(--ink-2)}
+.excel .chip-x{display:inline-block;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:4px}
+.excel ol{margin:6px 0 0;padding-left:20px}
+.excel li{margin-bottom:4px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:.4em .85em;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:500;font-size:1rem}
+.chip:hover{border-color:var(--orange)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.rotulo{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+
+.veredito{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-weight:700;font-size:.85rem}
+.v-ok{background:var(--good-soft);color:var(--good)}
+.v-cuidado{background:var(--warn-soft);color:var(--warn)}
+.v-nao,.v-impossivel{background:var(--bad-soft);color:var(--bad)}
+
+/* tabela */
+.tabela-wrap{overflow-x:auto;border:1.5px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:1rem;font-variant-numeric:tabular-nums}
+th{background:var(--orange);color:#fff;text-align:left;font-weight:600;padding:9px 12px;white-space:nowrap}
+td{padding:8px 12px;border-top:1px solid var(--line-soft);white-space:nowrap}
+tbody tr:nth-child(even) td{background:var(--sunk)}
+td.hi,th.hi{outline:2.5px solid var(--orange);outline-offset:-2.5px}
+td.col-hi{background:var(--orange-soft)!important}
+tr.divisor td{border-top:3px solid var(--ink)}
+tfoot td{font-weight:700;background:var(--surface)}
+
+/* DIKW */
+.dikw{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px;align-items:start}
+@media (max-width:820px){.dikw{grid-template-columns:1fr}}
+.escada{display:flex;flex-direction:column-reverse;gap:6px;align-items:center}
+.degrau{height:2.7rem;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--f-disp);font-weight:700;font-size:1.3rem;border:1.5px solid var(--line);background:var(--surface);color:var(--muted);transition:background .25s,color .25s;cursor:pointer}
+.degrau.feito{background:var(--orange-soft);color:var(--orange-ink);border-color:var(--orange-soft)}
+.degrau.agora{background:var(--orange);color:#fff;border-color:var(--orange)}
+.painel-dikw{display:flex;flex-direction:column;gap:12px}
+.frase-dikw{font-family:var(--f-disp);font-weight:700;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;min-height:2.3em}
+.viz-dikw{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:10px 12px}
+.muda{color:var(--ink-2)}
+.muda b{color:var(--orange-ink)}
+.passos{display:flex;gap:8px;flex-wrap:wrap}
+
+/* tipos */
+.arvore{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.arvore{grid-template-columns:1fr}}
+.ramo{border:1.5px solid var(--line);border-radius:var(--r);padding:16px 18px;background:var(--surface)}
+.ramo h3{font-size:1.5rem;margin-bottom:10px}
+.folhas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.folha{background:var(--sunk);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.folha b{display:block;font-size:1.1rem}
+.folha span{font-size:.95rem;color:var(--ink-2)}
+.folha svg{width:100%;max-width:300px}
+.escala-viz{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:12px 14px}
+.escala-viz svg{max-width:760px;margin:0 auto}
+.escala-viz svg text{font-size:15px}
+.escalas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:720px){.escalas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.escala{border:1.5px solid var(--line);border-radius:12px;padding:12px;background:var(--surface);cursor:pointer;text-align:left}
+.escala[aria-pressed="true"]{border-color:var(--orange);background:var(--orange-soft)}
+.escala b{font-family:var(--f-disp);font-size:1.3rem;display:block}
+.escala span{font-size:.88rem;color:var(--ink-2)}
+.ops{display:flex;flex-wrap:wrap;gap:8px}
+.op{padding:7px 12px;border-radius:999px;font-weight:600;font-size:.92rem;border:1.5px dashed var(--line);color:var(--muted)}
+.op.on{border-style:solid;border-color:var(--good);background:var(--good-soft);color:var(--good)}
+
+/* classificador */
+.colunas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.colunas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.colunas{grid-template-columns:1fr}}
+.col-card{border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--surface);display:flex;flex-direction:column;gap:8px}
+.col-card.certo{border-color:var(--good)}
+.col-card.errado{border-color:var(--warn)}
+.col-nome{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-weight:600;font-size:1rem}
+.amostra{font-size:.95rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.opcoes{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opcoes button{padding:.45em .6em;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-size:.95rem;font-weight:600}
+.r2-cab{display:flex;align-items:center;gap:12px}
+#rodada2{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1000px){#rodada2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){#rodada2{grid-template-columns:1fr}}
+.icone{width:2.6rem;height:2.6rem;flex:none;color:var(--orange-ink)}
+.icone svg{width:100%;height:100%}
+.icone svg *{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.opcoes button:hover{border-color:var(--orange)}
+.opcoes button.marcado{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.retorno{font-size:.95rem;line-height:1.45}
+.retorno.ok{color:var(--good)}
+.retorno.no{color:var(--warn)}
+.placar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.placar .grande{font-family:var(--f-disp);font-weight:700;font-size:2rem}
+
+/* calcular */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:22px}
+@media (max-width:860px){.calc{grid-template-columns:1fr}}
+.resultado{border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--paper);display:flex;flex-direction:column;gap:10px;min-width:0}
+.valor{font-family:var(--f-disp);font-weight:700;font-size:clamp(2.2rem,5vw,3.3rem);line-height:1;font-variant-numeric:tabular-nums;word-break:break-word}
+.msg{color:var(--ink-2)}
+svg{display:block;max-width:100%;height:auto}
+svg text{font-family:var(--f-body);fill:var(--ink-2);font-size:14px}
+svg .faixa-ok{fill:var(--good-soft)}
+svg .faixa-alerta{fill:var(--bad-soft)}
+svg .t-ok{fill:var(--good);font-weight:700}
+svg .t-alerta{fill:var(--bad);font-weight:700}
+svg .marcador{fill:var(--orange)}
+svg .t-marc{fill:#fff;font-weight:700}
+svg .t-grande{font-family:var(--f-disp);font-size:72px;font-weight:700;fill:var(--ink)}
+svg .t-disp{font-family:var(--f-disp);font-weight:700;fill:var(--ink)}
+svg .linha-media{stroke:var(--ink);stroke-width:2;stroke-dasharray:6 5}
+svg .barra.fraca{fill:var(--c3);opacity:.45}
+svg .contorno{fill:none;stroke:var(--ink-2);stroke-width:1.6}
+svg .liq{fill:var(--orange)}
+svg .chipf1{fill:var(--c1)} svg .chipf2{fill:var(--c4)} svg .chipf3{fill:var(--c3)}
+svg .t-branco{fill:#fff;font-weight:700}
+svg .regua{stroke:var(--ink-2);stroke-width:1.4}
+svg .t-forte{fill:var(--ink);font-weight:700}
+svg .barra{fill:var(--c3)}
+svg .barra.hi{fill:var(--orange)}
+svg .eixo{stroke:var(--line);stroke-width:1.2}
+svg .ponto{fill:var(--c3)}
+svg .m-media{stroke:var(--orange);stroke-width:2.5}
+svg .m-mediana{stroke:var(--ink);stroke-width:2;stroke-dasharray:5 4}
+svg .m-fraco{opacity:.45}
+svg .t-media{fill:var(--orange-ink);font-weight:700}
+svg .t-mediana{fill:var(--ink);font-weight:700}
+
+/* fontes */
+.fontes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.fontes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.fontes{grid-template-columns:1fr}}
+.fonte{border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--surface);display:flex;flex-direction:column;gap:4px}
+.fonte .icone{margin-bottom:6px}
+.fonte b{display:block;font-size:1.1rem;margin-bottom:2px}
+.fonte p{font-size:.98rem;color:var(--ink-2)}
+.fonte .risco{margin-top:6px;font-size:.94rem;color:var(--warn)}
+.quiz{display:flex;flex-direction:column;gap:14px}
+.q{border-top:1px solid var(--line-soft);padding-top:12px}
+.q p{font-weight:600;margin-bottom:8px}
+
+/* viés */
+.vies{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:860px){.vies{grid-template-columns:1fr}}
+.legenda{display:flex;flex-wrap:wrap;gap:12px;font-size:.88rem;color:var(--ink-2)}
+.legenda i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.medidor{display:flex;flex-direction:column;gap:8px}
+.medidor .linha{display:grid;grid-template-columns:120px minmax(0,1fr) 54px;align-items:center;gap:10px;font-size:.92rem}
+.medidor .trilho{height:16px;border-radius:8px;background:var(--sunk);position:relative;overflow:hidden}
+.medidor .enche{position:absolute;inset:0 auto 0 0;border-radius:8px;background:var(--orange);transition:width .45s}
+.medidor .enche.real{background:var(--ink)}
+@media (prefers-reduced-motion: reduce){.medidor .enche{transition:none}}
+
+/* regras */
+.regras{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.regras{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.regras{grid-template-columns:1fr}}
+.regra{border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--surface)}
+.regra .n{font-family:var(--f-disp);font-weight:700;color:var(--orange-ink);font-size:.95rem;letter-spacing:.06em;text-transform:uppercase}
+.regra b{display:block;font-size:1.05rem;margin:2px 0 6px}
+.regra p{font-size:.9rem;color:var(--ink-2)}
+.fluxos{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.fluxos{grid-template-columns:1fr}}
+.fluxo{border-radius:14px;padding:16px 18px;border:1.5px solid var(--line)}
+.fluxo.ruim{background:var(--bad-soft);border-color:transparent}
+.fluxo.bom{background:var(--good-soft);border-color:transparent}
+.fluxo h3{font-family:var(--f-body);font-size:1.02rem;margin-bottom:8px}
+.fluxo.ruim h3{color:var(--bad)} .fluxo.bom h3{color:var(--good)}
+.fluxo ol{margin:0;padding-left:20px;color:var(--ink-2)}
+
+/* decisão */
+.estat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.est{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--paper)}
+.est .k{font-size:.82rem;color:var(--muted);font-weight:600}
+.est .v{font-family:var(--f-disp);font-weight:700;font-size:1.7rem;font-variant-numeric:tabular-nums}
+.est .v small{font-family:var(--f-body);font-size:.85rem;font-weight:500;color:var(--muted)}
+details.resp{border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--surface)}
+details.resp summary{cursor:pointer;font-weight:600}
+details.resp p{margin-top:8px;color:var(--ink-2)}
+
+/* atividade */
+.form-ativ{display:flex;flex-direction:column;gap:14px}
+.linha-ativ{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line-soft)}
+@media (max-width:700px){.linha-ativ{grid-template-columns:1fr}}
+.linha-ativ select,.campo input,.campo textarea{width:100%;padding:8px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper)}
+.campo{display:flex;flex-direction:column;gap:6px}
+.campo label{font-weight:600}
+.campo textarea{min-height:84px;resize:vertical}
+.aviso{font-size:.9rem;color:var(--muted)}
+.copiado{font-weight:600;color:var(--good);font-size:.92rem}
+
+/* encerramento */
+.fecho{background:var(--cover);color:var(--cover-ink);border-bottom:none}
+.fecho .eyebrow{color:#FFB58A}
+.fecho h2{color:var(--cover-ink)}
+.fecho li{color:#E9DED2;margin-bottom:12px;font-size:1.2rem}
+.fecho li b{color:var(--cover-ink)}
+.fecho .prox{margin-top:26px;border-left:4px solid var(--orange);padding:6px 0 6px 16px;color:#E9DED2}
+.fecho .prox b{color:var(--cover-ink)}
+
+/* cronograma */
+.crono{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;counter-reset:e}
+@media (max-width:900px){.crono{grid-template-columns:1fr}}
+.crono li{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);font-size:.92rem;line-height:1.3}
+.crono li b{display:block;font-family:var(--f-disp);font-size:1.1rem;color:var(--muted)}
+.crono li.hoje{background:var(--orange);border-color:var(--orange);color:#fff}
+.crono li.hoje b{color:#fff}
+.pesos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;text-align:center}
+@media (max-width:620px){.pesos{grid-template-columns:1fr}}
+.pesos .p{font-family:var(--f-disp);font-weight:700;font-size:2.6rem;line-height:1}
+.pesos b{display:block;margin-top:4px}
+.pesos span{font-size:.9rem;color:var(--ink-2)}
+.ciclo{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ciclo .passo{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px}
+.ciclo .passo b{display:block}
+.ciclo .passo span{font-size:.9rem;color:var(--ink-2)}
+.ciclo .seta{color:var(--orange-ink);font-weight:700;font-size:1.3rem}
+
+/* ---------- modo aula ---------- */
+.controles{display:none}
+body.aula .cena{display:none}
+body.aula .cena.atual{display:block;min-height:calc(100vh - 62px);padding-block:48px 120px;position:relative;border-bottom:none}
+body.aula .cena.atual::after{content:"";position:absolute;left:0;bottom:0;width:92%;height:16px;background:var(--orange);border-radius:0 14px 0 0}
+body.aula .cena.capa.atual::after,body.aula .cena.fecho.atual::after{display:none}
+body.aula .wrap{max-width:min(1560px,94vw)}
+@media (min-width:1200px){body.aula #colunas{grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}}
+body.aula .controles{display:flex;position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(28px + env(safe-area-inset-bottom,0px));z-index:25;gap:8px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:6px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.controles .cont{font-weight:600;font-size:.9rem;min-width:56px;text-align:center}
+
+/* ---------- componentes das aulas 2 a 7 ---------- */
+input[type=range]{accent-color:var(--orange);width:100%}
+.criterios{display:flex;flex-wrap:wrap;gap:8px}
+.crit{padding:.35em .8em;border-radius:999px;font-weight:600;font-size:.95rem;border:1.5px dashed var(--line);color:var(--muted)}
+.crit.on{border-style:solid;border-color:var(--good);background:var(--good-soft);color:var(--good)}
+.pergunta-viva{font-family:var(--f-disp);font-weight:700;font-size:clamp(1.7rem,3.3vw,2.4rem);line-height:1.15;min-height:2.4em}
+.cadeia{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+@media (max-width:900px){.cadeia{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.cadeia{grid-template-columns:1fr}}
+.elo{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface);position:relative;display:flex;flex-direction:column;gap:8px;min-width:0}
+.elo.ok{border-color:var(--good)}
+.elo:not(:last-child)::after{content:"→";position:absolute;right:-22px;top:50%;transform:translateY(-50%);color:var(--orange-ink);font-weight:700;font-size:1.3rem}
+@media (max-width:900px){.elo::after{display:none}}
+.elo .t{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink)}
+.elo .dado{font-weight:600}
+.opc{display:flex;flex-direction:column;gap:6px}
+.opc button{text-align:left;padding:.5em .7em;border-radius:9px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-size:.95rem;line-height:1.35}
+.opc button:hover{border-color:var(--orange)}
+.opc button.certa{border-color:var(--good);background:var(--good-soft);color:var(--good);font-weight:600}
+.opc button.errada{border-color:var(--warn);background:var(--warn-soft)}
+.lista-ordem{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.lista-ordem li{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
+.lista-ordem li .n{font-family:var(--f-disp);font-weight:700;color:var(--orange-ink);width:1.6em}
+.lista-ordem li .txt{flex:1}
+.mini-btn{border:1.5px solid var(--line);background:var(--surface);border-radius:8px;cursor:pointer;width:2.1em;height:2.1em;font-weight:700}
+.mini-btn:hover{border-color:var(--orange)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag-v{display:inline-flex;align-items:center;gap:6px;padding:.3em .7em;border-radius:999px;background:var(--orange-soft);color:var(--orange-ink);font-weight:600;font-size:.95rem}
+.tag-v button{border:none;background:none;color:inherit;cursor:pointer;font-weight:700;font-size:1rem;line-height:1}
+.dois{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.dois.largo{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+@media (max-width:860px){.dois,.dois.largo{grid-template-columns:1fr}}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.compara{grid-template-columns:1fr}}
+.ruim-bom{border-radius:14px;padding:16px 18px}
+.ruim-bom.r{background:var(--bad-soft)} .ruim-bom.b{background:var(--good-soft)}
+.ruim-bom h3{font-family:var(--f-body);font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
+.ruim-bom.r h3{color:var(--bad)} .ruim-bom.b h3{color:var(--good)}
+.ruim-bom .q{font-family:var(--f-disp);font-weight:700;font-size:1.7rem;line-height:1.15;margin:6px 0 10px}
+.ruim-bom ul{margin:0;padding-left:20px;color:var(--ink-2)}
+.slider-box{display:flex;flex-direction:column;gap:6px}
+.slider-rotulos{display:flex;justify-content:space-between;font-size:.9rem;color:var(--muted);gap:8px}
+.slider-rotulos b{color:var(--ink)}
+.check{display:flex;flex-direction:column;gap:8px}
+.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{accent-color:var(--orange);width:1.15em;height:1.15em;margin-top:.25em;flex:none}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px}
+.kpi{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--paper);min-width:0}
+.kpi .k{font-size:.85rem;color:var(--muted);font-weight:600}
+.kpi .v{font-family:var(--f-disp);font-weight:700;font-size:1.8rem;font-variant-numeric:tabular-nums;line-height:1.1;word-break:break-word}
+.kpi .s{font-size:.88rem;color:var(--ink-2)}
+.kpi.alerta{border-color:var(--warn);background:var(--warn-soft)}
+.kpi.bom{border-color:var(--good);background:var(--good-soft)}
+.kpi.ruim{border-color:var(--bad);background:var(--bad-soft)}
+.grade4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.grade4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.grade4{grid-template-columns:1fr}}
+.nota-lab{font-size:.94rem;color:var(--muted)}
+.painel{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--paper);display:flex;flex-direction:column;gap:10px;min-width:0}
+.linha-ctl{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+.linha-ctl .campo{min-width:200px;flex:1}
+.campo select{width:100%;padding:8px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper)}
+.tabela-wrap.alta{max-height:420px;overflow:auto}
+.tabela-wrap.alta thead th{position:sticky;top:0;z-index:1}
+td.vazio{background:var(--warn-soft)!important;color:var(--warn);font-style:italic}
+td.prob{background:var(--bad-soft)!important;color:var(--bad);font-weight:600}
+td.corrig{background:var(--good-soft)!important;color:var(--good);font-weight:600}
+tr.dup td{background:var(--orange-soft)!important}
+.legenda-sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.log{counter-reset:l;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.log li{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface);font-size:.95rem}
+.log li b{display:block}
+.log .vazio-log{color:var(--muted);font-style:italic}
+.timeline{display:flex;flex-direction:column;gap:10px}
+.etapa-pi{display:grid;grid-template-columns:5.5rem minmax(0,1fr);gap:14px;align-items:start;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface)}
+.etapa-pi .e{font-family:var(--f-disp);font-weight:700;font-size:1.3rem;color:var(--orange-ink);line-height:1.1}
+.etapa-pi.agora{border-color:var(--orange);background:var(--orange-soft)}
+.contador{font-size:.88rem;color:var(--muted)}
+.contador.estourou{color:var(--bad);font-weight:600}
+svg .caixa{fill:var(--orange);fill-opacity:.18;stroke:var(--orange);stroke-width:2}
+svg .m-mediana-box{stroke:var(--ink);stroke-width:3}
+svg .p1{fill:var(--c1)} svg .p2{fill:var(--c2)} svg .p3{fill:var(--c3)} svg .p4{fill:var(--c4)}
+svg .alvo{fill:none;stroke:var(--orange);stroke-width:2.5}
+svg .linha-serie{fill:none;stroke:var(--orange);stroke-width:3}
+svg .area-serie{fill:var(--orange);fill-opacity:.12}
+svg .seta{stroke:var(--orange);stroke-width:3;fill:none}
+svg .anel{fill:none;stroke:var(--line);stroke-width:2}
+svg .no{fill:var(--surface);stroke:var(--line);stroke-width:2}
+svg .no.on{fill:var(--orange);stroke:var(--orange)}
+svg .no.alvo-no{stroke:var(--orange);stroke-width:3}
+svg .t-no{font-weight:700;fill:var(--ink)}
+svg .t-no.on{fill:#fff}
+svg .vazio-cel{fill:var(--warn)}
+svg .cheio-cel{fill:var(--line-soft)}
+svg .t-peq{font-size:12px}
+
+.grade5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+@media (max-width:1000px){.grade5{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.grade5{grid-template-columns:1fr}}
+
+.lab svg{max-width:min(100%,900px);margin-inline:auto}
+.tipo-card{border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--surface);display:flex;flex-direction:column;gap:4px}
+.tipo-card b{font-family:var(--f-disp);font-size:1.45rem;line-height:1}
+.tipo-card .q{color:var(--orange-ink);font-weight:600}
+.tipo-card span{font-size:.92rem;color:var(--ink-2)}
+.sit{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface);display:flex;flex-direction:column;gap:8px}
+.sit.certo{border-color:var(--good)}
+.sit .onde{font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sec-linha{display:grid;grid-template-columns:2rem minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:start}
+.sec-linha .n{font-family:var(--f-disp);font-weight:700;font-size:1.4rem;color:var(--orange-ink);padding-top:4px}
+.sec-linha input,.par input{width:100%;padding:8px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper)}
+@media (max-width:700px){.sec-linha{grid-template-columns:1.6rem minmax(0,1fr)}.sec-linha input:last-child{grid-column:2}}
+.par{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:10px}
+@media (max-width:700px){.par{grid-template-columns:1fr}}
+.gran-kpi{font-family:var(--f-disp);font-weight:700;font-size:3.4rem;line-height:1}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="CESAR School"></span>
+    <div class="topo-titulo">Encontro 2 · Processo de Análise<small>Fundamentos de Análise de Dados · Turma A</small></div>
+    <div class="topo-acoes">
+      <select id="irpara" aria-label="Ir para a seção"></select>
+      <button class="btn" id="btnAula" aria-pressed="false">Modo aula</button>
+    </div>
+  </div>
+</header>
+<main>
+<section class="cena capa" id="capa" data-nome="Capa">
+  <div class="forma f1"></div><div class="forma f2"></div><div class="forma f3"></div><div class="forma f4"></div><div class="forma f5"></div>
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="CESAR School"></span>
+    <h1>Fundamentos de Análise de Dados</h1>
+    <p class="sub">Encontro 2 · Processo de Análise</p>
+    <div class="meta">
+      <span><b>Especialização em Análise de Dados e Inteligência Artificial</b></span>
+      <span>Prof. Laura Pacifico · laps@cesar.school</span>
+    </div>
+    <span class="tag">Turma A · aula interativa</span>
+  </div>
+</section>
+
+<section class="cena" id="abertura" data-nome="Onde estamos">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">No encontro passado</p>
+      <h2>A ferramenta vem depois da pergunta</h2>
+      <p class="lede">Você viu que dado não é informação e que o tipo da variável decide o que faz sentido calcular. Hoje damos o passo anterior a qualquer cálculo: transformar um problema em uma pergunta que os dados conseguem responder, e montar o caminho até a resposta.</p>
+    </div>
+    <div class="ciclo" aria-label="O que você vai fazer hoje">
+      <div class="passo"><b>Problema</b><span>“estamos perdendo clientes”</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>Pergunta</b><span>clara, mensurável, útil</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>Processo</b><span>as etapas até a resposta</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>Projeto do grupo</b><span>o canvas que vocês entregam hoje</span></div>
+    </div>
+    <div><p class="rotulo">Os 7 encontros</p><ol class="crono"><li class=""><b>1</b>Fundamentos de Dados</li><li class="hoje"><b>2 · hoje</b>Processo de Análise</li><li class=""><b>3</b>Limpeza I: qualidade e diagnóstico</li><li class=""><b>4</b>Limpeza II e Preparação</li><li class=""><b>5</b>Exploração de Dados</li><li class=""><b>6</b>Estatística Descritiva</li><li class=""><b>7</b>Projeto Integrador</li></ol></div>
+  </div>
+</section>
+
+<section class="cena" id="pergunta" data-nome="Problema não é pergunta">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Tradução necessária</p>
+      <h2>Problema de negócio não é pergunta analítica</h2>
+      <p class="lede">O problema é amplo e ligado a uma dor: “estamos perdendo clientes”. A pergunta analítica é específica e pode ser respondida com dados: “a perda aumentou em quais meses?”, “quais perfis cancelam mais?”, “existe diferença por canal?”.</p>
+    </div>
+    <div class="compara">
+      <div class="ruim-bom r"><h3>Pergunta mal elaborada</h3><p class="q">“Quero analisar vendas.”</p><ul><li>Vaga e sem foco</li><li>Não diz como medir</li><li>Não sugere uma ação</li><li>Sem período</li></ul></div>
+      <div class="ruim-bom b"><h3>Boa pergunta</h3><p class="q">“Quais produtos tiveram queda de vendas nos últimos 3 meses e por quê?”</p><ul><li>Específica: produtos</li><li>Mensurável: queda de vendas</li><li>Com contexto: últimos 3 meses</li><li>Busca a causa, que orienta a ação</li></ul></div>
+    </div>
+    <div class="lab" id="lab1">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 1</span><h3>Lapidador de perguntas</h3></div>
+      <p class="instrucao">Escolha um problema e ligue os ajustes um por um. A pergunta se reescreve sozinha e os quatro critérios de uma boa pergunta acendem conforme ela melhora.</p>
+      <div class="chips" id="lapProb" role="group" aria-label="Problema"></div>
+      <div>
+        <p class="rotulo">Ajustes</p>
+        <div class="chips" id="lapAj" role="group" aria-label="Ajustes"></div>
+      </div>
+      <div class="painel">
+        <p class="rotulo" id="lapRot">Problema</p>
+        <p class="pergunta-viva" id="lapTexto" aria-live="polite"></p>
+        <div class="criterios" id="lapCrit"></div>
+        <p class="msg" id="lapFalta"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="cadeia" data-nome="Da decisão aos dados">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Decisão → pergunta → métrica → dados</p>
+      <h2>Comece pela decisão que a análise vai apoiar</h2>
+      <p class="lede">Antes de abrir qualquer planilha, responda quatro coisas: o que queremos decidir, o que precisamos saber para decidir, como vamos medir e quais colunas são necessárias.</p>
+    </div>
+    <div class="lab" id="lab2">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 2</span><h3>Monte a cadeia</h3></div>
+      <p class="instrucao">A decisão já está dada. Escolha a pergunta, a métrica e os dados que fecham a cadeia. Quando o elo fica verde, ele está certo.</p>
+      <div class="chips" id="cadCasos" role="group" aria-label="Caso"></div>
+      <div class="cadeia" id="cadElos"></div>
+      <div class="passos"><button class="btn" id="cadLimpar">Limpar</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="tipos" data-nome="Tipos de pergunta">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">O que uma análise pode responder</p>
+      <h2>Cinco tipos de pergunta</h2>
+    </div>
+    <div class="grade5" id="tiposCards"></div>
+    <div class="lab" id="lab3">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 3</span><h3>Que tipo de pergunta é esta?</h3></div>
+      <div class="placar"><span class="grande num" id="tpPlacar">0 de 6</span><span class="aviso">perguntas classificadas</span><button class="btn" id="tpMostrar">Mostrar respostas</button><button class="btn" id="tpLimpar">Limpar</button></div>
+      <div class="colunas" id="tpQuiz"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="processo" data-nome="O processo analítico">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Processo ≠ linha reta</p>
+      <h2>Voltar atrás faz parte do processo</h2>
+      <p class="lede">O processo analítico é um conjunto de etapas que transformam dados brutos em decisões. Na prática ele é um ciclo: novas perguntas, falhas na coleta e problemas na limpeza fazem você voltar a etapas anteriores. Processos reduzem erros, aceleram o trabalho e permitem que outra pessoa refaça e confira o que você fez.</p>
+    </div>
+    <div class="lab" id="lab4">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 4</span><h3>Pipeline que volta</h3></div>
+      <p class="instrucao">Clique numa etapa do ciclo para ver o que acontece nela. Depois resolva as situações: para qual etapa você precisa voltar?</p>
+      <div class="dois largo">
+        <div id="anel"></div>
+        <div class="painel" id="etapaInfo" aria-live="polite"></div>
+      </div>
+      <div class="pilha" style="gap:12px" id="situacoes"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="coleta" data-nome="Coleta e granularidade">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Segundo passo: coleta</p>
+      <h2>Coletar não é baixar uma planilha</h2>
+      <p class="lede">Coletar envolve entender a fonte, avaliar se ela é confiável, ver se os dados estão completos e registrar como tudo foi feito. Registrar a coleta é tão importante quanto coletar.</p>
+    </div>
+    <div class="grade3">
+      <div class="cartao barra"><h3>Dados ideais</h3><p>Relevantes para a pergunta, completos, organizados, de fonte confiável, atualizados e documentados.</p></div>
+      <div class="cartao barra"><h3>Riscos de uma coleta ruim</h3><p>Viés, amostra que não representa quem importa, ruídos, duplicações e lacunas que contaminam o resto da análise.</p></div>
+      <div class="cartao barra"><h3>Ficha de coleta</h3><p>Data e hora, fonte exata, método de extração, responsável e observações sobre qualquer coisa estranha.</p></div>
+    </div>
+    <div class="lab" id="lab5">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 5</span><h3>Qual nível de detalhe você precisa?</h3></div>
+      <p class="instrucao">As mesmas vendas de uma cafeteria em março, em quatro níveis de detalhe (granularidade). Arraste o controle e veja quais perguntas ainda dá para responder. Quanto mais agregado, mais simples, e mais informação se perde.</p>
+      <div class="slider-box">
+        <input type="range" id="granNivel" min="0" max="3" step="1" value="0" aria-label="Nível de detalhe">
+        <div class="slider-rotulos"><span>Cada venda</span><span>Por dia e produto</span><span>Por semana</span><span>Mês inteiro</span></div>
+      </div>
+      <div class="dois largo">
+        <div class="painel"><p class="rotulo" id="granTitulo"></p><div id="granViz"></div></div>
+        <div class="painel"><p class="rotulo">Com este nível dá para responder?</p><div class="check" id="granPerg"></div></div>
+      </div>
+      <details class="conta"><summary>Como isso é calculado?</summary><div class="corpo" id="granConta"></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="etapas" data-nome="Da limpeza à comunicação">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">O resto do caminho</p>
+      <h2>O que vem depois da coleta</h2>
+      <p class="lede">Cada etapa abaixo tem um encontro só dela. Por enquanto, guarde o papel de cada uma no processo.</p>
+    </div>
+    <div class="grade4">
+      <div class="cartao barra"><h3>Limpeza e preparação</h3><p>Corrigir, padronizar, tratar vazios e criar novas colunas. Costuma tomar a maior parte do tempo. <b>Encontros 3 e 4.</b></p></div>
+      <div class="cartao barra"><h3>Exploração</h3><p>Olhar distribuições, comparar grupos e achar padrões e anomalias. É ela que orienta o caminho. <b>Encontro 5.</b></p></div>
+      <div class="cartao barra"><h3>Análise</h3><p>Responder à pergunta com medidas e relações. Correlação não é causalidade. <b>Encontro 6.</b></p></div>
+      <div class="cartao barra"><h3>Comunicação</h3><p>Insight não é número: é significado. Termine sempre com uma recomendação clara. <b>Encontro 7.</b></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="canvas" data-nome="Canvas do projeto (grupo)">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Exercício 1 · em grupo · Projeto Integrador</p>
+      <h2>Canvas do projeto</h2>
+      <p class="lede">Formem grupos de até 5 pessoas: o mesmo grupo vai até o Encontro 7. Preencham o canvas abaixo. As dicas aparecem enquanto vocês escrevem, mas quem decide é o grupo. No fim, copiem tudo para a aba <b>0_Documentação</b> do Excel do projeto.</p>
+    </div>
+    <div class="lab" id="labCanvas">
+      <div class="dois">
+        <div class="campo"><label for="cvIntegrantes">Integrantes (nome completo, um por linha)</label><textarea id="cvIntegrantes"></textarea></div>
+        <div class="campo"><label for="cvTema">Tema do projeto</label><input id="cvTema" type="text" placeholder="Ex.: evasão escolar, atrasos de entrega, reclamações"><div class="chips" id="cvTemas" style="margin-top:6px"></div></div>
+      </div>
+      <div class="campo"><label for="cvPergunta">Pergunta principal</label><textarea id="cvPergunta" placeholder="Ex.: Quais fatores estão associados à evasão nos últimos 2 anos?"></textarea><div class="criterios" id="cvCrit"></div></div>
+      <div>
+        <p class="rotulo">Perguntas secundárias e hipóteses (uma hipótese para cada pergunta)</p>
+        <div class="pilha" style="gap:10px" id="cvSec"></div>
+        <p class="nota-lab" style="margin-top:6px">Hipótese não é conclusão: é uma ideia que os dados vão confirmar ou refutar.</p>
+      </div>
+      <div class="campo"><label for="cvVarIn">Variáveis ideais (digite e aperte Enter)</label><input id="cvVarIn" type="text" placeholder="Ex.: frequência, notas, data de matrícula"><div class="tags" id="cvVars"></div><p class="nota-lab" id="cvVarDica"></p></div>
+      <div class="passos"><button class="btn prim" id="cvCopiar">Copiar para o Excel</button><span class="copiado" id="cvOk" hidden>Copiado. Cole na célula A1 da aba 0_Documentação.</span></div>
+      <textarea id="cvFallback" hidden aria-label="Canvas para copiar" style="min-height:120px"></textarea>
+      <p class="aviso">Entrega: um integrante envia o arquivo no Classroom com o nome <b>Exercício 1 - Pipeline Inicial do Projeto</b> e o nome de todos; os demais marcam a atividade como concluída. O canvas fica guardado neste navegador enquanto vocês trabalham.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="atividade" data-nome="Atividade individual">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Atividade individual · Encontro 2</p>
+      <h2>Pipeline inicial de uma loja</h2>
+      <p class="lede">Uma empresa fictícia entregou estes dados: data da compra, valor gasto, categoria do produto, cidade, idade do cliente e forma de pagamento. Veja a amostra e comece o pipeline como um analista faria.</p>
+    </div>
+    <div class="tabela-wrap"><table id="atAmostra"></table></div>
+    <div class="lab" id="labAtiv">
+      <div class="campo"><label for="atNome">Seu nome completo</label><input id="atNome" type="text" autocomplete="name"></div>
+      <div class="campo"><label for="atQ1">1. Elabore uma pergunta analítica clara e mensurável que esses dados respondam.</label><textarea id="atQ1" placeholder="Ex.: Clientes mais jovens gastam mais do que clientes mais velhos?"></textarea></div>
+      <div>
+        <p class="rotulo" style="margin-bottom:8px">2. Três dados adicionais que você coletaria, e por quê</p>
+        <div class="pilha" style="gap:8px" id="atExtras"></div>
+      </div>
+      <div>
+        <p class="rotulo" style="margin-bottom:8px">3. Três problemas de qualidade (olhe a amostra) e o impacto de cada um</p>
+        <div class="pilha" style="gap:8px" id="atProbs"></div>
+      </div>
+      <div>
+        <p class="rotulo" style="margin-bottom:8px">4. Coloque as etapas do pipeline na ordem que você usaria</p>
+        <ol class="lista-ordem" id="atOrdem"></ol>
+      </div>
+      <div class="passos"><button class="btn prim" id="atCopiar">Copiar minhas respostas</button><span class="copiado" id="atOk" hidden>Copiado. Cole num documento.</span></div>
+      <textarea id="atFallback" hidden aria-label="Respostas para copiar" style="min-height:120px"></textarea>
+      <p class="aviso">Entrega individual em Google Docs ou PDF com o nome <b>SeuNome_Atividade_Pipeline_Inicial</b>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="excel" data-nome="No Excel, só com cliques">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Mão na massa</p>
+      <h2>No Excel, só com cliques: o arquivo do projeto</h2>
+      <p class="lede">Hoje nasce o arquivo que o grupo vai usar até o Encontro 7. Nenhuma fórmula.</p>
+    </div>
+    <ol class="pilha" style="gap:12px;padding-left:22px;margin:0;font-size:1.05rem">
+      <li><b>Crie o arquivo.</b> Abra um novo arquivo no Excel e salve como <b>Grupo_NomeDoTema_Projeto.xlsx</b>.</li>
+      <li><b>Renomeie a aba.</b> Clique duas vezes em <b>Planilha1</b>, embaixo, e digite <b>0_Documentação</b>.</li>
+      <li><b>Cole o canvas.</b> Clique na célula <b>A1</b> e use <b>Ctrl+V</b> com o canvas copiado. Cada campo vai para uma linha.</li>
+      <li><b>Deixe legível.</b> Selecione as colunas A e B, use <b>Página Inicial → Quebrar Texto Automaticamente</b> e arraste a divisa das colunas para alargar.</li>
+      <li><b>Reserve as próximas abas.</b> Clique no <b>+</b> ao lado das abas e crie: 1_Base_Bruta, 2_Base_Limpa, 3_Preparação, 4_Outliers_e_Correlação, 5_Insights_e_Validação. Elas ficam vazias por enquanto.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="cena fecho" id="fecho" data-nome="Para levar">
+  <div class="wrap pilha">
+    <div><p class="eyebrow">Para levar</p><h2>O que fica deste encontro</h2></div>
+    <ul style="margin:0;padding-left:20px;max-width:64ch">
+      <li><b>Problema não é pergunta.</b> Traduza a dor em algo que os dados respondem.</li>
+      <li><b>Uma boa pergunta é específica, mensurável, relevante e tem contexto.</b> Se ninguém sabe o que fazer com a resposta, a pergunta ainda não está pronta.</li>
+      <li><b>Comece pela decisão.</b> Decisão, pergunta, métrica e só então os dados.</li>
+      <li><b>O processo é um ciclo.</b> Voltar atrás é refinamento, não falha. Documente cada passo.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+<div class="controles" aria-label="Navegação do modo aula">
+  <button class="btn" id="antes" aria-label="Seção anterior">←</button>
+  <span class="cont num" id="contador"></span>
+  <button class="btn" id="depois" aria-label="Próxima seção">→</button>
+  <button class="btn" id="cheia">Tela cheia</button>
+</div>
+
+<script>
+const D = {"_n":2,"_tema":"Processo de Análise","_lab":"../laboratorio/"};
+
+const reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = id => document.getElementById(id);
+const el = (tag, attrs={}, html) => { const e=document.createElement(tag); for(const k in attrs){ if(k==='class') e.className=attrs[k]; else e.setAttribute(k,attrs[k]); } if(html!==undefined) e.innerHTML=html; return e; };
+const nf = (x,d=1) => Number(x).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const brl = x => Number(x).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const inteiro = x => Math.round(x).toLocaleString('pt-BR');
+const mean = a => a.reduce((s,v)=>s+v,0)/a.length;
+const sum = a => a.reduce((s,v)=>s+v,0);
+const sorted = a => [...a].sort((x,y)=>x-y);
+const median = a => { const s=sorted(a), n=s.length; return n%2 ? s[(n-1)/2] : (s[n/2-1]+s[n/2])/2; };
+const contar = a => { const m=new Map(); a.forEach(v=>m.set(v,(m.get(v)||0)+1)); return m; };
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+function salvar(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function ler(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){return null;}}
+async function copiar(texto, okEl, fallbackEl){
+  try{ await navigator.clipboard.writeText(texto); okEl.hidden=false; setTimeout(()=>okEl.hidden=true,3500); }
+  catch(e){ if(fallbackEl){ fallbackEl.hidden=false; fallbackEl.value=texto; fallbackEl.focus(); fallbackEl.select(); okEl.textContent='Selecionado: use Ctrl+C para copiar.'; okEl.hidden=false; } }
+}
+
+const ICO={
+  termo:'<path d="M10 14V5a2 2 0 1 1 4 0v9a4 4 0 1 1-4 0z"/><path d="M12 9v7"/>',
+  crono:'<circle cx="12" cy="14" r="7.5"/><path d="M12 14v-4M9.5 2.5h5M12 2.5v4M18.5 7l1.5-1.5"/>',
+  org:'<rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/>',
+  capelo:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5M22 9v6"/>',
+  predio:'<path d="M3 21h18M5 21V10M19 21V10M9.7 21V10M14.3 21V10M2 10l10-6 10 6z"/>',
+  banco:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+  grade:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/>',
+  clique:'<path d="M5 3l7 17 2.5-7L21 10.5z"/><path d="M14.5 14.5l5 5"/>',
+  api:'<path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/>',
+  web:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8.5h18M12 11v6M9 14l3 3 3-3"/>'
+};
+const icone=k=>`<span class="icone" aria-hidden="true"><svg viewBox="0 0 24 24">${ICO[k]}</svg></span>`;
+
+function svgBarras(dados,hi){
+  const W=560, lh=dados.length>14?20:30, bh=lh-10, padL=170, H=dados.length*lh+10, max=Math.max(...dados.map(d=>d[1]),1);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Contagem por categoria">`;
+  dados.forEach(([k,v],i)=>{ const y=i*lh+6, w=(W-padL-50)*v/max; const isHi=hi&&hi.includes(String(k)); const ty=y+bh/2+4.5;
+    s+=`<text x="${padL-10}" y="${ty}" text-anchor="end" class="${isHi?'t-forte':''}">${k}</text><rect class="barra ${isHi?'hi':''}" x="${padL}" y="${y}" width="${Math.max(w,1.5)}" height="${bh}" rx="4"/><text x="${padL+w+8}" y="${ty}" class="${isHi?'t-forte':''}">${v}</text>`; });
+  return s+'</svg>';
+}
+function svgPontos(vals,marc,fmtv,extra){
+  const W=560, r=6, padX=24, x0=Math.min(...vals), x1=Math.max(...vals), span=(x1-x0)||1;
+  const X=v=>padX+(W-2*padX)*(v-x0)/span;
+  const pilhas=new Map(); const pts=sorted(vals).map(v=>{ const b=Math.round(X(v)/(2*r)); const k=pilhas.get(b)||0; pilhas.set(b,k+1); return {x:b*2*r,k}; });
+  const alto=Math.max(...pts.map(p=>p.k))+1, base=58+alto*2*r, H=base+44;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Distribuição dos valores">`;
+  pts.forEach(p=>{ s+=`<circle class="ponto" cx="${p.x}" cy="${base-r-p.k*2*r}" r="${r-0.8}"/>`; });
+  s+=`<line class="eixo" x1="${padX}" x2="${W-padX}" y1="${base+2}" y2="${base+2}"/>`;
+  s+=`<text x="${padX}" y="${base+22}">${fmtv(x0)}</text><text x="${W-padX}" y="${base+22}" text-anchor="end">${fmtv(x1)}</text>`;
+  const marca=(tipo,v,fraco)=>{ const x=X(v), cls=tipo==='media'?'m-media':'m-mediana', t=tipo==='media'?'t-media':'t-mediana', nome=tipo==='media'?'média':'mediana';
+    const anc = x>W*0.6?'end':'start', dx=x>W*0.6?-6:6, y=tipo==='media'?18:38;
+    return `<line class="${cls} ${fraco?'m-fraco':''}" x1="${x}" x2="${x}" y1="${y+6}" y2="${base+2}"/><text x="${x+dx}" y="${y}" text-anchor="${anc}" class="${t} ${fraco?'m-fraco':''}">${nome}</text>`; };
+  if(marc) s+=marca(marc, marc==='media'?mean(vals):median(vals), false);
+  if(extra) s+=marca(extra, extra==='media'?mean(vals):median(vals), true);
+  return s+'</svg>';
+}
+
+/* ================= KIT: estatística e gráficos (as contas ficam aqui, escondidas) ================= */
+const isNum = v => typeof v==='number' && isFinite(v);
+function quantil(a,p){ const s=sorted(a), n=s.length; if(!n) return NaN; const h=(n-1)*p, lo=Math.floor(h), hi=Math.ceil(h); return s[lo]+(s[hi]-s[lo])*(h-lo); }
+function desvio(a){ if(a.length<2) return 0; const m=mean(a); return Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/(a.length-1)); }
+function correl(x,y){ const mx=mean(x), my=mean(y); let sxy=0,sx=0,sy=0; for(let i=0;i<x.length;i++){const dx=x[i]-mx, dy=y[i]-my; sxy+=dx*dy; sx+=dx*dx; sy+=dy*dy;} return sxy/Math.sqrt(sx*sy); }
+function reta(x,y){ const mx=mean(x),my=mean(y); let sxy=0,sxx=0; x.forEach((v,i)=>{sxy+=(v-mx)*(y[i]-my); sxx+=(v-mx)**2;}); const b=sxy/sxx; return {a:my-b*mx,b}; }
+function forcaR(r){ const a=Math.abs(r); if(a<0.1) return 'praticamente nenhuma relação'; const f=a<0.3?'fraca':a<0.6?'moderada':'forte'; return `${f} e ${r>0?'positiva':'negativa'}`; }
+function ticks(lo,hi,n=5){ const span=(hi-lo)||1; const st0=span/n; const mag=10**Math.floor(Math.log10(st0)); const e=st0/mag; const step=(e>=7.5?10:e>=3.5?5:e>=1.5?2:1)*mag; const t=[]; for(let v=Math.ceil(lo/step)*step; v<=hi+step*1e-9; v+=step) t.push(+v.toFixed(10)); return t; }
+function fmtCurto(v){ const a=Math.abs(v); if(a>=1e6) return nf(v/1e6,1)+' mi'; if(a>=1e4) return nf(v/1e3,0)+' mil'; if(a>=1000) return nf(v/1e3,1)+' mil'; return nf(v, Number.isInteger(v)?0:1); }
+let _uid=0;
+function svgHist(vals,{bins=10,fv=fmtCurto,marcas=[],W=600,H=280,lo,hi,classe=()=>''}={}){
+  vals=vals.filter(isNum); if(!vals.length) return '';
+  lo=lo??Math.min(...vals); hi=hi??Math.max(...vals); if(hi===lo) hi=lo+1;
+  const L=44,R=W-16,T=48,B=H-36, bw=(hi-lo)/bins, cnt=new Array(bins).fill(0);
+  vals.forEach(v=>{ let b=Math.floor((v-lo)/bw); if(b>=bins) b=bins-1; if(b<0) b=0; cnt[b]++; });
+  const max=Math.max(...cnt,1), X=v=>L+(R-L)*(v-lo)/(hi-lo), Y=c=>B-(B-T)*c/max;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Histograma">`;
+  ticks(0,max,4).forEach(t=>{ if(t>max) return; s+=`<line class="eixo" style="opacity:.4" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${t}</text>`; });
+  cnt.forEach((c,i)=>{ const x0=X(lo+i*bw), x1=X(lo+(i+1)*bw); s+=`<rect class="barra ${classe(i,lo+i*bw,lo+(i+1)*bw)}" x="${x0+1}" y="${Y(c)}" width="${Math.max(x1-x0-2,1)}" height="${B-Y(c)}" rx="2"/>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>`;
+  ticks(lo,hi,5).forEach(t=>{ if(t<lo||t>hi) return; s+=`<text x="${X(t)}" y="${B+20}" text-anchor="middle">${fv(t)}</text>`; });
+  marcas.forEach((m,j)=>{ const x=X(m.v), dir=x>W*.62; s+=`<line class="${m.cls}" x1="${x}" x2="${x}" y1="${T-14+j*0}" y2="${B}"/><text x="${x+(dir?-6:6)}" y="${16+j*18}" text-anchor="${dir?'end':'start'}" class="${m.tcls||'t-forte'}">${m.label}</text>`; });
+  return s+'</svg>';
+}
+function svgBoxH(groups,{fv=fmtCurto,W=600,pontos=true,lo,hi,rowH=60}={}){
+  groups=groups.map(g=>({nome:g.nome,vals:g.vals.filter(isNum)})).filter(g=>g.vals.length);
+  const all=groups.flatMap(g=>g.vals); if(!all.length) return '';
+  lo=lo??Math.min(...all); hi=hi??Math.max(...all); if(hi===lo) hi=lo+1;
+  const L=128,R=W-18,T=12,H=T+groups.length*rowH+34, X=v=>L+(R-L)*(v-lo)/(hi-lo), rnd=mulberry32(11);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Boxplot">`;
+  ticks(lo,hi,5).forEach(t=>{ if(t<lo||t>hi)return; s+=`<line class="eixo" style="opacity:.3" x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${H-30}"/><text x="${X(t)}" y="${H-10}" text-anchor="middle">${fv(t)}</text>`; });
+  groups.forEach((g,i)=>{ const v=g.vals, y=T+i*rowH+rowH/2; const q1=quantil(v,.25),md=quantil(v,.5),q3=quantil(v,.75),iq=q3-q1, li=q1-1.5*iq, ls=q3+1.5*iq; const dentro=v.filter(x=>x>=li&&x<=ls); const wmin=Math.min(...dentro), wmax=Math.max(...dentro);
+    s+=`<text x="${L-12}" y="${y+5}" text-anchor="end" class="t-forte">${g.nome}</text>`;
+    if(pontos) v.forEach(x=>{ const out=x<li||x>ls; s+=`<circle cx="${X(x)}" cy="${y+(rnd()-.5)*24}" r="${out?4.8:3.2}" class="${out?'marcador':'ponto'}" style="opacity:${out?1:.5}"/>`; });
+    s+=`<line class="regua" x1="${X(wmin)}" x2="${X(q1)}" y1="${y}" y2="${y}"/><line class="regua" x1="${X(q3)}" x2="${X(wmax)}" y1="${y}" y2="${y}"/><line class="regua" x1="${X(wmin)}" x2="${X(wmin)}" y1="${y-9}" y2="${y+9}"/><line class="regua" x1="${X(wmax)}" x2="${X(wmax)}" y1="${y-9}" y2="${y+9}"/>`;
+    s+=`<rect class="caixa" x="${X(q1)}" y="${y-15}" width="${Math.max(X(q3)-X(q1),1.5)}" height="30" rx="4"/><line class="m-mediana-box" x1="${X(md)}" x2="${X(md)}" y1="${y-15}" y2="${y+15}"/>`;
+  });
+  return s+'</svg>';
+}
+function svgScatter(pts,{fx=fmtCurto,fy=fmtCurto,xlab='',ylab='',W=600,H=360,tend=false,x0,x1,y0,y1}={}){
+  if(!pts.length) return '';
+  const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
+  let a0=x0??Math.min(...xs), a1=x1??Math.max(...xs), b0=y0??Math.min(...ys), b1=y1??Math.max(...ys);
+  if(x0===undefined){const p=(a1-a0)*.05||1; a0-=p; a1+=p;} if(y0===undefined){const p=(b1-b0)*.08||1; b0-=p; b1+=p;}
+  const L=62,R=W-16,T=30,B=H-48, X=v=>L+(R-L)*(v-a0)/(a1-a0), Y=v=>B-(B-T)*(v-b0)/(b1-b0), id='cp'+(++_uid);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de dispersão"><defs><clipPath id="${id}"><rect x="${L}" y="${T}" width="${R-L}" height="${B-T}"/></clipPath></defs>`;
+  ticks(b0,b1,4).forEach(t=>{ if(t<b0||t>b1)return; s+=`<line class="eixo" style="opacity:.35" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${fy(t)}</text>`; });
+  ticks(a0,a1,5).forEach(t=>{ if(t<a0||t>a1)return; s+=`<text x="${X(t)}" y="${B+20}" text-anchor="middle">${fx(t)}</text>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/><line class="eixo" x1="${L}" x2="${L}" y1="${T}" y2="${B}"/>`;
+  pts.forEach(p=>{ s+=`<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="${p.r||5}" class="${p.cls||'ponto'}" style="opacity:${p.op??.75}"/>`; });
+  if(tend){ const r=reta(xs,ys); s+=`<line clip-path="url(#${id})" class="m-media" x1="${X(a0)}" x2="${X(a1)}" y1="${Y(r.a+r.b*a0)}" y2="${Y(r.a+r.b*a1)}"/>`; }
+  s+=`<text x="${(L+R)/2}" y="${H-6}" text-anchor="middle" class="t-forte">${xlab}</text><text x="${L}" y="16" class="t-forte">${ylab}</text>`;
+  return s+'</svg>';
+}
+function svgBarrasV(itens,{fv=v=>String(v),W=600,H=280,rot=false}={}){
+  if(!itens.length) return '';
+  const L=44,R=W-12,T=30,B=H-(rot?70:40), max=Math.max(...itens.map(i=>i.v),1), bw=(R-L)/itens.length, Y=v=>B-(B-T)*v/max;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de barras">`;
+  ticks(0,max,4).forEach(t=>{ if(t>max) return; s+=`<line class="eixo" style="opacity:.35" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${fv(t)}</text>`; });
+  itens.forEach((it,i)=>{ const x=L+i*bw+bw*.14, w=bw*.72; s+=`<rect class="barra ${it.cls||''}" x="${x}" y="${Y(it.v)}" width="${w}" height="${B-Y(it.v)}" rx="3"/><text x="${x+w/2}" y="${Y(it.v)-7}" text-anchor="middle" class="${it.cls?'t-forte':''}">${fv(it.v)}</text>`;
+    s+= rot ? `<text x="${x+w/2}" y="${B+14}" text-anchor="end" transform="rotate(-35 ${x+w/2} ${B+14})">${it.k}</text>` : `<text x="${x+w/2}" y="${B+20}" text-anchor="middle" class="${it.cls?'t-forte':''}">${it.k}</text>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>`;
+  return s+'</svg>';
+}
+function svgLinha(rotulos,vals,{fv=fmtCurto,W=600,H=280,destaque=[]}={}){
+  const L=70,R=W-34,T=30,B=H-42, max=Math.max(...vals)*1.1, min=0, X=i=>L+(R-L)*i/(vals.length-1), Y=v=>B-(B-T)*(v-min)/(max-min);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de linha">`;
+  ticks(0,max,4).forEach(t=>{ if(t>max) return; s+=`<line class="eixo" style="opacity:.35" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${fv(t)}</text>`; });
+  s+=`<path class="area-serie" d="M${X(0)} ${B} ${vals.map((v,i)=>`L${X(i)} ${Y(v)}`).join(' ')} L${X(vals.length-1)} ${B}Z"/><path class="linha-serie" d="${vals.map((v,i)=>`${i?'L':'M'}${X(i)} ${Y(v)}`).join(' ')}"/>`;
+  vals.forEach((v,i)=>{ const hi=destaque.includes(i); s+=`<circle cx="${X(i)}" cy="${Y(v)}" r="${hi?6:3.5}" class="marcador"/>`; if(hi) s+=`<text x="${X(i)}" y="${Y(v)-12}" text-anchor="${i===vals.length-1?'end':'middle'}" class="t-forte">${fv(v)}</text>`; });
+  rotulos.forEach((r,i)=>{ if(rotulos.length>14 && i%2) return; s+=`<text x="${X(i)}" y="${B+20}" text-anchor="middle" class="t-peq">${r}</text>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>`;
+  return s+'</svg>';
+}
+function montaQuiz({box,placar,itens,opcoes,limpar,mostrar,umaColuna=false}){
+  const est={};
+  function draw(rev=false){
+    const Bx=$(box); Bx.innerHTML=''; let ok=0;
+    itens.forEach((it,i)=>{
+      if(est[i]&&it.r.includes(est[i])) ok++;
+      const sel=rev?it.r[0]:est[i], certo=sel&&it.r.includes(sel);
+      const card=el('div',{class:'col-card'+(sel?(certo?' certo':' errado'):'')});
+      card.innerHTML=(it.ic?`<div class="r2-cab">${icone(it.ic)}<span style="font-weight:600;font-size:1.05rem">${it.t}</span></div>`:`<span style="font-weight:600;font-size:1.05rem">${it.t}</span>`)+(it.sub?`<span class="amostra">${it.sub}</span>`:'');
+      const op=el('div',{class:'opcoes'}); if(umaColuna) op.style.gridTemplateColumns='1fr';
+      opcoes.forEach(([k,v])=>{ const b=el('button',{class:sel===k?'marcado':''},v); b.onclick=()=>{est[i]=k;draw();}; op.appendChild(b); });
+      card.appendChild(op);
+      if(sel) card.appendChild(el('p',{class:'retorno '+(certo?'ok':'no')}, certo?`Isso. ${it.ok}`:`Ainda não. ${it.dica}`));
+      Bx.appendChild(card);
+    });
+    if(placar) $(placar).textContent=`${ok} de ${itens.length}`;
+  }
+  if(limpar) $(limpar).onclick=()=>{Object.keys(est).forEach(k=>delete est[k]);draw();};
+  if(mostrar) $(mostrar).onclick=()=>draw(true);
+  draw();
+}
+function guardaForm(chave,raiz){
+  const salvo=ler(chave)||{};
+  raiz.querySelectorAll('input[id],textarea[id],select[id]').forEach(e=>{ if(salvo[e.id]!==undefined){ if(e.type==='checkbox') e.checked=!!salvo[e.id]; else e.value=salvo[e.id]; } });
+  const g=()=>{ const o={}; raiz.querySelectorAll('input[id],textarea[id],select[id]').forEach(e=>{ o[e.id]= e.type==='checkbox'?e.checked:e.value; }); salvar(chave,o); };
+  raiz.addEventListener('input',g); raiz.addEventListener('change',g);
+}
+const limpaTxt = s => String(s??'').replace(/[\t\n\r]+/g,' ').trim();
+const dataBR = s => { if(!s||!/^\d{4}-\d{2}-\d{2}$/.test(s)) return s??''; const [y,m,d]=s.split('-'); return `${d}/${m}/${y}`; };
+
+/* ================= LAB 1 · LAPIDADOR ================= */
+const PROB={
+  churn:{nome:'Estamos perdendo clientes',problema:'Estamos perdendo clientes.',
+    frase:f=>{ const suj=f.metrica?'a taxa de cancelamento mensal':'a perda de clientes'; const quem=f.quem?(f.metrica?' dos clientes do plano Básico':' do plano Básico'):''; return `Como variou ${suj}${quem}${f.periodo?' nos últimos 6 meses':''}${f.comp?', por canal de atendimento':''}${f.decisao?', para decidir onde investir em retenção':''}?`; }},
+  recl:{nome:'Os clientes estão reclamando mais',problema:'Os clientes estão reclamando mais.',
+    frase:f=>{ const suj=f.metrica?'o número de reclamações a cada 100 pedidos':'as reclamações'; const v=f.metrica?'evoluiu':'evoluíram'; return `Como ${v} ${suj}${f.quem?' do delivery':''}${f.periodo?' entre janeiro e junho':''}${f.comp?', por motivo e por canal':''}${f.decisao?', para priorizar o que corrigir primeiro':''}?`; }},
+  vendas:{nome:'As vendas caíram',problema:'As vendas caíram.',
+    frase:f=>{ const suj=f.metrica?'o faturamento semanal':'as vendas'; const v=f.metrica?'caiu':'caíram'; return `Quanto ${v} ${suj}${f.quem?' da loja online':''}${f.periodo?' nos últimos 3 meses':''}${f.comp?', por categoria de produto':''}${f.decisao?', para decidir onde concentrar a campanha':''}?`; }}
+};
+const AJ=[['quem','Quem? (recorte)'],['periodo','Quando? (período)'],['metrica','Como medir? (métrica)'],['comp','Comparado com o quê?'],['decisao','Para quê? (decisão)']];
+const CRIT=[['esp','Específica',f=>f.quem||f.comp],['mens','Mensurável',f=>f.metrica],['rel','Relevante para decidir',f=>f.decisao],['ctx','Conectada ao contexto',f=>f.periodo]];
+const FALTA={esp:'dizer de quem ou de que grupo você fala',mens:'dizer como vai medir',rel:'dizer que decisão a resposta vai apoiar',ctx:'dizer o período'};
+let pSel='churn'; const flags={};
+function desenhaLap(){
+  $('lapProb').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===pSel));
+  $('lapAj').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',!!flags[b.dataset.k]));
+  const algum=Object.values(flags).some(Boolean), P=PROB[pSel];
+  $('lapRot').textContent=algum?'Pergunta analítica':'Problema de negócio (ainda não é pergunta)';
+  $('lapTexto').textContent=algum?P.frase(flags):P.problema;
+  const on=CRIT.map(([k,n,f])=>[k,n,!!f(flags)]);
+  $('lapCrit').innerHTML=on.map(([k,n,o])=>`<span class="crit ${o?'on':''}">${o?'✓ ':''}${n}</span>`).join('');
+  const faltam=on.filter(c=>!c[2]).map(c=>FALTA[c[0]]);
+  $('lapFalta').innerHTML=faltam.length?`<b>Para melhorar:</b> ${faltam.join('; ')}.`:'<b>Pergunta pronta:</b> clara, mensurável e útil para decidir.';
+}
+(function(){
+  Object.entries(PROB).forEach(([k,v])=>{ const b=el('button',{class:'chip','data-k':k},v.nome); b.onclick=()=>{pSel=k;desenhaLap();}; $('lapProb').appendChild(b); });
+  AJ.forEach(([k,v])=>{ const b=el('button',{class:'chip','data-k':k},v); b.onclick=()=>{flags[k]=!flags[k];desenhaLap();}; $('lapAj').appendChild(b); });
+  desenhaLap();
+})();
+
+/* ================= LAB 2 · CADEIA ================= */
+const CASOS=[
+  {nome:'Reclamações',decisao:'Priorizar melhorias nos motivos e canais mais críticos.',camadas:[
+    ['Pergunta',[['Os clientes gostam da empresa?',0,'Vaga: não diz o que medir nem ajuda a priorizar.'],['Quais motivos concentram mais reclamações e em quais canais?',1,''],['Quantos funcionários temos no atendimento?',0,'Não ajuda a escolher o que melhorar.']]],
+    ['Métrica',[['Faturamento anual',0,'Não mede reclamações.'],['Número de seguidores nas redes sociais',0,'Não tem relação com os motivos de reclamação.'],['Quantidade de reclamações, % por motivo e nota média por canal',1,'']]],
+    ['Dados',[['Data, canal, motivo, cliente, status, nota e tempo de resposta',1,''],['Lista de produtos e preços',0,'Não mostra motivo nem canal da reclamação.'],['Endereço dos funcionários',0,'Não responde à pergunta e é dado pessoal sem necessidade.']]]]},
+  {nome:'Cancelamentos',decisao:'Escolher quais clientes recebem uma oferta para não cancelar.',camadas:[
+    ['Pergunta',[['Quantos clientes temos hoje?',0,'Descreve o total, mas não diz quem tem risco de cancelar.'],['Por que o mercado está difícil?',0,'Ampla demais e fora do alcance dos dados da empresa.'],['Quais perfis de cliente cancelam mais?',1,'']]],
+    ['Métrica',[['Taxa de cancelamento por perfil (plano, tempo de casa, uso)',1,''],['Preço médio do plano',0,'Não mede cancelamento.'],['Número total de clientes',0,'Não separa quem cancela de quem fica.']]],
+    ['Dados',[['Pesquisa de satisfação de 2019',0,'Desatualizada para decidir hoje.'],['Plano, data de entrada, uso do serviço e data de cancelamento',1,''],['Salários da equipe',0,'Não tem relação com o cliente.']]]]},
+  {nome:'Evasão escolar',decisao:'Definir quais alunos recebem acompanhamento para não abandonar o curso.',camadas:[
+    ['Pergunta',[['Quais fatores acadêmicos estão mais associados à evasão nos últimos 2 anos?',1,''],['Queremos entender evasão escolar.',0,'É um tema, não uma pergunta: falta foco, período e medida.'],['A escola é boa?',0,'Vaga e não mensurável.']]],
+    ['Métrica',[['Número de professores',0,'Não mede evasão.'],['Taxa de evasão por faixa de frequência, notas e inadimplência',1,''],['Nota do vestibular de 2010',0,'Antiga demais para explicar a evasão recente.']]],
+    ['Dados',[['Aluno, turma, frequência, notas, inadimplência, data de matrícula e status',1,''],['Cardápio da cantina',0,'Não ajuda a explicar a evasão.'],['Fotos das salas',0,'Não são registros que respondem à pergunta.']]]]}
+];
+let caso=0; const escolhas=CASOS.map(()=>({}));
+function desenhaCadeia(){
+  $('cadCasos').querySelectorAll('.chip').forEach((b,i)=>b.setAttribute('aria-pressed',i===caso));
+  const C=CASOS[caso], E=escolhas[caso];
+  let h=`<div class="elo ok"><span class="t">Decisão</span><span class="dado">${C.decisao}</span></div>`;
+  C.camadas.forEach(([nome,ops],ci)=>{
+    const sel=E[ci], certo=sel!==undefined&&ops[sel][1]===1;
+    h+=`<div class="elo ${certo?'ok':''}"><span class="t">${nome}</span><div class="opc">${ops.map((o,oi)=>`<button data-c="${ci}" data-o="${oi}" class="${sel===oi?(o[1]?'certa':'errada'):''}">${o[0]}</button>`).join('')}</div>${sel!==undefined&&!certo?`<p class="retorno no">${ops[sel][2]}</p>`:''}</div>`;
+  });
+  $('cadElos').innerHTML=h;
+  $('cadElos').querySelectorAll('button').forEach(b=>b.onclick=()=>{E[+b.dataset.c]=+b.dataset.o;desenhaCadeia();});
+}
+(function(){
+  CASOS.forEach((c,i)=>{ const b=el('button',{class:'chip'},c.nome); b.onclick=()=>{caso=i;desenhaCadeia();}; $('cadCasos').appendChild(b); });
+  $('cadLimpar').onclick=()=>{ escolhas[caso]={}; desenhaCadeia(); };
+  desenhaCadeia();
+})();
+
+/* ================= LAB 3 · TIPOS DE PERGUNTA ================= */
+const TIPOSP=[['desc','Descritiva','O que aconteceu?','Quantos atendimentos tivemos por canal?'],['diag','Diagnóstica','Por que pode ter acontecido?','Quais canais têm maior tempo de espera?'],['comp','Comparativa','Há diferença entre grupos?','A satisfação muda por região?'],['temp','Temporal','Como evoluiu no tempo?','As reclamações aumentaram em quais meses?'],['pred','Preditiva','O que pode acontecer?','Quem tem maior risco de cancelar?']];
+$('tiposCards').innerHTML=TIPOSP.map(t=>`<div class="tipo-card"><b>${t[1]}</b><span class="q">${t[2]}</span><span>Ex.: ${t[3]}</span></div>`).join('');
+montaQuiz({box:'tpQuiz',placar:'tpPlacar',limpar:'tpLimpar',mostrar:'tpMostrar',umaColuna:false,
+  opcoes:TIPOSP.map(t=>[t[0],t[1]]),
+  itens:[
+    {t:'Quantos pedidos foram cancelados em março?',r:['desc'],ok:'Descreve o que aconteceu, sem buscar causa.',dica:'A pergunta quer saber o quê, por quê, a diferença, a evolução ou o futuro?'},
+    {t:'Por que o tempo de espera no telefone aumentou?',r:['diag'],ok:'Busca a causa de algo que aconteceu.',dica:'Repare no “por que”.'},
+    {t:'A satisfação dos clientes de Recife é diferente da de Caruaru?',r:['comp'],ok:'Compara dois grupos.',dica:'Quantos grupos aparecem na pergunta?'},
+    {t:'As vendas cresceram mês a mês no último ano?',r:['temp'],ok:'Olha a evolução ao longo do tempo.',dica:'Repare em “mês a mês”.'},
+    {t:'Quais clientes têm maior chance de cancelar no próximo mês?',r:['pred'],ok:'Olha para o futuro.',dica:'Isso já aconteceu ou ainda vai acontecer?'},
+    {t:'Clientes do app gastam mais que os da loja física?',r:['comp'],ok:'Compara o gasto de dois grupos.',dica:'Quantos grupos aparecem na pergunta?'}
+  ]});
+
+/* ================= LAB 4 · PIPELINE QUE VOLTA ================= */
+const ETP=[['pergunta','Pergunta','Definir o problema e a pergunta.','Perguntas vagas como “me mostre tudo sobre os clientes”.'],
+  ['coleta','Coleta','Encontrar, avaliar e registrar os dados.','Confiar numa fonte sem saber como ela foi coletada.'],
+  ['preparacao','Preparação','Limpar, padronizar e criar novas colunas.','Pular a limpeza e contaminar o resto da análise.'],
+  ['exploracao','Exploração','Olhar distribuições, comparar grupos e achar padrões.','Começar pelo gráfico sem ter uma pergunta.'],
+  ['analise','Análise','Responder à pergunta com medidas e relações.','Tratar correlação como se fosse causa.'],
+  ['comunicacao','Comunicação','Contar a história e recomendar uma ação.','Mostrar números sem dizer o que fazer com eles.']];
+const SIT=[
+  {onde:'preparacao',t:'Ao limpar a base, você descobre que a coluna “canal” nunca foi registrada no sistema antigo.',r:'coleta',ok:'Sem o dado, nenhuma limpeza resolve: é preciso buscar outra fonte ou coletar de novo.'},
+  {onde:'analise',t:'Você apresenta um resultado e o gestor diz que ele não ajuda a decidir nada.',r:'pergunta',ok:'A pergunta não estava ligada a uma decisão. Volte e reformule.'},
+  {onde:'exploracao',t:'Nos gráficos, a cidade Recife aparece escrita de cinco jeitos diferentes.',r:'preparacao',ok:'É um problema de padronização: corrija na preparação antes de continuar.'},
+  {onde:'exploracao',t:'Explorando, surge uma ideia nova: clientes do app parecem gastar mais.',r:'pergunta',ok:'A exploração gerou uma pergunta nova. Registre e refine o projeto.'}
+];
+let etpSel='pergunta', ultimaSeta=null; const estSit={};
+function posNo(i){ const a=-Math.PI/2+i*2*Math.PI/6; return {x:300+190*Math.cos(a), y:215+165*Math.sin(a)}; }
+function desenhaAnel(){
+  let s=`<svg viewBox="0 0 600 430" role="img" aria-label="Ciclo do processo analítico"><defs><marker id="pt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--orange)"/></marker><marker id="pc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" style="fill:var(--line)"/></marker></defs>`;
+  s+=`<ellipse class="anel" cx="300" cy="215" rx="190" ry="165"/>`;
+  for(let i=0;i<6;i++){ const a=posNo(i), b=posNo((i+1)%6); const mx=(a.x+b.x)/2, my=(a.y+b.y)/2; const dx=mx-300, dy=my-215, k=1.14; s+=`<path d="M${mx-(b.x-a.x)*.08+dx*(k-1)} ${my-(b.y-a.y)*.08+dy*(k-1)} L${mx+(b.x-a.x)*.08+dx*(k-1)} ${my+(b.y-a.y)*.08+dy*(k-1)}" style="stroke:var(--line);stroke-width:2;fill:none" marker-end="url(#pc)"/>`; }
+  if(ultimaSeta){ const a=posNo(ETP.findIndex(e=>e[0]===ultimaSeta[0])), b=posNo(ETP.findIndex(e=>e[0]===ultimaSeta[1])); const mx=(a.x+b.x)/2+(300-(a.x+b.x)/2)*.55, my=(a.y+b.y)/2+(215-(a.y+b.y)/2)*.55; const enc=(p,q,d)=>{const L=Math.hypot(q.x-p.x,q.y-p.y); return {x:p.x+(q.x-p.x)*d/L,y:p.y+(q.y-p.y)*d/L};}; const a2=enc(a,{x:mx,y:my},48), b2=enc(b,{x:mx,y:my},52);
+    s+=`<path class="seta" d="M${a2.x} ${a2.y} Q${mx} ${my} ${b2.x} ${b2.y}" marker-end="url(#pt)"/><text x="${mx}" y="${my+5}" text-anchor="middle" class="t-forte">volta</text>`; }
+  ETP.forEach((e,i)=>{ const p=posNo(i), on=e[0]===etpSel, alvo=ultimaSeta&&(e[0]===ultimaSeta[0]); s+=`<g data-k="${e[0]}" style="cursor:pointer" tabindex="0" role="button" aria-label="${e[1]}"><circle class="no ${on?'on':''} ${alvo?'alvo-no':''}" cx="${p.x}" cy="${p.y}" r="46"/><text class="t-no ${on?'on':''}" x="${p.x}" y="${p.y+5}" text-anchor="middle" style="font-size:15px">${e[1]}</text></g>`; });
+  $('anel').innerHTML=s+'</svg>';
+  $('anel').querySelectorAll('g[data-k]').forEach(g=>{ const go=()=>{etpSel=g.dataset.k;desenhaAnel();}; g.addEventListener('click',go); g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}}); });
+  const E=ETP.find(e=>e[0]===etpSel);
+  $('etapaInfo').innerHTML=`<p class="rotulo">Etapa</p><p class="valor" style="font-size:2rem">${E[1]}</p><p class="msg">${E[2]}</p><p class="retorno no" style="font-size:1rem"><b>Erro comum:</b> ${E[3]}</p>`;
+}
+function desenhaSit(){
+  $('situacoes').innerHTML='';
+  SIT.forEach((s,i)=>{
+    const d=el('div',{class:'sit'+(estSit[i]===s.r?' certo':'')});
+    d.innerHTML=`<span class="onde">Você está em: ${ETP.find(e=>e[0]===s.onde)[1]}</span><b>${s.t}</b>`;
+    const ch=el('div',{class:'chips'});
+    ETP.forEach(e=>{ const b=el('button',{class:'chip','aria-pressed':String(estSit[i]===e[0])},`Voltar para ${e[1]}`); b.onclick=()=>{ estSit[i]=e[0]; if(e[0]===s.r){ ultimaSeta=[s.onde,s.r]; etpSel=s.r; desenhaAnel(); } desenhaSit(); }; ch.appendChild(b); });
+    d.appendChild(ch);
+    if(estSit[i]) d.appendChild(el('p',{class:'retorno '+(estSit[i]===s.r?'ok':'no')}, estSit[i]===s.r?`Isso. ${s.ok}`:'Ainda não. Pergunte-se: o que está faltando, o dado, a correção ou a pergunta?'));
+    $('situacoes').appendChild(d);
+  });
+}
+desenhaAnel(); desenhaSit();
+
+/* ================= LAB 5 · GRANULARIDADE ================= */
+const VENDAS=(()=>{ const rnd=mulberry32(2203), v=[], preco={'Café':6.5,'Pão de queijo':5,'Bolo':9};
+  for(let d=1; d<=31; d++){ const dt=new Date(Date.UTC(2026,2,d)), wd=dt.getUTCDay(); const f=[0.7,1,1,1,1.05,1.35,1.25][wd]*(1+d*0.006);
+    for(let h=7; h<=19; h++){ const pico=(h===8?2.2:h===9?1.6:h===16?1.9:h===17?1.4:h===12?1.2:0.6);
+      ['Café','Pão de queijo','Bolo'].forEach(p=>{ let lam=f*pico*(p==='Café'?0.9:p==='Pão de queijo'?0.55:0.28)*(p==='Bolo'&&wd===5?2.2:1); let k=0; while(rnd()<lam/(k+1+lam)){k++; if(k>8)break;} for(let j=0;j<k;j++) v.push({d,wd,h,p,valor:preco[p]}); }); } }
+  return v; })();
+const DIAS=['dom','seg','ter','qua','qui','sex','sáb'];
+const GPERG=[['Qual horário tem mais movimento?',0],['Qual produto vende mais às sextas?',1],['As vendas cresceram ao longo do mês?',2],['Quanto a cafeteria vendeu em março?',3]];
+function desenhaGran(){
+  const n=+$('granNivel').value; const tot=sum(VENDAS.map(v=>v.valor));
+  const tit=['Cada venda registrada','Por dia e produto','Por semana','Mês inteiro'][n];
+  let h='';
+  if(n===0){ const porH=[]; for(let x=7;x<=19;x++) porH.push({k:x+'h',v:VENDAS.filter(v=>v.h===x).length}); const mx=Math.max(...porH.map(o=>o.v)); porH.forEach(o=>{ if(o.v===mx) o.cls='hi'; });
+    h=`<p class="nota-lab">${inteiro(VENDAS.length)} vendas, cada uma com dia, hora, produto e valor. Vendas por hora:</p>`+svgBarrasV(porH,{fv:v=>inteiro(v)}); }
+  if(n===1){ const prods=['Café','Pão de queijo','Bolo']; let s='<div class="tabela-wrap"><table><thead><tr><th>Dia da semana</th>'+prods.map(p=>`<th>${p} (média por dia)</th>`).join('')+'</tr></thead><tbody>';
+    [1,2,3,4,5,6,0].forEach(wd=>{ const nd=new Set(VENDAS.filter(v=>v.wd===wd).map(v=>v.d)).size||1; const vals=prods.map(p=>VENDAS.filter(v=>v.wd===wd&&v.p===p).length/nd); s+=`<tr><td>${DIAS[wd]}</td>${vals.map((x,i)=>`<td class="${wd===5&&i===2?'col-hi':''}">${nf(x,0)}</td>`).join('')}</tr>`; });
+    h=`<p class="nota-lab">31 dias × 3 produtos = 93 linhas. Aqui, resumidas pela média de cada dia da semana:</p>`+s+'</tbody></table></div>'; }
+  if(n===2){ const sem=[[1,7],[8,14],[15,21],[22,28],[29,31]].map(([a,b],i)=>({k:`${a}–${b}/3`,v:sum(VENDAS.filter(v=>v.d>=a&&v.d<=b).map(v=>v.valor))/(b-a+1)})); sem[sem.length-1].cls='hi';
+    h=`<p class="nota-lab">5 linhas, uma por semana (média vendida por dia, em R$):</p>`+svgBarrasV(sem,{fv:v=>fmtCurto(v)}); }
+  if(n===3){ h=`<p class="nota-lab">1 linha só:</p><p class="gran-kpi num">${brl(tot)}</p><p class="msg">Total vendido em março. Simples de ler, e impossível de detalhar.</p>`; }
+  $('granTitulo').textContent=`Nível: ${tit}`; $('granViz').innerHTML=h;
+  $('granPerg').innerHTML=GPERG.map(([q,max])=>{ const ok=n<=max; return `<p class="retorno ${ok?'ok':'no'}" style="font-size:1.02rem">${ok?'✓ Sim':'✗ Não'} · ${q}</p>`; }).join('');
+  $('granConta').textContent='Somamos as vendas de cada grupo: por dia e produto, por semana ou o mês inteiro. Na visão por dia e produto, a tabela mostra a média de vendas em cada dia da semana; na semanal, o valor vendido por dia em cada semana. Ao agregar, nenhum número é inventado: os detalhes é que somem.';
+}
+$('granNivel').addEventListener('input',desenhaGran); desenhaGran();
+
+/* ================= CANVAS DO PROJETO ================= */
+const TEMAS=['Vendas','Marketing','Logística','RH','Educação','Saúde','Atendimento','Finanças','Setor público'];
+const SUGV={educa:'frequência, notas, turno, inadimplência, data de matrícula, status',saúd:'idade, diagnóstico, tempo de espera, unidade, data do atendimento',sa:'idade, unidade, tempo de espera, data do atendimento',vend:'data, produto, categoria, valor, canal, cidade, cliente',log:'data do pedido, data de entrega, distância, transportadora, região, status',rh:'cargo, setor, tempo de casa, salário, avaliação, data de desligamento',aten:'canal, motivo, tempo de espera, nota, resolvido no primeiro contato',fin:'data, valor, categoria de gasto, forma de pagamento, inadimplência',mark:'campanha, canal, cliques, conversões, custo, público'};
+(function(){
+  const sec=$('cvSec'); for(let i=1;i<=4;i++){ const l=el('div',{class:'sec-linha'}); l.innerHTML=`<span class="n">${i}</span><input id="cvS${i}" type="text" placeholder="Pergunta secundária ${i}" aria-label="Pergunta secundária ${i}"><input id="cvH${i}" type="text" placeholder="Hipótese ${i}" aria-label="Hipótese ${i}">`; sec.appendChild(l); }
+  TEMAS.forEach(t=>{ const b=el('button',{class:'chip'},t); b.onclick=()=>{ $('cvTema').value=t; $('cvTema').dispatchEvent(new Event('input',{bubbles:true})); }; $('cvTemas').appendChild(b); });
+  let vars=ler('fad-e2-vars')||[];
+  const desenhaVars=()=>{ $('cvVars').innerHTML=vars.map((v,i)=>`<span class="tag-v">${v}<button aria-label="Remover ${v}" data-i="${i}">×</button></span>`).join(''); $('cvVars').querySelectorAll('button').forEach(b=>b.onclick=()=>{vars.splice(+b.dataset.i,1);salvar('fad-e2-vars',vars);desenhaVars();}); };
+  $('cvVarIn').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); const v=limpaTxt(e.target.value); if(v){ v.split(',').map(x=>x.trim()).filter(Boolean).forEach(x=>vars.push(x)); salvar('fad-e2-vars',vars); e.target.value=''; desenhaVars(); } } });
+  const dicaVar=()=>{ const t=$('cvTema').value.toLowerCase(); const k=Object.keys(SUGV).find(k=>t.includes(k)); $('cvVarDica').textContent=k?`Ideias para este tema: ${SUGV[k]}.`:'Pense em quem (perfil), quando (datas), quanto (valores) e como (canal, status).'; };
+  const critP=()=>{ const p=$('cvPergunta').value; const cs=[['Termina com ?',/\?\s*$/.test(p)],['Tem período',/(últim|mês|meses|ano|anos|semestre|trimestre|semana|20\d\d|período)/i.test(p)],['Diz como medir',/(taxa|média|quantidade|número|percentual|%|tempo|valor|nota|índice|total|volume|frequência)/i.test(p)],['Tem recorte ou comparação',/( por | entre |perfil|grupo|canal|região|cidade|faixa|tipo|categoria|turno|setor)/i.test(' '+p+' ')]];
+    $('cvCrit').innerHTML=cs.map(([n,o])=>`<span class="crit ${o?'on':''}">${o?'✓ ':''}${n}</span>`).join('')+'<span class="nota-lab" style="align-self:center">dicas, não nota</span>'; };
+  guardaForm('fad-e2-canvas',$('labCanvas'));
+  $('cvTema').addEventListener('input',dicaVar); $('cvPergunta').addEventListener('input',critP);
+  desenhaVars(); dicaVar(); critP();
+  $('cvCopiar').onclick=()=>{
+    const L=['Campo\tConteúdo',`Tema\t${limpaTxt($('cvTema').value)}`,`Integrantes\t${limpaTxt($('cvIntegrantes').value.split('\n').filter(Boolean).join('; '))}`,`Pergunta principal\t${limpaTxt($('cvPergunta').value)}`];
+    for(let i=1;i<=4;i++){ L.push(`Pergunta secundária ${i}\t${limpaTxt($('cvS'+i).value)}`); L.push(`Hipótese ${i}\t${limpaTxt($('cvH'+i).value)}`); }
+    L.push(`Variáveis ideais\t${vars.join(', ')}`);
+    copiar(L.join('\n'),$('cvOk'),$('cvFallback'));
+  };
+})();
+
+/* ================= ATIVIDADE INDIVIDUAL ================= */
+(function(){
+  const cab=['data_compra','valor_gasto','categoria','cidade','idade','forma_pagamento'];
+  const am=[['03/03/2026','R$ 120,00','Eletrônicos','Recife','34','Pix'],['04/03/2026','85,90','Moda','recife','','Cartão'],['04/03/2026','85,90','Moda','recife','','Cartão'],['31/02/2026','230,00','Casa','Olinda','230','Boleto'],['07/03/2026','','Beleza','Caruaru','27','pix'],['08/03/2026','15900,00','Livros','Paulista','41','Pix']];
+  $('atAmostra').innerHTML=`<thead><tr>${cab.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${am.map(r=>`<tr>${r.map(v=>`<td>${v||'&nbsp;'}</td>`).join('')}</tr>`).join('')}</tbody>`;
+  for(let i=1;i<=3;i++){ const p=el('div',{class:'par'}); p.innerHTML=`<input id="atX${i}" type="text" placeholder="Dado ${i}" aria-label="Dado adicional ${i}"><input id="atXp${i}" type="text" placeholder="Por que ele ajudaria" aria-label="Por que o dado ${i} ajudaria">`; $('atExtras').appendChild(p);
+    const q=el('div',{class:'par'}); q.innerHTML=`<input id="atP${i}" type="text" placeholder="Problema ${i}" aria-label="Problema ${i}"><input id="atPi${i}" type="text" placeholder="Impacto na análise" aria-label="Impacto do problema ${i}">`; $('atProbs').appendChild(q); }
+  let ordem=ler('fad-e2-ordem')||['Visualização','Coleta','Comunicação dos resultados','Limpeza','Modelagem (opcional)','Geração de insights','Exploração (EDA)'];
+  const desenhaOrdem=()=>{ $('atOrdem').innerHTML=ordem.map((t,i)=>`<li><span class="n">${i+1}</span><span class="txt">${t}</span><button class="mini-btn" data-i="${i}" data-d="-1" aria-label="Subir ${t}">↑</button><button class="mini-btn" data-i="${i}" data-d="1" aria-label="Descer ${t}">↓</button></li>`).join('');
+    $('atOrdem').querySelectorAll('button').forEach(b=>b.onclick=()=>{ const i=+b.dataset.i, j=i+(+b.dataset.d); if(j<0||j>=ordem.length) return; [ordem[i],ordem[j]]=[ordem[j],ordem[i]]; salvar('fad-e2-ordem',ordem); desenhaOrdem(); }); };
+  desenhaOrdem();
+  guardaForm('fad-e2-ativ',$('labAtiv'));
+  $('atCopiar').onclick=()=>{
+    const L=[`Nome: ${limpaTxt($('atNome').value)}`,'',`1. Pergunta analítica: ${limpaTxt($('atQ1').value)}`,'','2. Dados adicionais:'];
+    for(let i=1;i<=3;i++) L.push(`- ${limpaTxt($('atX'+i).value)}: ${limpaTxt($('atXp'+i).value)}`);
+    L.push('','3. Problemas de qualidade:'); for(let i=1;i<=3;i++) L.push(`- ${limpaTxt($('atP'+i).value)}: ${limpaTxt($('atPi'+i).value)}`);
+    L.push('','4. Etapas do pipeline:'); ordem.forEach((t,i)=>L.push(`${i+1}. ${t}`));
+    copiar(L.join('\n'),$('atOk'),$('atFallback'));
+  };
+})();
+
+/* ================= NAVEGAÇÃO / MODO AULA ================= */
+const cenas=[...document.querySelectorAll('.cena')];
+const sel=$('irpara');
+cenas.forEach((c,i)=>{ const o=el('option',{value:c.id},`${i+1}. ${c.dataset.nome}`); sel.appendChild(o); });
+let aula=false, atual=0;
+function mostrar(i){ atual=Math.max(0,Math.min(cenas.length-1,i)); cenas.forEach((c,j)=>c.classList.toggle('atual',j===atual)); $('contador').textContent=`${atual+1} / ${cenas.length}`; sel.value=cenas[atual].id; window.scrollTo(0,0); }
+function visivel(){ let best=0; cenas.forEach((c,i)=>{ if(c.getBoundingClientRect().top<window.innerHeight*0.4) best=i; }); return best; }
+sel.addEventListener('change',()=>{ const i=cenas.findIndex(c=>c.id===sel.value); if(aula) mostrar(i); else cenas[i].scrollIntoView({behavior:reduz?'auto':'smooth'}); });
+$('btnAula').onclick=()=>{
+  aula=!aula; document.body.classList.toggle('aula',aula); document.documentElement.classList.toggle('aula',aula); $('btnAula').setAttribute('aria-pressed',String(aula)); $('btnAula').textContent=aula?'Sair do modo aula':'Modo aula';
+  if(aula){ mostrar(visivel()); } else { cenas.forEach(c=>c.classList.remove('atual')); cenas[atual].scrollIntoView(); if(document.fullscreenElement) document.exitFullscreen().catch(()=>{}); }
+};
+$('antes').onclick=()=>mostrar(atual-1);
+$('depois').onclick=()=>mostrar(atual+1);
+$('cheia').onclick=()=>{ const d=document.documentElement; if(document.fullscreenElement){document.exitFullscreen().catch(()=>{});} else if(d.requestFullscreen){ d.requestFullscreen().catch(()=>{}); } };
+document.addEventListener('keydown',e=>{
+  if(!aula||e.defaultPrevented) return; if(e.target.closest && e.target.closest('input,select,textarea')) return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();mostrar(atual+1);}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();mostrar(atual-1);}
+  else if(e.key==='Escape'){ $('btnAula').click(); }
+});
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>{ if(aula) return; es.forEach(en=>{ if(en.isIntersecting) sel.value=en.target.id; }); },{rootMargin:'-40% 0px -55% 0px'});
+  cenas.forEach(c=>io.observe(c));
+}
+if(location.hash){ const alvo=document.getElementById(location.hash.slice(1)); if(alvo) setTimeout(()=>alvo.scrollIntoView(),50); }
+</script>
+
+</body>
+</html>

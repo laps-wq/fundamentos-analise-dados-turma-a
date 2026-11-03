@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Laboratório do Projeto</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+/* Layout: aula em cenas empilhadas (rolagem) que viram slides no "Modo aula"; laboratórios em cartões com barra laranja, como no template CESAR School */
+:root{
+  --paper:#FEF7EE; --surface:#FFFCF8; --sunk:#FBEEE1; --ink:#212121; --ink-2:#4B4540; --muted:#7D7168;
+  --line:#E5C8B2; --line-soft:#F0E0D0; --orange:#FF6002; --orange-ink:#B84300; --orange-soft:#FFE7D6;
+  --good:#2E7A4C; --good-soft:#E2F1E7; --warn:#93600F; --warn-soft:#FBEED6; --bad:#B53228; --bad-soft:#F8E0DC;
+  --c1:#FF6002; --c2:#212121; --c3:#C99A70; --c4:#5F8A84;
+  --cover:#212121; --cover-ink:#FEF7EE; --cover-cream:#FEF7EE;
+  --f-disp:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  --f-body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:14px; --maxw:1280px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1A1918; --surface:#24221F; --sunk:#2C2825; --ink:#FEF7EE; --ink-2:#E3D8CC; --muted:#B3A597;
+    --line:#4D4036; --line-soft:#352C26; --orange:#FF6A14; --orange-ink:#FF8C4A; --orange-soft:#3B2517;
+    --good:#72C792; --good-soft:#1E3327; --warn:#E6B453; --warn-soft:#3A2F17; --bad:#F2806F; --bad-soft:#3E201C;
+    --c1:#FF6A14; --c2:#FEF7EE; --c3:#C99A70; --c4:#7FB0A9;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1A1918; --surface:#24221F; --sunk:#2C2825; --ink:#FEF7EE; --ink-2:#E3D8CC; --muted:#B3A597;
+  --line:#4D4036; --line-soft:#352C26; --orange:#FF6A14; --orange-ink:#FF8C4A; --orange-soft:#3B2517;
+  --good:#72C792; --good-soft:#1E3327; --warn:#E6B453; --warn-soft:#3A2F17; --bad:#F2806F; --bad-soft:#3E201C;
+  --c1:#FF6A14; --c2:#FEF7EE; --c3:#C99A70; --c4:#7FB0A9;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:clamp(16px,0.55vw + 12px,22px)}
+html.aula{font-size:clamp(19px,1vw + 3px,28px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+h1,h2,h3{font-family:var(--f-disp);font-weight:700;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:.005em}
+p{margin:0}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:6px}
+.num{font-variant-numeric:tabular-nums}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ---------- topo ---------- */
+.topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line-soft)}
+.topo .wrap{display:flex;align-items:center;gap:14px;padding-block:10px}
+.logo{display:block;width:44px;height:40px;flex:none;background:var(--ink);-webkit-mask:url("data:image/png;base64,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") center/contain no-repeat;mask:url("data:image/png;base64,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") center/contain no-repeat}
+.topo-titulo{font-family:var(--f-disp);font-weight:700;font-size:1.15rem;line-height:1.1;min-width:0}
+.topo-titulo small{display:block;font-family:var(--f-body);font-weight:500;font-size:.78rem;color:var(--muted);letter-spacing:.02em}
+.topo-acoes{margin-left:auto;display:flex;gap:8px;align-items:center}
+.topo select{max-width:220px;padding:7px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:600;font-size:.95rem;line-height:1.2}
+.btn:hover{border-color:var(--orange)}
+.btn.prim{background:var(--orange);border-color:var(--orange);color:#fff}
+.btn.prim:hover{filter:brightness(1.06)}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+@media (max-width:640px){.topo-titulo small{display:none}.topo select{max-width:130px}.topo-titulo{font-size:1rem}}
+@media (max-width:420px){.topo-titulo{display:none}}
+
+/* ---------- cenas ---------- */
+.cena{padding-block:72px;border-bottom:1px solid var(--line-soft)}
+.eyebrow{font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:10px}
+.cena h2{font-size:clamp(2.3rem,4.8vw,3.5rem);margin-bottom:16px}
+.lede{font-size:1.2rem;color:var(--ink-2);max-width:68ch}
+.pilha{display:flex;flex-direction:column;gap:28px}
+.grade2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.grade3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:820px){.grade2,.grade3{grid-template-columns:1fr}}
+
+.cartao{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:20px 22px;position:relative;overflow:hidden}
+.cartao.barra::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--orange)}
+.cartao h3{font-family:var(--f-body);font-weight:700;font-size:1.15rem;margin-bottom:6px;letter-spacing:0}
+.cartao p{color:var(--ink-2);font-size:1rem}
+
+/* ---------- capa ---------- */
+.capa{background:var(--cover);color:var(--cover-ink);position:relative;overflow:hidden;border-bottom:none;padding-block:84px 120px}
+.capa .wrap{position:relative;z-index:2}
+.capa .logo{background:var(--cover-ink);width:72px;height:64px;margin-bottom:28px}
+.capa h1{font-style:italic;text-transform:uppercase;font-size:clamp(2.6rem,7vw,5rem);max-width:12ch;letter-spacing:.01em}
+.capa .sub{margin-top:22px;font-weight:700;font-size:clamp(1.1rem,2.2vw,1.4rem);max-width:30ch}
+.capa .meta{margin-top:14px;display:flex;flex-direction:column;gap:2px;font-size:1.02rem;color:#E9DED2}
+.capa .meta b{color:var(--cover-ink)}
+.capa .tag{display:inline-block;margin-top:24px;background:var(--orange);color:#fff;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;padding:6px 12px;border-radius:999px}
+.forma{position:absolute;z-index:1;pointer-events:none}
+.f1{width:min(46vw,520px);aspect-ratio:1;border-radius:50%;background:var(--orange);right:-14vw;top:10%;clip-path:inset(0 0 0 0)}
+.f2{width:min(30vw,340px);aspect-ratio:1;border-radius:50%;background:var(--orange);right:min(22vw,250px);top:4%;clip-path:inset(0 50% 0 0)}
+.f3{width:min(34vw,300px);aspect-ratio:2/1;border-radius:300px 300px 0 0;background:var(--cover-cream);left:-40px;bottom:0}
+.f4{width:min(24vw,210px);aspect-ratio:2/1;border-radius:210px 210px 0 0;background:var(--orange);left:min(28vw,240px);bottom:0}
+.f5{width:min(16vw,150px);aspect-ratio:1;border:2px solid var(--cover-ink);border-radius:0 100% 0 0;border-left:2px solid var(--cover-ink);border-bottom:2px solid var(--cover-ink);left:min(48vw,450px);bottom:-2px;border-top-left-radius:0}
+@media (max-width:700px){.f1{right:-40vw;top:auto;bottom:18%;width:70vw}.f2{display:none}.f5{display:none}.capa{padding-block:56px 110px}}
+
+/* ---------- laboratório ---------- */
+.lab{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:24px 26px 22px 30px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:18px}
+.lab::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--orange)}
+.lab-cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.lab-cab .eyebrow{margin:0}
+.lab-cab h3{font-size:2.1rem;flex-basis:100%}
+.instrucao{color:var(--ink-2);max-width:72ch;font-size:1.08rem}
+.instrucao b{color:var(--ink)}
+.conta{border-top:1px dashed var(--line);padding-top:12px}
+.conta summary{cursor:pointer;font-weight:600;color:var(--muted);font-size:.95rem;list-style:none;display:inline-flex;align-items:center;gap:8px}
+.conta summary::-webkit-details-marker{display:none}
+.conta summary::before{content:"+";display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);font-size:.9rem;line-height:1}
+.conta[open] summary::before{content:"−"}
+.conta .corpo{margin-top:10px;background:var(--sunk);border-radius:10px;padding:12px 14px;font-size:.95rem;color:var(--ink-2)}
+.excel{background:var(--sunk);border-radius:12px;padding:14px 16px;font-size:.96rem;color:var(--ink-2)}
+.excel .chip-x{display:inline-block;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:4px}
+.excel ol{margin:6px 0 0;padding-left:20px}
+.excel li{margin-bottom:4px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:.4em .85em;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:500;font-size:1rem}
+.chip:hover{border-color:var(--orange)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.rotulo{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+
+.veredito{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-weight:700;font-size:.85rem}
+.v-ok{background:var(--good-soft);color:var(--good)}
+.v-cuidado{background:var(--warn-soft);color:var(--warn)}
+.v-nao,.v-impossivel{background:var(--bad-soft);color:var(--bad)}
+
+/* tabela */
+.tabela-wrap{overflow-x:auto;border:1.5px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:1rem;font-variant-numeric:tabular-nums}
+th{background:var(--orange);color:#fff;text-align:left;font-weight:600;padding:9px 12px;white-space:nowrap}
+td{padding:8px 12px;border-top:1px solid var(--line-soft);white-space:nowrap}
+tbody tr:nth-child(even) td{background:var(--sunk)}
+td.hi,th.hi{outline:2.5px solid var(--orange);outline-offset:-2.5px}
+td.col-hi{background:var(--orange-soft)!important}
+tr.divisor td{border-top:3px solid var(--ink)}
+tfoot td{font-weight:700;background:var(--surface)}
+
+/* DIKW */
+.dikw{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px;align-items:start}
+@media (max-width:820px){.dikw{grid-template-columns:1fr}}
+.escada{display:flex;flex-direction:column-reverse;gap:6px;align-items:center}
+.degrau{height:2.7rem;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--f-disp);font-weight:700;font-size:1.3rem;border:1.5px solid var(--line);background:var(--surface);color:var(--muted);transition:background .25s,color .25s;cursor:pointer}
+.degrau.feito{background:var(--orange-soft);color:var(--orange-ink);border-color:var(--orange-soft)}
+.degrau.agora{background:var(--orange);color:#fff;border-color:var(--orange)}
+.painel-dikw{display:flex;flex-direction:column;gap:12px}
+.frase-dikw{font-family:var(--f-disp);font-weight:700;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;min-height:2.3em}
+.viz-dikw{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:10px 12px}
+.muda{color:var(--ink-2)}
+.muda b{color:var(--orange-ink)}
+.passos{display:flex;gap:8px;flex-wrap:wrap}
+
+/* tipos */
+.arvore{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.arvore{grid-template-columns:1fr}}
+.ramo{border:1.5px solid var(--line);border-radius:var(--r);padding:16px 18px;background:var(--surface)}
+.ramo h3{font-size:1.5rem;margin-bottom:10px}
+.folhas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.folha{background:var(--sunk);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.folha b{display:block;font-size:1.1rem}
+.folha span{font-size:.95rem;color:var(--ink-2)}
+.folha svg{width:100%;max-width:300px}
+.escala-viz{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:12px 14px}
+.escala-viz svg{max-width:760px;margin:0 auto}
+.escala-viz svg text{font-size:15px}
+.escalas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:720px){.escalas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.escala{border:1.5px solid var(--line);border-radius:12px;padding:12px;background:var(--surface);cursor:pointer;text-align:left}
+.escala[aria-pressed="true"]{border-color:var(--orange);background:var(--orange-soft)}
+.escala b{font-family:var(--f-disp);font-size:1.3rem;display:block}
+.escala span{font-size:.88rem;color:var(--ink-2)}
+.ops{display:flex;flex-wrap:wrap;gap:8px}
+.op{padding:7px 12px;border-radius:999px;font-weight:600;font-size:.92rem;border:1.5px dashed var(--line);color:var(--muted)}
+.op.on{border-style:solid;border-color:var(--good);background:var(--good-soft);color:var(--good)}
+
+/* classificador */
+.colunas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.colunas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.colunas{grid-template-columns:1fr}}
+.col-card{border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--surface);display:flex;flex-direction:column;gap:8px}
+.col-card.certo{border-color:var(--good)}
+.col-card.errado{border-color:var(--warn)}
+.col-nome{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-weight:600;font-size:1rem}
+.amostra{font-size:.95rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.opcoes{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opcoes button{padding:.45em .6em;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-size:.95rem;font-weight:600}
+.r2-cab{display:flex;align-items:center;gap:12px}
+#rodada2{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1000px){#rodada2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){#rodada2{grid-template-columns:1fr}}
+.icone{width:2.6rem;height:2.6rem;flex:none;color:var(--orange-ink)}
+.icone svg{width:100%;height:100%}
+.icone svg *{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.opcoes button:hover{border-color:var(--orange)}
+.opcoes button.marcado{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.retorno{font-size:.95rem;line-height:1.45}
+.retorno.ok{color:var(--good)}
+.retorno.no{color:var(--warn)}
+.placar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.placar .grande{font-family:var(--f-disp);font-weight:700;font-size:2rem}
+
+/* calcular */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:22px}
+@media (max-width:860px){.calc{grid-template-columns:1fr}}
+.resultado{border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--paper);display:flex;flex-direction:column;gap:10px;min-width:0}
+.valor{font-family:var(--f-disp);font-weight:700;font-size:clamp(2.2rem,5vw,3.3rem);line-height:1;font-variant-numeric:tabular-nums;word-break:break-word}
+.msg{color:var(--ink-2)}
+svg{display:block;max-width:100%;height:auto}
+svg text{font-family:var(--f-body);fill:var(--ink-2);font-size:14px}
+svg .faixa-ok{fill:var(--good-soft)}
+svg .faixa-alerta{fill:var(--bad-soft)}
+svg .t-ok{fill:var(--good);font-weight:700}
+svg .t-alerta{fill:var(--bad);font-weight:700}
+svg .marcador{fill:var(--orange)}
+svg .t-marc{fill:#fff;font-weight:700}
+svg .t-grande{font-family:var(--f-disp);font-size:72px;font-weight:700;fill:var(--ink)}
+svg .t-disp{font-family:var(--f-disp);font-weight:700;fill:var(--ink)}
+svg .linha-media{stroke:var(--ink);stroke-width:2;stroke-dasharray:6 5}
+svg .barra.fraca{fill:var(--c3);opacity:.45}
+svg .contorno{fill:none;stroke:var(--ink-2);stroke-width:1.6}
+svg .liq{fill:var(--orange)}
+svg .chipf1{fill:var(--c1)} svg .chipf2{fill:var(--c4)} svg .chipf3{fill:var(--c3)}
+svg .t-branco{fill:#fff;font-weight:700}
+svg .regua{stroke:var(--ink-2);stroke-width:1.4}
+svg .t-forte{fill:var(--ink);font-weight:700}
+svg .barra{fill:var(--c3)}
+svg .barra.hi{fill:var(--orange)}
+svg .eixo{stroke:var(--line);stroke-width:1.2}
+svg .ponto{fill:var(--c3)}
+svg .m-media{stroke:var(--orange);stroke-width:2.5}
+svg .m-mediana{stroke:var(--ink);stroke-width:2;stroke-dasharray:5 4}
+svg .m-fraco{opacity:.45}
+svg .t-media{fill:var(--orange-ink);font-weight:700}
+svg .t-mediana{fill:var(--ink);font-weight:700}
+
+/* fontes */
+.fontes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.fontes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.fontes{grid-template-columns:1fr}}
+.fonte{border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--surface);display:flex;flex-direction:column;gap:4px}
+.fonte .icone{margin-bottom:6px}
+.fonte b{display:block;font-size:1.1rem;margin-bottom:2px}
+.fonte p{font-size:.98rem;color:var(--ink-2)}
+.fonte .risco{margin-top:6px;font-size:.94rem;color:var(--warn)}
+.quiz{display:flex;flex-direction:column;gap:14px}
+.q{border-top:1px solid var(--line-soft);padding-top:12px}
+.q p{font-weight:600;margin-bottom:8px}
+
+/* viés */
+.vies{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:860px){.vies{grid-template-columns:1fr}}
+.legenda{display:flex;flex-wrap:wrap;gap:12px;font-size:.88rem;color:var(--ink-2)}
+.legenda i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.medidor{display:flex;flex-direction:column;gap:8px}
+.medidor .linha{display:grid;grid-template-columns:120px minmax(0,1fr) 54px;align-items:center;gap:10px;font-size:.92rem}
+.medidor .trilho{height:16px;border-radius:8px;background:var(--sunk);position:relative;overflow:hidden}
+.medidor .enche{position:absolute;inset:0 auto 0 0;border-radius:8px;background:var(--orange);transition:width .45s}
+.medidor .enche.real{background:var(--ink)}
+@media (prefers-reduced-motion: reduce){.medidor .enche{transition:none}}
+
+/* regras */
+.regras{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.regras{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.regras{grid-template-columns:1fr}}
+.regra{border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--surface)}
+.regra .n{font-family:var(--f-disp);font-weight:700;color:var(--orange-ink);font-size:.95rem;letter-spacing:.06em;text-transform:uppercase}
+.regra b{display:block;font-size:1.05rem;margin:2px 0 6px}
+.regra p{font-size:.9rem;color:var(--ink-2)}
+.fluxos{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.fluxos{grid-template-columns:1fr}}
+.fluxo{border-radius:14px;padding:16px 18px;border:1.5px solid var(--line)}
+.fluxo.ruim{background:var(--bad-soft);border-color:transparent}
+.fluxo.bom{background:var(--good-soft);border-color:transparent}
+.fluxo h3{font-family:var(--f-body);font-size:1.02rem;margin-bottom:8px}
+.fluxo.ruim h3{color:var(--bad)} .fluxo.bom h3{color:var(--good)}
+.fluxo ol{margin:0;padding-left:20px;color:var(--ink-2)}
+
+/* decisão */
+.estat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.est{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--paper)}
+.est .k{font-size:.82rem;color:var(--muted);font-weight:600}
+.est .v{font-family:var(--f-disp);font-weight:700;font-size:1.7rem;font-variant-numeric:tabular-nums}
+.est .v small{font-family:var(--f-body);font-size:.85rem;font-weight:500;color:var(--muted)}
+details.resp{border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--surface)}
+details.resp summary{cursor:pointer;font-weight:600}
+details.resp p{margin-top:8px;color:var(--ink-2)}
+
+/* atividade */
+.form-ativ{display:flex;flex-direction:column;gap:14px}
+.linha-ativ{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line-soft)}
+@media (max-width:700px){.linha-ativ{grid-template-columns:1fr}}
+.linha-ativ select,.campo input,.campo textarea{width:100%;padding:8px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper)}
+.campo{display:flex;flex-direction:column;gap:6px}
+.campo label{font-weight:600}
+.campo textarea{min-height:84px;resize:vertical}
+.aviso{font-size:.9rem;color:var(--muted)}
+.copiado{font-weight:600;color:var(--good);font-size:.92rem}
+
+/* encerramento */
+.fecho{background:var(--cover);color:var(--cover-ink);border-bottom:none}
+.fecho .eyebrow{color:#FFB58A}
+.fecho h2{color:var(--cover-ink)}
+.fecho li{color:#E9DED2;margin-bottom:12px;font-size:1.2rem}
+.fecho li b{color:var(--cover-ink)}
+.fecho .prox{margin-top:26px;border-left:4px solid var(--orange);padding:6px 0 6px 16px;color:#E9DED2}
+.fecho .prox b{color:var(--cover-ink)}
+
+/* cronograma */
+.crono{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;counter-reset:e}
+@media (max-width:900px){.crono{grid-template-columns:1fr}}
+.crono li{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);font-size:.92rem;line-height:1.3}
+.crono li b{display:block;font-family:var(--f-disp);font-size:1.1rem;color:var(--muted)}
+.crono li.hoje{background:var(--orange);border-color:var(--orange);color:#fff}
+.crono li.hoje b{color:#fff}
+.pesos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;text-align:center}
+@media (max-width:620px){.pesos{grid-template-columns:1fr}}
+.pesos .p{font-family:var(--f-disp);font-weight:700;font-size:2.6rem;line-height:1}
+.pesos b{display:block;margin-top:4px}
+.pesos span{font-size:.9rem;color:var(--ink-2)}
+.ciclo{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ciclo .passo{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px}
+.ciclo .passo b{display:block}
+.ciclo .passo span{font-size:.9rem;color:var(--ink-2)}
+.ciclo .seta{color:var(--orange-ink);font-weight:700;font-size:1.3rem}
+
+/* ---------- modo aula ---------- */
+.controles{display:none}
+body.aula .cena{display:none}
+body.aula .cena.atual{display:block;min-height:calc(100vh - 62px);padding-block:48px 120px;position:relative;border-bottom:none}
+body.aula .cena.atual::after{content:"";position:absolute;left:0;bottom:0;width:92%;height:16px;background:var(--orange);border-radius:0 14px 0 0}
+body.aula .cena.capa.atual::after,body.aula .cena.fecho.atual::after{display:none}
+body.aula .wrap{max-width:min(1560px,94vw)}
+@media (min-width:1200px){body.aula #colunas{grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}}
+body.aula .controles{display:flex;position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(28px + env(safe-area-inset-bottom,0px));z-index:25;gap:8px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:6px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.controles .cont{font-weight:600;font-size:.9rem;min-width:56px;text-align:center}
+
+/* ---------- componentes das aulas 2 a 7 ---------- */
+input[type=range]{accent-color:var(--orange);width:100%}
+.criterios{display:flex;flex-wrap:wrap;gap:8px}
+.crit{padding:.35em .8em;border-radius:999px;font-weight:600;font-size:.95rem;border:1.5px dashed var(--line);color:var(--muted)}
+.crit.on{border-style:solid;border-color:var(--good);background:var(--good-soft);color:var(--good)}
+.pergunta-viva{font-family:var(--f-disp);font-weight:700;font-size:clamp(1.7rem,3.3vw,2.4rem);line-height:1.15;min-height:2.4em}
+.cadeia{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+@media (max-width:900px){.cadeia{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.cadeia{grid-template-columns:1fr}}
+.elo{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface);position:relative;display:flex;flex-direction:column;gap:8px;min-width:0}
+.elo.ok{border-color:var(--good)}
+.elo:not(:last-child)::after{content:"→";position:absolute;right:-22px;top:50%;transform:translateY(-50%);color:var(--orange-ink);font-weight:700;font-size:1.3rem}
+@media (max-width:900px){.elo::after{display:none}}
+.elo .t{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink)}
+.elo .dado{font-weight:600}
+.opc{display:flex;flex-direction:column;gap:6px}
+.opc button{text-align:left;padding:.5em .7em;border-radius:9px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-size:.95rem;line-height:1.35}
+.opc button:hover{border-color:var(--orange)}
+.opc button.certa{border-color:var(--good);background:var(--good-soft);color:var(--good);font-weight:600}
+.opc button.errada{border-color:var(--warn);background:var(--warn-soft)}
+.lista-ordem{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.lista-ordem li{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
+.lista-ordem li .n{font-family:var(--f-disp);font-weight:700;color:var(--orange-ink);width:1.6em}
+.lista-ordem li .txt{flex:1}
+.mini-btn{border:1.5px solid var(--line);background:var(--surface);border-radius:8px;cursor:pointer;width:2.1em;height:2.1em;font-weight:700}
+.mini-btn:hover{border-color:var(--orange)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag-v{display:inline-flex;align-items:center;gap:6px;padding:.3em .7em;border-radius:999px;background:var(--orange-soft);color:var(--orange-ink);font-weight:600;font-size:.95rem}
+.tag-v button{border:none;background:none;color:inherit;cursor:pointer;font-weight:700;font-size:1rem;line-height:1}
+.dois{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.dois.largo{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+@media (max-width:860px){.dois,.dois.largo{grid-template-columns:1fr}}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.compara{grid-template-columns:1fr}}
+.ruim-bom{border-radius:14px;padding:16px 18px}
+.ruim-bom.r{background:var(--bad-soft)} .ruim-bom.b{background:var(--good-soft)}
+.ruim-bom h3{font-family:var(--f-body);font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
+.ruim-bom.r h3{color:var(--bad)} .ruim-bom.b h3{color:var(--good)}
+.ruim-bom .q{font-family:var(--f-disp);font-weight:700;font-size:1.7rem;line-height:1.15;margin:6px 0 10px}
+.ruim-bom ul{margin:0;padding-left:20px;color:var(--ink-2)}
+.slider-box{display:flex;flex-direction:column;gap:6px}
+.slider-rotulos{display:flex;justify-content:space-between;font-size:.9rem;color:var(--muted);gap:8px}
+.slider-rotulos b{color:var(--ink)}
+.check{display:flex;flex-direction:column;gap:8px}
+.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{accent-color:var(--orange);width:1.15em;height:1.15em;margin-top:.25em;flex:none}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px}
+.kpi{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--paper);min-width:0}
+.kpi .k{font-size:.85rem;color:var(--muted);font-weight:600}
+.kpi .v{font-family:var(--f-disp);font-weight:700;font-size:1.8rem;font-variant-numeric:tabular-nums;line-height:1.1;word-break:break-word}
+.kpi .s{font-size:.88rem;color:var(--ink-2)}
+.kpi.alerta{border-color:var(--warn);background:var(--warn-soft)}
+.kpi.bom{border-color:var(--good);background:var(--good-soft)}
+.kpi.ruim{border-color:var(--bad);background:var(--bad-soft)}
+.grade4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.grade4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.grade4{grid-template-columns:1fr}}
+.nota-lab{font-size:.94rem;color:var(--muted)}
+.painel{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--paper);display:flex;flex-direction:column;gap:10px;min-width:0}
+.linha-ctl{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+.linha-ctl .campo{min-width:200px;flex:1}
+.campo select{width:100%;padding:8px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper)}
+.tabela-wrap.alta{max-height:420px;overflow:auto}
+.tabela-wrap.alta thead th{position:sticky;top:0;z-index:1}
+td.vazio{background:var(--warn-soft)!important;color:var(--warn);font-style:italic}
+td.prob{background:var(--bad-soft)!important;color:var(--bad);font-weight:600}
+td.corrig{background:var(--good-soft)!important;color:var(--good);font-weight:600}
+tr.dup td{background:var(--orange-soft)!important}
+.legenda-sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.log{counter-reset:l;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.log li{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface);font-size:.95rem}
+.log li b{display:block}
+.log .vazio-log{color:var(--muted);font-style:italic}
+.timeline{display:flex;flex-direction:column;gap:10px}
+.etapa-pi{display:grid;grid-template-columns:5.5rem minmax(0,1fr);gap:14px;align-items:start;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface)}
+.etapa-pi .e{font-family:var(--f-disp);font-weight:700;font-size:1.3rem;color:var(--orange-ink);line-height:1.1}
+.etapa-pi.agora{border-color:var(--orange);background:var(--orange-soft)}
+.contador{font-size:.88rem;color:var(--muted)}
+.contador.estourou{color:var(--bad);font-weight:600}
+svg .caixa{fill:var(--orange);fill-opacity:.18;stroke:var(--orange);stroke-width:2}
+svg .m-mediana-box{stroke:var(--ink);stroke-width:3}
+svg .p1{fill:var(--c1)} svg .p2{fill:var(--c2)} svg .p3{fill:var(--c3)} svg .p4{fill:var(--c4)}
+svg .alvo{fill:none;stroke:var(--orange);stroke-width:2.5}
+svg .linha-serie{fill:none;stroke:var(--orange);stroke-width:3}
+svg .area-serie{fill:var(--orange);fill-opacity:.12}
+svg .seta{stroke:var(--orange);stroke-width:3;fill:none}
+svg .anel{fill:none;stroke:var(--line);stroke-width:2}
+svg .no{fill:var(--surface);stroke:var(--line);stroke-width:2}
+svg .no.on{fill:var(--orange);stroke:var(--orange)}
+svg .no.alvo-no{stroke:var(--orange);stroke-width:3}
+svg .t-no{font-weight:700;fill:var(--ink)}
+svg .t-no.on{fill:#fff}
+svg .vazio-cel{fill:var(--warn)}
+svg .cheio-cel{fill:var(--line-soft)}
+svg .t-peq{font-size:12px}
+
+.grade5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+@media (max-width:1000px){.grade5{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.grade5{grid-template-columns:1fr}}
+
+.lab svg{max-width:min(100%,900px);margin-inline:auto}
+
+.hero-lab{background:var(--cover);color:var(--cover-ink);padding-block:34px}
+.hero-lab .wrap{display:flex;gap:22px;align-items:center}
+.hero-lab .logo{background:var(--cover-ink);width:64px;height:58px;flex:none}
+.hero-lab h1{font-style:italic;text-transform:uppercase;font-size:clamp(2.1rem,5vw,3.6rem);color:var(--cover-ink)}
+.sub-lab{color:#E9DED2;max-width:72ch;margin-top:6px;font-size:1.08rem}
+@media (max-width:560px){.hero-lab .wrap{flex-direction:column;align-items:flex-start}}
+.abas-lab{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1.5px solid var(--line)}
+.abas-lab .wrap{display:flex;flex-wrap:wrap;gap:6px;padding-block:10px}
+@media (max-width:820px){.abas-lab .wrap{flex-wrap:nowrap;overflow-x:auto}}
+.aba-btn{flex:none;padding:.5em .9em;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:600;font-size:.95rem;white-space:nowrap}
+.aba-btn:hover:not(:disabled){border-color:var(--orange)}
+.aba-btn[aria-selected="true"]{background:var(--orange);border-color:var(--orange);color:#fff}
+.aba-btn .n{font-family:var(--f-disp);font-weight:700;margin-right:5px}
+.aba-btn:disabled{opacity:.45;cursor:not-allowed}
+.lab-main{padding-block:32px 90px}
+.painel-aba h2{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:10px}
+.hip-card{border:1.5px solid var(--line);border-radius:14px;padding:16px;background:var(--surface);display:flex;flex-direction:column;gap:10px;position:relative}
+.hip-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;border-radius:14px 0 0 14px;background:var(--orange)}
+.evid{background:var(--sunk);border-radius:10px;padding:10px 12px;font-size:.95rem;color:var(--ink-2)}
+.campo input,.campo textarea{width:100%;padding:8px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper)}
+.log-item{display:flex;flex-direction:column;gap:8px}
+.log-item .campos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:700px){.log-item .campos{grid-template-columns:1fr}}
+.log-item .topo-log{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.exp-card{border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--surface);display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.exp-card .alvo{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-weight:600;color:var(--orange-ink);font-size:.92rem}
+.exp-card p{font-size:.95rem;color:var(--ink-2)}
+.grupo-var{font-size:.95rem;color:var(--ink-2);margin:4px 0}
+.linha-acao{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;border-top:1px solid var(--line-soft);padding-top:10px;margin-top:6px}
+.linha-acao:first-child{border-top:none;margin-top:0;padding-top:0}
+.vazio-msg{color:var(--muted);font-style:italic}
+td select,td input{padding:6px 8px;border-radius:8px;border:1.5px solid var(--line);background:var(--paper)}
+.lab-main svg{display:block;max-width:min(100%,900px);height:auto;margin-inline:auto}
+.lab-main .kpis{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.linha-acao>div{flex:1 1 360px;min-width:0}
+.linha-acao select,.linha-ctl select,.linha-ctl input,.painel .campo select,.painel .campo input{padding:7px 9px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font:inherit}
+.arq-oculto{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.arq-btn{margin-top:10px;display:inline-block}
+.arq-oculto:focus-visible+.arq-btn{outline:3px solid var(--orange);outline-offset:2px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+</style>
+</head>
+<body>
+
+<section class="hero-lab">
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="CESAR School"></span>
+    <div>
+      <p class="eyebrow" style="color:#FFB58A">Fundamentos de Análise de Dados · Turma A · Projeto Integrador</p>
+      <h1>Laboratório do Projeto</h1>
+      <p class="sub-lab">Carregue a base do seu grupo. A ferramenta faz as contas; o grupo decide e justifica. No fim, copie cada resultado para a aba certa do Excel.</p>
+    </div>
+  </div>
+</section>
+
+<nav class="abas-lab" aria-label="Etapas">
+  <div class="wrap" id="abas" role="tablist"></div>
+</nav>
+
+<main class="wrap lab-main">
+
+<section class="painel-aba" id="p-carregar" role="tabpanel">
+  <div class="pilha">
+    <div><p class="eyebrow">Etapa 1</p><h2>Carregar a base</h2><p class="lede">Use o arquivo que o grupo recebeu (.xlsx ou .csv), cole direto do Excel ou comece pela base de exemplo para conhecer a ferramenta. Nada sai do seu computador: tudo fica neste navegador.</p></div>
+    <div class="grade3">
+      <div class="cartao barra"><h3>Arquivo do grupo</h3><p>Excel (.xlsx) ou CSV. No Excel, a ferramenta procura a aba 1_Base_Bruta e, se existir, a aba de hipóteses.</p><input type="file" id="arq" accept=".csv,.xlsx,.xls,.txt" class="arq-oculto"><label for="arq" class="btn prim arq-btn">Escolher arquivo</label></div>
+      <div class="cartao barra"><h3>Colar do Excel</h3><p>Selecione a tabela no Excel com o cabeçalho, copie (Ctrl+C) e cole aqui.</p><textarea id="colar" style="width:100%;min-height:90px;margin-top:8px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper);padding:8px" placeholder="Cole aqui"></textarea><button class="btn" id="usarColado" style="margin-top:6px">Usar o que colei</button></div>
+      <div class="cartao barra"><h3>Base de exemplo</h3><p>Atrasos de entrega num app de delivery: 72 linhas e 5 hipóteses, no mesmo formato das bases dos grupos.</p><button class="btn prim" id="usarExemplo" style="margin-top:10px">Usar a base de exemplo</button></div>
+    </div>
+    <div id="abaEscolha" hidden class="campo" style="max-width:420px"><label for="selAba">Aba do Excel com os dados</label><select id="selAba"></select></div>
+    <p class="msg" id="msgCarga" aria-live="polite"></p>
+    <div id="tiposBox" hidden class="pilha" style="gap:12px">
+      <div><p class="rotulo">Confira o tipo de cada coluna</p><p class="nota-lab">A ferramenta adivinhou. Corrija se precisar: um CEP ou um código é Identificador, não Número.</p></div>
+      <div class="tabela-wrap"><table id="tabTipos"></table></div>
+      <div><p class="rotulo">Primeiras linhas</p><div class="tabela-wrap"><table id="tabPrevia"></table></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="painel-aba" id="p-raiox" role="tabpanel" hidden>
+  <div class="pilha">
+    <div><p class="eyebrow">Etapa 2 · aba 0_Documentação</p><h2>Raio-X da base</h2></div>
+    <div class="kpis" id="rxK"></div>
+    <div class="painel"><p class="rotulo">Mapa da base · cada faixa é uma coluna, cada risco é uma linha</p><div id="rxMapa"></div><div class="legenda"><span><i class="legenda-sw" style="background:var(--warn)"></i>Vazio</span><span><i class="legenda-sw" style="background:var(--bad)"></i>Com problema</span></div></div>
+    <div class="tabela-wrap"><table id="rxTab"></table></div>
+    <div class="passos"><button class="btn" id="cpRaiox">Copiar diagnóstico</button><span class="copiado" id="okRaiox" hidden>Copiado.</span></div>
+  </div>
+</section>
+
+<section class="painel-aba" id="p-limpeza" role="tabpanel" hidden>
+  <div class="pilha">
+    <div><p class="eyebrow">Etapa 3 · aba 2_Base_Limpa</p><h2>Limpeza</h2><p class="lede">Cada botão aplica uma decisão e registra no log. Para cada uma, o grupo escreve por que fez e qual seria o risco de não fazer. Desfazer volta a decisão.</p></div>
+    <div class="kpis" id="lpK"></div>
+    <div class="painel"><p class="rotulo">Duplicatas</p><div class="linha-ctl" id="lpDup"></div></div>
+    <div class="painel"><p class="rotulo">Vazios</p><div class="tabela-wrap"><table id="lpAus"></table></div></div>
+    <div class="painel"><p class="rotulo">Texto com grafias diferentes</p><div id="lpTxt"></div></div>
+    <div class="painel"><p class="rotulo">Números guardados como texto</p><div id="lpConv"></div></div>
+    <div class="painel"><p class="rotulo">Valores impossíveis</p><p class="nota-lab">Idade negativa, nota fora da escala, renda abaixo de zero. Diga qual é o menor e o maior valor possível.</p><div class="linha-ctl"><div class="campo"><label for="ivCol">Coluna</label><select id="ivCol"></select></div><div class="campo"><label for="ivMin">Menor possível</label><input id="ivMin" type="number" step="any"></div><div class="campo"><label for="ivMax">Maior possível</label><input id="ivMax" type="number" step="any"></div><div class="campo"><label for="ivEst">O que fazer</label><select id="ivEst"><option value="vazio">Deixar vazio</option><option value="remover">Remover a linha</option></select></div></div><p class="msg" id="ivPrev"></p><button class="btn prim" id="ivAp">Aplicar</button></div>
+    <div class="painel"><p class="rotulo">Datas que não fecham</p><div id="lpDatas"></div></div>
+    <div class="painel"><p class="rotulo">Log de limpeza</p><ol class="log" id="lpLog"></ol></div>
+  </div>
+</section>
+
+<section class="painel-aba" id="p-prep" role="tabpanel" hidden>
+  <div class="pilha">
+    <div><p class="eyebrow">Etapa 4 · aba 3_Preparação</p><h2>Novas colunas</h2><p class="lede">Crie pelo menos três colunas derivadas. Para cada uma, diga que pergunta ou hipótese ela ajuda a responder.</p></div>
+    <div class="grade3">
+      <div class="painel"><p class="rotulo">Faixas a partir de um número</p><div class="campo"><label for="fxCol">Coluna</label><select id="fxCol"></select></div><div class="grade2"><div class="campo"><label for="fxA">Fim da faixa Baixo</label><input id="fxA" type="number" step="any"></div><div class="campo"><label for="fxB">Fim da faixa Médio</label><input id="fxB" type="number" step="any"></div></div><p class="nota-lab" id="fxPrev"></p><button class="btn prim" id="fxCriar">Criar coluna</button></div>
+      <div class="painel"><p class="rotulo">Parte de uma data</p><div class="campo"><label for="pdCol">Coluna de data</label><select id="pdCol"></select></div><div class="campo"><label for="pdParte">Parte</label><select id="pdParte"><option value="mes">Mês (AAAA-MM)</option><option value="ano">Ano</option><option value="dia">Dia da semana</option><option value="tri">Trimestre</option></select></div><button class="btn prim" id="pdCriar">Criar coluna</button></div>
+      <div class="painel"><p class="rotulo">Dias entre duas datas</p><div class="campo"><label for="ddA">Data inicial</label><select id="ddA"></select></div><div class="campo"><label for="ddB">Data final</label><select id="ddB"></select></div><p class="nota-lab" id="ddNota"></p><button class="btn prim" id="ddCriar">Criar coluna</button></div>
+    </div>
+    <div class="painel"><p class="rotulo">Colunas derivadas criadas</p><div id="pdLista"></div></div>
+  </div>
+</section>
+
+<section class="painel-aba" id="p-outliers" role="tabpanel" hidden>
+  <div class="pilha">
+    <div><p class="eyebrow">Etapa 5 · aba 4_Outliers_e_Correlação</p><h2>Outliers com contexto</h2><p class="lede">Escolha uma coluna numérica. A ferramenta marca o que passa da cerca. Decida em termos de negócio, não só estatísticos.</p></div>
+    <div class="linha-ctl"><div class="campo"><label for="otCol">Coluna</label><select id="otCol"></select></div><div class="campo"><label for="otF">Cerca</label><select id="otF"><option value="1.5">Padrão (1,5)</option><option value="3">Larga (3)</option><option value="1">Apertada (1)</option></select></div><div class="check" style="align-self:end;padding-bottom:8px"><label><input type="checkbox" id="otZoom"> Aproximar da caixa</label></div></div>
+    <div class="painel"><div id="otViz"></div><p class="nota-lab" id="otNota"></p></div>
+    <div class="tabela-wrap alta"><table id="otTab"></table></div>
+    <div class="painel">
+      <div class="grade3"><div class="campo"><label for="otRep">Eles representam</label><select id="otRep"><option value="">Escolha</option><option>Erro de dado</option><option>Comportamento extremo real</option><option>Ambos</option></select></div><div class="campo"><label for="otDec">O grupo decidiu</label><select id="otDec"><option value="">Escolha</option><option>Manter</option><option>Remover</option><option>Manter parcialmente</option></select></div><div class="campo"><label for="otJus">Justificativa de negócio</label><input id="otJus" type="text"></div></div>
+      <div class="passos"><button class="btn prim" id="otReg">Registrar decisão</button><span class="copiado" id="otOk" hidden>Registrado.</span></div>
+      <p class="nota-lab">Se o grupo escolher “Remover”, as linhas saem da base preparada.</p>
+    </div>
+    <div class="painel"><p class="rotulo">Decisões registradas</p><div id="otLista"></div></div>
+  </div>
+</section>
+
+<section class="painel-aba" id="p-grupos" role="tabpanel" hidden>
+  <div class="pilha">
+    <div><p class="eyebrow">Etapa 6 · comparação de médias e análise por grupos</p><h2>Comparar grupos</h2></div>
+    <div class="linha-ctl"><div class="campo"><label for="grN">Medir</label><select id="grN"></select></div><div class="campo"><label for="grC">Separar por</label><select id="grC"></select></div></div>
+    <div class="painel"><div id="grViz"></div></div>
+    <div class="dois largo"><div class="tabela-wrap"><table id="grTab"></table></div><div class="painel"><p class="rotulo">Leitura</p><p class="msg" id="grMsg"></p><div class="campo"><label for="grHip">Usar como evidência da hipótese</label><select id="grHip"></select></div><button class="btn prim" id="grAnexar">Anexar evidência</button><span class="copiado" id="grOk" hidden>Anexado.</span></div></div>
+  </div>
+</section>
+
+<section class="painel-aba" id="p-relacoes" role="tabpanel" hidden>
+  <div class="pilha">
+    <div><p class="eyebrow">Etapa 7 · correlação</p><h2>Relação entre variáveis</h2></div>
+    <div class="linha-ctl"><div class="campo"><label for="rlX">Eixo horizontal</label><select id="rlX"></select></div><div class="campo"><label for="rlY">Eixo vertical</label><select id="rlY"></select></div><div class="campo"><label for="rlC">Colorir por</label><select id="rlC"></select></div></div>
+    <div class="dois largo"><div class="painel"><div id="rlViz"></div><div class="legenda" id="rlLeg"></div></div><div class="painel"><p class="rotulo">A ferramenta calculou</p><p class="valor" id="rlR" style="font-size:2.4rem"></p><p class="msg" id="rlMsg"></p><div class="campo"><label for="rlHip">Usar como evidência da hipótese</label><select id="rlHip"></select></div><button class="btn prim" id="rlAnexar">Anexar evidência</button><span class="copiado" id="rlOk" hidden>Anexado.</span></div></div>
+  </div>
+</section>
+
+<section class="painel-aba" id="p-hip" role="tabpanel" hidden>
+  <div class="pilha">
+    <div><p class="eyebrow">Etapa 8 · abas 4 e 5</p><h2>Quadro de hipóteses</h2><p class="lede">Para cada hipótese: que variáveis foram usadas, que análise, o resultado e o veredito. Se for inconclusivo, explique por quê. O foco não é acertar a hipótese, e sim argumentar bem.</p></div>
+    <div class="pilha" style="gap:14px" id="hipLista"></div>
+    <div class="passos"><button class="btn" id="hipNova">Adicionar hipótese</button></div>
+  </div>
+</section>
+
+<section class="painel-aba" id="p-exportar" role="tabpanel" hidden>
+  <div class="pilha">
+    <div><p class="eyebrow">Etapa 9</p><h2>Levar para o Excel</h2><p class="lede">Cada botão copia um bloco. No Excel, abra a aba indicada, clique na célula A1 (ou no lugar indicado) e cole com Ctrl+V. Datas saem no formato dd/mm/aaaa e números com vírgula.</p></div>
+    <div class="grade3" id="expBotoes"></div>
+    <span class="copiado" id="expOk" hidden>Copiado. Cole na aba indicada.</span>
+    <textarea id="expFallback" hidden aria-label="Conteúdo para copiar" style="min-height:140px"></textarea>
+    <div class="painel"><p class="rotulo">Começar de novo</p><p class="nota-lab">Apaga a base e todas as decisões deste navegador.</p><div class="passos"><button class="btn" id="zerar">Apagar tudo</button><button class="btn" id="zerarSim" hidden style="border-color:var(--bad);color:var(--bad)">Confirmar: apagar tudo</button></div></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const D = {"exemplo":{"suja":[{"pedido_id":"D501","data_pedido":"2026-04-19","bairro":"Torre","distancia_km":3.2,"chuva":"Sim","experiencia_entregador_meses":26,"canal":"Telefone","tempo_entrega_min":39,"nota_cliente":4,"valor_pedido":84.69,"forma_pagamento":"Pix","cupom":null},{"pedido_id":"D502","data_pedido":"2026-04-21","bairro":"Imbiribeira","distancia_km":1.7,"chuva":"Não","experiencia_entregador_meses":16,"canal":"Telefone","tempo_entrega_min":24,"nota_cliente":5,"valor_pedido":96.7,"forma_pagamento":"Cartão","cupom":"FRETE0"},{"pedido_id":"D503","data_pedido":"2026-04-30","bairro":"Casa Forte","distancia_km":1.1,"chuva":"Não","experiencia_entregador_meses":8,"canal":"Telefone","tempo_entrega_min":14,"nota_cliente":5,"valor_pedido":52.8,"forma_pagamento":"Pix","cupom":"PRIMEIRA"},{"pedido_id":"D504","data_pedido":"2026-03-31","bairro":"Casa Forte","distancia_km":2.9,"chuva":"Não","experiencia_entregador_meses":23,"canal":"Telefone","tempo_entrega_min":31,"nota_cliente":5,"valor_pedido":50.08,"forma_pagamento":"cartao","cupom":"FRETE0"},{"pedido_id":"D505","data_pedido":"2026-04-30","bairro":"Imbiribeira","distancia_km":4.6,"chuva":"Não","experiencia_entregador_meses":25,"canal":"App","tempo_entrega_min":17,"nota_cliente":5,"valor_pedido":36.76,"forma_pagamento":"cartão","cupom":null},{"pedido_id":"D506","data_pedido":"2026-03-13","bairro":"Imbiribeira","distancia_km":5.8,"chuva":"Sim","experiencia_entregador_meses":6,"canal":"App","tempo_entrega_min":43,"nota_cliente":3,"valor_pedido":51.79,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D507","data_pedido":"2026-03-25","bairro":"Madalena","distancia_km":3.9,"chuva":"Sim","experiencia_entregador_meses":27,"canal":"Telefone","tempo_entrega_min":40,"nota_cliente":5,"valor_pedido":75.54,"forma_pagamento":"Pix","cupom":"PRIMEIRA"},{"pedido_id":"D508","data_pedido":"2026-03-01","bairro":"Madalena","distancia_km":4.6,"chuva":"Sim","experiencia_entregador_meses":18,"canal":"App","tempo_entrega_min":42,"nota_cliente":5,"valor_pedido":null,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D509","data_pedido":"2026-04-02","bairro":"Espinheiro","distancia_km":5.1,"chuva":"Não","experiencia_entregador_meses":1,"canal":"App","tempo_entrega_min":35,"nota_cliente":5,"valor_pedido":28.86,"forma_pagamento":"Cartão","cupom":null},{"pedido_id":"D510","data_pedido":"2026-03-29","bairro":"Espinheiro","distancia_km":7.3,"chuva":"Não","experiencia_entregador_meses":34,"canal":"App","tempo_entrega_min":50,"nota_cliente":4,"valor_pedido":110.99,"forma_pagamento":"Dinheiro","cupom":"PRIMEIRA"},{"pedido_id":"D511","data_pedido":"2026-03-10","bairro":"BOA VIAGEM","distancia_km":2.4,"chuva":"Sim","experiencia_entregador_meses":35,"canal":"Telefone","tempo_entrega_min":31,"nota_cliente":4,"valor_pedido":67.45,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D512","data_pedido":"2026-04-11","bairro":"Graças","distancia_km":6.6,"chuva":"Não","experiencia_entregador_meses":12,"canal":"Telefone","tempo_entrega_min":37,"nota_cliente":4,"valor_pedido":102.8,"forma_pagamento":"Cartão","cupom":null},{"pedido_id":"D513","data_pedido":"2026-04-07","bairro":"Madalena","distancia_km":9.2,"chuva":"Sim","experiencia_entregador_meses":7,"canal":"Telefone","tempo_entrega_min":58,"nota_cliente":4,"valor_pedido":74.23,"forma_pagamento":"Pix","cupom":null},{"pedido_id":"D514","data_pedido":"2026-03-14","bairro":"Boa Viagem","distancia_km":2.8,"chuva":"Não","experiencia_entregador_meses":27,"canal":"App","tempo_entrega_min":17,"nota_cliente":5,"valor_pedido":46.7,"forma_pagamento":"Pix","cupom":null},{"pedido_id":"D515","data_pedido":"2026-03-01","bairro":"Espinheiro","distancia_km":8.4,"chuva":"Sim","experiencia_entregador_meses":29,"canal":"Telefone","tempo_entrega_min":55,"nota_cliente":5,"valor_pedido":53.45,"forma_pagamento":"Dinheiro","cupom":"PRIMEIRA"},{"pedido_id":"D516","data_pedido":"2026-04-23","bairro":"boa viagem","distancia_km":4.5,"chuva":"Não","experiencia_entregador_meses":14,"canal":"App","tempo_entrega_min":31,"nota_cliente":4,"valor_pedido":39.53,"forma_pagamento":"Cartão","cupom":null},{"pedido_id":"D517","data_pedido":"2026-04-03","bairro":"Madalena","distancia_km":3.7,"chuva":"Não","experiencia_entregador_meses":19,"canal":"App","tempo_entrega_min":36,"nota_cliente":4,"valor_pedido":54.92,"forma_pagamento":"Dinheiro","cupom":"PRIMEIRA"},{"pedido_id":"D518","data_pedido":"2026-04-13","bairro":"Graças","distancia_km":3.4,"chuva":"Não","experiencia_entregador_meses":30,"canal":"App","tempo_entrega_min":23,"nota_cliente":4,"valor_pedido":47.9,"forma_pagamento":"Cartão","cupom":null},{"pedido_id":"D519","data_pedido":"2026-04-08","bairro":"Boa Viagem ","distancia_km":4.0,"chuva":"Sim","experiencia_entregador_meses":5,"canal":"App","tempo_entrega_min":48,"nota_cliente":4,"valor_pedido":91.21,"forma_pagamento":"Cartão","cupom":"FRETE0"},{"pedido_id":"D520","data_pedido":"2026-03-08","bairro":"madalena","distancia_km":9.3,"chuva":"Não","experiencia_entregador_meses":39,"canal":"App","tempo_entrega_min":52,"nota_cliente":4,"valor_pedido":82.02,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D521","data_pedido":"2026-04-29","bairro":"Madalena","distancia_km":5.5,"chuva":"Não","experiencia_entregador_meses":31,"canal":"App","tempo_entrega_min":24,"nota_cliente":5,"valor_pedido":79.23,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D522","data_pedido":"2026-04-10","bairro":"Madalena","distancia_km":7.9,"chuva":"Não","experiencia_entregador_meses":45,"canal":"App","tempo_entrega_min":39,"nota_cliente":5,"valor_pedido":104.23,"forma_pagamento":"Pix","cupom":null},{"pedido_id":"D523","data_pedido":"2026-04-04","bairro":"Imbiribeira","distancia_km":6.3,"chuva":"Não","experiencia_entregador_meses":24,"canal":"App","tempo_entrega_min":39,"nota_cliente":3,"valor_pedido":54.55,"forma_pagamento":"Pix","cupom":null},{"pedido_id":"D524","data_pedido":"2026-03-31","bairro":"Imbiribeira","distancia_km":5.1,"chuva":"Não","experiencia_entregador_meses":1,"canal":"App","tempo_entrega_min":35,"nota_cliente":5,"valor_pedido":67.98,"forma_pagamento":"Pix","cupom":"PRIMEIRA"},{"pedido_id":"D525","data_pedido":"2026-04-24","bairro":"Graças","distancia_km":0.9,"chuva":"Não","experiencia_entregador_meses":39,"canal":"App","tempo_entrega_min":24,"nota_cliente":5,"valor_pedido":70.48,"forma_pagamento":"Pix","cupom":null},{"pedido_id":"D526","data_pedido":"2026-04-13","bairro":"Casa Forte","distancia_km":1.5,"chuva":"Sim","experiencia_entregador_meses":8,"canal":"App","tempo_entrega_min":31,"nota_cliente":4,"valor_pedido":34.94,"forma_pagamento":"Cartão","cupom":"FRETE0"},{"pedido_id":"D527","data_pedido":"2026-04-03","bairro":"Graças","distancia_km":8.4,"chuva":"Sim","experiencia_entregador_meses":16,"canal":"App","tempo_entrega_min":59,"nota_cliente":3,"valor_pedido":76.94,"forma_pagamento":"Cartão","cupom":null},{"pedido_id":"D528","data_pedido":"2026-04-20","bairro":"Boa Viagem","distancia_km":4.6,"chuva":"Não","experiencia_entregador_meses":33,"canal":"Telefone","tempo_entrega_min":32,"nota_cliente":4,"valor_pedido":null,"forma_pagamento":"Pix","cupom":"FRETE0"},{"pedido_id":"D529","data_pedido":"2026-04-21","bairro":"Espinheiro","distancia_km":8.2,"chuva":"Não","experiencia_entregador_meses":27,"canal":"App","tempo_entrega_min":49,"nota_cliente":3,"valor_pedido":130.53,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D530","data_pedido":"2026-03-30","bairro":"Torre","distancia_km":2.8,"chuva":"Sim","experiencia_entregador_meses":11,"canal":"Telefone","tempo_entrega_min":35,"nota_cliente":4,"valor_pedido":94.94,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D531","data_pedido":"2026-03-09","bairro":"Boa Viagem","distancia_km":8.2,"chuva":"Não","experiencia_entregador_meses":40,"canal":"Telefone","tempo_entrega_min":38,"nota_cliente":4,"valor_pedido":50.89,"forma_pagamento":"Pix","cupom":"PRIMEIRA"},{"pedido_id":"D532","data_pedido":"2026-04-09","bairro":"Casa Forte","distancia_km":3.0,"chuva":"Não","experiencia_entregador_meses":8,"canal":"App","tempo_entrega_min":29,"nota_cliente":5,"valor_pedido":48.18,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D533","data_pedido":"2026-03-27","bairro":"Torre","distancia_km":3.4,"chuva":"Sim","experiencia_entregador_meses":39,"canal":"Telefone","tempo_entrega_min":31,"nota_cliente":5,"valor_pedido":84.02,"forma_pagamento":"PIX","cupom":null},{"pedido_id":"D534","data_pedido":"2026-03-22","bairro":"Boa Viagem","distancia_km":7.1,"chuva":"Não","experiencia_entregador_meses":38,"canal":"Telefone","tempo_entrega_min":36,"nota_cliente":4,"valor_pedido":55.53,"forma_pagamento":"Pix","cupom":null},{"pedido_id":"D535","data_pedido":"2026-03-19","bairro":"Imbiribeira","distancia_km":6.4,"chuva":"Sim","experiencia_entregador_meses":45,"canal":"App","tempo_entrega_min":49,"nota_cliente":4,"valor_pedido":55.54,"forma_pagamento":"Pix","cupom":null},{"pedido_id":"D555","data_pedido":"2026-04-17","bairro":"Espinheiro ","distancia_km":5.5,"chuva":"Não","experiencia_entregador_meses":10,"canal":"Telefone","tempo_entrega_min":34,"nota_cliente":4,"valor_pedido":65.94,"forma_pagamento":"Cartão","cupom":null},{"pedido_id":"D536","data_pedido":null,"bairro":"Graças","distancia_km":7.0,"chuva":"Não","experiencia_entregador_meses":23,"canal":"App","tempo_entrega_min":43,"nota_cliente":5,"valor_pedido":54.6,"forma_pagamento":"Pix","cupom":"PRIMEIRA"},{"pedido_id":"D537","data_pedido":"2026-03-20","bairro":"Casa Forte","distancia_km":6.5,"chuva":"Não","experiencia_entregador_meses":42,"canal":"App","tempo_entrega_min":37,"nota_cliente":4,"valor_pedido":113.27,"forma_pagamento":"Cartão","cupom":null},{"pedido_id":"D538","data_pedido":"2026-03-22","bairro":"Graças","distancia_km":6.1,"chuva":"Não","experiencia_entregador_meses":31,"canal":"Telefone","tempo_entrega_min":35,"nota_cliente":5,"valor_pedido":41.88,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D539","data_pedido":"2026-03-05","bairro":"Casa Forte","distancia_km":0.9,"chuva":"Não","experiencia_entregador_meses":34,"canal":"App","tempo_entrega_min":15,"nota_cliente":5,"valor_pedido":80.34,"forma_pagamento":"Pix","cupom":null},{"pedido_id":"D540","data_pedido":"2026-04-09","bairro":"Casa Forte","distancia_km":6.1,"chuva":"Não","experiencia_entregador_meses":33,"canal":"App","tempo_entrega_min":38,"nota_cliente":5,"valor_pedido":107.7,"forma_pagamento":"Pix","cupom":null},{"pedido_id":"D541","data_pedido":"2026-03-14","bairro":"Imbiribeira","distancia_km":4.3,"chuva":"Sim","experiencia_entregador_meses":13,"canal":"App","tempo_entrega_min":48,"nota_cliente":3,"valor_pedido":null,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D542","data_pedido":"2026-04-08","bairro":"Espinheiro","distancia_km":7.1,"chuva":"Não","experiencia_entregador_meses":15,"canal":"Telefone","tempo_entrega_min":39,"nota_cliente":5,"valor_pedido":null,"forma_pagamento":"Cartão","cupom":null},{"pedido_id":"D543","data_pedido":"2026-03-13","bairro":"Imbiribeira","distancia_km":8.1,"chuva":"Não","experiencia_entregador_meses":41,"canal":"Telefone","tempo_entrega_min":62,"nota_cliente":3,"valor_pedido":54.02,"forma_pagamento":"Pix","cupom":null},{"pedido_id":"D544","data_pedido":"2026-03-09","bairro":"Torre","distancia_km":7.5,"chuva":"Sim","experiencia_entregador_meses":3,"canal":"App","tempo_entrega_min":53,"nota_cliente":3,"valor_pedido":86.89,"forma_pagamento":"Pix","cupom":"FRETE0"},{"pedido_id":"D545","data_pedido":"2026-03-06","bairro":"Boa Viagem","distancia_km":5.4,"chuva":"Sim","experiencia_entregador_meses":36,"canal":"App","tempo_entrega_min":48,"nota_cliente":3,"valor_pedido":82.21,"forma_pagamento":"Pix","cupom":null},{"pedido_id":"D546","data_pedido":"2026-04-16","bairro":"Espinheiro","distancia_km":9.0,"chuva":"Não","experiencia_entregador_meses":12,"canal":"Telefone","tempo_entrega_min":60,"nota_cliente":2,"valor_pedido":51.43,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D547","data_pedido":"2026-03-22","bairro":"Torre","distancia_km":7.4,"chuva":"Não","experiencia_entregador_meses":26,"canal":"Telefone","tempo_entrega_min":39,"nota_cliente":3,"valor_pedido":60.1,"forma_pagamento":"Dinheiro","cupom":"PRIMEIRA"},{"pedido_id":"D548","data_pedido":"2026-04-15","bairro":"Madalena","distancia_km":3.8,"chuva":"Não","experiencia_entregador_meses":30,"canal":"Telefone","tempo_entrega_min":28,"nota_cliente":5,"valor_pedido":96.29,"forma_pagamento":"Cartão","cupom":"PRIMEIRA"},{"pedido_id":"D549","data_pedido":"2026-03-16","bairro":"Madalena","distancia_km":8.7,"chuva":"Sim","experiencia_entregador_meses":10,"canal":"App","tempo_entrega_min":62,"nota_cliente":3,"valor_pedido":71.45,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D550","data_pedido":"2026-03-31","bairro":"Boa Viagem","distancia_km":1.0,"chuva":"Sim","experiencia_entregador_meses":17,"canal":"App","tempo_entrega_min":29,"nota_cliente":4,"valor_pedido":8026.0,"forma_pagamento":"Dinheiro","cupom":"FRETE0"},{"pedido_id":"D551","data_pedido":"2026-03-08","bairro":"Casa Forte","distancia_km":2.6,"chuva":"Não","experiencia_entregador_meses":29,"canal":"Telefone","tempo_entrega_min":30,"nota_cliente":5,"valor_pedido":null,"forma_pagamento":"Cartão","cupom":null},{"pedido_id":"D552","data_pedido":"2026-03-26","bairro":"Boa Viagem","distancia_km":3.8,"chuva":"Sim","experiencia_entregador_meses":41,"canal":"App","tempo_entrega_min":45,"nota_cliente":4,"valor_pedido":76.74,"forma_pagamento":"Dinheiro","cupom":"FRETE0"},{"pedido_id":"D553","data_pedido":"2026-03-17","bairro":"Torre","distancia_km":7.1,"chuva":"Sim","experiencia_entregador_meses":16,"canal":"App","tempo_entrega_min":55,"nota_cliente":4,"valor_pedido":80.38,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D554","data_pedido":"2026-03-05","bairro":"Graças","distancia_km":4.8,"chuva":"Não","experiencia_entregador_meses":35,"canal":"App","tempo_entrega_min":34,"nota_cliente":5,"valor_pedido":86.29,"forma_pagamento":"Pix","cupom":"FRETE0"},{"pedido_id":"D555","data_pedido":"2026-04-17","bairro":"Espinheiro ","distancia_km":5.5,"chuva":"Não","experiencia_entregador_meses":10,"canal":"Telefone","tempo_entrega_min":34,"nota_cliente":4,"valor_pedido":65.94,"forma_pagamento":"Cartão","cupom":null},{"pedido_id":"D556","data_pedido":"2026-04-18","bairro":"casa forte","distancia_km":3.1,"chuva":"Sim","experiencia_entregador_meses":33,"canal":"Telefone","tempo_entrega_min":46,"nota_cliente":4,"valor_pedido":43.64,"forma_pagamento":"Cartão","cupom":"FRETE0"},{"pedido_id":"D557","data_pedido":"2026-03-18","bairro":"Torre","distancia_km":3.0,"chuva":"Não","experiencia_entregador_meses":32,"canal":"App","tempo_entrega_min":23,"nota_cliente":5,"valor_pedido":91.44,"forma_pagamento":"dinheiro","cupom":null},{"pedido_id":"D558","data_pedido":"2026-03-13","bairro":"Boa Viagem","distancia_km":6.2,"chuva":"Sim","experiencia_entregador_meses":5,"canal":"App","tempo_entrega_min":51,"nota_cliente":3,"valor_pedido":80.45,"forma_pagamento":"Cartão","cupom":null},{"pedido_id":"D559","data_pedido":"2026-03-31","bairro":"Boa Viagem","distancia_km":8.3,"chuva":"Não","experiencia_entregador_meses":42,"canal":"App","tempo_entrega_min":48,"nota_cliente":4,"valor_pedido":79.63,"forma_pagamento":"Pix","cupom":null},{"pedido_id":"D560","data_pedido":"2026-04-13","bairro":"Casa Forte","distancia_km":7.3,"chuva":"Sim","experiencia_entregador_meses":18,"canal":"App","tempo_entrega_min":56,"nota_cliente":4,"valor_pedido":64.88,"forma_pagamento":"Cartão","cupom":null},{"pedido_id":"D561","data_pedido":"2026-13-04","bairro":"Espinheiro","distancia_km":2.4,"chuva":"Não","experiencia_entregador_meses":34,"canal":"App","tempo_entrega_min":18,"nota_cliente":5,"valor_pedido":101.37,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D562","data_pedido":"2026-04-27","bairro":"Boa Viagem","distancia_km":3.0,"chuva":"Não","experiencia_entregador_meses":36,"canal":"Telefone","tempo_entrega_min":24,"nota_cliente":5,"valor_pedido":42.04,"forma_pagamento":"Dinheiro","cupom":"PRIMEIRA"},{"pedido_id":"D563","data_pedido":null,"bairro":"Espinheiro","distancia_km":3.6,"chuva":"Não","experiencia_entregador_meses":11,"canal":"Telefone","tempo_entrega_min":29,"nota_cliente":4,"valor_pedido":31.57,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D564","data_pedido":"2026-04-25","bairro":"Madalena","distancia_km":8.3,"chuva":"Não","experiencia_entregador_meses":13,"canal":"App","tempo_entrega_min":43,"nota_cliente":4,"valor_pedido":29.19,"forma_pagamento":"Dinheiro","cupom":"PRIMEIRA"},{"pedido_id":"D565","data_pedido":"2026-03-24","bairro":"Boa Viagem","distancia_km":1.6,"chuva":"Não","experiencia_entregador_meses":7,"canal":"App","tempo_entrega_min":17,"nota_cliente":5,"valor_pedido":67.49,"forma_pagamento":"Pix","cupom":"PRIMEIRA"},{"pedido_id":"D566","data_pedido":"2026-04-02","bairro":"Casa Forte","distancia_km":6.5,"chuva":"Não","experiencia_entregador_meses":12,"canal":"Telefone","tempo_entrega_min":39,"nota_cliente":4,"valor_pedido":78.37,"forma_pagamento":"Cartão","cupom":null},{"pedido_id":"D567","data_pedido":"2026-03-23","bairro":"Boa Viagem","distancia_km":5.6,"chuva":"Não","experiencia_entregador_meses":20,"canal":"Telefone","tempo_entrega_min":46,"nota_cliente":2,"valor_pedido":79.84,"forma_pagamento":"pix","cupom":"PRIMEIRA"},{"pedido_id":"D511","data_pedido":"2026-03-10","bairro":"BOA VIAGEM","distancia_km":2.4,"chuva":"Sim","experiencia_entregador_meses":35,"canal":"Telefone","tempo_entrega_min":31,"nota_cliente":4,"valor_pedido":67.45,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D568","data_pedido":"2026-03-03","bairro":"Graças","distancia_km":9.2,"chuva":"Não","experiencia_entregador_meses":33,"canal":"App","tempo_entrega_min":51,"nota_cliente":4,"valor_pedido":100.11,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D569","data_pedido":"2026-04-06","bairro":"Imbiribeira","distancia_km":9.1,"chuva":"Sim","experiencia_entregador_meses":2,"canal":"Telefone","tempo_entrega_min":63,"nota_cliente":2,"valor_pedido":104.69,"forma_pagamento":"Dinheiro","cupom":null},{"pedido_id":"D570","data_pedido":null,"bairro":"Boa Viagem","distancia_km":9.1,"chuva":"Não","experiencia_entregador_meses":3,"canal":"App","tempo_entrega_min":54,"nota_cliente":3,"valor_pedido":49.47,"forma_pagamento":"Cartão","cupom":"FRETE0"}],"meta":{"tema":"Atrasos de entrega em um aplicativo de delivery","pergunta":"Quais fatores estão associados a entregas mais demoradas e a notas mais baixas?","hipoteses":[["H1","Quanto maior a distância, maior o tempo de entrega.","distancia_km × tempo_entrega_min","Correlação",0.79],["H2","Pedidos em dias de chuva demoram mais.","chuva × tempo_entrega_min","Comparação de médias",[46.5,34.7]],["H3","Entregas mais demoradas recebem notas menores.","tempo_entrega_min × nota_cliente","Correlação",-0.67],["H4","Entregadores mais experientes entregam mais rápido.","experiencia_entregador_meses × tempo_entrega_min","Correlação",-0.14],["H5","Pedidos feitos por telefone recebem notas menores que pelo app.","canal × nota_cliente","Comparação de médias",[4.14,4.11]]]}}};
+
+const reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = id => document.getElementById(id);
+const el = (tag, attrs={}, html) => { const e=document.createElement(tag); for(const k in attrs){ if(k==='class') e.className=attrs[k]; else e.setAttribute(k,attrs[k]); } if(html!==undefined) e.innerHTML=html; return e; };
+const nf = (x,d=1) => Number(x).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const brl = x => Number(x).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const inteiro = x => Math.round(x).toLocaleString('pt-BR');
+const mean = a => a.reduce((s,v)=>s+v,0)/a.length;
+const sum = a => a.reduce((s,v)=>s+v,0);
+const sorted = a => [...a].sort((x,y)=>x-y);
+const median = a => { const s=sorted(a), n=s.length; return n%2 ? s[(n-1)/2] : (s[n/2-1]+s[n/2])/2; };
+const contar = a => { const m=new Map(); a.forEach(v=>m.set(v,(m.get(v)||0)+1)); return m; };
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+function salvar(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function ler(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){return null;}}
+async function copiar(texto, okEl, fallbackEl){
+  try{ await navigator.clipboard.writeText(texto); okEl.hidden=false; setTimeout(()=>okEl.hidden=true,3500); }
+  catch(e){ if(fallbackEl){ fallbackEl.hidden=false; fallbackEl.value=texto; fallbackEl.focus(); fallbackEl.select(); okEl.textContent='Selecionado: use Ctrl+C para copiar.'; okEl.hidden=false; } }
+}
+
+const ICO={
+  termo:'<path d="M10 14V5a2 2 0 1 1 4 0v9a4 4 0 1 1-4 0z"/><path d="M12 9v7"/>',
+  crono:'<circle cx="12" cy="14" r="7.5"/><path d="M12 14v-4M9.5 2.5h5M12 2.5v4M18.5 7l1.5-1.5"/>',
+  org:'<rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/>',
+  capelo:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5M22 9v6"/>',
+  predio:'<path d="M3 21h18M5 21V10M19 21V10M9.7 21V10M14.3 21V10M2 10l10-6 10 6z"/>',
+  banco:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+  grade:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/>',
+  clique:'<path d="M5 3l7 17 2.5-7L21 10.5z"/><path d="M14.5 14.5l5 5"/>',
+  api:'<path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/>',
+  web:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8.5h18M12 11v6M9 14l3 3 3-3"/>'
+};
+const icone=k=>`<span class="icone" aria-hidden="true"><svg viewBox="0 0 24 24">${ICO[k]}</svg></span>`;
+
+function svgBarras(dados,hi){
+  const W=560, lh=dados.length>14?20:30, bh=lh-10, padL=170, H=dados.length*lh+10, max=Math.max(...dados.map(d=>d[1]),1);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Contagem por categoria">`;
+  dados.forEach(([k,v],i)=>{ const y=i*lh+6, w=(W-padL-50)*v/max; const isHi=hi&&hi.includes(String(k)); const ty=y+bh/2+4.5;
+    s+=`<text x="${padL-10}" y="${ty}" text-anchor="end" class="${isHi?'t-forte':''}">${k}</text><rect class="barra ${isHi?'hi':''}" x="${padL}" y="${y}" width="${Math.max(w,1.5)}" height="${bh}" rx="4"/><text x="${padL+w+8}" y="${ty}" class="${isHi?'t-forte':''}">${v}</text>`; });
+  return s+'</svg>';
+}
+function svgPontos(vals,marc,fmtv,extra){
+  const W=560, r=6, padX=24, x0=Math.min(...vals), x1=Math.max(...vals), span=(x1-x0)||1;
+  const X=v=>padX+(W-2*padX)*(v-x0)/span;
+  const pilhas=new Map(); const pts=sorted(vals).map(v=>{ const b=Math.round(X(v)/(2*r)); const k=pilhas.get(b)||0; pilhas.set(b,k+1); return {x:b*2*r,k}; });
+  const alto=Math.max(...pts.map(p=>p.k))+1, base=58+alto*2*r, H=base+44;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Distribuição dos valores">`;
+  pts.forEach(p=>{ s+=`<circle class="ponto" cx="${p.x}" cy="${base-r-p.k*2*r}" r="${r-0.8}"/>`; });
+  s+=`<line class="eixo" x1="${padX}" x2="${W-padX}" y1="${base+2}" y2="${base+2}"/>`;
+  s+=`<text x="${padX}" y="${base+22}">${fmtv(x0)}</text><text x="${W-padX}" y="${base+22}" text-anchor="end">${fmtv(x1)}</text>`;
+  const marca=(tipo,v,fraco)=>{ const x=X(v), cls=tipo==='media'?'m-media':'m-mediana', t=tipo==='media'?'t-media':'t-mediana', nome=tipo==='media'?'média':'mediana';
+    const anc = x>W*0.6?'end':'start', dx=x>W*0.6?-6:6, y=tipo==='media'?18:38;
+    return `<line class="${cls} ${fraco?'m-fraco':''}" x1="${x}" x2="${x}" y1="${y+6}" y2="${base+2}"/><text x="${x+dx}" y="${y}" text-anchor="${anc}" class="${t} ${fraco?'m-fraco':''}">${nome}</text>`; };
+  if(marc) s+=marca(marc, marc==='media'?mean(vals):median(vals), false);
+  if(extra) s+=marca(extra, extra==='media'?mean(vals):median(vals), true);
+  return s+'</svg>';
+}
+
+/* ================= KIT: estatística e gráficos (as contas ficam aqui, escondidas) ================= */
+const isNum = v => typeof v==='number' && isFinite(v);
+function quantil(a,p){ const s=sorted(a), n=s.length; if(!n) return NaN; const h=(n-1)*p, lo=Math.floor(h), hi=Math.ceil(h); return s[lo]+(s[hi]-s[lo])*(h-lo); }
+function desvio(a){ if(a.length<2) return 0; const m=mean(a); return Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/(a.length-1)); }
+function correl(x,y){ const mx=mean(x), my=mean(y); let sxy=0,sx=0,sy=0; for(let i=0;i<x.length;i++){const dx=x[i]-mx, dy=y[i]-my; sxy+=dx*dy; sx+=dx*dx; sy+=dy*dy;} return sxy/Math.sqrt(sx*sy); }
+function reta(x,y){ const mx=mean(x),my=mean(y); let sxy=0,sxx=0; x.forEach((v,i)=>{sxy+=(v-mx)*(y[i]-my); sxx+=(v-mx)**2;}); const b=sxy/sxx; return {a:my-b*mx,b}; }
+function forcaR(r){ const a=Math.abs(r); if(a<0.1) return 'praticamente nenhuma relação'; const f=a<0.3?'fraca':a<0.6?'moderada':'forte'; return `${f} e ${r>0?'positiva':'negativa'}`; }
+function ticks(lo,hi,n=5){ const span=(hi-lo)||1; const st0=span/n; const mag=10**Math.floor(Math.log10(st0)); const e=st0/mag; const step=(e>=7.5?10:e>=3.5?5:e>=1.5?2:1)*mag; const t=[]; for(let v=Math.ceil(lo/step)*step; v<=hi+step*1e-9; v+=step) t.push(+v.toFixed(10)); return t; }
+function fmtCurto(v){ const a=Math.abs(v); if(a>=1e6) return nf(v/1e6,1)+' mi'; if(a>=1e4) return nf(v/1e3,0)+' mil'; if(a>=1000) return nf(v/1e3,1)+' mil'; return nf(v, Number.isInteger(v)?0:1); }
+let _uid=0;
+function svgHist(vals,{bins=10,fv=fmtCurto,marcas=[],W=600,H=280,lo,hi,classe=()=>''}={}){
+  vals=vals.filter(isNum); if(!vals.length) return '';
+  lo=lo??Math.min(...vals); hi=hi??Math.max(...vals); if(hi===lo) hi=lo+1;
+  const L=44,R=W-16,T=48,B=H-36, bw=(hi-lo)/bins, cnt=new Array(bins).fill(0);
+  vals.forEach(v=>{ let b=Math.floor((v-lo)/bw); if(b>=bins) b=bins-1; if(b<0) b=0; cnt[b]++; });
+  const max=Math.max(...cnt,1), X=v=>L+(R-L)*(v-lo)/(hi-lo), Y=c=>B-(B-T)*c/max;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Histograma">`;
+  ticks(0,max,4).forEach(t=>{ if(t>max) return; s+=`<line class="eixo" style="opacity:.4" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${t}</text>`; });
+  cnt.forEach((c,i)=>{ const x0=X(lo+i*bw), x1=X(lo+(i+1)*bw); s+=`<rect class="barra ${classe(i,lo+i*bw,lo+(i+1)*bw)}" x="${x0+1}" y="${Y(c)}" width="${Math.max(x1-x0-2,1)}" height="${B-Y(c)}" rx="2"/>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>`;
+  ticks(lo,hi,5).forEach(t=>{ if(t<lo||t>hi) return; s+=`<text x="${X(t)}" y="${B+20}" text-anchor="middle">${fv(t)}</text>`; });
+  marcas.forEach((m,j)=>{ const x=X(m.v), dir=x>W*.62; s+=`<line class="${m.cls}" x1="${x}" x2="${x}" y1="${T-14+j*0}" y2="${B}"/><text x="${x+(dir?-6:6)}" y="${16+j*18}" text-anchor="${dir?'end':'start'}" class="${m.tcls||'t-forte'}">${m.label}</text>`; });
+  return s+'</svg>';
+}
+function svgBoxH(groups,{fv=fmtCurto,W=600,pontos=true,lo,hi,rowH=60}={}){
+  groups=groups.map(g=>({nome:g.nome,vals:g.vals.filter(isNum)})).filter(g=>g.vals.length);
+  const all=groups.flatMap(g=>g.vals); if(!all.length) return '';
+  lo=lo??Math.min(...all); hi=hi??Math.max(...all); if(hi===lo) hi=lo+1;
+  const L=128,R=W-18,T=12,H=T+groups.length*rowH+34, X=v=>L+(R-L)*(v-lo)/(hi-lo), rnd=mulberry32(11);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Boxplot">`;
+  ticks(lo,hi,5).forEach(t=>{ if(t<lo||t>hi)return; s+=`<line class="eixo" style="opacity:.3" x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${H-30}"/><text x="${X(t)}" y="${H-10}" text-anchor="middle">${fv(t)}</text>`; });
+  groups.forEach((g,i)=>{ const v=g.vals, y=T+i*rowH+rowH/2; const q1=quantil(v,.25),md=quantil(v,.5),q3=quantil(v,.75),iq=q3-q1, li=q1-1.5*iq, ls=q3+1.5*iq; const dentro=v.filter(x=>x>=li&&x<=ls); const wmin=Math.min(...dentro), wmax=Math.max(...dentro);
+    s+=`<text x="${L-12}" y="${y+5}" text-anchor="end" class="t-forte">${g.nome}</text>`;
+    if(pontos) v.forEach(x=>{ const out=x<li||x>ls; s+=`<circle cx="${X(x)}" cy="${y+(rnd()-.5)*24}" r="${out?4.8:3.2}" class="${out?'marcador':'ponto'}" style="opacity:${out?1:.5}"/>`; });
+    s+=`<line class="regua" x1="${X(wmin)}" x2="${X(q1)}" y1="${y}" y2="${y}"/><line class="regua" x1="${X(q3)}" x2="${X(wmax)}" y1="${y}" y2="${y}"/><line class="regua" x1="${X(wmin)}" x2="${X(wmin)}" y1="${y-9}" y2="${y+9}"/><line class="regua" x1="${X(wmax)}" x2="${X(wmax)}" y1="${y-9}" y2="${y+9}"/>`;
+    s+=`<rect class="caixa" x="${X(q1)}" y="${y-15}" width="${Math.max(X(q3)-X(q1),1.5)}" height="30" rx="4"/><line class="m-mediana-box" x1="${X(md)}" x2="${X(md)}" y1="${y-15}" y2="${y+15}"/>`;
+  });
+  return s+'</svg>';
+}
+function svgScatter(pts,{fx=fmtCurto,fy=fmtCurto,xlab='',ylab='',W=600,H=360,tend=false,x0,x1,y0,y1}={}){
+  if(!pts.length) return '';
+  const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
+  let a0=x0??Math.min(...xs), a1=x1??Math.max(...xs), b0=y0??Math.min(...ys), b1=y1??Math.max(...ys);
+  if(x0===undefined){const p=(a1-a0)*.05||1; a0-=p; a1+=p;} if(y0===undefined){const p=(b1-b0)*.08||1; b0-=p; b1+=p;}
+  const L=62,R=W-16,T=30,B=H-48, X=v=>L+(R-L)*(v-a0)/(a1-a0), Y=v=>B-(B-T)*(v-b0)/(b1-b0), id='cp'+(++_uid);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de dispersão"><defs><clipPath id="${id}"><rect x="${L}" y="${T}" width="${R-L}" height="${B-T}"/></clipPath></defs>`;
+  ticks(b0,b1,4).forEach(t=>{ if(t<b0||t>b1)return; s+=`<line class="eixo" style="opacity:.35" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${fy(t)}</text>`; });
+  ticks(a0,a1,5).forEach(t=>{ if(t<a0||t>a1)return; s+=`<text x="${X(t)}" y="${B+20}" text-anchor="middle">${fx(t)}</text>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/><line class="eixo" x1="${L}" x2="${L}" y1="${T}" y2="${B}"/>`;
+  pts.forEach(p=>{ s+=`<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="${p.r||5}" class="${p.cls||'ponto'}" style="opacity:${p.op??.75}"/>`; });
+  if(tend){ const r=reta(xs,ys); s+=`<line clip-path="url(#${id})" class="m-media" x1="${X(a0)}" x2="${X(a1)}" y1="${Y(r.a+r.b*a0)}" y2="${Y(r.a+r.b*a1)}"/>`; }
+  s+=`<text x="${(L+R)/2}" y="${H-6}" text-anchor="middle" class="t-forte">${xlab}</text><text x="${L}" y="16" class="t-forte">${ylab}</text>`;
+  return s+'</svg>';
+}
+function svgBarrasV(itens,{fv=v=>String(v),W=600,H=280,rot=false}={}){
+  if(!itens.length) return '';
+  const L=44,R=W-12,T=30,B=H-(rot?70:40), max=Math.max(...itens.map(i=>i.v),1), bw=(R-L)/itens.length, Y=v=>B-(B-T)*v/max;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de barras">`;
+  ticks(0,max,4).forEach(t=>{ if(t>max) return; s+=`<line class="eixo" style="opacity:.35" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${fv(t)}</text>`; });
+  itens.forEach((it,i)=>{ const x=L+i*bw+bw*.14, w=bw*.72; s+=`<rect class="barra ${it.cls||''}" x="${x}" y="${Y(it.v)}" width="${w}" height="${B-Y(it.v)}" rx="3"/><text x="${x+w/2}" y="${Y(it.v)-7}" text-anchor="middle" class="${it.cls?'t-forte':''}">${fv(it.v)}</text>`;
+    s+= rot ? `<text x="${x+w/2}" y="${B+14}" text-anchor="end" transform="rotate(-35 ${x+w/2} ${B+14})">${it.k}</text>` : `<text x="${x+w/2}" y="${B+20}" text-anchor="middle" class="${it.cls?'t-forte':''}">${it.k}</text>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>`;
+  return s+'</svg>';
+}
+function svgLinha(rotulos,vals,{fv=fmtCurto,W=600,H=280,destaque=[]}={}){
+  const L=70,R=W-34,T=30,B=H-42, max=Math.max(...vals)*1.1, min=0, X=i=>L+(R-L)*i/(vals.length-1), Y=v=>B-(B-T)*(v-min)/(max-min);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de linha">`;
+  ticks(0,max,4).forEach(t=>{ if(t>max) return; s+=`<line class="eixo" style="opacity:.35" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${fv(t)}</text>`; });
+  s+=`<path class="area-serie" d="M${X(0)} ${B} ${vals.map((v,i)=>`L${X(i)} ${Y(v)}`).join(' ')} L${X(vals.length-1)} ${B}Z"/><path class="linha-serie" d="${vals.map((v,i)=>`${i?'L':'M'}${X(i)} ${Y(v)}`).join(' ')}"/>`;
+  vals.forEach((v,i)=>{ const hi=destaque.includes(i); s+=`<circle cx="${X(i)}" cy="${Y(v)}" r="${hi?6:3.5}" class="marcador"/>`; if(hi) s+=`<text x="${X(i)}" y="${Y(v)-12}" text-anchor="${i===vals.length-1?'end':'middle'}" class="t-forte">${fv(v)}</text>`; });
+  rotulos.forEach((r,i)=>{ if(rotulos.length>14 && i%2) return; s+=`<text x="${X(i)}" y="${B+20}" text-anchor="middle" class="t-peq">${r}</text>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>`;
+  return s+'</svg>';
+}
+function montaQuiz({box,placar,itens,opcoes,limpar,mostrar,umaColuna=false}){
+  const est={};
+  function draw(rev=false){
+    const Bx=$(box); Bx.innerHTML=''; let ok=0;
+    itens.forEach((it,i)=>{
+      if(est[i]&&it.r.includes(est[i])) ok++;
+      const sel=rev?it.r[0]:est[i], certo=sel&&it.r.includes(sel);
+      const card=el('div',{class:'col-card'+(sel?(certo?' certo':' errado'):'')});
+      card.innerHTML=(it.ic?`<div class="r2-cab">${icone(it.ic)}<span style="font-weight:600;font-size:1.05rem">${it.t}</span></div>`:`<span style="font-weight:600;font-size:1.05rem">${it.t}</span>`)+(it.sub?`<span class="amostra">${it.sub}</span>`:'');
+      const op=el('div',{class:'opcoes'}); if(umaColuna) op.style.gridTemplateColumns='1fr';
+      opcoes.forEach(([k,v])=>{ const b=el('button',{class:sel===k?'marcado':''},v); b.onclick=()=>{est[i]=k;draw();}; op.appendChild(b); });
+      card.appendChild(op);
+      if(sel) card.appendChild(el('p',{class:'retorno '+(certo?'ok':'no')}, certo?`Isso. ${it.ok}`:`Ainda não. ${it.dica}`));
+      Bx.appendChild(card);
+    });
+    if(placar) $(placar).textContent=`${ok} de ${itens.length}`;
+  }
+  if(limpar) $(limpar).onclick=()=>{Object.keys(est).forEach(k=>delete est[k]);draw();};
+  if(mostrar) $(mostrar).onclick=()=>draw(true);
+  draw();
+}
+function guardaForm(chave,raiz){
+  const salvo=ler(chave)||{};
+  raiz.querySelectorAll('input[id],textarea[id],select[id]').forEach(e=>{ if(salvo[e.id]!==undefined){ if(e.type==='checkbox') e.checked=!!salvo[e.id]; else e.value=salvo[e.id]; } });
+  const g=()=>{ const o={}; raiz.querySelectorAll('input[id],textarea[id],select[id]').forEach(e=>{ o[e.id]= e.type==='checkbox'?e.checked:e.value; }); salvar(chave,o); };
+  raiz.addEventListener('input',g); raiz.addEventListener('change',g);
+}
+const limpaTxt = s => String(s??'').replace(/[\t\n\r]+/g,' ').trim();
+const dataBR = s => { if(!s||!/^\d{4}-\d{2}-\d{2}$/.test(s)) return s??''; const [y,m,d]=s.split('-'); return `${d}/${m}/${y}`; };
+
+/* ================= LABORATÓRIO DO PROJETO ================= */
+const HOJE=new Date().toISOString().slice(0,10);
+const ST_KEY='fad-labproj-v1';
+let S=null, WB=null, ARQ='';
+const semAc=s=>String(s).normalize('NFD').replace(/[̀-ͯ]/g,'');
+const norm=s=>semAc(s).toLowerCase().replace(/\s+/g,' ').trim();
+const reBR=/^-?\d{1,3}(\.\d{3})+(,\d+)?$|^-?\d+(,\d+)?$/, reDot=/^-?\d+\.\d+$/;
+const TIPOS={num:'Número',cat:'Categoria',data:'Data',id:'Identificador / texto'};
+function isoDe(y,m,d){ const t=new Date(Date.UTC(y,m-1,d)); if(t.getUTCFullYear()!==y||t.getUTCMonth()!==m-1||t.getUTCDate()!==d) return null; return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`; }
+const isISO=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&isoDe(+v.slice(0,4),+v.slice(5,7),+v.slice(8,10))===v;
+const pareceData=v=>typeof v==='string'&&(/^\s*\d{1,2}\/\d{1,2}\/\d{4}\s*$/.test(v)||/^\s*\d{4}-\d{1,2}-\d{1,2}/.test(v));
+function parseVal(v){
+  if(v===null||v===undefined) return null;
+  if(v instanceof Date){ if(isNaN(v)) return null; return isoDe(v.getFullYear(),v.getMonth()+1,v.getDate()); }
+  if(typeof v==='number') return isFinite(v)?v:null;
+  if(typeof v==='boolean') return v?'Sim':'Não';
+  const s=String(v), t=s.trim(); if(t==='') return null;
+  let m=t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/); if(m) return isoDe(+m[3],+m[2],+m[1])||t;
+  m=t.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/); if(m) return isoDe(+m[1],+m[2],+m[3])||t;
+  if(reBR.test(t)) return parseFloat(t.replace(/\./g,'').replace(',','.'));
+  if(reDot.test(t)) return parseFloat(t);
+  return s;
+}
+function inferirTipo(nome,vals){
+  const nn=vals.filter(v=>v!=null); if(!nn.length) return 'cat';
+  const nNum=nn.filter(v=>typeof v==='number').length, nDat=nn.filter(v=>isISO(v)||pareceData(v)).length;
+  if(nDat/nn.length>=.8) return 'data';
+  if(nNum/nn.length>=.8) return /(^id(_|$)|_id$|^cod|codigo|código|^cep$|telefone|protocolo|matr[ií]cula)/i.test(nome)?'id':'num';
+  const d=new Set(nn.map(v=>norm(v))).size; if(d<=Math.max(12,.3*nn.length)) return 'cat';
+  return 'id';
+}
+function parseCSV(txt){
+  txt=txt.replace(/^﻿/,''); const first=txt.split(/\r?\n/)[0]||'';
+  const cnt=c=>(first.match(new RegExp(c==='\t'?'\\t':c,'g'))||[]).length;
+  const sep=[['\t',cnt('\t')],[';',cnt(';')],[',',cnt(',')]].sort((a,b)=>b[1]-a[1])[0][0];
+  const out=[]; let row=[], cur='', q=false;
+  for(let i=0;i<txt.length;i++){ const c=txt[i];
+    if(q){ if(c==='"'){ if(txt[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=c; }
+    else if(c==='"'&&cur==='') q=true;
+    else if(c===sep){ row.push(cur); cur=''; }
+    else if(c==='\n'||c==='\r'){ if(c==='\r'&&txt[i+1]==='\n') i++; row.push(cur); out.push(row); row=[]; cur=''; }
+    else cur+=c; }
+  if(cur!==''||row.length){ row.push(cur); out.push(row); }
+  return out.filter(r=>r.some(v=>String(v).trim()!==''));
+}
+function novaHip(t,x={}){ return {id:Math.random().toString(36).slice(2,9),texto:t||'',vars:x.vars||'',tipo:x.tipo||'',res:'',evid:'',ver:'',just:'',inc:''}; }
+function carregarMatriz(mat,nome,hips){
+  if(!mat.length||mat[0].length<2){ msgCarga('Não encontrei uma tabela com cabeçalho e pelo menos duas colunas.'); return; }
+  const usados={}; const head=mat[0].map((h,i)=>{ let n=limpaTxt(h)||`coluna_${i+1}`; if(usados[n]){ usados[n]++; n=`${n}_${usados[n]}`; } else usados[n]=1; return n; });
+  const rows=mat.slice(1).filter(r=>r.some(v=>v!=null&&String(v).trim()!=='')).map(r=>{ const o={}; head.forEach((h,i)=>o[h]=parseVal(r[i])); return o; });
+  const tipos={}; head.forEach(h=>tipos[h]=inferirTipo(h,rows.map(r=>r[h])));
+  S={nome,cols:head,tipos,raw:rows,ops:[],outs:[],hips:(hips&&hips.length?hips:[novaHip(),novaHip()])};
+  salvarS(); msgCarga(`Base carregada: <b>${rows.length} linhas</b> e <b>${head.length} colunas</b> de ${nome}. Confira os tipos abaixo e siga para o Raio-X.`); tudo();
+}
+const msgCarga=h=>{ $('msgCarga').innerHTML=h; };
+function salvarS(){ try{ localStorage.setItem(ST_KEY,JSON.stringify(S)); }catch(e){} }
+function lerS(){ try{ const v=localStorage.getItem(ST_KEY); return v?JSON.parse(v):null; }catch(e){ return null; } }
+
+/* ---------- leitura de arquivos ---------- */
+function hipsDoExcel(){
+  const hn=WB.SheetNames.find(n=>/hipotese/i.test(semAc(n))); if(!hn) return [];
+  const hm=XLSX.utils.sheet_to_json(WB.Sheets[hn],{header:1,raw:false,defval:null});
+  const comH=hm.filter(r=>r[0]!=null&&/^H\s?\d+/i.test(String(r[0]).trim()));
+  const base=comH.length?comH:hm;
+  const out=[]; base.forEach(r=>{ const cel=r.filter(v=>typeof v==='string'&&v.trim().length>=18).sort((a,b)=>b.length-a.length)[0]; if(cel) out.push(novaHip(cel.trim())); });
+  return out.slice(0,8);
+}
+function carregarAba(nome){ const m=XLSX.utils.sheet_to_json(WB.Sheets[nome],{header:1,raw:true,defval:null}); const h=m.findIndex(r=>r.filter(v=>v!=null&&String(v).trim()!=='').length>=2); carregarMatriz(h<0?[]:m.slice(h),`${ARQ} · aba ${nome}`,hipsDoExcel()); }
+async function lerArquivo(f){
+  ARQ=f.name; $('abaEscolha').hidden=true;
+  if(/\.(xlsx|xls)$/i.test(f.name)){
+    if(typeof XLSX==='undefined'){ msgCarga('Não consegui abrir arquivos do Excel agora. No Excel, salve a aba 1_Base_Bruta como CSV ou use “Colar do Excel”.'); return; }
+    try{ const buf=await f.arrayBuffer(); WB=XLSX.read(buf,{type:'array',cellDates:true}); }catch(e){ msgCarga('O arquivo não pôde ser lido. Tente salvar como .xlsx de novo ou use “Colar do Excel”.'); return; }
+    const nomes=WB.SheetNames, alvo=nomes.find(n=>/base.?bruta/i.test(semAc(n)))||nomes[0];
+    $('selAba').innerHTML=nomes.map(n=>`<option ${n===alvo?'selected':''}>${n}</option>`).join(''); $('abaEscolha').hidden=nomes.length<2;
+    carregarAba(alvo);
+  } else { const txt=await f.text(); carregarMatriz(parseCSV(txt),f.name,[]); }
+}
+
+/* ---------- pipeline: as contas ficam aqui ---------- */
+function modaDe(v){ const c=contar(v); return [...c.entries()].sort((a,b)=>b[1]-a[1])[0]?.[0]; }
+function canonico(vals){ const g={}; vals.forEach(v=>{ if(v==null) return; const k=norm(v); (g[k]=g[k]||[]).push(String(v).replace(/\s+/g,' ').trim()); }); const mapa={}; Object.entries(g).forEach(([k,lst])=>{ const c=contar(lst); const alvo=[...c.entries()].sort((a,b)=>b[1]-a[1]||(/^[A-ZÁÉÍÓÚÂÊÔÃÕÇ]/.test(b[0])?1:0)-(/^[A-ZÁÉÍÓÚÂÊÔÃÕÇ]/.test(a[0])?1:0))[0][0]; mapa[k]=alvo; }); return mapa; }
+function fences(v,f){ const q1=quantil(v,.25), q3=quantil(v,.75), iq=q3-q1; return {q1,q3,iq,li:q1-f*iq,ls:q3+f*iq}; }
+function executa(op,st){
+  let {rows,cols,tipos}=st; const info={};
+  switch(op.t){
+    case 'dupLinha':{ const s=new Set(); const n0=rows.length; rows=rows.filter(r=>{ const k=JSON.stringify(cols.map(c=>r[c])); if(s.has(k)) return false; s.add(k); return true; }); info.n=n0-rows.length; break; }
+    case 'dupChave':{ const s=new Set(); const n0=rows.length; rows=rows.filter(r=>{ const k=r[op.col]; if(k==null) return true; if(s.has(k)) return false; s.add(k); return true; }); info.n=n0-rows.length; break; }
+    case 'aus':{ const vz=rows.filter(r=>r[op.col]==null).length; info.n=vz;
+      if(op.est==='excluir'){ cols=cols.filter(c=>c!==op.col); rows=rows.map(r=>{ const o={...r}; delete o[op.col]; return o; }); }
+      else if(op.est==='remover'){ rows=rows.filter(r=>r[op.col]!=null); }
+      else if(op.est!=='manter'){ const v=rows.map(r=>r[op.col]).filter(x=>x!=null); const nums=v.filter(isNum); let val=null;
+        if(op.est==='mediana'&&nums.length) val=Math.round(median(nums)*100)/100; if(op.est==='media'&&nums.length) val=Math.round(mean(nums)*100)/100; if(op.est==='moda') val=modaDe(v);
+        info.val=val; if(val!=null) rows=rows.map(r=>r[op.col]==null?{...r,[op.col]:val}:r); }
+      break; }
+    case 'texto':{ const antes=new Set(rows.map(r=>r[op.col]).filter(x=>x!=null)).size; const mapa=canonico(rows.map(r=>r[op.col])); rows=rows.map(r=>r[op.col]==null?r:{...r,[op.col]:mapa[norm(r[op.col])]}); info.antes=antes; info.depois=new Set(rows.map(r=>r[op.col]).filter(x=>x!=null)).size; break; }
+    case 'converter':{ let ok=0,nul=0; rows=rows.map(r=>{ const v=r[op.col]; if(typeof v!=='string') return r; const s=v.replace(/R\$|%/g,'').replace(/\s+/g,''); let n=null; if(reBR.test(s)) n=parseFloat(s.replace(/\./g,'').replace(',','.')); else if(reDot.test(s)) n=parseFloat(s); if(n==null) nul++; else ok++; return {...r,[op.col]:n}; }); info.ok=ok; info.nul=nul; break; }
+    case 'datas':{ let n=0; rows=rows.filter(r=>{ const a=r[op.a], b=r[op.b]; const inv=isISO(a)&&isISO(b)&&b<a; if(inv){ n++; if(op.est==='remover') return false; } return true; }).map(r=>{ const a=r[op.a], b=r[op.b]; if(isISO(a)&&isISO(b)&&b<a){ if(op.est==='inverter') return {...r,[op.a]:b,[op.b]:a}; if(op.est==='vazia') return {...r,[op.b]:null}; } return r; }); info.n=n; break; }
+    case 'dataInv':{ let n=0; rows=rows.map(r=>{ const v=r[op.col]; if(v!=null&&!isISO(v)){ n++; return {...r,[op.col]:null}; } if(isISO(v)&&v>HOJE&&op.futuro){ n++; return {...r,[op.col]:null}; } return r; }); info.n=n; break; }
+    case 'faixaValida':{ let n=0; const fora=x=>isNum(x)&&((op.min!=null&&x<op.min)||(op.max!=null&&x>op.max)); if(op.est==='remover'){ const n0=rows.length; rows=rows.filter(r=>!fora(r[op.col])); n=n0-rows.length; } else rows=rows.map(r=>{ if(fora(r[op.col])){ n++; return {...r,[op.col]:null}; } return r; }); info.n=n; break; }
+    case 'outlier':{ const v=rows.map(r=>r[op.col]).filter(isNum); if(v.length>3){ const F=fences(v,op.f); const n0=rows.length; rows=rows.filter(r=>!(isNum(r[op.col])&&(r[op.col]<F.li||r[op.col]>F.ls))); info.n=n0-rows.length; } break; }
+    case 'faixa':{ rows=rows.map(r=>({...r,[op.nova]:isNum(r[op.col])?(r[op.col]<=op.a?'Baixo':r[op.col]<=op.b?'Médio':'Alto'):null})); cols=[...cols,op.nova]; tipos={...tipos,[op.nova]:'cat'}; break; }
+    case 'parteData':{ const DS=['domingo','segunda','terça','quarta','quinta','sexta','sábado']; rows=rows.map(r=>{ const v=r[op.col]; let o=null; if(isISO(v)){ const d=new Date(v+'T12:00:00Z'); o=op.parte==='mes'?v.slice(0,7):op.parte==='ano'?v.slice(0,4):op.parte==='dia'?DS[d.getUTCDay()]:`T${Math.floor(d.getUTCMonth()/3)+1} ${v.slice(0,4)}`; } return {...r,[op.nova]:o}; }); cols=[...cols,op.nova]; tipos={...tipos,[op.nova]:'cat'}; break; }
+    case 'difDatas':{ rows=rows.map(r=>({...r,[op.nova]:(isISO(r[op.a])&&isISO(r[op.b]))?Math.round((Date.parse(r[op.b])-Date.parse(r[op.a]))/864e5):null})); cols=[...cols,op.nova]; tipos={...tipos,[op.nova]:'num'}; break; }
+  }
+  return {rows,cols,tipos,info};
+}
+function rodar(ops,base){ let st=base||{rows:S.raw.map(r=>({...r})),cols:[...S.cols],tipos:{...S.tipos}}; const infos=[]; ops.forEach(op=>{ const r=executa(op,st); infos.push(r.info); st={rows:r.rows,cols:r.cols,tipos:r.tipos}; }); st.infos=infos; return st; }
+const opsLimpeza=()=>S.ops.filter(o=>!o.deriv);
+const opsDeriv=()=>S.ops.filter(o=>o.deriv);
+let CACHE={};
+function limpa(){ if(!CACHE.l) CACHE.l=rodar(opsLimpeza()); return CACHE.l; }
+function prep(){ if(!CACHE.p){ const L=limpa(); const outs=S.outs.filter(o=>o.dec==='Remover').map(o=>({t:'outlier',col:o.col,f:o.f})); CACHE.p=rodar([...outs,...opsDeriv()],{rows:L.rows,cols:L.cols,tipos:L.tipos}); } return CACHE.p; }
+function mudou(){ CACHE={}; salvarS(); tudo(); }
+const colsDe=(st,tipo)=>st.cols.filter(c=>st.tipos[c]===tipo);
+const fmtV=(v,t)=>v==null?'':(isNum(v)?(t==='num'?nf(v,Number.isInteger(v)?0:2):String(v)):(isISO(v)?dataBR(v):String(v)));
+const fmtX=v=>v==null?'':(isNum(v)?String(v).replace('.',','):(isISO(v)?dataBR(v):String(v)));
+function tsvBase(st){ return [st.cols.join('\t'),...st.rows.map(r=>st.cols.map(c=>limpaTxt(fmtX(r[c]))).join('\t'))].join('\n'); }
+
+/* ---------- problemas (raio-x) ---------- */
+function problemasCol(st,c){
+  const t=st.tipos[c], v=st.rows.map(r=>r[c]).filter(x=>x!=null);
+  if(t==='num'){ const tx=v.filter(x=>!isNum(x)); return {n:tx.length,tipo:tx.length?'número guardado como texto':'',ex:[...new Set(tx)].slice(0,3)}; }
+  if(t==='data'){ const inv=v.filter(x=>!isISO(x)), fut=v.filter(x=>isISO(x)&&x>HOJE); return {n:inv.length+fut.length,tipo:[inv.length?'data inválida':'',fut.length?'data no futuro':''].filter(Boolean).join(', '),ex:[...new Set([...inv,...fut.map(dataBR)])].slice(0,3)}; }
+  if(t==='cat'){ const mapa=canonico(v); const fora=v.filter(x=>String(x)!==mapa[norm(x)]); return {n:fora.length,tipo:fora.length?'grafias diferentes':'',ex:[...new Set(fora.map(x=>String(x).replace(/^ | $/g,'␣')))].slice(0,3)}; }
+  return {n:0,tipo:'',ex:[]};
+}
+
+/* ================= ABAS ================= */
+const ABAS=[['carregar','Carregar'],['raiox','Raio-X'],['limpeza','Limpeza'],['prep','Novas colunas'],['outliers','Outliers'],['grupos','Comparar grupos'],['relacoes','Relações'],['hip','Hipóteses'],['exportar','Levar ao Excel']];
+let abaAt='carregar';
+function desenhaAbas(){
+  $('abas').innerHTML=ABAS.map(([k,n],i)=>`<button class="aba-btn" role="tab" data-k="${k}" aria-selected="${k===abaAt}" ${(!S&&i>0)?'disabled':''}><span class="n">${i+1}</span>${n}</button>`).join('');
+  $('abas').querySelectorAll('.aba-btn').forEach(b=>b.onclick=()=>{ abaAt=b.dataset.k; ABAS.forEach(([k])=>$('p-'+k).hidden=k!==abaAt); desenhaAbas(); desenhaAtual(); window.scrollTo({top:document.querySelector('.abas-lab').offsetTop-4,behavior:reduz?'auto':'smooth'}); });
+}
+function desenhaAtual(){ if(!S) return; ({carregar:dCarregar,raiox:dRaiox,limpeza:dLimpeza,prep:dPrep,outliers:dOutliers,grupos:dGrupos,relacoes:dRelacoes,hip:dHip,exportar:dExportar})[abaAt](); }
+function tudo(){ desenhaAbas(); ABAS.forEach(([k])=>$('p-'+k).hidden=k!==abaAt); desenhaAtual(); }
+
+/* ---------- 1 carregar ---------- */
+function dCarregar(){
+  $('tiposBox').hidden=false;
+  $('tabTipos').innerHTML='<thead><tr><th>Coluna</th><th>Tipo</th><th>Exemplos</th></tr></thead><tbody>'+S.cols.map(c=>`<tr><td><b>${c}</b></td><td><select data-c="${c}" aria-label="Tipo de ${c}">${Object.entries(TIPOS).map(([k,v])=>`<option value="${k}" ${S.tipos[c]===k?'selected':''}>${v}</option>`).join('')}</select></td><td>${[...new Set(S.raw.map(r=>r[c]).filter(x=>x!=null))].slice(0,4).map(x=>fmtV(x,S.tipos[c])).join(' · ')}</td></tr>`).join('')+'</tbody>';
+  $('tabTipos').querySelectorAll('select').forEach(s=>s.onchange=()=>{ S.tipos[s.dataset.c]=s.value; mudou(); });
+  $('tabPrevia').innerHTML='<thead><tr>'+S.cols.map(c=>`<th>${c}</th>`).join('')+'</tr></thead><tbody>'+S.raw.slice(0,8).map(r=>'<tr>'+S.cols.map(c=>`<td class="${r[c]==null?'vazio':''}">${r[c]==null?'(vazio)':fmtV(r[c],S.tipos[c])}</td>`).join('')+'</tr>').join('')+'</tbody>';
+  if(!$('msgCarga').innerHTML) msgCarga(`Base em uso: <b>${S.nome}</b> (${S.raw.length} linhas). Para trocar, carregue outro arquivo.`);
+}
+
+/* ---------- 2 raio-x ---------- */
+function diagnostico(st){ return st.cols.map(c=>{ const v=st.rows.map(r=>r[c]); const nv=v.filter(x=>x==null).length, p=problemasCol(st,c); return {c,t:st.tipos[c],nv,pv:100*nv/st.rows.length,dist:new Set(v.filter(x=>x!=null)).size,p}; }); }
+function dRaiox(){
+  const st={rows:S.raw,cols:S.cols,tipos:S.tipos}, D2=diagnostico(st), n=S.raw.length, cel=n*S.cols.length, vz=sum(D2.map(d=>d.nv));
+  const dup=n-new Set(S.raw.map(r=>JSON.stringify(S.cols.map(c=>r[c])))).size, prob=sum(D2.map(d=>d.p.n));
+  $('rxK').innerHTML=[['Linhas',inteiro(n)],['Colunas',S.cols.length],['Células vazias',`${nf(100*vz/cel,1)}%`,`${vz} de ${inteiro(cel)}`],['Linhas repetidas',dup,'cópias exatas'],['Valores com problema',prob,'texto em número, datas, grafias']].map(k=>`<div class="kpi"><span class="k">${k[0]}</span><div class="v">${k[1]}</div><span class="s">${k[2]||''}</span></div>`).join('');
+  const W=600, cw=W/S.cols.length, top=100, rh=Math.max(.6,Math.min(3,420/n)), H=top+n*rh+4;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Mapa de vazios e problemas">`;
+  S.cols.forEach((c,j)=>{ const x=j*cw; s+=`<text x="${x+cw/2}" y="${top-8}" transform="rotate(-55 ${x+cw/2} ${top-8})" class="t-peq">${c.length>18?c.slice(0,17)+'…':c}</text><rect x="${x+1.5}" y="${top}" width="${cw-3}" height="${n*rh}" class="cheio-cel"/>`;
+    const mapa=S.tipos[c]==='cat'?canonico(S.raw.map(r=>r[c])):null;
+    S.raw.forEach((r,i)=>{ const v=r[c]; let cls=null; if(v==null) cls='vazio-cel'; else if((S.tipos[c]==='num'&&!isNum(v))||(S.tipos[c]==='data'&&(!isISO(v)||v>HOJE))||(mapa&&String(v)!==mapa[norm(v)])) cls='bad'; if(cls) s+=`<rect x="${x+1.5}" y="${top+i*rh}" width="${cw-3}" height="${Math.max(rh,1)}" ${cls==='bad'?'style="fill:var(--bad)"':'class="vazio-cel"'}/>`; }); });
+  $('rxMapa').innerHTML=s+'</svg>';
+  $('rxTab').innerHTML='<thead><tr><th>Coluna</th><th>Tipo</th><th>Vazios</th><th>%</th><th>Diferentes</th><th>Problemas</th><th>Exemplos</th></tr></thead><tbody>'+D2.map(d=>`<tr><td><b>${d.c}</b></td><td>${TIPOS[d.t]}</td><td class="${d.nv?'vazio':''}">${d.nv}</td><td>${nf(d.pv,1)}%</td><td>${d.dist}</td><td class="${d.p.n?'prob':''}">${d.p.n?`${d.p.n} · ${d.p.tipo}`:'—'}</td><td>${d.p.ex.join(' · ')}</td></tr>`).join('')+'</tbody>';
+  $('cpRaiox').onclick=()=>copiar(['Coluna\tTipo\tVazios\t% vazio\tValores diferentes\tProblemas\tExemplos',...D2.map(d=>[d.c,TIPOS[d.t],d.nv,nf(d.pv,1)+'%',d.dist,d.p.n?`${d.p.n} (${d.p.tipo})`:'0',d.p.ex.join(', ')].join('\t')),'',`Linhas\t${n}`,`Linhas repetidas (cópias exatas)\t${dup}`].join('\n'),$('okRaiox'));
+}
+
+/* ---------- 3 limpeza ---------- */
+const DESC={dupLinha:(o,i)=>`Removi ${i.n} linhas duplicadas exatas`,dupChave:(o,i)=>`Removi ${i.n} repetidos por ${o.col}, mantendo a primeira ocorrência`,
+  aus:(o,i)=>({manter:`Mantive vazios os ${i.n} registros de ${o.col}`,mediana:`Preenchi os ${i.n} vazios de ${o.col} com a mediana (${fmtV(i.val,'num')})`,media:`Preenchi os ${i.n} vazios de ${o.col} com a média (${fmtV(i.val,'num')})`,moda:`Preenchi os ${i.n} vazios de ${o.col} com a moda (${i.val})`,remover:`Removi as ${i.n} linhas sem ${o.col}`,excluir:`Excluí a coluna ${o.col} (${i.n} vazios)`})[o.est],
+  texto:(o,i)=>`Padronizei as grafias de ${o.col}: de ${i.antes} para ${i.depois} valores diferentes`,converter:(o,i)=>`Converti ${i.ok} valores de ${o.col} guardados como texto em número${i.nul?` (${i.nul} ficaram vazios por não serem números)`:''}`,
+  faixaValida:(o,i)=>`${o.est==='remover'?'Removi':'Deixei vazios'} ${i.n} ${i.n===1?'registro':'registros'} de ${o.col} fora do possível (${o.min!=null?'abaixo de '+nf(o.min,o.min%1?2:0):''}${o.min!=null&&o.max!=null?' ou ':''}${o.max!=null?'acima de '+nf(o.max,o.max%1?2:0):''})`,
+  datas:(o,i)=>`${({inverter:'Inverti',vazia:'Deixei vazia a segunda data de',remover:'Removi'})[o.est]} ${i.n} registros em que ${o.b} vinha antes de ${o.a}`,dataInv:(o,i)=>`Deixei ${i.n===1?'vazia 1 data inválida':`vazias ${i.n} datas inválidas`}${o.futuro?' ou no futuro':''} em ${o.col}`};
+const SUG={dupLinha:['Eram cópias idênticas, provavelmente importadas duas vezes.','Contagens e totais ficariam inflados.'],dupChave:['A mesma chave aparecia mais de uma vez.','O mesmo registro seria contado duas vezes.'],
+  aus:{manter:['O vazio tem significado ou a análise pode ignorá-lo.','Preencher inventaria valores que não existem.'],mediana:['Coluna numérica; a mediana resiste a valores extremos.','Cálculos usariam só parte dos registros.'],media:['Coluna numérica sem valores extremos fortes.','Cálculos usariam só parte dos registros.'],moda:['Coluna categórica; a categoria mais comum é a escolha menos arriscada.','Contagens por categoria ignorariam esses registros.'],remover:['Poucos vazios e sem padrão aparente.','Registros incompletos atrapalhariam os cálculos.'],excluir:['Coluna quase toda vazia.','Conclusões apoiadas nela seriam frágeis.']},
+  texto:['Cada grafia contava como uma categoria diferente.','Contagens e gráficos por categoria ficariam errados.'],converter:['Números guardados como texto não entram nas contas.','Médias e somas ignorariam esses valores.'],datas:['A data final não pode vir antes da inicial.','Prazos e intervalos ficariam negativos ou errados.'],dataInv:['A data não existe ou ainda não aconteceu.','Análises no tempo ficariam distorcidas.'],faixaValida:['O valor é impossível para essa variável, então é erro de registro.','Médias e gráficos seriam puxados por um valor que não existe.']};
+function recomendacao(t,pv){ if(pv>40) return 'excluir'; if(t==='num') return 'mediana'; if(t==='cat') return 'moda'; return 'manter'; }
+function addOp(op){ const sug=op.t==='aus'?SUG.aus[op.est]:SUG[op.t]; op.porque=sug?sug[0]:''; op.risco=sug?sug[1]:''; op.id=Math.random().toString(36).slice(2,9); S.ops.push(op); mudou(); }
+function dLimpeza(){
+  const L=limpa(), n0=S.raw.length;
+  const vz0=sum(S.cols.map(c=>S.raw.filter(r=>r[c]==null).length)), vz1=sum(L.cols.map(c=>L.rows.filter(r=>r[c]==null).length));
+  $('lpK').innerHTML=[['Linhas',`${n0} → ${L.rows.length}`],['Colunas',`${S.cols.length} → ${L.cols.length}`],['Células vazias',`${vz0} → ${vz1}`],['Decisões no log',opsLimpeza().length]].map(k=>`<div class="kpi"><span class="k">${k[0]}</span><div class="v">${k[1]}</div></div>`).join('');
+  const dupN=L.rows.length-new Set(L.rows.map(r=>JSON.stringify(L.cols.map(c=>r[c])))).size, ids=L.cols.filter(c=>L.tipos[c]==='id');
+  let h=`<div class="linha-acao"><span>Linhas idênticas: <b>${dupN}</b></span><button class="btn ${dupN?'prim':''}" id="bDupL" ${dupN?'':'disabled'}>Remover cópias exatas</button></div>`;
+  if(ids.length) h+=`<div class="linha-acao"><span>Repetidos por chave: <select id="sDupC">${ids.map(c=>`<option>${c}</option>`).join('')}</select> <b id="nDupC"></b></span><button class="btn" id="bDupC">Remover repetidos pela chave</button></div>`;
+  $('lpDup').innerHTML=h; if($('bDupL')) $('bDupL').onclick=()=>addOp({t:'dupLinha'});
+  if(ids.length){ const at=()=>{ const c=$('sDupC').value, k=L.rows.map(r=>r[c]).filter(x=>x!=null); const q=k.length-new Set(k).size; $('nDupC').textContent=`${q} repetidos`; $('bDupC').disabled=!q; $('bDupC').classList.toggle('prim',q>0); }; $('sDupC').onchange=at; at(); $('bDupC').onclick=()=>addOp({t:'dupChave',col:$('sDupC').value}); }
+  const comV=L.cols.map(c=>({c,t:L.tipos[c],n:L.rows.filter(r=>r[c]==null).length})).filter(o=>o.n);
+  const EST=[['manter','Manter vazio'],['mediana','Mediana'],['media','Média'],['moda','Moda'],['remover','Remover linhas'],['excluir','Excluir coluna']];
+  $('lpAus').innerHTML=comV.length?'<thead><tr><th>Coluna</th><th>Tipo</th><th>Vazios</th><th>%</th><th>Decisão</th><th></th></tr></thead><tbody>'+comV.map((o,i)=>{ const pv=100*o.n/L.rows.length, rec=recomendacao(o.t,pv); return `<tr><td><b>${o.c}</b></td><td>${TIPOS[o.t]}</td><td>${o.n}</td><td>${nf(pv,1)}%</td><td><select id="au${i}">${EST.filter(([k])=>!((k==='mediana'||k==='media')&&o.t!=='num')).map(([k,v])=>`<option value="${k}" ${k===rec?'selected':''}>${v}${k===rec?' (sugerido)':''}</option>`).join('')}</select></td><td><button class="btn" data-i="${i}">Aplicar</button></td></tr>`; }).join('')+'</tbody>':'<tbody><tr><td class="vazio-msg">Nenhum vazio na base limpa.</td></tr></tbody>';
+  $('lpAus').querySelectorAll('button[data-i]').forEach(b=>b.onclick=()=>{ const o=comV[+b.dataset.i]; addOp({t:'aus',col:o.c,est:$('au'+b.dataset.i).value}); });
+  const cats=colsDe(L,'cat').map(c=>{ const v=L.rows.map(r=>r[c]).filter(x=>x!=null); const mapa=canonico(v); const grupos={}; v.forEach(x=>{ const k=norm(x); (grupos[k]=grupos[k]||new Set()).add(String(x).replace(/^ | $/g,'␣')); }); const var_=Object.entries(grupos).filter(([k,s])=>s.size>1||[...s][0]!==mapa[k]); return {c,var_,mapa}; }).filter(o=>o.var_.length);
+  $('lpTxt').innerHTML=cats.length?cats.map((o,i)=>`<div class="linha-acao"><div><b>${o.c}</b><p class="grupo-var">${o.var_.slice(0,4).map(([k,s])=>`${[...s].join(', ')} → <b>${o.mapa[k]}</b>`).join(' · ')}${o.var_.length>4?` · e mais ${o.var_.length-4}`:''}</p></div><button class="btn prim" data-c="${o.c}">Unificar grafias</button></div>`).join(''):'<p class="vazio-msg">Nenhuma coluna de categoria com grafias diferentes.</p>';
+  $('lpTxt').querySelectorAll('button[data-c]').forEach(b=>b.onclick=()=>addOp({t:'texto',col:b.dataset.c}));
+  const conv=colsDe(L,'num').map(c=>({c,tx:L.rows.map(r=>r[c]).filter(x=>x!=null&&!isNum(x))})).filter(o=>o.tx.length);
+  $('lpConv').innerHTML=conv.length?conv.map(o=>`<div class="linha-acao"><span><b>${o.c}</b>: ${o.tx.length} valores como texto (ex.: ${[...new Set(o.tx)].slice(0,3).join(' · ')})</span><button class="btn prim" data-c="${o.c}">Converter em número</button></div>`).join(''):'<p class="vazio-msg">Nenhum número guardado como texto.</p>';
+  $('lpConv').querySelectorAll('button[data-c]').forEach(b=>b.onclick=()=>addOp({t:'converter',col:b.dataset.c}));
+  const numsL=colsDe(L,'num'); if(numsL.length){ const cur=$('ivCol').value; $('ivCol').innerHTML=numsL.map(c=>`<option ${c===cur?'selected':''}>${c}</option>`).join(''); }
+  const ivPrev=()=>{ const c=$('ivCol').value; if(!c){ $('ivPrev').textContent='Nenhuma coluna numérica.'; return; } const v=L.rows.map(r=>r[c]).filter(isNum); const mn=$('ivMin').value===''?null:+$('ivMin').value, mx=$('ivMax').value===''?null:+$('ivMax').value; const f=v.filter(x=>(mn!=null&&x<mn)||(mx!=null&&x>mx)).sort((a,b)=>a-b);
+    $('ivPrev').innerHTML=`Hoje ${c} vai de <b>${nf(Math.min(...v),Number.isInteger(Math.min(...v))?0:2)}</b> a <b>${nf(Math.max(...v),Number.isInteger(Math.max(...v))?0:2)}</b>. `+(mn==null&&mx==null?'Digite o menor e/ou o maior valor possível.':`<b>${f.length}</b> ${f.length===1?'valor fica':'valores ficam'} fora${f.length?`: ${[...new Set(f)].slice(0,8).map(x=>nf(x,Number.isInteger(x)?0:2)).join(' · ')}`:''}.`); $('ivAp').disabled=!f.length; };
+  if($('ivCol').dataset.c!==$('ivCol').value){ $('ivMin').value=''; $('ivMax').value=''; $('ivCol').dataset.c=$('ivCol').value; }
+  $('ivCol').onchange=()=>{ $('ivMin').value=''; $('ivMax').value=''; $('ivCol').dataset.c=$('ivCol').value; ivPrev(); }; $('ivMin').oninput=ivPrev; $('ivMax').oninput=ivPrev; ivPrev();
+  $('ivAp').onclick=()=>{ const mn=$('ivMin').value===''?null:+$('ivMin').value, mx=$('ivMax').value===''?null:+$('ivMax').value; addOp({t:'faixaValida',col:$('ivCol').value,min:mn,max:mx,est:$('ivEst').value}); };
+  const ds=colsDe(L,'data'); let hd='';
+  ds.forEach(c=>{ const inv=L.rows.filter(r=>r[c]!=null&&(!isISO(r[c])||r[c]>HOJE)).length; if(inv) hd+=`<div class="linha-acao"><span><b>${c}</b>: ${inv===1?'1 data inválida ou no futuro':`${inv} datas inválidas ou no futuro`}</span><button class="btn" data-inv="${c}">Deixar vazias</button></div>`; });
+  if(ds.length>=2) hd+=`<div class="linha-acao"><span>Data inicial <select id="dA">${ds.map(c=>`<option>${c}</option>`).join('')}</select> e final <select id="dB">${ds.map((c,i)=>`<option ${i===1?'selected':''}>${c}</option>`).join('')}</select>: <b id="dN"></b></span><span><select id="dE"><option value="inverter">Inverter as datas</option><option value="vazia">Deixar a final vazia</option><option value="remover">Remover as linhas</option></select> <button class="btn" id="dAp">Aplicar</button></span></div>`;
+  $('lpDatas').innerHTML=hd||'<p class="vazio-msg">Nenhum problema de data encontrado (são necessárias colunas do tipo Data).</p>';
+  $('lpDatas').querySelectorAll('button[data-inv]').forEach(b=>b.onclick=()=>addOp({t:'dataInv',col:b.dataset.inv,futuro:true}));
+  if($('dA')){ const at=()=>{ const a=$('dA').value,b=$('dB').value; $('dN').textContent=`${L.rows.filter(r=>isISO(r[a])&&isISO(r[b])&&r[b]<r[a]).length} registros com a final antes da inicial`; }; $('dA').onchange=at; $('dB').onchange=at; at(); $('dAp').onclick=()=>addOp({t:'datas',a:$('dA').value,b:$('dB').value,est:$('dE').value}); }
+  const ops=opsLimpeza(), inf=L.infos;
+  $('lpLog').innerHTML=ops.length?ops.map((o,i)=>`<li class="log-item"><div class="topo-log"><b>${DESC[o.t](o,inf[i]||{})}</b><button class="btn" data-del="${o.id}">Desfazer</button></div><div class="campos"><div class="campo"><label for="lp${o.id}">Por que fizemos</label><input id="lp${o.id}" data-k="porque" data-id="${o.id}" value="${(o.porque||'').replace(/"/g,'&quot;')}"></div><div class="campo"><label for="lr${o.id}">Risco de não fazer</label><input id="lr${o.id}" data-k="risco" data-id="${o.id}" value="${(o.risco||'').replace(/"/g,'&quot;')}"></div></div></li>`).join(''):'<li class="vazio-msg">Nenhuma decisão ainda.</li>';
+  $('lpLog').querySelectorAll('button[data-del]').forEach(b=>b.onclick=()=>{ S.ops=S.ops.filter(o=>o.id!==b.dataset.del); mudou(); });
+  $('lpLog').querySelectorAll('input[data-id]').forEach(inp=>inp.oninput=()=>{ const o=S.ops.find(x=>x.id===inp.dataset.id); o[inp.dataset.k]=inp.value; salvarS(); });
+}
+
+/* ---------- 4 preparação ---------- */
+const IMP=['impossível','incompleta','menos interpretável'];
+function regraDe(o){ return o.t==='faixa'?`Baixo até ${nf(o.a,2)}; Médio até ${nf(o.b,2)}; Alto acima`:o.t==='parteData'?({mes:'Ano e mês da data',ano:'Ano da data',dia:'Dia da semana da data',tri:'Trimestre da data'})[o.parte]:`Dias entre ${o.a} e ${o.b}`; }
+const origDe=o=>o.t==='difDatas'?`${o.a}, ${o.b}`:o.col;
+function dPrep(){
+  const L=limpa(), nums=colsDe(L,'num'), ds=colsDe(L,'data');
+  const optc=(id,l)=>{ const cur=$(id).value; $(id).innerHTML=l.map(c=>`<option ${c===cur?'selected':''}>${c}</option>`).join('')||'<option value="">(nenhuma)</option>'; };
+  optc('fxCol',nums); optc('pdCol',ds); optc('ddA',ds); optc('ddB',ds); if(ds.length>1&&$('ddA').value===$('ddB').value) $('ddB').selectedIndex=1;
+  const fxPrev=()=>{ const c=$('fxCol').value; if(!c) { $('fxPrev').textContent=''; return; } const v=L.rows.map(r=>r[c]).filter(isNum); if(!$('fxA').dataset.col||$('fxA').dataset.col!==c){ $('fxA').value=Math.round(quantil(v,1/3)*100)/100; $('fxB').value=Math.round(quantil(v,2/3)*100)/100; $('fxA').dataset.col=c; } const a=+$('fxA').value,b=+$('fxB').value; const k=[v.filter(x=>x<=a).length,v.filter(x=>x>a&&x<=b).length,v.filter(x=>x>b).length]; $('fxPrev').textContent=`Ficariam: Baixo ${k[0]} · Médio ${k[1]} · Alto ${k[2]} (limites iniciais dividem em três grupos parecidos).`; };
+  $('fxCol').onchange=fxPrev; $('fxA').oninput=fxPrev; $('fxB').oninput=fxPrev; fxPrev();
+  const nomeLivre=n=>{ let x=n,i=2; const all=prep().cols; while(all.includes(x)){ x=`${n}_${i++}`; } return x; };
+  $('fxCriar').onclick=()=>{ const c=$('fxCol').value; if(!c) return; let a=+$('fxA').value,b=+$('fxB').value; if(b<a) [a,b]=[b,a]; S.ops.push({t:'faixa',deriv:true,id:Math.random().toString(36).slice(2,9),col:c,a,b,nova:nomeLivre('faixa_'+c),perg:'',imp:''}); mudou(); };
+  $('pdCriar').onclick=()=>{ const c=$('pdCol').value; if(!c) return; const p=$('pdParte').value; S.ops.push({t:'parteData',deriv:true,id:Math.random().toString(36).slice(2,9),col:c,parte:p,nova:nomeLivre(({mes:'mes_',ano:'ano_',dia:'dia_semana_',tri:'trimestre_'})[p]+c),perg:'',imp:''}); mudou(); };
+  $('ddCriar').disabled=ds.length<2; $('ddNota').textContent=ds.length<2?'A base precisa de duas colunas de data.':'';
+  $('ddCriar').onclick=()=>{ const a=$('ddA').value,b=$('ddB').value; if(!a||!b||a===b) return; S.ops.push({t:'difDatas',deriv:true,id:Math.random().toString(36).slice(2,9),a,b,nova:nomeLivre('dias_'+a.replace(/^data_?/,'')+'_ate_'+b.replace(/^data_?/,'')),perg:'',imp:''}); mudou(); };
+  const D2=opsDeriv(), P=prep();
+  $('pdLista').innerHTML=D2.length?D2.map(o=>{ const v=P.rows.map(r=>r[o.nova]).filter(x=>x!=null); const ex=o.t==='difDatas'?`mediana ${nf(median(v.filter(isNum))||0,0)} dias`:[...contar(v).entries()].sort((a,b)=>b[1]-a[1]).slice(0,4).map(([k,n])=>`${k}: ${n}`).join(' · ');
+    return `<div class="log-item painel" style="background:var(--surface)"><div class="topo-log"><div><b>${o.nova}</b><p class="grupo-var">De ${origDe(o)} · ${regraDe(o)} · ${ex}</p></div><button class="btn" data-del="${o.id}">Desfazer</button></div><div class="campos"><div class="campo"><label for="pq${o.id}">Pergunta ou hipótese que ela ajuda a responder</label><input id="pq${o.id}" data-k="perg" data-id="${o.id}" value="${(o.perg||'').replace(/"/g,'&quot;')}"></div><div class="campo"><label for="pi${o.id}">Sem ela, a análise ficaria</label><select id="pi${o.id}" data-k="imp" data-id="${o.id}"><option value="">Escolha</option>${IMP.map(x=>`<option ${o.imp===x?'selected':''}>${x}</option>`).join('')}</select></div></div></div>`; }).join(''):`<p class="vazio-msg">Nenhuma coluna nova ainda. O projeto pede pelo menos três.</p>`;
+  $('pdLista').querySelectorAll('button[data-del]').forEach(b=>b.onclick=()=>{ S.ops=S.ops.filter(o=>o.id!==b.dataset.del); mudou(); });
+  $('pdLista').querySelectorAll('[data-id]').forEach(e=>e.oninput=e.onchange=()=>{ const o=S.ops.find(x=>x.id===e.dataset.id); o[e.dataset.k]=e.value; salvarS(); });
+}
+
+/* ---------- 5 outliers ---------- */
+function dOutliers(){
+  const L=limpa(), nums=colsDe(L,'num'); const cur=$('otCol').value; $('otCol').innerHTML=nums.map(c=>`<option ${c===cur?'selected':''}>${c}</option>`).join('');
+  const c=$('otCol').value, f=+$('otF').value; if(!c){ $('otViz').innerHTML='<p class="vazio-msg">Nenhuma coluna numérica.</p>'; return; }
+  const v=L.rows.map(r=>r[c]).filter(isNum), F=fences(v,f), outs=L.rows.filter(r=>isNum(r[c])&&(r[c]<F.li||r[c]>F.ls)).sort((a,b)=>b[c]-a[c]);
+  const zoom=$('otZoom').checked, dentro=v.filter(x=>x>=F.li&&x<=F.ls), vmin=Math.min(...v), vmax=Math.max(...v);
+  let lo=zoom?Math.min(...dentro,Math.max(F.li,vmin)):Math.min(vmin,Math.max(F.li,vmin)), hi=zoom?Math.max(...dentro,Math.min(F.ls,vmax)):vmax; const pad=(hi-lo)*.04||1; lo-=pad; hi+=pad;
+  const W=900,H=200,Lm=30,R=W-30, X=x=>Lm+(R-Lm)*(Math.min(Math.max(x,lo),hi)-lo)/((hi-lo)||1), rnd=mulberry32(4), y=100;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Valores com a caixa e a cerca">`;
+  ticks(lo,hi,7).forEach(t=>{ if(t<lo||t>hi) return; s+=`<line class="eixo" style="opacity:.3" x1="${X(t)}" x2="${X(t)}" y1="44" y2="${H-32}"/><text x="${X(t)}" y="${H-10}" text-anchor="middle">${fmtCurto(t)}</text>`; });
+  s+=`<rect class="caixa" x="${X(F.q1)}" y="${y-26}" width="${Math.max(X(F.q3)-X(F.q1),2)}" height="52" rx="4"/><line class="m-mediana-box" x1="${X(quantil(v,.5))}" x2="${X(quantil(v,.5))}" y1="${y-26}" y2="${y+26}"/>`;
+  [[F.ls,'start'],[F.li,'end']].forEach(([f,a])=>{ if(f>=lo&&f<=hi&&(a==='start'||f>vmin)){ if(a==='start'&&X(f)>W-170) a='end'; if(a==='end'&&X(f)<170) a='start'; s+=`<line style="stroke:var(--bad);stroke-width:2.5;stroke-dasharray:6 4" x1="${X(f)}" x2="${X(f)}" y1="34" y2="${H-32}"/><text x="${X(f)+(a==='start'?6:-6)}" y="28" text-anchor="${a}" class="t-alerta">cerca: ${nf(f,2)}</text>`; } });
+  let foraD=0, foraE=0;
+  v.forEach(x=>{ const o=x<F.li||x>F.ls; if(x>hi){ foraD++; return; } if(x<lo){ foraE++; return; } s+=`<circle cx="${X(x)}" cy="${y+(rnd()-.5)*40}" r="${o?6:3.2}" class="${o?'marcador':'ponto'}" style="opacity:${o?1:.45}"/>`; });
+  if(foraD) s+=`<path d="M${R+4} ${y} l-14 -9 v18 z" class="marcador"/><text x="${R+4}" y="${y+34}" text-anchor="end" class="t-alerta">+${foraD} além</text>`;
+  if(foraE) s+=`<path d="M${Lm-4} ${y} l14 -9 v18 z" class="marcador"/><text x="${Lm-4}" y="${y+34}" class="t-alerta">+${foraE} além</text>`;
+  $('otViz').innerHTML=s+'</svg>';
+  $('otNota').textContent=`${v.length} valores. Metade está entre ${nf(F.q1,2)} e ${nf(F.q3,2)}. Cerca: de ${nf(F.li,2)} a ${nf(F.ls,2)}. ${outs.length} ${outs.length===1?'valor passa':'valores passam'} da cerca.`;
+  const ctx=L.cols.filter(x=>x!==c).slice(0,5);
+  $('otTab').innerHTML=outs.length?'<thead><tr><th>'+c+'</th>'+ctx.map(x=>`<th>${x}</th>`).join('')+'</tr></thead><tbody>'+outs.slice(0,30).map(r=>`<tr><td class="prob">${fmtV(r[c],'num')}</td>${ctx.map(x=>`<td>${fmtV(r[x],L.tipos[x])}</td>`).join('')}</tr>`).join('')+'</tbody>':'<tbody><tr><td class="vazio-msg">Nenhum valor além da cerca nesta coluna.</td></tr></tbody>';
+  $('otReg').onclick=()=>{ if(!$('otRep').value||!$('otDec').value) return; S.outs=S.outs.filter(o=>o.col!==c); S.outs.push({id:Math.random().toString(36).slice(2,9),col:c,f,n:outs.length,ls:F.ls,li:F.li,rep:$('otRep').value,dec:$('otDec').value,jus:$('otJus').value}); $('otOk').hidden=false; setTimeout(()=>$('otOk').hidden=true,2000); mudou(); };
+  $('otLista').innerHTML=S.outs.length?S.outs.map(o=>`<div class="linha-acao"><span><b>${o.col}</b>: ${o.n} outliers (cerca ${nf(o.f,1)}) · representam: ${o.rep} · decisão: <b>${o.dec}</b>${o.jus?` · ${o.jus}`:''}</span><button class="btn" data-del="${o.id}">Desfazer</button></div>`).join(''):'<p class="vazio-msg">Nenhuma decisão registrada.</p>';
+  $('otLista').querySelectorAll('button[data-del]').forEach(b=>b.onclick=()=>{ S.outs=S.outs.filter(o=>o.id!==b.dataset.del); mudou(); });
+}
+
+/* ---------- 6 grupos · 7 relações ---------- */
+function opcoesHip(id){ $(id).innerHTML=S.hips.map((h,i)=>`<option value="${h.id}">H${i+1}: ${(h.texto||'(sem texto)').slice(0,70)}</option>`).join(''); }
+let EVG='', EVR='';
+function dGrupos(){
+  const P=prep(), nums=colsDe(P,'num'), cats=colsDe(P,'cat');
+  const sel=(id,l)=>{ const cur=$(id).value; $(id).innerHTML=l.map(c=>`<option ${c===cur?'selected':''}>${c}</option>`).join(''); };
+  sel('grN',nums); sel('grC',cats); opcoesHip('grHip');
+  const n=$('grN').value, c=$('grC').value; if(!n||!c){ $('grViz').innerHTML='<p class="vazio-msg">É preciso uma coluna numérica e uma de categoria.</p>'; return; }
+  const gs=[...new Set(P.rows.map(r=>r[c]).filter(x=>x!=null))].map(g=>({nome:String(g),vals:P.rows.filter(r=>r[c]===g).map(r=>r[n]).filter(isNum)})).filter(g=>g.vals.length).sort((a,b)=>median(b.vals)-median(a.vals)).slice(0,10);
+  $('grViz').innerHTML=svgBoxH(gs.map(g=>({nome:g.nome.length>15?g.nome.slice(0,14)+'…':g.nome,vals:g.vals})),{fv:fmtCurto});
+  $('grTab').innerHTML='<thead><tr><th>Grupo</th><th>n</th><th>Média</th><th>Mediana</th><th>Menor</th><th>Maior</th></tr></thead><tbody>'+gs.map(g=>`<tr><td>${g.nome}</td><td>${g.vals.length}</td><td>${nf(mean(g.vals),2)}</td><td>${nf(median(g.vals),2)}</td><td>${nf(Math.min(...g.vals),2)}</td><td>${nf(Math.max(...g.vals),2)}</td></tr>`).join('')+'</tbody>';
+  const top=gs[0], bot=gs[gs.length-1]; const dif=bot&&top!==bot?(mean(top.vals)-mean(bot.vals))/Math.abs(mean(bot.vals)||1):0; const peq=gs.filter(g=>g.vals.length<10);
+  const txt=top===bot?'Só há um grupo.':Math.abs(dif)<0.05?`Os grupos têm médias muito parecidas (de ${nf(mean(bot.vals),2)} a ${nf(mean(top.vals),2)}): separar por ${c} quase não muda ${n}.`:`O grupo <b>${top.nome}</b> tem média de ${n} igual a ${nf(mean(top.vals),2)}, ${nf(100*dif,0)}% acima do grupo <b>${bot.nome}</b> (${nf(mean(bot.vals),2)}). Medianas: ${nf(median(top.vals),2)} e ${nf(median(bot.vals),2)}.`;
+  $('grMsg').innerHTML=txt+(peq.length?` Cuidado: ${peq.map(g=>`${g.nome} tem só ${g.vals.length} registros`).join('; ')}.`:'');
+  EVG={tipo:'Comparação de médias',vars:`${c} × ${n}`,res:gs.map(g=>`${g.nome}: ${nf(mean(g.vals),2)} (n=${g.vals.length})`).join(' · '),evid:`Comparação de ${n} por ${c}. Médias: ${gs.map(g=>`${g.nome} ${nf(mean(g.vals),2)}`).join('; ')}. Medianas: ${gs.map(g=>`${g.nome} ${nf(median(g.vals),2)}`).join('; ')}.`};
+  $('grN').onchange=dGrupos; $('grC').onchange=dGrupos;
+  $('grAnexar').onclick=()=>anexar($('grHip').value,EVG,'grOk');
+}
+function dRelacoes(){
+  const P=prep(), nums=colsDe(P,'num'), cats=colsDe(P,'cat');
+  const sel=(id,l,i,extra)=>{ const cur=$(id).value; $(id).innerHTML=(extra||'')+l.map((c,j)=>`<option ${c===cur||(!cur&&j===i)?'selected':''}>${c}</option>`).join(''); };
+  sel('rlX',nums,0); sel('rlY',nums,1); sel('rlC',cats,-1,'<option value="">Nenhum</option>'); opcoesHip('rlHip');
+  const x=$('rlX').value, y=$('rlY').value, c=$('rlC').value; if(!x||!y||x===y){ $('rlViz').innerHTML='<p class="vazio-msg">Escolha duas colunas numéricas diferentes.</p>'; $('rlR').textContent=''; $('rlMsg').textContent=''; $('rlX').onchange=$('rlY').onchange=$('rlC').onchange=dRelacoes; return; }
+  const R=P.rows.filter(r=>isNum(r[x])&&isNum(r[y])), gr=c?[...new Set(R.map(r=>r[c]).filter(v=>v!=null))].slice(0,4):[];
+  $('rlViz').innerHTML=svgScatter(R.map(r=>({x:r[x],y:r[y],cls:c&&gr.includes(r[c])?'p'+(gr.indexOf(r[c])+1):'ponto',r:5})),{xlab:x,ylab:y,tend:true});
+  $('rlLeg').innerHTML=c?gr.map((g,i)=>`<span><i class="legenda-sw" style="background:var(--c${i+1})"></i>${g}</span>`).join(''):'';
+  const r=correl(R.map(o=>o[x]),R.map(o=>o[y]));
+  $('rlR').textContent=`r = ${nf(r,2)}`;
+  $('rlMsg').innerHTML=`<b>Relação ${forcaR(r)}</b>, com ${R.length} registros. ${Math.abs(r)<0.1?'Uma variável não ajuda a prever a outra.':r>0?`Quanto maior ${x}, maior tende a ser ${y}.`:`Quanto maior ${x}, menor tende a ser ${y}.`} Correlação não prova causa.`;
+  EVR={tipo:'Correlação',vars:`${x} × ${y}`,res:`r = ${nf(r,2)}`,evid:`Correlação entre ${x} e ${y}: r = ${nf(r,2)} (${forcaR(r)}), com ${R.length} registros.`};
+  $('rlX').onchange=$('rlY').onchange=$('rlC').onchange=dRelacoes;
+  $('rlAnexar').onclick=()=>anexar($('rlHip').value,EVR,'rlOk');
+}
+function anexar(id,ev,ok){ const h=S.hips.find(x=>x.id===id); if(!h||!ev) return; h.evid=ev.evid; h.res=ev.res; if(!h.tipo) h.tipo=ev.tipo; if(!h.vars) h.vars=ev.vars; salvarS(); const o=$(ok); o.hidden=false; setTimeout(()=>o.hidden=true,2000); }
+
+/* ---------- 8 hipóteses ---------- */
+const VER=['Confirma','Parcial','Refuta','Inconclusivo'], TIPA=['Correlação','Comparação de médias','Análise por grupos'];
+function dHip(){
+  $('hipLista').innerHTML=S.hips.map((h,i)=>`<div class="hip-card"><div class="topo-log" style="display:flex;justify-content:space-between;gap:10px"><p class="rotulo" style="margin:0">Hipótese ${i+1}</p><button class="btn" data-del="${h.id}">Remover</button></div>
+    <div class="campo"><label for="ht${h.id}">Hipótese</label><textarea id="ht${h.id}" data-id="${h.id}" data-k="texto">${h.texto}</textarea></div>
+    <div class="grade3"><div class="campo"><label for="hv${h.id}">Variáveis usadas</label><input id="hv${h.id}" data-id="${h.id}" data-k="vars" value="${h.vars.replace(/"/g,'&quot;')}"></div><div class="campo"><label for="ha${h.id}">Tipo de análise</label><select id="ha${h.id}" data-id="${h.id}" data-k="tipo"><option value="">Escolha</option>${TIPA.map(t=>`<option ${h.tipo===t?'selected':''}>${t}</option>`).join('')}</select></div><div class="campo"><label for="hr${h.id}">Resultado encontrado</label><input id="hr${h.id}" data-id="${h.id}" data-k="res" value="${h.res.replace(/"/g,'&quot;')}"></div></div>
+    <div class="evid">${h.evid?`<b>Evidência anexada:</b> ${h.evid}`:'Sem evidência anexada. Use “Comparar grupos” ou “Relações” e clique em “Anexar evidência”.'}</div>
+    <div class="grade2"><div class="campo"><label for="hd${h.id}">Veredito</label><select id="hd${h.id}" data-id="${h.id}" data-k="ver"><option value="">Escolha</option>${VER.map(t=>`<option ${h.ver===t?'selected':''}>${t}</option>`).join('')}</select></div><div class="campo"><label for="hi${h.id}">Se inconclusivo, por quê?</label><input id="hi${h.id}" data-id="${h.id}" data-k="inc" value="${h.inc.replace(/"/g,'&quot;')}"></div></div>
+    <div class="campo"><label for="hj${h.id}">Justificativa (o que os dados mostram)</label><textarea id="hj${h.id}" data-id="${h.id}" data-k="just">${h.just}</textarea></div></div>`).join('');
+  $('hipLista').querySelectorAll('[data-k]').forEach(e=>e.oninput=e.onchange=()=>{ const h=S.hips.find(x=>x.id===e.dataset.id); h[e.dataset.k]=e.value; salvarS(); });
+  $('hipLista').querySelectorAll('button[data-del]').forEach(b=>b.onclick=()=>{ S.hips=S.hips.filter(h=>h.id!==b.dataset.del); salvarS(); dHip(); });
+}
+
+/* ---------- 9 exportar ---------- */
+function dExportar(){
+  const L=limpa(), P=prep();
+  const itens=[
+    ['Diagnóstico (Raio-X)','0_Documentação','Vazios, problemas e repetidos por coluna.',()=>{ const D2=diagnostico({rows:S.raw,cols:S.cols,tipos:S.tipos}); return ['Coluna\tTipo\tVazios\t% vazio\tProblemas',...D2.map(d=>[d.c,TIPOS[d.t],d.nv,nf(d.pv,1)+'%',d.p.n?`${d.p.n} (${d.p.tipo})`:'0'].join('\t'))].join('\n'); }],
+    ['Base limpa',`2_Base_Limpa`,`${L.rows.length} linhas e ${L.cols.length} colunas, depois das decisões de limpeza.`,()=>tsvBase(L)],
+    ['Log de limpeza','2_Base_Limpa, à direita da base','O que foi feito, por que e o risco de não fazer. Deixe uma coluna vazia depois da base e cole na linha 1.',()=>['O que foi feito\tPor que\tRisco de não fazer',...opsLimpeza().map((o,i)=>[DESC[o.t](o,L.infos[i]||{}),o.porque,o.risco].map(limpaTxt).join('\t'))].join('\n')],
+    ['Base preparada','3_Preparação',`${P.rows.length} linhas e ${P.cols.length} colunas, com as colunas novas${S.outs.some(o=>o.dec==='Remover')?' e sem os outliers removidos':''}.`,()=>tsvBase(P)],
+    ['Colunas derivadas','3_Preparação, à direita da base','Regra, coluna original, pergunta e impacto. Deixe uma coluna vazia depois da base e cole na linha 1.',()=>['Coluna nova\tColuna original\tRegra\tPergunta ou hipótese\tSem ela, a análise ficaria',...opsDeriv().map(o=>[o.nova,origDe(o),regraDe(o),o.perg,o.imp].map(limpaTxt).join('\t'))].join('\n')],
+    ['Outliers','4_Outliers_e_Correlação','Coluna, cerca, quantidade e decisão de negócio.',()=>['Coluna\tCerca inferior\tCerca superior\tQuantidade\tRepresentam\tDecisão\tJustificativa',...S.outs.map(o=>[o.col,nf(o.li,2),nf(o.ls,2),o.n,o.rep,o.dec,limpaTxt(o.jus)].join('\t'))].join('\n')],
+    ['Hipóteses testadas','4_Outliers_e_Correlação, abaixo dos outliers','Variáveis, análise, resultado e veredito. Deixe duas linhas vazias depois da tabela de outliers.',()=>['Hipótese\tVariáveis\tTipo de análise\tResultado\tVeredito\tSe inconclusivo, por quê\tJustificativa',...S.hips.map(h=>[h.texto,h.vars,h.tipo,h.res,h.ver,h.inc,h.just].map(limpaTxt).join('\t'))].join('\n')],
+    ['Vereditos para os insights','5_Insights_e_Validação','Ponto de partida para os 10 a 14 insights.',()=>['Hipótese\tVeredito\tEvidência',...S.hips.map(h=>[h.texto,h.ver,h.evid].map(limpaTxt).join('\t'))].join('\n')]];
+  $('expBotoes').innerHTML=itens.map((it,i)=>`<div class="exp-card"><b>${it[0]}</b><span class="alvo">→ ${it[1]}</span><p>${it[2]}</p><button class="btn prim" data-i="${i}">Copiar</button></div>`).join('');
+  $('expBotoes').querySelectorAll('button[data-i]').forEach(b=>b.onclick=()=>copiar(itens[+b.dataset.i][3](),$('expOk'),$('expFallback')));
+  $('zerar').onclick=()=>{ $('zerarSim').hidden=false; };
+  $('zerarSim').onclick=()=>{ S=null; try{localStorage.removeItem(ST_KEY);}catch(e){} CACHE={}; abaAt='carregar'; $('tiposBox').hidden=true; msgCarga('Tudo apagado. Carregue uma base.'); $('zerarSim').hidden=true; desenhaAbas(); ABAS.forEach(([k])=>$('p-'+k).hidden=k!=='carregar'); };
+}
+
+/* ================= INÍCIO ================= */
+(function(){
+  $('arq').addEventListener('change',e=>{ const f=e.target.files[0]; if(f) lerArquivo(f).finally(()=>{ e.target.value=''; }); });
+  $('selAba').onchange=()=>carregarAba($('selAba').value);
+  $('usarColado').onclick=()=>{ const t=$('colar').value; if(!t.trim()){ msgCarga('Cole a tabela no campo antes.'); return; } ARQ='colado do Excel'; carregarMatriz(parseCSV(t),'tabela colada',[]); };
+  $('usarExemplo').onclick=()=>{ const E=D.exemplo, cols=Object.keys(E.suja[0]); ARQ='exemplo'; carregarMatriz([cols,...E.suja.map(r=>cols.map(c=>r[c]))],'base de exemplo (delivery)',E.meta.hipoteses.map(h=>novaHip(h[1],{vars:h[2],tipo:h[3]==='Correlação'?'Correlação':'Comparação de médias'}))); };
+  $('hipNova').onclick=()=>{ if(!S) return; S.hips.push(novaHip()); salvarS(); dHip(); };
+  ['otCol','otF','otZoom'].forEach(id=>$(id).addEventListener('change',dOutliers));
+  S=lerS(); if(S) msgCarga(`Base recuperada deste navegador: <b>${S.nome}</b>. Para trocar, carregue outro arquivo.`);
+  tudo();
+})();
+
+</script>
+
+</body>
+</html>

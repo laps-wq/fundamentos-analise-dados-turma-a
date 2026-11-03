@@ -1,0 +1,309 @@
+﻿id_pedido;id_cliente;data_pedido;data_entrega;cidade;categoria;produto;quantidade;preco_unitario;desconto;frete;total;forma_pagamento;status;avaliacao;cupom
+P10001;C0052;01/07/2025;03/07/2025;Caruaru;ELETRÔNICOS;Smartwatch;1;188,61;;39,90;228,51;Cartão de crédito;Entregue;5;
+P10002;C0173;02/07/2025;14/07/2025;Caruaru;Eletrônicos;Monitor 24";3;324,38;0,00;0,00;973,14;Cartão de crédito;Entregue;4;BEMVINDO10
+P10003;C0066;02/07/2025;11/07/2025;Recife;Livros;HQ;2;66,50;;9,90;142,90;Boleto;Entregue;4;
+P10004;C0128;04/07/2025;07/07/2025;Caruaru;Esportes;Tapete de Yoga;5;267,79;66,95;0,00;1272,00;Cartão de crédito;Entregue;5;BLACK20
+P10005;C0146;06/07/2025;11/07/2025;Recife;Casa;Cafeteira;1;266,08;0,00;39,90;305,98;Pix;Entregue;5;
+P10006;C0014;06/07/2025;12/07/2025;Recife;Livros;Livro Técnico;1;65,75;3,29;24,90;87,36;Cartão de crédito;Entregue;4;FRETEGRATIS
+P10007;C0047;09/07/2025;18/07/2025;Recife;Casa;Toalhas (kit);5;87,59;0,00;0,00;437,95;Pix;Entregue;;
+P10008;C0104;09/07/2025;10/07/2025;Jaboatão dos Guararapes;Moda;Tênis;2;137,66;0,00;24,90;300,22;Cartão de crédito;Entregue;;
+P10009;C0118;11/07/2025;18/07/2025;Recife;Livros;Infantil;4;39,75;0,00;;178,90;Cartão de crédito;Devolvido;;
+P10010;C0071;11/07/2025;21/07/2025;Recife;Eletrônicos;Caixa de Som;3;171,76;77,29;0,00;437,99;Débito;Devolvido;;VOLTA15
+P10011;C0011;11/07/2025;22/07/2025;Olinda;Beleza;Protetor Solar;1;37,25;7,45;24,90;54,70;Pix;Entregue;3;
+P10012;C0121;12/07/2025;18/07/2025;Jaboatão dos Guararapes;Esportes;Garrafa Térmica;2;319,76;127,90;0,00;511,62;Pix;Entregue;2;
+P10013;C0153;13/07/2025;21/07/2025;Paulista;Moda;Camiseta;5;220,58;0,00;0,00;1102,90;Boleto;Entregue;3;
+P10014;C0163;13/07/2025;20/07/2025;Recife;Moda;Mochila;1;78,47;0,00;19,90;98,37;Cartão de crédito;Entregue;5;FRETEGRATIS
+P10015;C0067;13/07/2025;18/07/2025;Caruaru;Casa;Cafeteira;2;53,03;0,00;39,90;145,96;Cartão de crédito;Entregue;4;BEMVINDO10
+P10016;C0121;13/07/2025;25/07/2025;Caruaru;Esportes;Garrafa Térmica;1;72,20;0,00;19,90;72,20;Débito;Devolvido;;
+P10017;C0046;15/07/2025;17/07/2025;Caruaru;Esportes;Tapete de Yoga;4;215,09;0,00;0,00;860,36;Pix;Entregue;4;BEMVINDO10
+P10018;C0149;19/07/2025;26/07/2025;Olinda;Moda;Jaqueta;4;97,14;19,43;0,00;369,13;Pix;Entregue;5;
+P10242;C0140;09/04/2026;18/04/2026;Recife;Beleza;Kit Skincare;3;98,44;44,30;39,90;290,92;Pix;Entregue;3;BEMVINDO10
+P10019;C0077;22/07/2025;;Recife;ELETRÔNICOS;Fone Bluetooth;2;160,34;0,00;0,00;320,68;Boleto;Cancelado;;VOLTA15
+P10020;C0110;25/07/2025;;Caruaru;Casa;Luminária;4;320,32;64,06;0,00;1281,28;PIX;Cancelado;;BEMVINDO10
+P10021;C0188;28/07/2025;10/08/2025;Olinda;ELETRÔNICOS;Smartwatch;1;166,56;0,00;19,90;186,46;Débito;Entregue;2;
+P10022;C0113;28/07/2025;04/08/2025;Olinda;Casa;Toalhas (kit);2;426,30;;0,00;724,71;Pix;Entregue;4;BLACK20
+P10023;C0019;29/07/2025;06/08/2025;Recife;Beleza;Protetor Solar;3;208,04;0,00;0,00;624,12;Cartão de crédito;Entregue;3;BLACK20
+P10024;C0021;29/07/2025;01/08/2025;Jaboatão dos Guararapes;Esportes;Bicicleta Ergométrica;1;114,31;17,15;14,90;112,06;Cartão de crédito;Entregue;4;BEMVINDO10
+P10025;C0148;30/07/2025;;Caruaru;Beleza;Batom;4;43,19;34,55;39,90;178,11;Pix;Cancelado;;
+P10026;C0069;31/07/2025;07/08/2025;Caruaru;Esportes;Garrafa Térmica;1;245,00;12,25;39,90;272,65;Cartão de crédito;Entregue;4;
+P10027;C0062;31/07/2025;06/08/2025;RECIFE;Casa;Jogo de Panelas;3;78,06;0,00;24,90;214,08;cartao de credito;Entregue;4;
+P10028;C0048;31/07/2025;09/08/2025;Recife;Beleza;Secador;5;44,38;0,00;39,90;261,80;Pix;Entregue;3;
+P10029;C0075;01/08/2025;18/08/2025;Recife;Eletrônicos;Caixa de Som;2;127,95;0,00;19,90;275,80;Cartão de crédito;Entregue;1;BEMVINDO10
+P10030;C0061;02/08/2025;06/08/2025;Recife;Eletrônicos;Fone Bluetooth;3;414,27;0,00;0,00;1242,81;Boleto;Entregue;4;BLACK20
+P10031;C0122;02/08/2025;13/08/2025;Recife;Moda;Camiseta;3;190,99;0,00;0,00;572,97;Pix;Entregue;3;VOLTA15
+P10032;C0060;02/08/2025;;RECIFE;Moda;Camiseta;2;120,85;24,17;19,90;237,43;Cartão de crédito;Cancelado;;
+P10033;C0160;02/08/2025;04/08/2025;Recife;Moda;Calça Jeans;2;51,69;0,00;;123,28;Cartão de crédito;Entregue;5;
+P10034;C0004;04/08/2025;12/08/2025;Caruaru;Moda;Tênis;1;359,95;35,99;0,00;323,96;Pix;Entregue;4;
+P10035;C0103;11/08/2025;;Recife;Casa;Organizador;2;300,02;0,00;0,00;600,04;Boleto;Cancelado;;VOLTA15
+P10036;C0086;15/08/2025;;Paulista;Moda;Camiseta;1;139,42;20,91;29,90;148,41;Pix;Cancelado;;
+P10037;C0149;17/08/2025;22/08/2025;Recife;Beleza;Perfume;1;58,85;0,00;14,90;73,75;Cartão de crédito;Entregue;3;
+P10038;C0128;19/08/2025;23/08/2025;Recife;Casa;Luminária;2;367,16;0,00;0,00;734,32;Cartão de crédito;Entregue;4;
+P10039;C0143;19/08/2025;26/08/2025;Paulista;Moda;Mochila;1;175,94;26,39;9,90;159,45;Pix;Entregue;4;
+P10040;C0104;19/08/2025;25/08/2025;Recife;Moda;Calça Jeans;2;98,32;19,66;14,90;191,88;Cartão de crédito;Devolvido;;
+P10041;C0092;20/08/2025;;Recife;Livros;HQ;1;64,14;0,00;14,90;79,04;Pix;Em trânsito;;
+P10042;C0110;22/08/2025;26/08/2025;Caruaru;Eletrônicos;Caixa de Som;1;157,72;7,89;24,90;174,73;Pix;Entregue;4;BEMVINDO10
+P10043;C0040;22/08/2025;;Paulista;Casa;Luminária;1;57,06;0,00;19,90;76,96;Cartão de crédito;Cancelado;;
+P10044;C0006;23/08/2025;04/09/2025;Recife;Moda;Jaqueta;1;110,17;0,00;19,90;130,07;Pix;Entregue;4;
+P10045;C0128;24/08/2025;30/08/2025;Olinda;Moda;Mochila;1;163,66;8,18;39,90;195,38;Cartão de crédito;Devolvido;;FRETEGRATIS
+P10046;C0107;24/08/2025;31/08/2025;Olinda;Beleza;Kit Skincare;1;82,17;12,33;19,90;89,74;Cartão de crédito;Entregue;3;
+P10047;C0109;25/08/2025;19/09/2025;Recife;Livros;Romance;2;84,12;25,24;29,90;172,90;Boleto;Entregue;1;VOLTA15
+P10048;C0176;27/08/2025;31/08/2025;Recife;Eletrônicos;Monitor 24";1;260,51;0,00;9,90;270,41;Cartão de crédito;Entregue;4;
+P10049;C0006;28/08/2025;31/08/2025;Paulista;Beleza;Batom;5;110,10;110,10;0,00;440,40;Cartão de crédito;Entregue;4;FRETEGRATIS
+P10050;C0081;30/08/2025;;Olinda;Livros;HQ;3;74,47;11,17;39,90;252,14;Cartão de crédito;Cancelado;;
+P10051;C0155;30/08/2025;07/09/2025;Caruaru;Livros;Infantil;1;114,02;0,00;29,90;143,92;Pix;Entregue;5;BLACK20
+P10052;C0088;30/08/2025;01/09/2025;Jaboatão dos Guararapes;Casa;Toalhas (kit);1;232,94;0,00;9,90;242,84;Cartão de crédito;Entregue;4;
+P10053;C0081;31/08/2025;08/09/2025;;Eletrônicos;Caixa de Som;2;306,86;0,00;0,00;613,72;Pix;Entregue;3;BLACK20
+P10054;C0138;01/09/2025;08/09/2025;Recife;Casa;Jogo de Panelas;5;45,02;0,00;19,90;245,00;Pix;Entregue;5;BEMVINDO10
+P10055;C0020;07/09/2025;02/09/2025;Paulista;Casa;Toalhas (kit);1;365,52;73,10;0,00;292,42;Pix;Devolvido;;VOLTA15
+P10134;C0063;27/11/2025;10/12/2025;Jaboatao dos Guararapes;moda;Camiseta;1;127,56;25,51;24,90;127,56;cartao de credito;Entregue;3;
+P10056;C0003;04/09/2025;11/09/2025;Caruaru;Eletrônicos;Smartwatch;4;142,78;57,11;0,00;514,01;Pix;Entregue;3;FRETEGRATIS
+P10057;C0179;05/09/2025;17/09/2025;Recife;Esportes;Bicicleta Ergométrica;5;262,69;262,69;0,00;1050,76;Débito;Entregue;3;
+P10058;C0194;05/09/2025;08/09/2025;Olinda;Livros;Infantil;3;113,80;0,00;0,00;341,40;Pix;Entregue;5;
+P10059;C0097;06/09/2025;10/09/2025;Recife;Casa;Cafeteira;3;44,86;6,73;14,90;142,75;Cartão de crédito;Entregue;3;BLACK20
+P10060;C0135;06/09/2025;12/09/2025;Recife;Livros;HQ;1;26,80;0,00;39,90;66,70;Boleto;Entregue;5;
+P10061;C0039;07/09/2025;09/09/2025;Caruaru;Beleza;Perfume;5;66,42;0,00;0,00;332,10;Pix;Entregue;5;BLACK20
+P10062;C0045;11/09/2025;;Recife;Moda;Tênis;5;58,34;14,59;14,90;292,01;Pix;Cancelado;;
+P10063;C0152;14/09/2025;19/09/2025;Recife;Moda;Tênis;2;51,30;0,00;19,90;122,50;Pix;Entregue;4;BEMVINDO10
+P10150;C0048;02/12/2025;08/12/2025;Paulista;Beleza;Secador;3;34,60;20,76;;97,94;Débito;Entregue;3;
+P10064;C0017;15/09/2025;18/09/2025;;Livros;Livro Técnico;2;118,91;11,89;39,90;265,83;Cartão de crédito;Entregue;5;BLACK20
+P10065;C0144;16/09/2025;24/09/2025;Olinda;Beleza;Perfume;1;199,38;0,00;24,90;224,28;Débito;Entregue;3;
+P10066;C0031;17/09/2025;22/09/2025;Paulista;Esportes;Bicicleta Ergométrica;2;241,23;0,00;0,00;482,46;Pix;Entregue;5;BLACK20
+P10067;C0087;18/09/2025;22/09/2025;Caruaru;Livros;HQ;1;54,88;0,00;9,90;64,78;Cartão de crédito;Entregue;4;FRETEGRATIS
+P10068;C0133;18/09/2025;01/10/2025;Jaboatão dos Guararapes;Moda;Mochila;2;346,24;138,50;0,00;553,98;Pix;Entregue;4;FRETEGRATIS
+P10069;C0072;19/09/2025;25/09/2025;Recife;Esportes;Tapete de Yoga;1;163,79;0,00;19,90;183,69;Pix;Entregue;4;
+P10070;C0195;20/09/2025;04/10/2025;Recife;Eletrônicos;Fone Bluetooth;3;415,65;0,00;0,00;1246,95;Pix;Entregue;2;
+P10071;C0011;21/09/2025;22/09/2025;Paulista;Casa;Organizador;3;263,54;0,00;0,00;790,62;Cartão de crédito;Entregue;5;BEMVINDO10
+P10072;C0197;27/09/2025;04/10/2025;Olinda;Moda;Jaqueta;2;370,89;0,00;0,00;741,78;Cartão de crédito;Entregue;5;FRETEGRATIS
+P10073;C0153;30/09/2025;09/10/2025;Caruaru;Moda;Tênis;2;81,64;0,00;9,90;173,18;Boleto;Entregue;4;
+P10074;C0035;01/10/2025;04/10/2025;Jaboatão dos Guararapes;Casa;Jogo de Panelas;1;259,59;0,00;9,90;269,49;Cartão de crédito;Entregue;5;
+P10075;C0091;02/10/2025;05/10/2025;Recife;Esportes;Bicicleta Ergométrica;2;263,93;105,57;0,00;422,29;Cartão de crédito;Entregue;5;
+P10076;C0082;02/10/2025;;Recife;Casa;Cafeteira;2;383,40;76,68;0,00;690,12;Débito;Cancelado;;BEMVINDO10
+P10077;C0031;08/10/2025;03/10/2025;Recife;Esportes;Bola;4;73,30;58,64;24,90;259,46;Débito;Entregue;5;FRETEGRATIS
+P10078;C0037;03/10/2025;06/10/2025;Recife;Casa;Luminária;2;74,44;14,89;14,90;148,89;Cartão de crédito;Devolvido;;
+P10079;C0026;04/10/2025;16/10/2025;Recife;Casa;Toalhas (kit);1;72,72;0,00;14,90;87,62;Cartão de crédito;Entregue;3;
+P10080;C0155;07/10/2025;10/10/2025;Caruaru;Beleza;Batom;1;64,94;12,99;39,90;91,85;Pix;Entregue;5;VOLTA15
+P10081;C0194;08/10/2025;13/10/2025;Paulista;Esportes;Garrafa Térmica;1;80,56;0,00;19,90;100,46;Cartão de crédito;Entregue;5;
+P10082;C0022;11/10/2025;21/10/2025;Olinda;Moda;Camiseta;1;116,48;23,30;9,90;103,08;Débito;Entregue;4;
+P10083;C0164;12/10/2025;16/10/2025;Recife;Esportes;Tapete de Yoga;1;176,59;0,00;24,90;201,49;Débito;Entregue;3;
+P10084;C0093;12/10/2025;13/10/2025;Olinda;Livros;Romance;3;48,92;14,68;9,90;141,98;Débito;Entregue;5;
+P10085;C0130;13/10/2025;21/10/2025;Recife;eletronicos;Caixa de Som;2;273,16;27,32;0,00;519,00;Cartão de crédito;Entregue;5;
+P10086;C0160;14/10/2025;;Paulista;Casa;Luminária;1;94,70;0,00;19,90;114,60;Pix;Em trânsito;;VOLTA15
+P10087;C0126;14/10/2025;19/10/2025;Caruaru;Eletrônicos;Teclado sem fio;3;387,10;0,00;0,00;1161,30;Pix;Devolvido;;BEMVINDO10
+P10088;C0155;16/10/2025;18/10/2025;Recife;Livros;Biografia;2;69,93;;14,90;154,76;Boleto;Entregue;4;VOLTA15
+P10089;C0004;17/10/2025;20/10/2025;Paulista;Casa;Organizador;4;95,08;19,02;0,00;361,30;Débito;Devolvido;;
+P10090;C0023;19/10/2025;30/10/2025;Caruaru;Moda;Calça Jeans;4;67,14;0,00;19,90;288,46;Cartão de crédito;Entregue;4;
+P10091;C0179;20/10/2025;23/10/2025;Jaboatão dos Guararapes;Beleza;Batom;5;120,66;90,49;0,00;512,81;Cartão de crédito;Entregue;5;BLACK20
+P10092;C0142;23/10/2025;25/10/2025;Jaboatao dos Guararapes;Beleza;Perfume;1;105,11;21,02;9,90;48,99;PIX;Entregue;4;
+P10093;C0053;27/10/2025;;Olinda;Esportes;Garrafa Térmica;4;62,39;24,96;29,90;254,50;Pix;Cancelado;;
+P10094;C0051;28/10/2025;09/11/2025;Recife;Moda;Jaqueta;1;117,97;23,59;14,90;109,28;Pix;Entregue;4;
+P10095;C0075;01/11/2025;08/11/2025;Olinda;Moda;Tênis;1;59,64;0,00;29,90;89,54;Cartão de crédito;Entregue;5;
+P10096;C0101;01/11/2025;09/11/2025;Olinda;Eletrônicos;Caixa de Som;1;158,66;31,73;24,90;151,83;Débito;Entregue;;
+P10097;C0139;01/11/2025;09/11/2025;Caruaru;Eletrônicos;Smartwatch;1;132,10;0,00;9,90;142,00;Cartão de crédito;Entregue;3;BEMVINDO10
+P10098;C0013;02/11/2025;04/11/2025;Recife;Casa;Toalhas (kit);1;445,73;0,00;0,00;445,73;Pix;Devolvido;;FRETEGRATIS
+P10099;C0005;04/11/2025;09/11/2025;Recife;Casa;Jogo de Panelas;3;96,80;0,00;29,90;320,30;Débito;Entregue;4;
+P10100;C0022;05/11/2025;09/11/2025;Olinda;Esportes;Halteres (par);2;61,97;0,00;39,90;123,94;cartao de credito;Entregue;4;
+P10122;C0025;21/11/2025;03/12/2025;Jaboatão dos Guararapes;Eletronicos;Monitor 24";3;399,93;0,00;0,00;1199,79;Pix;Entregue;3;BLACK20
+P10101;C0121;05/11/2025;15/11/2025;Recife;Eletrônicos;Teclado sem fio;1;244,28;0,00;9,90;254,18;Cartão de crédito;Entregue;;
+P10102;C0176;07/11/2025;15/11/2025;Recife;Eletrônicos;Smartwatch;2;273,06;109,22;0,00;436,90;Débito;Entregue;4;
+P10103;C0080;08/11/2025;11/11/2025;Jaboatão dos Guararapes;Esportes;Halteres (par);3;319,47;143,76;0,00;814,65;Pix;Entregue;5;VOLTA15
+P10104;C0028;08/11/2025;11/11/2025;Recife;Esportes;Tapete de Yoga;2;401,05;;0,00;681,79;Cartão de crédito;Entregue;5;
+P10105;C0052;08/11/2025;;Olinda;Beleza;Protetor Solar;1;60,51;0,00;39,90;100,41;Débito;Em trânsito;;BEMVINDO10
+P10106;C0197;08/11/2025;09/11/2025;Recife;Livros;Biografia;1;74,99;0,00;19,90;94,89;Pix;Entregue;4;
+P10107;C0073;09/11/2025;22/11/2025;Recife;Beleza;Protetor Solar;1;48,13;4,81;39,90;83,22;Débito;Entregue;2;
+P10108;C0118;09/11/2025;17/11/2025;Recife;Livros;HQ;2;50,07;10,01;19,90;110,03;Cartão de crédito;Entregue;5;
+P10109;C0182;10/11/2025;19/11/2025;Recife;Livros;Infantil;1;79,87;0,00;9,90;89,77;Pix;Entregue;4;
+P10110;C0159;12/11/2025;;Jaboatão dos Guararapes;Eletrônicos;Smartwatch;1;224,58;0,00;19,90;244,48;Cartão de crédito;Cancelado;;VOLTA15
+P10111;C0138;13/11/2025;20/11/2025;;Moda;Tênis;1;284,41;56,88;24,90;252,43;Cartão de crédito;Entregue;5;FRETEGRATIS
+P10112;C0194;13/11/2025;18/11/2025;recife;Eletrônicos;Notebook Gamer;1;8999,00;0,00;0,00;8999,00;Débito;Entregue;5;
+P10113;C0037;16/11/2025;26/11/2025;Jaboatão dos Guararapes;Eletrônicos;Smartwatch;3;156,26;93,76;0,00;375,02;Cartão de crédito;Entregue;3;
+P10008;C0104;09/07/2025;10/07/2025;Jaboatão dos Guararapes;Moda;Tênis;2;137,66;0,00;24,90;300,22;Cartão de crédito;Entregue;;
+P10114;C0106;17/11/2025;;Recife;Beleza;Protetor Solar;1;62,28;3,11;14,90;74,07;Pix;Em trânsito;;
+P10115;C0017;17/11/2025;27/11/2025;Recife;Esportes;Garrafa Térmica;3;47,50;14,25;24,90;153,15;Cartão de crédito;Entregue;3;
+P10116;C0101;19/11/2025;23/11/2025;Recife;Beleza;Perfume;1;36,21;0,00;19,90;56,11;Cartão de crédito;Entregue;4;
+P10117;C0165;20/11/2025;27/11/2025;Paulista;Casa;Jogo de Panelas;5;43,52;0,00;29,90;247,50;Débito;Entregue;3;FRETEGRATIS
+P10118;C0016;20/11/2025;23/11/2025;Recife;Beleza;Secador;3;74,39;0,00;14,90;238,07;Boleto;Entregue;5;BEMVINDO10
+P10119;C0053;20/11/2025;24/11/2025;Caruaru;Eletrônicos;Teclado sem fio;2;352,85;0,00;0,00;705,70;Pix;Entregue;5;VOLTA15
+P10120;C0194;20/11/2025;30/11/2025;Paulista;Livros;Infantil;5;64,69;0,00;0,00;323,45;Pix;Entregue;3;BEMVINDO10
+P10121;C0198;21/11/2025;27/11/2025;Caruaru;Casa;Cafeteira;2;83,56;8,36;19,90;178,66;Boleto;Entregue;3;
+P10122;C0025;21/11/2025;03/12/2025;Jaboatão dos Guararapes;Eletronicos;Monitor 24";3;399,93;0,00;0,00;1199,79;Pix;Entregue;3;BLACK20
+P10123;C0148;23/11/2025;;Recife;Casa;Luminária;3;117,06;0,00;0,00;351,18;Cartão de crédito;Em trânsito;;
+P10124;C0030;24/11/2025;;Jaboatão dos Guararapes;Esportes;Bola;1;73,65;0,00;24,90;98,55;Cartão de crédito;Cancelado;;BEMVINDO10
+P10125;C0053;24/11/2025;;Jaboatão dos Guararapes;Livros;Biografia;1;63,16;9,47;19,90;73,59;Pix;Em trânsito;;BLACK20
+P10126;C0033;25/11/2025;03/12/2025;Recife;Livros;Romance;1;29,78;0,00;19,90;49,68;Débito;Entregue;4;FRETEGRATIS
+P10127;C0056;25/11/2025;26/11/2025;Recife;Moda;Mochila;3;227,06;0,00;0,00;681,18;Cartão de crédito;Entregue;5;
+P10128;C0106;25/11/2025;03/12/2025;Olinda;Livros;Livro Técnico;3;42,31;25,39;24,90;126,44;Pix;Entregue;5;BEMVINDO10
+P10129;C0180;26/11/2025;01/12/2025;Paulista;Moda;Calça Jeans;4;52,50;42,00;9,90;177,90;Boleto;Entregue;4;
+P10130;C0105;26/11/2025;08/12/2025;Caruaru;Livros;Infantil;4;105,80;0,00;0,00;423,20;Débito;Entregue;3;
+P10131;C0151;26/11/2025;;Olinda;Esportes;Halteres (par);3;145,70;0,00;0,00;437,10;Cartão de crédito;Em trânsito;;BLACK20
+P10132;C0188;26/11/2025;01/12/2025;Recife;Eletrônicos;Teclado sem fio;1;285,97;0,00;19,90;305,87;Pix;Entregue;5;
+P10133;C0199;27/11/2025;;Caruaru;Beleza;Batom;1;40,26;6,04;24,90;59,12;Boleto;Cancelado;;VOLTA15
+P10134;C0063;27/11/2025;10/12/2025;Jaboatao dos Guararapes;moda;Camiseta;1;127,56;25,51;24,90;127,56;cartao de credito;Entregue;3;
+P10135;C0121;27/11/2025;30/11/2025;Jaboatão dos Guararapes;Livros;HQ;1;57,72;0,00;14,90;72,62;Cartão de crédito;Entregue;5;FRETEGRATIS
+P10136;C0087;27/11/2025;03/12/2025;Jaboatão dos Guararapes;Eletronicos;Monitor 24";1;421,14;0,00;0,00;421,14;Cartão de crédito;Entregue;4;FRETEGRATIS
+P10137;C0020;27/11/2025;07/12/2025;Jaboatao dos Guararapes;moda;Mochila;1;82,34;4,12;14,90;183,12;Cartão de crédito;Entregue;4;
+P10138;C0092;28/11/2025;01/12/2025;Recife;Casa;Jogo de Panelas;2;308,64;61,73;0,00;555,55;Pix;Entregue;5;
+P10269;C0153;16/05/2026;24/05/2026;Paulista;Beleza;Protetor Solar;1;44,94;0,00;24,90;69,84;Débito;Entregue;4;BEMVINDO10
+P10139;C0158;28/11/2025;30/11/2025;Recife;Eletrônicos;Fone Bluetooth;1;412,22;20,61;0,00;391,61;Cartão de crédito;Entregue;5;
+P10140;C0191;28/11/2025;01/12/2025;Recife;Esportes;Tapete de Yoga;2;45,66;4,57;9,90;96,65;Débito;Entregue;5;VOLTA15
+P10141;C0014;01/12/2025;29/11/2025;Paulista;Beleza;Perfume;3;140,65;63,29;0,00;358,66;Pix;Entregue;5;BLACK20
+P10142;C0039;16/12/2025;29/11/2025;Recife;Casa;Cafeteira;4;368,79;0,00;0,00;1475,16;Débito;Entregue;1;BEMVINDO10
+P10143;C0164;29/11/2025;08/12/2025;Caruaru;Casa;Cafeteira;1;308,41;0,00;0,00;308,41;Pix;Entregue;4;
+P10144;C0096;30/11/2025;08/12/2025;Caruaru;Casa;Jogo de Panelas;2;52,72;0,00;19,90;125,34;Cartão de crédito;Entregue;5;FRETEGRATIS
+P10145;C0020;30/11/2025;08/12/2025;Olinda;Esportes;Halteres (par);1;130,53;6,53;39,90;163,90;Débito;Entregue;5;BLACK20
+P10146;C0124;30/11/2025;02/12/2025;Recife;Casa;Organizador;1;151,99;0,00;;191,89;Pix;Entregue;4;BLACK20
+P10147;C0062;30/11/2025;;Recife;Moda;Calça Jeans;4;103,88;0,00;0,00;415,52;Boleto;Em trânsito;;
+P10148;C0083;30/11/2025;06/12/2025;Olinda;Casa;Jogo de Panelas;1;403,80;0,00;0,00;403,80;Cartão de crédito;Entregue;5;
+P10149;C0026;01/12/2025;07/12/2025;Recife;Eletrônicos;Smartwatch;2;180,64;0,00;0,00;361,28;Débito;Entregue;5;BEMVINDO10
+P10150;C0048;02/12/2025;08/12/2025;Paulista;Beleza;Secador;3;34,60;20,76;;97,94;Débito;Entregue;3;
+P10151;C0079;02/12/2025;10/12/2025;Olinda;Beleza;Perfume;2;49,33;0,00;29,90;128,56;Cartão de crédito;Entregue;4;BLACK20
+P10152;C0181;03/12/2025;15/12/2025;Recife;Esportes;Tapete de Yoga;2;54,92;0,00;9,90;119,74;Boleto;Entregue;4;BEMVINDO10
+P10153;C0193;03/12/2025;06/12/2025;Jaboatão dos Guararapes;Casa;Luminária;4;279,94;0,00;0,00;1119,76;Pix;Entregue;4;
+P10154;C0152;04/12/2025;;;Eletrônicos;Smartwatch;4;189,54;0,00;0,00;758,16;Cartão de crédito;Cancelado;;
+P10155;C0073;04/12/2025;;Recife;Beleza;Protetor Solar;4;179,08;143,26;0,00;573,06;Boleto;Em trânsito;;FRETEGRATIS
+P10156;C0020;04/12/2025;;Recife;Casa;Jogo de Panelas;4;83,99;50,39;0,00;285,57;Pix;Cancelado;;BLACK20
+P10157;C0069;05/12/2025;08/12/2025;Recife;Eletrônicos;Smartwatch;4;177,94;;0,00;711,76;Débito;Entregue;5;
+P10158;C0064;05/12/2025;18/12/2025;Recife;Moda;Tênis;;86,74;26,02;24,90;259,10;Pix;Entregue;4;FRETEGRATIS
+P10159;C0089;05/12/2025;;Recife;Casa;Luminária;1;289,70;0,00;14,90;304,60;Pix;Cancelado;;
+P10160;C0070;06/12/2025;13/12/2025;Recife;Esportes;Halteres (par);1;145,51;0,00;39,90;185,41;Débito;Entregue;4;
+P10161;C0045;08/12/2025;10/12/2025;Recife;Livros;Livro Técnico;5;32,18;8,04;29,90;182,76;Cartão de crédito;Entregue;;
+P10162;C0095;08/12/2025;11/12/2025;Recife;Moda;Calça Jeans;;115,80;34,74;0,00;312,66;Pix;Entregue;4;FRETEGRATIS
+P10163;C0028;08/12/2025;15/12/2025;Caruaru;Moda;Tênis;2;238,66;0,00;0,00;477,32;Cartão de crédito;Entregue;2;
+P10164;C0082;09/12/2025;26/12/2025;Olinda;Esportes;Tapete de Yoga;5;83,42;0,00;0,00;417,10;Cartão de crédito;Entregue;3;VOLTA15
+P10165;C0052;09/12/2025;14/12/2025;Recife;Moda;Tênis;3;165,92;0,00;0,00;497,76;Pix;Entregue;5;BLACK20
+P10166;C0102;10/12/2025;19/12/2025;Recife;Livros;Livro Técnico;5;27,27;0,00;19,90;156,25;Cartão de crédito;Entregue;5;
+P10167;C0124;10/12/2025;14/12/2025;Recife;Casa;Jogo de Panelas;1;49,65;9,93;29,90;69,62;Cartão de crédito;Entregue;5;
+P10168;C0108;10/12/2025;12/12/2025;Recife;Casa;Jogo de Panelas;1;310,42;0,00;0,00;310,42;Débito;Entregue;5;
+P10169;C0060;12/12/2025;16/12/2025;Jaboatão dos Guararapes;Livros;HQ;4;52,61;31,57;39,90;218,77;Débito;Entregue;4;BLACK20
+P10170;C0120;12/12/2025;22/12/2025;Caruaru;Casa;Toalhas (kit);2;171,21;0,00;0,00;342,42;Pix;Entregue;3;
+P10171;C0023;13/12/2025;21/12/2025;Paulista;Eletrônicos;Fone Bluetooth;1;179,94;0,00;29,90;209,84;Pix;Entregue;4;BLACK20
+P10172;C0160;14/12/2025;23/12/2025;Jaboatão dos Guararapes;Moda;Camiseta;4;69,23;41,54;14,90;250,28;Cartão de crédito;Entregue;5;BEMVINDO10
+P10173;C0007;21/12/2025;23/12/2025;Caruaru;Moda;Jaqueta;1;182,26;9,11;19,90;193,05;Pix;Entregue;5;BLACK20
+P10174;C0096;22/12/2025;24/12/2025;Caruaru;Beleza;Secador;2;52,86;0,00;;145,62;Pix;Entregue;5;
+P10175;C0020;29/12/2025;06/01/2026;Caruaru;Eletrônicos;Monitor 24";1;233,26;0,00;9,90;243,16;Pix;Entregue;4;VOLTA15
+P10176;C0186;29/12/2025;04/01/2026;Paulista;Casa;Organizador;4;78,98;47,39;;268,53;Pix;Entregue;4;
+P10177;C0115;30/12/2025;02/01/2026;Recife;Esportes;Tapete de Yoga;4;47,92;28,75;24,90;187,83;Pix;Entregue;4;BEMVINDO10
+P10178;C0139;30/12/2025;04/01/2026;Recife;Eletrônicos;Caixa de Som;2;419,27;41,93;0,00;796,61;Pix;Entregue;;FRETEGRATIS
+P10179;C0003;31/12/2025;10/01/2026;Caruaru;Livros;Livro Técnico;5;29,39;14,70;29,90;162,15;Débito;Entregue;4;
+P10180;C0058;01/01/2026;05/01/2026;Jaboatão dos Guararapes;Casa;Luminária;4;59,28;0,00;39,90;277,02;Boleto;Entregue;5;FRETEGRATIS
+P10181;C0196;10/01/2026;13/01/2026;Caruaru;Esportes;Bola;2;215,70;0,00;0,00;431,40;Pix;Entregue;5;
+P10182;C0154;12/01/2026;22/01/2026;Caruaru;Beleza;Kit Skincare;2;68,11;0,00;39,90;176,12;Pix;Entregue;4;
+P10183;C0115;13/01/2026;22/01/2026;Caruaru;Moda;Mochila;4;171,48;0,00;;685,92;Cartão de crédito;Entregue;4;
+P10184;C0087;14/01/2026;18/01/2026;Caruaru;Eletrônicos;Smartwatch;2;223,87;0,00;0,00;447,74;Boleto;Entregue;5;
+P10185;C0116;14/01/2026;17/01/2026;Caruaru;Moda;Mochila;4;82,87;0,00;0,00;331,48;Débito;Entregue;4;
+P10186;C0184;16/01/2026;22/01/2026;Recife;Moda;Jaqueta;4;92,76;18,55;0,00;352,49;Pix;Entregue;3;FRETEGRATIS
+P10187;C0104;16/01/2026;;Olinda;Livros;Biografia;5;5373,00;0,00;29,90;298,55;Pix;Em trânsito;;
+P10188;C0051;17/01/2026;24/01/2026;Caruaru;Livros;Biografia;3;45,75;;24,90;148,42;Boleto;Devolvido;;
+P10189;C0126;19/01/2026;02/02/2026;Paulista;Casa;Toalhas (kit);5;132,65;66,33;0,00;596,92;Pix;Entregue;3;
+P10190;C0195;21/01/2026;05/02/2026;Recife;eletronicos;Caixa de Som;1;184,73;36,95;9,90;157,68;Débito;Entregue;3;
+P10191;C0057;21/01/2026;;Olinda;Beleza;Perfume;2;181,05;0,00;0,00;362,10;Débito;Em trânsito;;
+P10192;C0178;25/01/2026;29/01/2026;Recife;Livros;Romance;1;31,72;0,00;14,90;46,62;Cartão de crédito;Entregue;4;VOLTA15
+P10193;C0159;28/01/2026;;Recife;Moda;Calça Jeans;1;86,19;0,00;19,90;106,09;Cartão de crédito;Em trânsito;;FRETEGRATIS
+P10194;C0049;29/01/2026;01/02/2026;Olinda;Casa;Cafeteira;1;74,76;0,00;29,90;104,66;Pix;Entregue;5;VOLTA15
+P10195;C0048;29/01/2026;30/01/2026;Recife;Casa;Jogo de Panelas;5;178,21;89,11;0,00;801,94;Cartão de crédito;Entregue;5;BLACK20
+P10196;C0048;30/01/2026;;Recife;Casa;Organizador;1;59,61;2,98;14,90;71,53;Pix;Em trânsito;;
+P10197;C0112;03/02/2026;09/02/2026;Recife;Beleza;Batom;4;68,27;54,62;39,90;258,36;Cartão de crédito;Entregue;4;FRETEGRATIS
+P10198;C0085;03/02/2026;;Recife;Eletrônicos;Teclado sem fio;1;433,36;0,00;0,00;433,36;Débito;Cancelado;;BLACK20
+P10199;C0133;04/02/2026;09/02/2026;;Esportes;Bola;2;113,66;0,00;24,90;252,22;Boleto;Entregue;4;
+P10200;C0180;10/02/2026;12/02/2026;Recife;Casa;Toalhas (kit);1;197,38;9,87;29,90;217,41;Cartão de crédito;Entregue;5;
+P10201;C0045;11/02/2026;14/02/2026;Jaboatão dos Guararapes;eletronicos;Fone Bluetooth;2;376,75;0,00;0,00;753,50;Cartão de crédito;Entregue;5;
+P10202;C0169;13/02/2026;19/02/2026;Recife;Esportes;Bicicleta Ergométrica;1;291,84;14,59;39,90;317,15;Débito;Devolvido;;
+P10203;C0164;14/02/2026;16/02/2026;Olinda;Beleza;Batom;1;106,34;0,00;24,90;131,24;Pix;Entregue;;
+P10204;C0071;14/02/2026;20/02/2026;Jaboatão dos Guararapes;Esportes;Tapete de Yoga;3;309,32;0,00;0,00;927,96;Pix;Entregue;;
+P10205;C0198;14/02/2026;20/02/2026;Olinda;Beleza;Perfume;2;27,85;0,00;24,90;80,60;Cartão de crédito;Entregue;4;BLACK20
+P10206;C0139;18/02/2026;20/02/2026;Recife;Eletrônicos;Fone Bluetooth;2;125,17;0,00;;265,24;Boleto;Entregue;5;FRETEGRATIS
+P10207;C0038;18/02/2026;;Jaboatão dos Guararapes;Eletrônicos;Celular Top de Linha;1;5899,00;589,90;0,00;5309,10;Pix;Cancelado;;
+P10208;C0001;19/02/2026;20/02/2026;Caruaru;Beleza;Kit Skincare;;122,00;24,40;29,90;127,50;Pix;Entregue;4;BLACK20
+P10209;C0014;20/02/2026;22/02/2026;Jaboatão dos Guararapes;Livros;Romance;1;69,66;10,45;39,90;99,11;Cartão de crédito;Entregue;4;
+P10210;C0070;20/02/2026;24/02/2026;Recife;Livros;HQ;3;108,16;16,22;0,00;308,26;Pix;Entregue;5;
+P10211;C0103;20/02/2026;;Recife;Moda;Tênis;1;127,74;0,00;24,90;152,64;Cartão de crédito;Em trânsito;;
+P10212;C0174;21/02/2026;25/02/2026;Recife;Moda;Mochila;4;58,87;11,77;39,90;263,61;Pix;Entregue;4;
+P10213;C0173;26/02/2026;;Caruaru;Esportes;Tapete de Yoga;1;247,13;37,07;39,90;249,96;Pix;Em trânsito;;VOLTA15
+P10214;C0120;27/02/2026;06/03/2026;Jaboatão dos Guararapes;Eletrônicos;Teclado sem fio;5;162,08;81,04;0,00;729,36;Débito;Entregue;5;
+P10215;C0126;27/02/2026;02/03/2026;Olinda;Moda;Calça Jeans;2;75,84;30,34;19,90;141,24;Pix;Entregue;5;
+P10216;C0094;28/02/2026;05/03/2026;Caruaru;Esportes;Tapete de Yoga;2;103,10;0,00;19,90;226,10;Pix;Entregue;5;BLACK20
+P10217;C0010;28/02/2026;07/03/2026;Jaboatão dos Guararapes;Eletrônicos;Teclado sem fio;4;375,56;225,34;0,00;1276,90;Débito;Entregue;4;VOLTA15
+P10218;C0147;28/02/2026;02/03/2026;Jaboatão dos Guararapes;Casa;Cafeteira;5;67,66;0,00;0,00;338,30;Pix;Entregue;3;
+P10219;C0025;03/03/2026;08/03/2026;Recife;Esportes;Bola;1;192,78;0,00;24,90;217,68;Cartão de crédito;Devolvido;;
+P10220;C0021;03/03/2026;08/03/2026;Caruaru;Eletrônicos;Smartwatch;3;179,82;53,95;0,00;485,51;Pix;Entregue;5;BEMVINDO10
+P10221;C0164;07/03/2026;17/03/2026;Recife;Eletrônicos;Smartwatch;1;239,24;0,00;14,90;254,14;Cartão de crédito;Entregue;3;FRETEGRATIS
+P10222;C0165;09/03/2026;10/03/2026;Olinda;Casa;Luminária;2;201,09;20,11;0,00;382,07;Pix;Entregue;5;
+P10223;C0035;13/03/2026;18/03/2026;Recife;Eletronicos;Teclado sem fio;1;326,06;0,00;0,00;326,06;Pix;Entregue;5;
+P10224;C0167;13/03/2026;19/03/2026;Olinda;Livros;HQ;2;99,05;0,00;19,90;198,10;pix;Entregue;3;VOLTA15
+P10225;C0164;22/03/2026;14/03/2026;Jaboatão dos Guararapes;Esportes;Garrafa Térmica;3;412,02;0,00;0,00;1236,06;Cartão de crédito;Devolvido;;FRETEGRATIS
+P10226;C0004;18/03/2026;28/03/2026;Caruaru;Casa;Jogo de Panelas;4;67,50;0,00;39,90;309,90;Boleto;Entregue;4;
+P10227;C0023;19/03/2026;21/03/2026;Recife;Casa;Jogo de Panelas;2;150,22;;0,00;300,44;Pix;Entregue;4;FRETEGRATIS
+P10228;C0145;19/03/2026;21/03/2026;Recife;Casa;Organizador;2;258,18;0,00;0,00;516,36;Cartão de crédito;Entregue;4;BLACK20
+P10229;C0129;20/03/2026;31/03/2026;Caruaru;Livros;HQ;1;52,43;10,49;24,90;66,84;Cartão de crédito;Entregue;2;BEMVINDO10
+P10230;C0187;21/03/2026;25/03/2026;Recife;Beleza;Protetor Solar;3;79,28;11,89;24,90;250,85;Débito;Entregue;5;
+P10231;C0002;23/03/2026;25/03/2026;Recife;Casa;Organizador;1;59,33;0,00;39,90;99,23;Pix;Entregue;4;
+P10232;C0132;24/03/2026;29/03/2026;Recife;Livros;HQ;5;85,28;42,64;0,00;383,76;Pix;Entregue;4;BLACK20
+P10233;C0106;28/03/2026;31/03/2026;Recife;Livros;Livro Técnico;2;65,03;0,00;29,90;159,96;Débito;Entregue;5;
+P10234;C0113;28/03/2026;30/03/2026;Paulista;Moda;Mochila;1;88,76;0,00;29,90;118,66;Cartão de crédito;Entregue;4;
+P10235;C0113;29/03/2026;02/04/2026;Caruaru;Beleza;Protetor Solar;5;95,92;47,96;0,00;431,64;Pix;Entregue;4;
+P10236;C0083;30/03/2026;01/04/2026;Caruaru;Eletrônicos;Smart TV 65";1;7499,00;0,00;0,00;7499,00;Boleto;Entregue;4;
+P10237;C0071;02/04/2026;31/03/2026;Recife;Beleza;Perfume;2;165,50;16,55;0,00;314,45;Cartão de crédito;Entregue;5;
+P10238;C0051;01/04/2026;09/04/2026;Paulista;Eletrônicos;Teclado sem fio;3;186,77;112,06;0,00;448,25;Pix;Entregue;4;
+P10239;C0048;02/04/2026;08/04/2026;Recife;Casa;Jogo de Panelas;1;144,36;0,00;9,90;154,26;Pix;Entregue;3;BLACK20
+P10240;C0082;03/04/2026;18/04/2026;Jaboatão dos Guararapes;Casa;Toalhas (kit);1;319,95;0,00;0,00;319,95;Pix;Entregue;4;BEMVINDO10
+P10258;C0121;07/05/2026;02/05/2026;Caruaru;Livros;Biografia;1;41,78;0,00;29,90;71,68;Cartão de crédito;Entregue;5;
+P10241;C0148;05/04/2026;08/04/2026;recife;Livros;HQ;1;109,48;0,00;9,90;109,48;pix;Entregue;4;BLACK20
+P10242;C0140;09/04/2026;18/04/2026;Recife;Beleza;Kit Skincare;3;98,44;44,30;39,90;290,92;Pix;Entregue;3;BEMVINDO10
+P10243;C0181;10/04/2026;18/04/2026;Paulista;Beleza;Secador;3;35,82;16,12;14,90;106,24;Débito;Entregue;4;
+P10244;C0180;11/04/2026;22/04/2026;Olinda;Casa;Toalhas (kit);1;91,55;18,31;29,90;103,14;Cartão de crédito;Entregue;3;VOLTA15
+P10245;C0175;16/04/2026;26/04/2026;recife;Casa ;Organizador;1;114,34;11,43;24,90;114,34;Débito;Entregue;4;
+P10246;C0087;18/04/2026;25/04/2026;Olinda;Moda;Jaqueta;1;237,84;0,00;24,90;262,74;Pix;Devolvido;;
+P10247;C0038;18/04/2026;;Olinda;Beleza;Protetor Solar;1;45,74;0,00;29,90;75,64;Cartão de crédito;Em trânsito;;
+P10248;C0127;18/04/2026;20/04/2026;Recife;Beleza;Perfume;1;87,29;0,00;39,90;127,19;Cartão de crédito;Entregue;5;
+P10249;C0156;21/04/2026;22/04/2026;recife;Casa ;Toalhas (kit);4;42,26;25,36;24,90;169,04;pix;Entregue;5;
+P10250;C0172;21/04/2026;22/04/2026;Recife;Moda;Tênis;3;72,00;0,00;29,90;245,90;Cartão de crédito;Entregue;5;
+P10251;C0164;23/04/2026;03/05/2026;Recife;Esportes;Bola;;213,06;0,00;0,00;639,18;Débito;Entregue;3;
+P10252;C0136;24/04/2026;30/04/2026;Caruaru;Casa;Toalhas (kit);4;111,87;0,00;0,00;447,48;Pix;Entregue;4;
+P10253;C0019;25/04/2026;;Recife;Esportes;Tapete de Yoga;1;148,14;22,22;19,90;145,82;Pix;Em trânsito;;
+P10254;C0095;28/04/2026;23/05/2026;Jaboatão dos Guararapes;Beleza;Secador;2;85,39;25,62;29,90;175,06;Débito;Entregue;2;FRETEGRATIS
+P10255;C0164;28/04/2026;29/04/2026;Caruaru;Esportes;Halteres (par);3;262,49;39,37;0,00;748,10;Débito;Entregue;5;
+P10256;C0174;28/04/2026;30/04/2026;Jaboatão dos Guararapes;Esportes;Halteres (par);1;41,74;0,00;39,90;81,64;Boleto;Entregue;5;
+P10257;C0035;01/05/2026;05/05/2026;Recife;Eletrônicos;Monitor 24";1;177,59;0,00;24,90;202,49;Cartão de crédito;Entregue;5;
+P10258;C0121;07/05/2026;02/05/2026;Caruaru;Livros;Biografia;1;41,78;0,00;29,90;71,68;Cartão de crédito;Entregue;5;
+P10259;C0097;02/05/2026;08/05/2026;Recife;Esportes;Halteres (par);5;51,99;0,00;9,90;269,85;Pix;Entregue;2;FRETEGRATIS
+P10260;C0071;02/05/2026;05/05/2026;Recife;Beleza;Secador;1;37,86;0,00;24,90;62,76;Débito;Entregue;5;VOLTA15
+P10261;C0093;03/05/2026;08/05/2026;Jaboatão dos Guararapes;Esportes;Bicicleta Ergométrica;5;98,41;0,00;0,00;492,05;Pix;Entregue;4;
+P10262;C0163;03/05/2026;06/05/2026;Olinda;Eletrônicos;Monitor 24";1;164,39;32,88;24,90;156,41;Pix;Entregue;4;
+P10263;C0134;09/05/2026;16/05/2026;Recife;Beleza;Protetor Solar;2;163,03;0,00;0,00;326,06;Cartão de crédito;Entregue;3;BEMVINDO10
+P10140;C0191;28/11/2025;01/12/2025;Recife;Esportes;Tapete de Yoga;2;45,66;4,57;9,90;96,65;Débito;Entregue;5;VOLTA15
+P10264;C0117;09/05/2026;13/05/2026;Olinda;Esportes;Bola;1;401,78;80,36;0,00;321,42;Pix;Entregue;4;
+P10265;C0150;12/05/2026;17/05/2026;Caruaru;moda;Camiseta;1;302,50;15,12;0,00;467,38;Pix;Entregue;3;
+P10266;C0058;14/05/2026;;Caruaru;Beleza;Perfume;3;208,98;0,00;0,00;626,94;Pix;Em trânsito;;BEMVINDO10
+P10267;C0107;15/05/2026;22/05/2026;Paulista;Casa;Organizador;2;199,41;0,00;0,00;398,82;Boleto;Entregue;4;
+P10268;C0091;15/05/2026;18/05/2026;Jaboatão dos Guararapes;Casa;Organizador;1;235,89;0,00;24,90;260,79;Cartão de crédito;Entregue;5;
+P10269;C0153;16/05/2026;24/05/2026;Paulista;Beleza;Protetor Solar;1;44,94;0,00;24,90;69,84;Débito;Entregue;4;BEMVINDO10
+P10270;C0047;16/05/2026;27/05/2026;Recife;Livros;Infantil;1;71,60;0,00;39,90;111,50;Cartão de crédito;Entregue;;
+P10271;C0104;18/05/2026;01/06/2026;Recife;Esportes;Bicicleta Ergométrica;1;229,71;22,97;14,90;221,64;Pix;Entregue;3;BLACK20
+P10272;C0167;18/05/2026;21/05/2026;Recife;Moda;Jaqueta;1;129,18;;19,90;149,08;Cartão de crédito;Entregue;4;BEMVINDO10
+P10273;C0095;21/05/2026;25/05/2026;Recife;Eletrônicos;Monitor 24";5;277,26;0,00;0,00;1386,30;Pix;Entregue;5;
+P10274;C0025;23/05/2026;28/05/2026;Recife;Moda;Jaqueta;3;339,89;0,00;0,00;1019,67;Cartão de crédito;Entregue;5;
+P10275;C0163;29/05/2026;07/06/2026;Caruaru;Esportes;Bicicleta Ergométrica;1;48,91;0,00;9,90;58,81;Pix;Entregue;3;BEMVINDO10
+P10276;C0022;29/05/2026;05/06/2026;Recife;Casa;Jogo de Panelas;1;40,68;0,00;24,90;65,58;Débito;Devolvido;;VOLTA15
+P10277;C0095;29/05/2026;;Jaboatão dos Guararapes;Esportes;Bicicleta Ergométrica;2;306,52;0,00;0,00;613,04;Cartão de crédito;Em trânsito;;
+P10278;C0117;01/06/2026;11/06/2026;Olinda;Beleza;Protetor Solar;5;3328,00;24,96;9,90;151,34;Pix;Entregue;4;BEMVINDO10
+P10279;C0133;02/06/2026;16/06/2026;Jaboatão dos Guararapes;Eletrônicos;Fone Bluetooth;4;158,50;0,00;0,00;634,00;Cartão de crédito;Entregue;3;
+P10280;C0028;03/06/2026;02/06/2026;RECIFE;Casa;Toalhas (kit);2;78,22;23,47;24,90;157,87;Cartão de crédito;Entregue;5;VOLTA15
+P10281;C0096;03/06/2026;;Recife;Livros;Infantil;1;51,61;0,00;14,90;66,51;Pix;Em trânsito;;
+P10282;C0093;03/06/2026;06/06/2026;Recife;Beleza;Perfume;4;31,06;0,00;9,90;134,14;Débito;Entregue;4;
+P10283;C0193;05/06/2026;13/06/2026;Caruaru;Casa;Jogo de Panelas;4;110,14;0,00;0,00;440,56;Pix;Entregue;4;BLACK20
+P10284;C0151;07/06/2026;09/06/2026;Jaboatão dos Guararapes;Esportes;Bola;;74,12;29,65;19,90;138,49;Boleto;Entregue;5;
+P10285;C0089;10/06/2026;18/06/2026;Olinda;Esportes;Garrafa Térmica;2;253,98;25,40;0,00;482,56;Débito;Entregue;4;
+P10286;C0093;13/06/2026;;Caruaru;Casa;Luminária;1;68,46;0,00;24,90;93,36;Débito;Cancelado;;
+P10287;C0058;14/06/2026;19/06/2026;Recife;Eletrônicos;Fone Bluetooth;2;174,57;0,00;0,00;349,14;Cartão de crédito;Entregue;5;
+P10288;C0047;14/06/2026;29/06/2026;Recife;Eletrônicos;Smartwatch;;464,08;69,61;0,00;394,47;Cartão de crédito;Entregue;3;BLACK20
+P10289;C0100;15/06/2026;18/06/2026;Paulista;Casa;Cafeteira;3;64,21;0,00;14,90;207,53;Boleto;Entregue;4;
+P10290;C0057;19/06/2026;26/06/2026;Recife;Casa;Toalhas (kit);3;96,72;14,51;29,90;305,55;Cartão de crédito;Entregue;5;VOLTA15
+P10291;C0077;20/06/2026;30/06/2026;Recife;Beleza;Secador;5;32,30;0,00;29,90;191,40;Pix;Entregue;3;BEMVINDO10
+P10292;C0048;21/06/2026;03/07/2026;Caruaru;Moda;Tênis;2;172,57;17,26;0,00;327,88;Cartão de crédito;Entregue;3;
+P10293;C0093;22/06/2026;01/07/2026;Recife;Livros;Livro Técnico;1;82,14;0,00;9,90;92,04;Pix;Entregue;4;BEMVINDO10
+P10294;C0040;22/06/2026;25/06/2026;Paulista;Casa;Toalhas (kit);2;59,97;11,99;14,90;122,85;Cartão de crédito;Entregue;5;VOLTA15
+P10295;C0068;23/06/2026;;Recife;Esportes;Halteres (par);3;169,60;0,00;0,00;508,80;Pix;Em trânsito;;VOLTA15
+P10296;C0046;26/06/2026;03/07/2026;Jaboatão dos Guararapes;Moda;Calça Jeans;3;93,55;0,00;19,90;300,55;Cartão de crédito;Entregue;4;
+P10297;C0077;26/06/2026;03/07/2026;Caruaru;Moda;Mochila;1;112,19;;14,90;121,48;Cartão de crédito;Entregue;4;BLACK20
+P10298;C0014;26/06/2026;06/07/2026;Paulista;Livros;Romance;1;118,09;5,90;9,90;122,09;Débito;Entregue;4;
+P10299;C0086;26/06/2026;27/06/2026;Caruaru;eletronicos;Monitor 24";1;285,95;0,00;19,90;305,85;Cartão de crédito;Entregue;5;
+P10300;C0014;27/06/2026;29/06/2026;Caruaru;Beleza;Kit Skincare;1;115,62;5,78;9,90;119,74;Pix;Devolvido;;BLACK20

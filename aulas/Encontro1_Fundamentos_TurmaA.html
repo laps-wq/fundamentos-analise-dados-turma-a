@@ -1,0 +1,1261 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Encontro 1 · Fundamentos de Dados</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: aula em cenas empilhadas (rolagem) que viram slides no "Modo aula"; laboratórios em cartões com barra laranja, como no template CESAR School */
+:root{
+  --paper:#FEF7EE; --surface:#FFFCF8; --sunk:#FBEEE1; --ink:#212121; --ink-2:#4B4540; --muted:#7D7168;
+  --line:#E5C8B2; --line-soft:#F0E0D0; --orange:#FF6002; --orange-ink:#B84300; --orange-soft:#FFE7D6;
+  --good:#2E7A4C; --good-soft:#E2F1E7; --warn:#93600F; --warn-soft:#FBEED6; --bad:#B53228; --bad-soft:#F8E0DC;
+  --c1:#FF6002; --c2:#212121; --c3:#C99A70; --c4:#5F8A84;
+  --cover:#212121; --cover-ink:#FEF7EE; --cover-cream:#FEF7EE;
+  --f-disp:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  --f-body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:14px; --maxw:1280px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1A1918; --surface:#24221F; --sunk:#2C2825; --ink:#FEF7EE; --ink-2:#E3D8CC; --muted:#B3A597;
+    --line:#4D4036; --line-soft:#352C26; --orange:#FF6A14; --orange-ink:#FF8C4A; --orange-soft:#3B2517;
+    --good:#72C792; --good-soft:#1E3327; --warn:#E6B453; --warn-soft:#3A2F17; --bad:#F2806F; --bad-soft:#3E201C;
+    --c1:#FF6A14; --c2:#FEF7EE; --c3:#C99A70; --c4:#7FB0A9;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1A1918; --surface:#24221F; --sunk:#2C2825; --ink:#FEF7EE; --ink-2:#E3D8CC; --muted:#B3A597;
+  --line:#4D4036; --line-soft:#352C26; --orange:#FF6A14; --orange-ink:#FF8C4A; --orange-soft:#3B2517;
+  --good:#72C792; --good-soft:#1E3327; --warn:#E6B453; --warn-soft:#3A2F17; --bad:#F2806F; --bad-soft:#3E201C;
+  --c1:#FF6A14; --c2:#FEF7EE; --c3:#C99A70; --c4:#7FB0A9;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:clamp(16px,0.55vw + 12px,22px)}
+html.aula{font-size:clamp(19px,1vw + 3px,28px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+h1,h2,h3{font-family:var(--f-disp);font-weight:700;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:.005em}
+p{margin:0}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:6px}
+.num{font-variant-numeric:tabular-nums}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ---------- topo ---------- */
+.topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line-soft)}
+.topo .wrap{display:flex;align-items:center;gap:14px;padding-block:10px}
+.logo{display:block;width:44px;height:40px;flex:none;background:var(--ink);-webkit-mask:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABlCAYAAAB6OQxdAAAV1klEQVR4nO2de5yU5XXHvzM7sxd2QVhEjXhbEVSUaGoM4nqB4I2YRAm2qSnGFFqMps2ln3qNTRo0MY2JMY0JJmJUmsQ2iZf0QlXEYoIRG6tVQRPAC6jUCwLiwu7M7uz0j99z8r4zOzPv++6+s8uu8/t85jM7s++8z/M+5zznnOc855wn0dbWxh6GlHvVAWn3ej/QDBwF1ANfBXZXoe00cCFwOPAEsAt4DngLyAK9QLd7z1Wh/X4hNYRtpxFB0kADMAU4GJgKHAnsA7wPDZgNXg+wDbie6hAxAUwEzgP+FI1PGkgCrwBbEXHfQMR9zvWnGxE5U4U+BSIxiDMxDTQhgk0Fprv3qcAR7vu0uzbrXt3AemAtsM69vwg8766zGVvv/u4BOoB8hX4kgBZ3fc610+NeIIKNAg4A2oAPANMQQ7W63zW5+2SBTYiY64A1wONAFyJoV0BfYkE1iZhEDzsKzawZwGmIaOPwuNzQg8TXWmAF8AjwGNCJBrvO95sW4HjgUDRz9gUmoAH8Khq8cmgArgJOcO29gGbZi8Bv3Xe7EQMZ0kCje46TgHOB97p+1LlrevGY7/eu778BViHG6iq6Z2yIm4h1iGj7Ig4+E/gg4mDTb37kgbeBp4B7gAeAlxDhDI3AfmjmtqNBnIyIboP2NLAZWA38jMqDlQb+GDgFOBAxgvWvHngdDf5q4L/RrN/p+30SMcIh7vnmIx3aUtSOqYBO4GHElA+5++0K6GMkxEXEZvQQHwU+hAjXgAYlUeL6bmA7ItztiIhZPGMhhQb2HN/9Gt33u4FnEMEfQKLMRGIOTyxWgolhM55shs1FxtNoxGBdSDIsA+4HXnZtGepcv9qBS4CZwF5l2jS9uQ64G0mbDYigvSH6XBYDIWISEe444ALgDCTS6gN+9yZwG/B94P8oHBTQzPhzZCXuW3S/1cB1SEQZ4eKC6dYpwGLgbDxRmXX9vgMx3Ysl2m4CTgY+g9TGqAptdSMGWQn8HDHj2/RzdvaHiCnEbWehgW7HU/SV0Im4+cto9hR3OAV8GA3gkfS1nJ9CuuilqB3uB8YAPwT+hMLn6gG2AN9As/OdEr9tARYAn0MMGYQMErHLgLvQbI9k5SajXIxE3CIk428FTkccF0TArciYmI/0VzEB08BFaIZOoy8Be4Fn0WwYDHSiPhevBVPAQcC3gG/TVw+CjJibkGh+KERbZq1fgyTMl5DOL7YfyiLsTGxBIuJStPAOEpl+bAD+EonCUgvkBNJ7PwbGVrhPB/A1YCnSp3GKUkMS6cNzkNjev8K1nYihf0p5nXYw6u9sghnd0AO8hhhhKVqHVlymBBExibhiMfARJDajYBvwMTRzy6ERdXhhiPvZunEJEs1v4pnu/TEOknjLh0bEqBci3dYY4vdrkC1QSqwaDkYSZlbEvnWjJdP1wH9SYdlUiYijkOdisetIVGSBaxFHV5o1zUgXnBnx3hm0BFiD1mVvAU/iWag5xMEJ37utNRN4HqIj0Jrx/YhwDRH6sR04DDFrJZwE/BKpo6joAP4Rie+tpS4o53Ybh2TzIipbWZWwBVmgQWIvhxbcUVDvXrOBU909el1bedf2q/Ql4kQkIo2g9uqv+3Etfa3rUvgtYtSFRLdDWoDLkHS4CBmFBSjV+UOBq5ERElq5lsDvCeff7EL6cB7yl0aFOcz9GINmWDWxDfguWucFIYs8OPOJrpJAz3cy8C/AF9DS5A8o5ooJwI+QXhgIAe3eYZX5GuBK5C0ZDngLuBy4l3C+0TzRZ2ApTEP0me3/0n/j0Uh/nRJTg0ci8RUGvWgRPQ94kHDcPRTIIMPqM8hYCbs4bwJOJJq+LYeDkH483L5I+t4/DfwZ4WdPEPZHs2t0yOt7kX9xLvDXyDJ7h6Hft8sjptqADLXTkH82Sr/OQlZ6HJMDNCO/jVuSmXU6Gc2Ag2JqxJBB1u33gR0RfmfbRbPRAHwQ6cuo1mN/YW6xTuC/gP8A/g1ZilHWp2m0tLiF6oztF4Aliba2tiRwM/AXxDcL/cgC/wr8HbCR6Iv0ekS849F21gnIX2t7iPWIw6M4IPx9sy2kHBqYJ5DVuQZZlW+6/0fdF2xFTo4rKe8UHyjWAicm2traWpBnPW5OKcbLwD8gC2sH/fO4mCVaD7wHbQcdi5ZB78UzxvbHW0r4sRPpNFuOPI0s6KfRbv1GPMd6f5zR5vGZiber0R/mCovdwMJEW1vbHCTjS/kB40YW6ZYlyAvxuuvIQHa/6xCxUkXfldI/eTwnAHjryoHq3SbktDgTWfYn0b+lRFRkgdtSyGqqC7g4LtSj/bobkEN8JSLmSqR/Ook+Q40A1fCllkMCifhRyMiYizYDDmVwdLYhCUwttVAeDNQjcTcfbfdsRfpnBfAoCpfoYgiDj4rgD+raG+nndmRwHYIIF5flGRVJCxYaKiTQAEx0rw/h7fr/D9rBfxwFI21x/7PgpjyejzQOmIHkD5ccizw/UykM6jKCDhXhCpBCu9RVj8gKCfOJNqNos7PxCNWNfKxvog3iDIoM2OL+/zbSt2F3M/ZCSyvznx6D9NihaLZNRkQ0oprjfE9CHtiWQkFBGfrv6K4misX9H7n309ADWEwqRA/oNSe4ESbl+264oBd4OIW4+xnkbhsuGE4DXU10AMuTaBbeTnUiqmuoLn4BbDTFbBFXNQwfvIAiIrqNiB1oE3jjkHWphijYheKNnoVCE/kZtAB/awg6VUN4ZJH6uxNn1BWvc+5Gm50lYzlqGHJk0I7IVfhsmGIi5hCVL8HLPKphz8BO4EbgCgpzQ0p6HHLI6vkkCn6tSiZPDZHwPNo7/DKyXwpQzm2UR06AC9AO8vZq9a6GiuhEcTxzkYQs6UcOEwGeRo7ey1B6WXNcPayhLDJo/9WiwCvGHEVJqGlBeX2XoCCoGjHjRwb5gn+EMrDML1wRUbOiLPblPGrEjBOdKNh5GbJHNhBhf7S/+YkJFIZwLpqdM9znaoYijDTk8KLo/glFiL9GPza3B5opbPuBk9AG75moWEEzAw8+HonIo/VdB8rN+DkKyLK6BP1CnDn7VsrkKBRjeToiqFXMeLfCwh93ofzD+1A4yhuEy+MIRLWqZxhBp6K9v3YKs45GMlH9NW02obX2akTATvoX/lgRg1HHxsqWtCJDaDrSocchovrjV4YbLFTEiPY7lG5nYSWb3fdVdZgMZjEig+3WN6B8AqsgdZT7PBYRNOV7DeUmsL8UmFW1yqJcyJdQ9tdaFBOU9V0zaCEvQ0HEPn2gMI5lLCLmgSjOxnIKW1FCpz+YyX5frtRKGPizjPN4UeFbUAzPNmRBbkOBx5spDNqy15BhKGu7GfJoQEzkdKCQRYt3SfpeFhNjhAXN2mPde1TuzyEC7XD37cHLNu71vfyf9zjsCTMxDvgDnqIgjujvIceeMBPjwLAnxECwRwS/1jAw1Ig4AlAj4ghAjYgjADUijgDUiDgCUCPiCEDxOtFy7vpb8G5Pw2A9j7+0WLWTYm0H6A+5mdZwCuXnnYbquq1FNWVerEIn9sYr5r4dFT3YEXMbKZSGfQbe8zyKtobiTgvfG0WjHYaY5UE0dnHvXDSjuuqzka94I4qEeyPR1taWQPEy16D4mW40CL8DzkcF4eLyyM9EAbBT0cyoQynenyXePJCzUHGHieh50mgT9uNogONCGwolbMcbt93AF4EfEB8hR6M6B/ORezGHnmkd8KkkcDQqGDQOcdGNaFtlGgrpD1P3Mwxa3b2PQbEkj6AHnoNKQYatPBWERuATaAdkBYqbfRwxTZwVLRoRsU5Bz7MUZZa1oMpTM4gnsziJDlq5ADHJjxFBNyDaXZ5CXNuCYj0+iUTbra4jvyIebkogUX0U2sqZheIqp6NwhVkozfqpGNpqQgFcO4CLXXtWrChOEdeEgsRyqATm/Sjb+nYkXmejMR1oCEYDil1KIYa8Cj3HRlSpa2YSyfQuVP5qG9IZL6CK+HcQjw5JIQLm0IO94f5+znUmiWZOXOhBz3UxOllmL6qzY5HCO8zEgsM2u+/i2lxIoj3WLJKQDcB4FO6SBDakKCzMY52C6lhZdSia/FokSvdB4jVDfAbHblTm7NPA55G+TaL6bF9DZb/iQgapoV+iwg91SN+nideA6kHi+zr0PPug0iu7gZsGcyvKCiWMRWK7Fw3u26ig69qY2smgorsPoiDnyYhr56LQytOJL3XPJsCBqExZgupUkrJ29kaqrwkxTAfwfAqvuGwx95gOicsyNSW/Gvgm3ozvRpbwazG2k0bqYZX7+wBkSE1DBL0vprbqkSo6Gen4euArSBXFGReUcu38FZr1x6PcmHbg80n3zwZkZIxHRJ0A/C0yOOLw6uTRmjCB4i8fRpajpc4dS3wcfADwHWSO16OZuQNxbZai3L4BIoEkysvuvlvdK27HgtUxfx09ywp0+EoPMCMFLEdFYmch03UVOvPpbHSW0xoqV9Ywyy9D+Vnbg0RmBu9km7vQYvyb7nczKVGkvOhBGik8U6oU9kXBy4tQ3bqH0HEQk1C6XpDYtsCrMNWqTJKZWrJDzez7ONux0E/DSjRuhyXRGmoJ0k0fB76HTNoXUWqV/wS1UngPKqcclFjzv8j87kHrwpdcuy2IWTYH/H6Ua2dywHVPofXbm2httQyts7aitVyfJM0iNCJxOCngujyqjLydQubd5V5BhmEjOo7IrMxK7ex0bfnvmXPf7UqhQf0KKpB3FhJHa1B2TqWZYRiNPCNBOqATpSpvQZ6gMUhvPYRmZVAdnToU4RbE4d1onbsaPc9slHH0CyRlgkRdGjHKrwKu60LMshWPMboRo3YCv6byujSF6sS9SmWnQCc6E3IakiSGDPD3wM7iaDcrUtdDeBPZTjsLe2qnHVeXwAu2DfM7E6cZwuscK7Rn1YXDIEo7yTLX1Lnvg05UbSR8gdxSbSWB3uIlRn+8CzmCRW7x9f2ptp+P2I61FXWBH6WdckQO02bU5ynVVskSKDUMQ9SIOAJQI+IIQI2IIwA1Io4A1Ig4AlAj4gjAcMqKSqNFtBV1f7fAjsyFMlF7w4WIDWiXfj+0ZXUzFc7YHUFIIN/qh93nf0fu0QJP0HAh4ih0cNZ4FEKyjHcHEVNop+dy97kHbSRkiy8aLmhA4nQkl08pBasuYn/3wXAiYq7o/d2C4rM/+qBmnY4AlJuJ/nOQ4jqPyawsCzUYSDRdNa3TOPtpORpVzc/wE9HiG6ehmP+x6CFeQRbRC2iHOSpBG9BG83RUdMjCIlehXfgdRI9JGYN3umk9XkzmTqJvVxlGoc3t43397EbP/hjawQ/LPGNQbsZ0FC7yINrQrUpSjxGxAUUzX+YatzWZBdx2o1JXdwD/jAY+zEbuISg6+lMo+MoUcx64FNW2vh6dAhAUNmFoRIFQp6DQDpsx29Du/XcRw0WJ0jsMWb/nobHwz8QsCvX4HgpOqlRKO+X6dSmKgKtH43g8Cn0J+4yRYCJzAYqnmYaizuzwKxMtoxBX3Qj8BMVZBmEKWgpcgWainTFoRYWaUC7Bze6+rSH73IQCoSa4vxvd+0QU8HUPcGrIe4GCme9CcTVjfP20529Ez3sNevYpZe5TD1yEGOksvIhwu1fVkHIdvBTv8OIdaNa9gjj9AJQnsZfr6Cz0IJUCm8Yjrj3Z991WFLOzE8XKTEKD1oSi39ahWRQmLCSBpIOJ9zrXP0tpuxY4h+CDWo5DwVMWo9LjfvOEu/84lH7Qiggyx/V5IQrdN9SjQ6Cvw0sM6kRlxdahc5Srtq5NoYMn93OfX0WzcpX7bLPmZLxC7mtQsG85pNGMaHef8+h0bzvGyFLaTgW+hYKFrKhdWHQhyXETEqOtaEG8AM2kD6CZdWOF+7ag2WUEzAC3Ad9AXqE8ev73uetmuevaUSDWAlTrLU1fAm5CyS+341VZrNrSKIXEkInV19BsKQ5eug+VgDwXxTu+UuGeo4B57t55FDW2kL6zYjkahO+gWNDbCUfIXpRcuRiF7OHer0Cz8Xw0sPNQjuA7fW8B6CxGkxQ5RJgr6Rtc/AhiiKUoswtEyKUor/MkCgm4AR13/wiDtKZNotA+s7qOQQc1X4EeshUvMnsbqhK/KeCeB+Ed974bHcteTqxtRMbE1ZQf7GJ0IoIXX78T+Cle6OPhlK+h2oDErR38uRZJinLR4ZsQYR70fdeOQupvoJCACxHjDppTIukafATNGktBW+y+X42IMJPwhsf+eDGoWWSeV0In0dZ9WRTwXAp+CVLJmEih7KUkGux7CE45N0Le79pJIluhybX5HBKxvw56AIexKLtpPAPM27BcjIuQmW+GQgpZV0eiJI7lKH/iAoIr7icpFMXVWBuVu6ffAxW0xPA7M9ZXuKcfm5C+L65l0ImMqdUh7gEa27uRJHoMTZx+wx5kE0o3m4dOBduIwvp78NK1jkaGxCIqE3IwDk+Oow0TdxaJHWY2pJFenFj0fRPKhwxKMTBMQFtMo5Hq2Sfk70rCz7m7kcz/HNKH85CF9SSe/hmDQsePqHDPrO++dSinLmwfBgs5ZJzlUR9PJLg2QT1i4K/j5Z3Y4j2BjKTbkC4Owhw8fb2T8GnuJaWLDWATIpC5xN5BVuiV6AEX+DrcTF9O9ONJvAjvJvfbcmlr49Aa8VQGt5B7FtkB5tM8ASURlZvhTYiA16FxAi2zFlJ4jK8tPyoR8giUGGRMs4LwRp1VzihA0nXqWuRp+Bvk67M9uxx6UFukGyrpmw7kAQER5rPIIBhHoZtvMlonLkEntJzI4J1j34ssy3XucwuSOvPQMsUYqgGJui+iGei3QhcBP0NrxGKr9Vak55rxvFRNyJi6BU8HvoMs7UqOAHP/JdGadjQaR/NWkUIz5RL3xUzk57wXLep7kQfkE3gOgU4qrxMzSHeehnySzcg/+lFkBb6CFuMfQxybRF6jduQkHqz4mR2IMDcjC/FA5Cb8DZpd6/HSxKfgMaAtI8wK3YyYdCnKwEqgZ3kAzbKVaBxPQOtsf4GJe6lszeYpXJ7NQ2v5l9DYZYAvJdra2uahZYQ/H8+OD8jjOcNBYugW5L2plIqWQOu/myhU2ua5sOwra2s9Ghh/6pYf45CzfBwa/Elo3VqMOejonuaA6wx1iGm/TqHutkSc4mTRYgL6cRCazWdTGH1gTJku+m4VIn5QXubRiBlsEllh+TSSeh9JIrEyH3HFNrytnAa8FLROxBG3UHSebRnkkXi+EJnQO/EqO5ku6EI7Aj9Bg/9owD17it5LwV/VP4z3J4d2Zi5GW07WT8v7t8ylHWicLqT8zNns/n8Nmi0deIyQcn93oPIvN6BdoyACgk7wvtrdM4O3KWHnc8zw5yfWIYfw+e79EKQrnnUPeCdeZaYoaHT3PAeJpUnIwfwc2tZ6iOABb0HceAJiitMpbQxMRPp4esB1Qf1sxTMinka+31Uh+mmYglLMz6Yw3HC5u9f6kPfx4wzEbMch5noG6eI7/x9UMoLqosOl8wAAAABJRU5ErkJggg==") center/contain no-repeat;mask:url("data:image/png;base64,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") center/contain no-repeat}
+.topo-titulo{font-family:var(--f-disp);font-weight:700;font-size:1.15rem;line-height:1.1;min-width:0}
+.topo-titulo small{display:block;font-family:var(--f-body);font-weight:500;font-size:.78rem;color:var(--muted);letter-spacing:.02em}
+.topo-acoes{margin-left:auto;display:flex;gap:8px;align-items:center}
+.topo select{max-width:220px;padding:7px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:600;font-size:.95rem;line-height:1.2}
+.btn:hover{border-color:var(--orange)}
+.btn.prim{background:var(--orange);border-color:var(--orange);color:#fff}
+.btn.prim:hover{filter:brightness(1.06)}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+@media (max-width:640px){.topo-titulo small{display:none}.topo select{max-width:130px}.topo-titulo{font-size:1rem}}
+@media (max-width:420px){.topo-titulo{display:none}}
+
+/* ---------- cenas ---------- */
+.cena{padding-block:72px;border-bottom:1px solid var(--line-soft)}
+.eyebrow{font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:10px}
+.cena h2{font-size:clamp(2.3rem,4.8vw,3.5rem);margin-bottom:16px}
+.lede{font-size:1.2rem;color:var(--ink-2);max-width:68ch}
+.pilha{display:flex;flex-direction:column;gap:28px}
+.grade2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.grade3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:820px){.grade2,.grade3{grid-template-columns:1fr}}
+
+.cartao{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:20px 22px;position:relative;overflow:hidden}
+.cartao.barra::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--orange)}
+.cartao h3{font-family:var(--f-body);font-weight:700;font-size:1.15rem;margin-bottom:6px;letter-spacing:0}
+.cartao p{color:var(--ink-2);font-size:1rem}
+
+/* ---------- capa ---------- */
+.capa{background:var(--cover);color:var(--cover-ink);position:relative;overflow:hidden;border-bottom:none;padding-block:84px 120px}
+.capa .wrap{position:relative;z-index:2}
+.capa .logo{background:var(--cover-ink);width:72px;height:64px;margin-bottom:28px}
+.capa h1{font-style:italic;text-transform:uppercase;font-size:clamp(2.6rem,7vw,5rem);max-width:12ch;letter-spacing:.01em}
+.capa .sub{margin-top:22px;font-weight:700;font-size:clamp(1.1rem,2.2vw,1.4rem);max-width:30ch}
+.capa .meta{margin-top:14px;display:flex;flex-direction:column;gap:2px;font-size:1.02rem;color:#E9DED2}
+.capa .meta b{color:var(--cover-ink)}
+.capa .tag{display:inline-block;margin-top:24px;background:var(--orange);color:#fff;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;padding:6px 12px;border-radius:999px}
+.forma{position:absolute;z-index:1;pointer-events:none}
+.f1{width:min(46vw,520px);aspect-ratio:1;border-radius:50%;background:var(--orange);right:-14vw;top:10%;clip-path:inset(0 0 0 0)}
+.f2{width:min(30vw,340px);aspect-ratio:1;border-radius:50%;background:var(--orange);right:min(22vw,250px);top:4%;clip-path:inset(0 50% 0 0)}
+.f3{width:min(34vw,300px);aspect-ratio:2/1;border-radius:300px 300px 0 0;background:var(--cover-cream);left:-40px;bottom:0}
+.f4{width:min(24vw,210px);aspect-ratio:2/1;border-radius:210px 210px 0 0;background:var(--orange);left:min(28vw,240px);bottom:0}
+.f5{width:min(16vw,150px);aspect-ratio:1;border:2px solid var(--cover-ink);border-radius:0 100% 0 0;border-left:2px solid var(--cover-ink);border-bottom:2px solid var(--cover-ink);left:min(48vw,450px);bottom:-2px;border-top-left-radius:0}
+@media (max-width:700px){.f1{right:-40vw;top:auto;bottom:18%;width:70vw}.f2{display:none}.f5{display:none}.capa{padding-block:56px 110px}}
+
+/* ---------- laboratório ---------- */
+.lab{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:24px 26px 22px 30px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:18px}
+.lab::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--orange)}
+.lab-cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.lab-cab .eyebrow{margin:0}
+.lab-cab h3{font-size:2.1rem;flex-basis:100%}
+.instrucao{color:var(--ink-2);max-width:72ch;font-size:1.08rem}
+.instrucao b{color:var(--ink)}
+.conta{border-top:1px dashed var(--line);padding-top:12px}
+.conta summary{cursor:pointer;font-weight:600;color:var(--muted);font-size:.95rem;list-style:none;display:inline-flex;align-items:center;gap:8px}
+.conta summary::-webkit-details-marker{display:none}
+.conta summary::before{content:"+";display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);font-size:.9rem;line-height:1}
+.conta[open] summary::before{content:"−"}
+.conta .corpo{margin-top:10px;background:var(--sunk);border-radius:10px;padding:12px 14px;font-size:.95rem;color:var(--ink-2)}
+.excel{background:var(--sunk);border-radius:12px;padding:14px 16px;font-size:.96rem;color:var(--ink-2)}
+.excel .chip-x{display:inline-block;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:4px}
+.excel ol{margin:6px 0 0;padding-left:20px}
+.excel li{margin-bottom:4px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:.4em .85em;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:500;font-size:1rem}
+.chip:hover{border-color:var(--orange)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.rotulo{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+
+.veredito{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-weight:700;font-size:.85rem}
+.v-ok{background:var(--good-soft);color:var(--good)}
+.v-cuidado{background:var(--warn-soft);color:var(--warn)}
+.v-nao,.v-impossivel{background:var(--bad-soft);color:var(--bad)}
+
+/* tabela */
+.tabela-wrap{overflow-x:auto;border:1.5px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:1rem;font-variant-numeric:tabular-nums}
+th{background:var(--orange);color:#fff;text-align:left;font-weight:600;padding:9px 12px;white-space:nowrap}
+td{padding:8px 12px;border-top:1px solid var(--line-soft);white-space:nowrap}
+tbody tr:nth-child(even) td{background:var(--sunk)}
+td.hi,th.hi{outline:2.5px solid var(--orange);outline-offset:-2.5px}
+td.col-hi{background:var(--orange-soft)!important}
+tr.divisor td{border-top:3px solid var(--ink)}
+tfoot td{font-weight:700;background:var(--surface)}
+
+/* DIKW */
+.dikw{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px;align-items:start}
+@media (max-width:820px){.dikw{grid-template-columns:1fr}}
+.escada{display:flex;flex-direction:column-reverse;gap:6px;align-items:center}
+.degrau{height:2.7rem;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--f-disp);font-weight:700;font-size:1.3rem;border:1.5px solid var(--line);background:var(--surface);color:var(--muted);transition:background .25s,color .25s;cursor:pointer}
+.degrau.feito{background:var(--orange-soft);color:var(--orange-ink);border-color:var(--orange-soft)}
+.degrau.agora{background:var(--orange);color:#fff;border-color:var(--orange)}
+.painel-dikw{display:flex;flex-direction:column;gap:12px}
+.frase-dikw{font-family:var(--f-disp);font-weight:700;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;min-height:2.3em}
+.viz-dikw{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:10px 12px}
+.muda{color:var(--ink-2)}
+.muda b{color:var(--orange-ink)}
+.passos{display:flex;gap:8px;flex-wrap:wrap}
+
+/* tipos */
+.arvore{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.arvore{grid-template-columns:1fr}}
+.ramo{border:1.5px solid var(--line);border-radius:var(--r);padding:16px 18px;background:var(--surface)}
+.ramo h3{font-size:1.5rem;margin-bottom:10px}
+.folhas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.folha{background:var(--sunk);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.folha b{display:block;font-size:1.1rem}
+.folha span{font-size:.95rem;color:var(--ink-2)}
+.folha svg{width:100%;max-width:300px}
+.escala-viz{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:12px 14px}
+.escala-viz svg{max-width:760px;margin:0 auto}
+.escala-viz svg text{font-size:15px}
+.escalas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:720px){.escalas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.escala{border:1.5px solid var(--line);border-radius:12px;padding:12px;background:var(--surface);cursor:pointer;text-align:left}
+.escala[aria-pressed="true"]{border-color:var(--orange);background:var(--orange-soft)}
+.escala b{font-family:var(--f-disp);font-size:1.3rem;display:block}
+.escala span{font-size:.88rem;color:var(--ink-2)}
+.ops{display:flex;flex-wrap:wrap;gap:8px}
+.op{padding:7px 12px;border-radius:999px;font-weight:600;font-size:.92rem;border:1.5px dashed var(--line);color:var(--muted)}
+.op.on{border-style:solid;border-color:var(--good);background:var(--good-soft);color:var(--good)}
+
+/* classificador */
+.colunas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.colunas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.colunas{grid-template-columns:1fr}}
+.col-card{border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--surface);display:flex;flex-direction:column;gap:8px}
+.col-card.certo{border-color:var(--good)}
+.col-card.errado{border-color:var(--warn)}
+.col-nome{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-weight:600;font-size:1rem}
+.amostra{font-size:.95rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.opcoes{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opcoes button{padding:.45em .6em;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-size:.95rem;font-weight:600}
+.r2-cab{display:flex;align-items:center;gap:12px}
+#rodada2{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1000px){#rodada2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){#rodada2{grid-template-columns:1fr}}
+.icone{width:2.6rem;height:2.6rem;flex:none;color:var(--orange-ink)}
+.icone svg{width:100%;height:100%}
+.icone svg *{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.opcoes button:hover{border-color:var(--orange)}
+.opcoes button.marcado{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.retorno{font-size:.95rem;line-height:1.45}
+.retorno.ok{color:var(--good)}
+.retorno.no{color:var(--warn)}
+.placar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.placar .grande{font-family:var(--f-disp);font-weight:700;font-size:2rem}
+
+/* calcular */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:22px}
+@media (max-width:860px){.calc{grid-template-columns:1fr}}
+.resultado{border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--paper);display:flex;flex-direction:column;gap:10px;min-width:0}
+.valor{font-family:var(--f-disp);font-weight:700;font-size:clamp(2.2rem,5vw,3.3rem);line-height:1;font-variant-numeric:tabular-nums;word-break:break-word}
+.msg{color:var(--ink-2)}
+svg{display:block;max-width:100%;height:auto}
+svg text{font-family:var(--f-body);fill:var(--ink-2);font-size:14px}
+svg .faixa-ok{fill:var(--good-soft)}
+svg .faixa-alerta{fill:var(--bad-soft)}
+svg .t-ok{fill:var(--good);font-weight:700}
+svg .t-alerta{fill:var(--bad);font-weight:700}
+svg .marcador{fill:var(--orange)}
+svg .t-marc{fill:#fff;font-weight:700}
+svg .t-grande{font-family:var(--f-disp);font-size:72px;font-weight:700;fill:var(--ink)}
+svg .t-disp{font-family:var(--f-disp);font-weight:700;fill:var(--ink)}
+svg .linha-media{stroke:var(--ink);stroke-width:2;stroke-dasharray:6 5}
+svg .barra.fraca{fill:var(--c3);opacity:.45}
+svg .contorno{fill:none;stroke:var(--ink-2);stroke-width:1.6}
+svg .liq{fill:var(--orange)}
+svg .chipf1{fill:var(--c1)} svg .chipf2{fill:var(--c4)} svg .chipf3{fill:var(--c3)}
+svg .t-branco{fill:#fff;font-weight:700}
+svg .regua{stroke:var(--ink-2);stroke-width:1.4}
+svg .t-forte{fill:var(--ink);font-weight:700}
+svg .barra{fill:var(--c3)}
+svg .barra.hi{fill:var(--orange)}
+svg .eixo{stroke:var(--line);stroke-width:1.2}
+svg .ponto{fill:var(--c3)}
+svg .m-media{stroke:var(--orange);stroke-width:2.5}
+svg .m-mediana{stroke:var(--ink);stroke-width:2;stroke-dasharray:5 4}
+svg .m-fraco{opacity:.45}
+svg .t-media{fill:var(--orange-ink);font-weight:700}
+svg .t-mediana{fill:var(--ink);font-weight:700}
+
+/* fontes */
+.fontes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.fontes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.fontes{grid-template-columns:1fr}}
+.fonte{border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--surface);display:flex;flex-direction:column;gap:4px}
+.fonte .icone{margin-bottom:6px}
+.fonte b{display:block;font-size:1.1rem;margin-bottom:2px}
+.fonte p{font-size:.98rem;color:var(--ink-2)}
+.fonte .risco{margin-top:6px;font-size:.94rem;color:var(--warn)}
+.quiz{display:flex;flex-direction:column;gap:14px}
+.q{border-top:1px solid var(--line-soft);padding-top:12px}
+.q p{font-weight:600;margin-bottom:8px}
+
+/* viés */
+.vies{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:860px){.vies{grid-template-columns:1fr}}
+.legenda{display:flex;flex-wrap:wrap;gap:12px;font-size:.88rem;color:var(--ink-2)}
+.legenda i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.medidor{display:flex;flex-direction:column;gap:8px}
+.medidor .linha{display:grid;grid-template-columns:120px minmax(0,1fr) 54px;align-items:center;gap:10px;font-size:.92rem}
+.medidor .trilho{height:16px;border-radius:8px;background:var(--sunk);position:relative;overflow:hidden}
+.medidor .enche{position:absolute;inset:0 auto 0 0;border-radius:8px;background:var(--orange);transition:width .45s}
+.medidor .enche.real{background:var(--ink)}
+@media (prefers-reduced-motion: reduce){.medidor .enche{transition:none}}
+
+/* regras */
+.regras{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.regras{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.regras{grid-template-columns:1fr}}
+.regra{border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--surface)}
+.regra .n{font-family:var(--f-disp);font-weight:700;color:var(--orange-ink);font-size:.95rem;letter-spacing:.06em;text-transform:uppercase}
+.regra b{display:block;font-size:1.05rem;margin:2px 0 6px}
+.regra p{font-size:.9rem;color:var(--ink-2)}
+.fluxos{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.fluxos{grid-template-columns:1fr}}
+.fluxo{border-radius:14px;padding:16px 18px;border:1.5px solid var(--line)}
+.fluxo.ruim{background:var(--bad-soft);border-color:transparent}
+.fluxo.bom{background:var(--good-soft);border-color:transparent}
+.fluxo h3{font-family:var(--f-body);font-size:1.02rem;margin-bottom:8px}
+.fluxo.ruim h3{color:var(--bad)} .fluxo.bom h3{color:var(--good)}
+.fluxo ol{margin:0;padding-left:20px;color:var(--ink-2)}
+
+/* decisão */
+.estat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.est{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--paper)}
+.est .k{font-size:.82rem;color:var(--muted);font-weight:600}
+.est .v{font-family:var(--f-disp);font-weight:700;font-size:1.7rem;font-variant-numeric:tabular-nums}
+.est .v small{font-family:var(--f-body);font-size:.85rem;font-weight:500;color:var(--muted)}
+details.resp{border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--surface)}
+details.resp summary{cursor:pointer;font-weight:600}
+details.resp p{margin-top:8px;color:var(--ink-2)}
+
+/* atividade */
+.form-ativ{display:flex;flex-direction:column;gap:14px}
+.linha-ativ{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line-soft)}
+@media (max-width:700px){.linha-ativ{grid-template-columns:1fr}}
+.linha-ativ select,.campo input,.campo textarea{width:100%;padding:8px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper)}
+.campo{display:flex;flex-direction:column;gap:6px}
+.campo label{font-weight:600}
+.campo textarea{min-height:84px;resize:vertical}
+.aviso{font-size:.9rem;color:var(--muted)}
+.copiado{font-weight:600;color:var(--good);font-size:.92rem}
+
+/* encerramento */
+.fecho{background:var(--cover);color:var(--cover-ink);border-bottom:none}
+.fecho .eyebrow{color:#FFB58A}
+.fecho h2{color:var(--cover-ink)}
+.fecho li{color:#E9DED2;margin-bottom:12px;font-size:1.2rem}
+.fecho li b{color:var(--cover-ink)}
+.fecho .prox{margin-top:26px;border-left:4px solid var(--orange);padding:6px 0 6px 16px;color:#E9DED2}
+.fecho .prox b{color:var(--cover-ink)}
+
+/* cronograma */
+.crono{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;counter-reset:e}
+@media (max-width:900px){.crono{grid-template-columns:1fr}}
+.crono li{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);font-size:.92rem;line-height:1.3}
+.crono li b{display:block;font-family:var(--f-disp);font-size:1.1rem;color:var(--muted)}
+.crono li.hoje{background:var(--orange);border-color:var(--orange);color:#fff}
+.crono li.hoje b{color:#fff}
+.pesos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;text-align:center}
+@media (max-width:620px){.pesos{grid-template-columns:1fr}}
+.pesos .p{font-family:var(--f-disp);font-weight:700;font-size:2.6rem;line-height:1}
+.pesos b{display:block;margin-top:4px}
+.pesos span{font-size:.9rem;color:var(--ink-2)}
+.ciclo{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ciclo .passo{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px}
+.ciclo .passo b{display:block}
+.ciclo .passo span{font-size:.9rem;color:var(--ink-2)}
+.ciclo .seta{color:var(--orange-ink);font-weight:700;font-size:1.3rem}
+
+/* ---------- modo aula ---------- */
+.controles{display:none}
+body.aula .cena{display:none}
+body.aula .cena.atual{display:block;min-height:calc(100vh - 62px);padding-block:48px 120px;position:relative;border-bottom:none}
+body.aula .cena.atual::after{content:"";position:absolute;left:0;bottom:0;width:92%;height:16px;background:var(--orange);border-radius:0 14px 0 0}
+body.aula .cena.capa.atual::after,body.aula .cena.fecho.atual::after{display:none}
+body.aula .wrap{max-width:min(1560px,94vw)}
+@media (min-width:1200px){body.aula #colunas{grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}}
+body.aula .controles{display:flex;position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(28px + env(safe-area-inset-bottom,0px));z-index:25;gap:8px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:6px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.controles .cont{font-weight:600;font-size:.9rem;min-width:56px;text-align:center}
+</style>
+</head>
+<body>
+
+
+<header class="topo">
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="CESAR School"></span>
+    <div class="topo-titulo">Encontro 1 · Fundamentos de Dados<small>Fundamentos de Análise de Dados · Turma A</small></div>
+    <div class="topo-acoes">
+      <select id="irpara" aria-label="Ir para a seção"></select>
+      <button class="btn" id="btnAula" aria-pressed="false">Modo aula</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- 1 CAPA -->
+<section class="cena capa" id="capa" data-nome="Capa">
+  <div class="forma f1"></div><div class="forma f2"></div><div class="forma f3"></div><div class="forma f4"></div><div class="forma f5"></div>
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="CESAR School"></span>
+    <h1>Fundamentos de Análise de Dados</h1>
+    <p class="sub">Encontro 1 · Fundamentos de Dados</p>
+    <div class="meta">
+      <span><b>Especialização em Análise de Dados e Inteligência Artificial</b></span>
+      <span>Prof. Laura Pacifico · laps@cesar.school</span>
+    </div>
+    <span class="tag">Turma A · aula interativa</span>
+  </div>
+</section>
+
+<!-- 2 ROTEIRO -->
+<section class="cena" id="roteiro" data-nome="Como funciona esta aula">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Antes de começar</p>
+      <h2>Você mexe. A aula calcula. Você interpreta.</h2>
+      <p class="lede">Hoje não vamos fazer contas à mão. Em cada laboratório você clica, escolhe e ajusta, e a página faz os cálculos. O seu trabalho é olhar o resultado e decidir o que ele significa. Quem quiser ver a conta encontra o botão <b>Como isso é calculado?</b> no fim de cada laboratório.</p>
+    </div>
+    <div class="ciclo" aria-label="Como cada laboratório funciona">
+      <div class="passo"><b>Você mexe</b><span>clica, escolhe, arrasta</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>A aula calcula</b><span>os números aparecem prontos</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>Você interpreta</b><span>o que isso diz? dá para confiar?</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>No Excel, com cliques</b><span>o mesmo resultado, sem fórmula</span></div>
+    </div>
+    <div>
+      <p class="rotulo">Os 7 encontros</p>
+      <ol class="crono">
+        <li class="hoje"><b>1 · hoje</b>Fundamentos de Dados</li>
+        <li><b>2</b>Processo de Análise</li>
+        <li><b>3</b>Limpeza I: qualidade e diagnóstico</li>
+        <li><b>4</b>Limpeza II e Preparação</li>
+        <li><b>5</b>Exploração de Dados</li>
+        <li><b>6</b>Estatística Descritiva</li>
+        <li><b>7</b>Projeto Integrador</li>
+      </ol>
+    </div>
+    <div>
+      <p class="rotulo">Como você será avaliado</p>
+      <div class="pesos">
+        <div class="cartao"><div class="p">20%</div><b>Participação e engajamento</b><span>Discussões, atividades em aula e colaboração.</span></div>
+        <div class="cartao"><div class="p">40%</div><b>Exercícios práticos</b><span>Atividades aplicadas ao longo da disciplina.</span></div>
+        <div class="cartao"><div class="p">40%</div><b>Projeto integrador</b><span>Trabalho final em grupo, do problema à decisão.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 DADO -> DECISÃO -->
+<section class="cena" id="dado" data-nome="Do dado à decisão">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Começando pelo começo</p>
+      <h2>Que realidade este dado representa?</h2>
+      <p class="lede">Um <b>dado</b> é um registro bruto: um número, uma palavra, uma data. Vira <b>informação</b> quando ganha contexto, e vira <b>conhecimento</b> quando alguém interpreta. Dados importam porque reduzem incerteza: permitem testar uma ideia antes de apostar nela.</p>
+    </div>
+    <div class="lab" id="lab1">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 1</span><h3>Do dado à decisão</h3></div>
+      <p class="instrucao">Escolha um exemplo e clique em <b>Subir um degrau</b>. Observe o que muda a cada etapa.</p>
+      <div class="chips" id="dikwEx" role="group" aria-label="Exemplos"></div>
+      <div class="dikw">
+        <div class="escada" id="escada"></div>
+        <div class="painel-dikw">
+          <p class="rotulo" id="dikwEtapa">Etapa</p>
+          <p class="frase-dikw" id="dikwFrase"></p>
+          <p class="muda" id="dikwMuda"></p>
+          <div id="dikwTabela"></div>
+          <div class="passos">
+            <button class="btn" id="dikwVoltar">← Voltar</button>
+            <button class="btn prim" id="dikwSubir">Subir um degrau →</button>
+          </div>
+        </div>
+      </div>
+      <details class="conta" id="dikwConta"><summary>Como isso é calculado?</summary><div class="corpo" id="dikwContaCorpo"></div></details>
+    </div>
+    <div class="grade2">
+      <div class="cartao barra"><h3>Decidir sem dados</h3><p>Riscos maiores, suposições que ninguém testou e decisões tomadas no calor do momento, difíceis de defender depois.</p></div>
+      <div class="cartao barra"><h3>Decidir com dados</h3><p>Mais segurança para justificar, mais velocidade porque a evidência já está organizada e mais consistência entre decisões parecidas.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 TIPOS -->
+<section class="cena" id="tipos" data-nome="Tipos de variáveis">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Classificando dados</p>
+      <h2>Nem todo dado é igual</h2>
+      <p class="lede">Uma <b>variável</b> é uma característica que muda de um cliente para outro: a cidade, a idade, a nota. O tipo da variável decide o que faz sentido calcular, que gráfico usar e que conclusão é válida.</p>
+    </div>
+    <div class="arvore">
+      <div class="ramo">
+        <h3>Qualitativa (categórica)</h3>
+        <div class="folhas">
+          <div class="folha"><b>Nominal</b><span>Categorias sem ordem: cidade, canal, cor, tipo de produto.</span>
+            <svg viewBox="0 0 240 70" aria-hidden="true"><rect class="chipf1" x="4" y="8" width="76" height="26" rx="13"/><text class="t-branco" x="42" y="26" text-anchor="middle">Recife</text><rect class="chipf2" x="132" y="4" width="70" height="26" rx="13"/><text class="t-branco" x="167" y="22" text-anchor="middle">Olinda</text><rect class="chipf3" x="62" y="40" width="82" height="26" rx="13"/><text class="t-branco" x="103" y="58" text-anchor="middle">Caruaru</text><text x="196" y="58" text-anchor="middle">sem ordem</text></svg></div>
+          <div class="folha"><b>Ordinal</b><span>Categorias com ordem: escolaridade, nível de satisfação, nível de dor.</span>
+            <svg viewBox="0 0 240 70" aria-hidden="true"><rect class="barra" x="6" y="48" width="50" height="16" rx="3"/><rect class="barra" x="62" y="36" width="50" height="28" rx="3"/><rect class="barra" x="118" y="22" width="50" height="42" rx="3"/><rect class="barra hi" x="174" y="6" width="50" height="58" rx="3"/><text class="t-branco" x="31" y="61" text-anchor="middle">1º</text><text class="t-branco" x="87" y="56" text-anchor="middle">2º</text><text class="t-branco" x="143" y="48" text-anchor="middle">3º</text><text class="t-branco" x="199" y="40" text-anchor="middle">4º</text></svg></div>
+        </div>
+      </div>
+      <div class="ramo">
+        <h3>Quantitativa (numérica)</h3>
+        <div class="folhas">
+          <div class="folha"><b>Discreta</b><span>Valores contados: nº de pedidos, nº de filhos, idade em anos completos.</span>
+            <svg viewBox="0 0 240 70" aria-hidden="true"><circle class="marcador" cx="20" cy="26" r="12"/><circle class="marcador" cx="58" cy="26" r="12"/><circle class="marcador" cx="96" cy="26" r="12"/><circle class="marcador" cx="134" cy="26" r="12"/><text x="20" y="60" text-anchor="middle">1</text><text x="58" y="60" text-anchor="middle">2</text><text x="96" y="60" text-anchor="middle">3</text><text x="134" y="60" text-anchor="middle" class="t-forte">4</text><text x="164" y="31">conta-se</text></svg></div>
+          <div class="folha"><b>Contínua</b><span>Valores medidos: renda, tempo, peso, temperatura.</span>
+            <svg viewBox="0 0 240 70" aria-hidden="true"><line class="regua" x1="8" x2="232" y1="34" y2="34"/><line class="regua" x1="8" x2="8" y1="24" y2="44"/><line class="regua" x1="64" x2="64" y1="24" y2="44"/><line class="regua" x1="120" x2="120" y1="24" y2="44"/><line class="regua" x1="176" x2="176" y1="24" y2="44"/><line class="regua" x1="232" x2="232" y1="24" y2="44"/><line class="regua" x1="36" x2="36" y1="29" y2="39"/><line class="regua" x1="92" x2="92" y1="29" y2="39"/><line class="regua" x1="148" x2="148" y1="29" y2="39"/><line class="regua" x1="204" x2="204" y1="29" y2="39"/><text x="8" y="62" text-anchor="middle">0</text><text x="64" y="62" text-anchor="middle">1</text><text x="120" y="62" text-anchor="middle">2</text><text x="176" y="62" text-anchor="middle">3</text><text x="228" y="62" text-anchor="end">4 h</text><circle class="marcador" cx="202" cy="34" r="7"/><text x="202" y="16" text-anchor="middle" class="t-forte">3,47 h</text></svg></div>
+        </div>
+      </div>
+    </div>
+    <div class="lab" id="labEscalas">
+      <div class="lab-cab"><span class="eyebrow">Explorador</span><h3>O que cada escala deixa fazer</h3></div>
+      <p class="instrucao">Clique em uma escala de medição. Cada escala libera tudo o que a anterior permite e mais alguma coisa.</p>
+      <div class="escalas" id="escalas"></div>
+      <div>
+        <p class="rotulo">Operações permitidas</p>
+        <div class="ops" id="ops"></div>
+      </div>
+      <div class="escala-viz" id="escalaViz" aria-hidden="true"></div>
+      <p class="msg" id="escalaMsg"></p>
+    </div>
+    <div class="cartao barra"><h3>Datas são um caso especial</h3><p>Datas e horários têm ordem e permitem medir intervalos (dias entre a compra e a entrega). Quase toda análise de negócio ganha com a pergunta “quando?”: é ela que revela tendências e sazonalidade.</p></div>
+  </div>
+</section>
+
+<!-- 5 CLASSIFICAR -->
+<section class="cena" id="classificar" data-nome="Laboratório: classifique as colunas">
+  <div class="wrap pilha">
+    <div class="lab" id="lab2">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 2</span><h3>Classifique as colunas</h3></div>
+      <p class="instrucao">Estas são colunas de uma base de 40 clientes de uma loja. Para cada uma, escolha o tipo. Se errar, a dica ajuda a pensar; você pode tentar de novo.</p>
+      <div class="placar"><span class="grande num" id="placar">0 de 9</span><span class="aviso">colunas classificadas corretamente</span><button class="btn" id="mostrarResp">Mostrar respostas</button><button class="btn" id="limparCls">Limpar</button></div>
+      <div class="colunas" id="colunas"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5b ESCALA -->
+<section class="cena" id="escala" data-nome="Laboratório: qual escala?">
+  <div class="wrap pilha">
+    <div class="lab" id="lab2b">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 2 · Rodada 2</span><h3>Qual escala de medição?</h3></div>
+      <p class="instrucao">Para cada variável, escolha a escala. Lembre do explorador: <b>tem ordem?</b> <b>as distâncias são iguais?</b> <b>o zero é ausência de verdade?</b></p>
+      <div class="placar"><span class="grande num" id="placar2">0 de 4</span><span class="aviso">escalas corretas</span><button class="btn" id="mostrarResp2">Mostrar respostas</button><button class="btn" id="limparR2">Limpar</button></div>
+      <div class="colunas" id="rodada2"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 CALCULAR -->
+<section class="cena" id="calcular" data-nome="Laboratório: o que faz sentido calcular">
+  <div class="wrap pilha">
+    <div class="lab" id="lab3">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 3</span><h3>O que faz sentido calcular?</h3></div>
+      <p class="instrucao">Escolha uma <b>coluna</b> e um <b>resumo</b>. A aula calcula na hora e diz se aquele resumo faz sentido para aquele tipo de dado. Teste o que parece estranho: a média do CEP, a média da satisfação.</p>
+      <div>
+        <p class="rotulo">Coluna</p>
+        <div class="chips" id="calcCols" role="group" aria-label="Coluna"></div>
+      </div>
+      <div>
+        <p class="rotulo">Resumo</p>
+        <div class="chips" id="calcOps" role="group" aria-label="Resumo"></div>
+      </div>
+      <div class="calc">
+        <div class="resultado" aria-live="polite">
+          <span class="veredito" id="calcVer"></span>
+          <div class="valor" id="calcValor"></div>
+          <p class="msg" id="calcMsg"></p>
+        </div>
+        <div id="calcViz" aria-hidden="true"></div>
+      </div>
+      <details class="conta"><summary>Como isso é calculado?</summary><div class="corpo" id="calcConta"></div></details>
+      <div class="excel">
+        <span class="chip-x">No Excel, só com cliques</span>
+        <p>Selecione a coluna inteira clicando na letra dela e olhe a <b>barra de status</b>, no canto inferior direito: <b>Média</b>, <b>Contagem</b> e <b>Soma</b> aparecem sem nenhuma fórmula. Clique com o botão direito na barra para ligar também <b>Mínimo</b> e <b>Máximo</b>. Se só aparecer Contagem, o Excel entendeu a coluna como texto.</p>
+      </div>
+      <div class="passos"><button class="btn" id="copiarBase">Copiar a base (40 clientes)</button><span class="copiado" id="copiadoBase" hidden>Copiado. Cole no Excel na célula A1.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 FONTES -->
+<section class="cena" id="fontes" data-nome="Fontes de dados">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">De onde vêm os dados</p>
+      <h2>Cada fonte tem vantagens e armadilhas</h2>
+      <p class="lede">Saber de onde o dado veio e como foi coletado é o primeiro passo para decidir se dá para confiar nele.</p>
+    </div>
+    <div class="fontes" id="listaFontes"></div>
+    <div class="lab" id="labFontes">
+      <div class="lab-cab"><span class="eyebrow">Teste rápido</span><h3>De onde viria este dado?</h3></div>
+      <div class="quiz" id="quiz"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 VIÉS -->
+<section class="cena" id="vies" data-nome="Laboratório: quem respondeu?">
+  <div class="wrap pilha">
+    <div class="lab" id="lab5">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 4</span><h3>Quem respondeu à pesquisa?</h3></div>
+      <p class="instrucao">A loja tem <b>1.000 clientes</b> e quer saber quantos estão satisfeitos. Escolha como a pesquisa foi feita e veja o resultado que ela daria. Depois compare com o valor real.</p>
+      <div class="chips" id="viesModos" role="group" aria-label="Como a pesquisa foi feita"></div>
+      <div class="vies">
+        <div>
+          <div id="viesGrade" aria-hidden="true"></div>
+          <div class="legenda" id="viesLegenda"></div>
+        </div>
+        <div class="resultado" aria-live="polite">
+          <p class="rotulo" id="viesTitulo">Resultado da pesquisa</p>
+          <div class="valor" id="viesValor"></div>
+          <p class="msg" id="viesMsg"></p>
+          <div class="medidor">
+            <div class="linha"><span>Pesquisa</span><div class="trilho"><div class="enche" id="barPesq"></div></div><b class="num" id="txtPesq"></b></div>
+            <div class="linha" id="linhaReal" hidden><span>Valor real</span><div class="trilho"><div class="enche real" id="barReal"></div></div><b class="num" id="txtReal"></b></div>
+          </div>
+          <div class="passos"><button class="btn" id="viesReal">Mostrar o valor real</button><button class="btn" id="viesSortear">Sortear de novo</button></div>
+        </div>
+      </div>
+      <details class="conta"><summary>Como isso é calculado?</summary><div class="corpo" id="viesConta"></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 9 BOAS PRÁTICAS -->
+<section class="cena" id="praticas" data-nome="Boas práticas">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Hábitos desde o início</p>
+      <h2>Cinco regras para trabalhar com dados</h2>
+    </div>
+    <div class="regras">
+      <div class="regra"><span class="n">Regra 1</span><b>Documente tudo</b><p>O que cada coluna significa, a unidade, a fonte, a data e o que você mudou.</p></div>
+      <div class="regra"><span class="n">Regra 2</span><b>Verifique a qualidade</b><p>Campos vazios, erros de digitação e linhas repetidas distorcem tudo o que vem depois.</p></div>
+      <div class="regra"><span class="n">Regra 3</span><b>Questione a fonte</b><p>Quem coletou, com que objetivo, quando e se representa todo mundo ou só uma parte.</p></div>
+      <div class="regra"><span class="n">Regra 4</span><b>Controle vieses</b><p>Coleta, registro, contexto e processamento podem empurrar o resultado, como no Laboratório 4.</p></div>
+      <div class="regra"><span class="n">Regra 5</span><b>Comece pequeno</b><p>Olhe uma amostra antes de tudo: estrutura, formatos e problemas aparecem logo.</p></div>
+    </div>
+    <div>
+      <p class="rotulo">O erro mais comum: começar pelo gráfico</p>
+      <div class="fluxos">
+        <div class="fluxo ruim"><h3>Fluxo improvisado</h3><ol><li>Abrir a planilha</li><li>Criar vários gráficos</li><li>Procurar algo interessante</li><li>Tentar justificar uma conclusão</li></ol></div>
+        <div class="fluxo bom"><h3>Fluxo recomendado</h3><ol><li>Entender o problema</li><li>Definir a pergunta</li><li>Selecionar os dados</li><li>Analisar e interpretar</li><li>Comunicar e recomendar</li></ol></div>
+      </div>
+      <p class="lede" style="margin-top:14px"><b>A ferramenta vem depois da pergunta.</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 DECISÃO -->
+<section class="cena" id="decisao" data-nome="Laboratório: dados em decisão">
+  <div class="wrap pilha">
+    <div class="lab" id="lab6">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 5</span><h3>Transformando dados em decisão</h3></div>
+      <p class="instrucao">Ainda não queremos a resposta certa: queremos raciocinar. Reorganize a tabela com os botões e responda às cinco perguntas antes de abrir as respostas possíveis.</p>
+      <div class="chips" id="decVistas" role="group" aria-label="Organizar a tabela"></div>
+      <div id="decTabela"></div>
+      <div class="pilha" style="gap:10px" id="decPerguntas"></div>
+      <div class="passos"><button class="btn prim" id="dec200" aria-expanded="false">E se fossem 200 clientes?</button></div>
+      <div id="dec200Painel" hidden class="pilha" style="gap:16px">
+        <p class="msg" id="dec200Msg"></p>
+        <div class="grade2" id="dec200Cards"></div>
+        <div id="dec200Viz" aria-hidden="true"></div>
+        <div class="legenda"><span><i style="background:var(--orange)"></i>Comprou de novo</span><span><i style="background:var(--c3)"></i>Não comprou</span><span>Linha tracejada: 10 minutos de espera</span></div>
+      </div>
+      <details class="conta"><summary>Como isso é calculado?</summary><div class="corpo" id="decConta"></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 11 EXCEL -->
+<section class="cena" id="excel" data-nome="No Excel, só com cliques">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Mão na massa</p>
+      <h2>No Excel, só com cliques</h2>
+      <p class="lede">Agora você abre a mesma base de 40 clientes no Excel. Nenhuma fórmula: só cliques. Baixe o arquivo <b>clientes_encontro1.csv</b> no Classroom.</p>
+    </div>
+    <ol class="pilha" style="gap:12px;padding-left:22px;margin:0">
+      <li><b>Abra o arquivo.</b> Dois cliques no CSV abrem o Excel com as colunas separadas. Se tudo cair numa coluna só, use <b>Dados → De Texto/CSV</b> e escolha o delimitador <b>Ponto e vírgula</b>.</li>
+      <li><b>Transforme em tabela.</b> Clique em qualquer célula e use <b>Página Inicial → Formatar como Tabela</b>. Confirme <b>Minha tabela tem cabeçalhos</b>.</li>
+      <li><b>Veja como o Excel entendeu cada coluna.</b> Clique numa célula e olhe a caixa de formato em <b>Página Inicial → Número</b>: Geral, Número, Data ou Texto.</li>
+      <li><b>Use a barra de status.</b> Clique na letra de uma coluna. Em colunas numéricas aparecem Média, Contagem e Soma; em colunas de texto, só Contagem.</li>
+      <li><b>Faça o teste do CEP.</b> Selecione a coluna <b>cep</b>. O Excel mostra uma média sem reclamar. Ela significa alguma coisa?</li>
+    </ol>
+    <div class="cartao barra">
+      <h3>Confira se chegou aqui</h3>
+      <p>A base tem <b>40 clientes</b> e <b>11 colunas</b>. Selecionando a coluna <b>renda_mensal</b>, a barra de status mostra a <b>Média</b> perto de <b class="num" id="chkMedia"></b> (o Excel pode mostrar mais casas decimais) e <b>Contagem: 41</b> (os 40 clientes mais o cabeçalho). A data de cadastro aparece como Data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 12 ATIVIDADE -->
+<section class="cena" id="atividade" data-nome="Atividade do encontro">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Atividade individual · Encontro 1</p>
+      <h2>Classifique uma base nova</h2>
+      <p class="lede">Uma central de atendimento registrou os chamados de março. Para cada coluna, escolha o tipo e o melhor resumo. Depois responda às duas perguntas e copie suas respostas para o Excel.</p>
+    </div>
+    <div class="tabela-wrap"><table id="ativAmostra"></table></div>
+    <div class="lab">
+      <div class="campo"><label for="ativNome">Seu nome completo</label><input id="ativNome" type="text" autocomplete="name"></div>
+      <div class="form-ativ" id="ativLinhas"></div>
+      <div class="campo"><label for="ativQ1">1. Qual coluna parece número mas não deve ser tratada como número? Por quê?</label><textarea id="ativQ1"></textarea></div>
+      <div class="campo"><label for="ativQ2">2. Escolha uma coluna e diga uma decisão que ela poderia apoiar.</label><textarea id="ativQ2"></textarea></div>
+      <div class="passos"><button class="btn prim" id="ativCopiar">Copiar minhas respostas</button><span class="copiado" id="ativOk" hidden>Copiado. Cole no Excel na célula A1.</span></div>
+      <textarea id="ativFallback" hidden aria-label="Respostas para copiar" style="min-height:120px"></textarea>
+      <p class="aviso">Entrega: cole as respostas no Excel, salve como <b>SeuNome_Encontro1_Classificacao</b> e envie no Classroom. Suas respostas ficam guardadas neste navegador enquanto você trabalha.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 13 FECHO -->
+<section class="cena fecho" id="fecho" data-nome="Para levar">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Para levar</p>
+      <h2>O que fica deste encontro</h2>
+    </div>
+    <ul style="margin:0;padding-left:20px;max-width:64ch">
+      <li><b>Dado não é informação.</b> O valor está em registrar, organizar, interpretar e recomendar.</li>
+      <li><b>O tipo da variável decide o que calcular.</b> O Excel calcula a média do CEP; quem sabe que ela não significa nada é você.</li>
+      <li><b>Quem respondeu muda a resposta.</b> Uma amostra enviesada erra com toda a confiança.</li>
+      <li><b>Poucos dados são uma pista, não uma prova.</b> Com 5 clientes o padrão parecia absoluto; com 200, ficou mais honesto.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<div class="controles" aria-label="Navegação do modo aula">
+  <button class="btn" id="antes" aria-label="Seção anterior">←</button>
+  <span class="cont num" id="contador"></span>
+  <button class="btn" id="depois" aria-label="Próxima seção">→</button>
+  <button class="btn" id="cheia">Tela cheia</button>
+</div>
+
+<script>
+const D = {"base40":[{"id":"C001","cidade":"Recife","cep":50986050,"canal":"Loja","escolaridade":"Médio","satisfacao":3,"idade":40,"pedidos":5,"renda":2811.38,"espera":8.5,"cadastro":"2025-02-14"},{"id":"C002","cidade":"Paulista","cep":53402960,"canal":"App","escolaridade":"Médio","satisfacao":4,"idade":46,"pedidos":5,"renda":5444.77,"espera":1.5,"cadastro":"2026-04-16"},{"id":"C003","cidade":"Recife","cep":51039440,"canal":"App","escolaridade":"Fundamental","satisfacao":5,"idade":27,"pedidos":2,"renda":3749.8,"espera":1.2,"cadastro":"2025-06-21"},{"id":"C004","cidade":"Recife","cep":51168950,"canal":"App","escolaridade":"Superior","satisfacao":5,"idade":20,"pedidos":4,"renda":3809.77,"espera":2.8,"cadastro":"2023-08-05"},{"id":"C005","cidade":"Jaboatão dos Guararapes","cep":54383940,"canal":"App","escolaridade":"Médio","satisfacao":5,"idade":61,"pedidos":5,"renda":2522.86,"espera":3.8,"cadastro":"2023-03-10"},{"id":"C006","cidade":"Recife","cep":51678410,"canal":"Telefone","escolaridade":"Superior","satisfacao":3,"idade":28,"pedidos":5,"renda":5484.85,"espera":4.4,"cadastro":"2025-03-20"},{"id":"C007","cidade":"Olinda","cep":53140530,"canal":"WhatsApp","escolaridade":"Médio","satisfacao":3,"idade":29,"pedidos":4,"renda":1511.08,"espera":10.3,"cadastro":"2026-05-31"},{"id":"C008","cidade":"Recife","cep":52237570,"canal":"Loja","escolaridade":"Superior","satisfacao":4,"idade":52,"pedidos":6,"renda":7322.79,"espera":5.4,"cadastro":"2023-12-12"},{"id":"C009","cidade":"Jaboatão dos Guararapes","cep":54113730,"canal":"App","escolaridade":"Médio","satisfacao":3,"idade":26,"pedidos":4,"renda":5241.82,"espera":3.2,"cadastro":"2024-05-23"},{"id":"C010","cidade":"Caruaru","cep":55078730,"canal":"Telefone","escolaridade":"Médio","satisfacao":2,"idade":37,"pedidos":1,"renda":2843.21,"espera":28.9,"cadastro":"2024-12-24"},{"id":"C011","cidade":"Recife","cep":51975080,"canal":"App","escolaridade":"Pós-graduação","satisfacao":5,"idade":19,"pedidos":8,"renda":13202.73,"espera":0.8,"cadastro":"2024-08-08"},{"id":"C012","cidade":"Caruaru","cep":55094700,"canal":"WhatsApp","escolaridade":"Médio","satisfacao":4,"idade":27,"pedidos":2,"renda":1627.8,"espera":3.1,"cadastro":"2024-01-14"},{"id":"C013","cidade":"Recife","cep":50139800,"canal":"App","escolaridade":"Médio","satisfacao":5,"idade":46,"pedidos":6,"renda":2379.67,"espera":4.8,"cadastro":"2024-10-27"},{"id":"C014","cidade":"Recife","cep":51205070,"canal":"App","escolaridade":"Superior","satisfacao":5,"idade":25,"pedidos":4,"renda":3424.58,"espera":1.1,"cadastro":"2025-02-09"},{"id":"C015","cidade":"Recife","cep":51790990,"canal":"Loja","escolaridade":"Superior","satisfacao":4,"idade":31,"pedidos":2,"renda":11326.75,"espera":1.6,"cadastro":"2025-07-23"},{"id":"C016","cidade":"Jaboatão dos Guararapes","cep":54190310,"canal":"App","escolaridade":"Médio","satisfacao":4,"idade":24,"pedidos":2,"renda":2163.55,"espera":1.5,"cadastro":"2024-03-06"},{"id":"C017","cidade":"Olinda","cep":53158460,"canal":"App","escolaridade":"Fundamental","satisfacao":4,"idade":30,"pedidos":3,"renda":1599.14,"espera":1.8,"cadastro":"2024-11-04"},{"id":"C018","cidade":"Olinda","cep":53099590,"canal":"App","escolaridade":"Pós-graduação","satisfacao":4,"idade":25,"pedidos":4,"renda":18450.0,"espera":1.5,"cadastro":"2025-10-22"},{"id":"C019","cidade":"Jaboatão dos Guararapes","cep":54139140,"canal":"Telefone","escolaridade":"Superior","satisfacao":2,"idade":36,"pedidos":5,"renda":5670.6,"espera":20.7,"cadastro":"2023-06-22"},{"id":"C020","cidade":"Caruaru","cep":55060800,"canal":"Loja","escolaridade":"Superior","satisfacao":4,"idade":19,"pedidos":5,"renda":11663.45,"espera":4.2,"cadastro":"2026-03-21"},{"id":"C021","cidade":"Recife","cep":51835020,"canal":"WhatsApp","escolaridade":"Superior","satisfacao":5,"idade":28,"pedidos":1,"renda":4325.44,"espera":3.6,"cadastro":"2026-06-26"},{"id":"C022","cidade":"Recife","cep":50633330,"canal":"Telefone","escolaridade":"Médio","satisfacao":4,"idade":53,"pedidos":8,"renda":1587.43,"espera":4.8,"cadastro":"2025-06-28"},{"id":"C023","cidade":"Olinda","cep":53096790,"canal":"WhatsApp","escolaridade":"Fundamental","satisfacao":4,"idade":39,"pedidos":6,"renda":1497.08,"espera":10.5,"cadastro":"2023-09-06"},{"id":"C024","cidade":"Caruaru","cep":55033700,"canal":"WhatsApp","escolaridade":"Médio","satisfacao":3,"idade":31,"pedidos":4,"renda":2243.22,"espera":5.3,"cadastro":"2023-03-05"},{"id":"C025","cidade":"Olinda","cep":53115820,"canal":"WhatsApp","escolaridade":"Superior","satisfacao":4,"idade":40,"pedidos":9,"renda":5205.44,"espera":5.4,"cadastro":"2023-03-23"},{"id":"C026","cidade":"Jaboatão dos Guararapes","cep":54260920,"canal":"App","escolaridade":"Médio","satisfacao":3,"idade":36,"pedidos":7,"renda":2196.25,"espera":2.8,"cadastro":"2023-07-17"},{"id":"C027","cidade":"Recife","cep":52264460,"canal":"WhatsApp","escolaridade":"Médio","satisfacao":4,"idade":25,"pedidos":5,"renda":2734.33,"espera":6.6,"cadastro":"2025-07-18"},{"id":"C028","cidade":"Recife","cep":52075770,"canal":"Telefone","escolaridade":"Fundamental","satisfacao":4,"idade":30,"pedidos":1,"renda":1669.23,"espera":3.7,"cadastro":"2024-04-07"},{"id":"C029","cidade":"Recife","cep":52088440,"canal":"WhatsApp","escolaridade":"Fundamental","satisfacao":3,"idade":34,"pedidos":7,"renda":2097.27,"espera":16.4,"cadastro":"2026-06-24"},{"id":"C030","cidade":"Jaboatão dos Guararapes","cep":54323920,"canal":"Telefone","escolaridade":"Médio","satisfacao":2,"idade":39,"pedidos":4,"renda":3550.1,"espera":17.2,"cadastro":"2024-06-29"},{"id":"C031","cidade":"Caruaru","cep":55031480,"canal":"WhatsApp","escolaridade":"Superior","satisfacao":3,"idade":57,"pedidos":1,"renda":4989.38,"espera":9.9,"cadastro":"2023-11-11"},{"id":"C032","cidade":"Jaboatão dos Guararapes","cep":54045770,"canal":"Telefone","escolaridade":"Pós-graduação","satisfacao":3,"idade":31,"pedidos":4,"renda":6740.37,"espera":13.1,"cadastro":"2026-01-19"},{"id":"C033","cidade":"Recife","cep":52129970,"canal":"Telefone","escolaridade":"Médio","satisfacao":5,"idade":22,"pedidos":1,"renda":1412.0,"espera":0.6,"cadastro":"2026-07-19"},{"id":"C034","cidade":"Caruaru","cep":55037540,"canal":"App","escolaridade":"Fundamental","satisfacao":5,"idade":32,"pedidos":4,"renda":2008.76,"espera":3.4,"cadastro":"2025-08-10"},{"id":"C035","cidade":"Olinda","cep":53010250,"canal":"Telefone","escolaridade":"Pós-graduação","satisfacao":3,"idade":31,"pedidos":4,"renda":8976.08,"espera":16.8,"cadastro":"2026-06-23"},{"id":"C036","cidade":"Paulista","cep":53404100,"canal":"App","escolaridade":"Pós-graduação","satisfacao":4,"idade":29,"pedidos":5,"renda":4129.32,"espera":3.2,"cadastro":"2023-02-22"},{"id":"C037","cidade":"Recife","cep":51955810,"canal":"WhatsApp","escolaridade":"Pós-graduação","satisfacao":4,"idade":42,"pedidos":6,"renda":8067.28,"espera":10.7,"cadastro":"2023-12-16"},{"id":"C038","cidade":"Recife","cep":50078920,"canal":"App","escolaridade":"Fundamental","satisfacao":3,"idade":42,"pedidos":5,"renda":1748.33,"espera":5.1,"cadastro":"2024-07-07"},{"id":"C039","cidade":"Jaboatão dos Guararapes","cep":54040810,"canal":"App","escolaridade":"Médio","satisfacao":4,"idade":28,"pedidos":6,"renda":2205.4,"espera":6.7,"cadastro":"2025-01-02"},{"id":"C040","cidade":"Jaboatão dos Guararapes","cep":54291890,"canal":"App","escolaridade":"Médio","satisfacao":4,"idade":27,"pedidos":5,"renda":4964.43,"espera":0.5,"cadastro":"2026-03-09"}],"base200":[{"canal":"Telefone","espera":17,"nota":4,"comprou":true},{"canal":"Site","espera":5,"nota":8,"comprou":true},{"canal":"WhatsApp","espera":10,"nota":6,"comprou":true},{"canal":"Telefone","espera":5,"nota":6,"comprou":false},{"canal":"WhatsApp","espera":7,"nota":8,"comprou":true},{"canal":"Telefone","espera":14,"nota":4,"comprou":true},{"canal":"WhatsApp","espera":4,"nota":10,"comprou":true},{"canal":"WhatsApp","espera":13,"nota":6,"comprou":false},{"canal":"Telefone","espera":6,"nota":10,"comprou":true},{"canal":"Telefone","espera":15,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":8,"nota":7,"comprou":false},{"canal":"WhatsApp","espera":12,"nota":6,"comprou":false},{"canal":"Telefone","espera":15,"nota":5,"comprou":true},{"canal":"WhatsApp","espera":15,"nota":5,"comprou":true},{"canal":"Site","espera":3,"nota":10,"comprou":false},{"canal":"Site","espera":4,"nota":10,"comprou":false},{"canal":"Telefone","espera":18,"nota":5,"comprou":false},{"canal":"WhatsApp","espera":6,"nota":9,"comprou":false},{"canal":"Telefone","espera":11,"nota":7,"comprou":true},{"canal":"WhatsApp","espera":10,"nota":4,"comprou":false},{"canal":"Telefone","espera":16,"nota":4,"comprou":false},{"canal":"Telefone","espera":19,"nota":4,"comprou":false},{"canal":"WhatsApp","espera":4,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":4,"nota":9,"comprou":true},{"canal":"Site","espera":4,"nota":7,"comprou":true},{"canal":"WhatsApp","espera":13,"nota":8,"comprou":true},{"canal":"WhatsApp","espera":9,"nota":9,"comprou":false},{"canal":"Telefone","espera":12,"nota":5,"comprou":false},{"canal":"Telefone","espera":14,"nota":5,"comprou":true},{"canal":"Telefone","espera":13,"nota":6,"comprou":false},{"canal":"Telefone","espera":10,"nota":10,"comprou":true},{"canal":"WhatsApp","espera":3,"nota":10,"comprou":false},{"canal":"Site","espera":5,"nota":6,"comprou":true},{"canal":"WhatsApp","espera":2,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":10,"nota":7,"comprou":false},{"canal":"Telefone","espera":29,"nota":2,"comprou":false},{"canal":"Telefone","espera":10,"nota":7,"comprou":true},{"canal":"WhatsApp","espera":15,"nota":6,"comprou":true},{"canal":"Telefone","espera":24,"nota":3,"comprou":false},{"canal":"Site","espera":7,"nota":7,"comprou":true},{"canal":"WhatsApp","espera":13,"nota":8,"comprou":false},{"canal":"Site","espera":2,"nota":10,"comprou":true},{"canal":"Telefone","espera":23,"nota":0,"comprou":false},{"canal":"WhatsApp","espera":7,"nota":7,"comprou":true},{"canal":"Telefone","espera":7,"nota":9,"comprou":true},{"canal":"Site","espera":2,"nota":8,"comprou":true},{"canal":"Site","espera":3,"nota":10,"comprou":true},{"canal":"Telefone","espera":23,"nota":4,"comprou":false},{"canal":"Telefone","espera":22,"nota":4,"comprou":false},{"canal":"Site","espera":4,"nota":8,"comprou":true},{"canal":"WhatsApp","espera":5,"nota":10,"comprou":true},{"canal":"Telefone","espera":8,"nota":8,"comprou":true},{"canal":"WhatsApp","espera":8,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":11,"nota":9,"comprou":true},{"canal":"Site","espera":4,"nota":10,"comprou":true},{"canal":"Site","espera":7,"nota":4,"comprou":true},{"canal":"Telefone","espera":15,"nota":5,"comprou":false},{"canal":"Telefone","espera":17,"nota":8,"comprou":false},{"canal":"Telefone","espera":24,"nota":4,"comprou":false},{"canal":"Telefone","espera":12,"nota":7,"comprou":false},{"canal":"Telefone","espera":14,"nota":5,"comprou":false},{"canal":"Telefone","espera":15,"nota":4,"comprou":false},{"canal":"Site","espera":3,"nota":9,"comprou":true},{"canal":"Site","espera":4,"nota":10,"comprou":false},{"canal":"WhatsApp","espera":7,"nota":8,"comprou":true},{"canal":"WhatsApp","espera":10,"nota":7,"comprou":true},{"canal":"Telefone","espera":17,"nota":3,"comprou":false},{"canal":"Telefone","espera":26,"nota":3,"comprou":false},{"canal":"WhatsApp","espera":7,"nota":6,"comprou":true},{"canal":"WhatsApp","espera":14,"nota":5,"comprou":true},{"canal":"Telefone","espera":13,"nota":7,"comprou":true},{"canal":"Telefone","espera":16,"nota":6,"comprou":false},{"canal":"WhatsApp","espera":8,"nota":8,"comprou":false},{"canal":"WhatsApp","espera":13,"nota":6,"comprou":true},{"canal":"Site","espera":3,"nota":10,"comprou":true},{"canal":"WhatsApp","espera":4,"nota":9,"comprou":true},{"canal":"Site","espera":2,"nota":10,"comprou":true},{"canal":"WhatsApp","espera":11,"nota":6,"comprou":false},{"canal":"Telefone","espera":5,"nota":8,"comprou":true},{"canal":"WhatsApp","espera":2,"nota":10,"comprou":true},{"canal":"Site","espera":8,"nota":6,"comprou":true},{"canal":"Telefone","espera":19,"nota":7,"comprou":false},{"canal":"WhatsApp","espera":6,"nota":7,"comprou":true},{"canal":"WhatsApp","espera":19,"nota":5,"comprou":false},{"canal":"Telefone","espera":25,"nota":5,"comprou":false},{"canal":"Site","espera":3,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":7,"nota":6,"comprou":false},{"canal":"WhatsApp","espera":3,"nota":8,"comprou":true},{"canal":"Site","espera":3,"nota":8,"comprou":true},{"canal":"Telefone","espera":9,"nota":7,"comprou":false},{"canal":"WhatsApp","espera":4,"nota":9,"comprou":true},{"canal":"Site","espera":4,"nota":10,"comprou":true},{"canal":"Telefone","espera":14,"nota":4,"comprou":false},{"canal":"Telefone","espera":6,"nota":7,"comprou":true},{"canal":"WhatsApp","espera":5,"nota":7,"comprou":true},{"canal":"WhatsApp","espera":21,"nota":5,"comprou":false},{"canal":"WhatsApp","espera":8,"nota":6,"comprou":true},{"canal":"Site","espera":2,"nota":7,"comprou":true},{"canal":"Site","espera":2,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":11,"nota":9,"comprou":true},{"canal":"Site","espera":1,"nota":10,"comprou":true},{"canal":"WhatsApp","espera":4,"nota":8,"comprou":true},{"canal":"Telefone","espera":13,"nota":6,"comprou":false},{"canal":"WhatsApp","espera":21,"nota":3,"comprou":false},{"canal":"WhatsApp","espera":5,"nota":7,"comprou":true},{"canal":"WhatsApp","espera":9,"nota":6,"comprou":false},{"canal":"Telefone","espera":10,"nota":7,"comprou":true},{"canal":"WhatsApp","espera":3,"nota":9,"comprou":true},{"canal":"Telefone","espera":16,"nota":5,"comprou":true},{"canal":"Site","espera":4,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":9,"nota":7,"comprou":true},{"canal":"Telefone","espera":19,"nota":5,"comprou":true},{"canal":"Site","espera":4,"nota":10,"comprou":true},{"canal":"Telefone","espera":19,"nota":6,"comprou":false},{"canal":"WhatsApp","espera":14,"nota":2,"comprou":false},{"canal":"Site","espera":2,"nota":10,"comprou":true},{"canal":"Site","espera":11,"nota":7,"comprou":true},{"canal":"Telefone","espera":9,"nota":8,"comprou":false},{"canal":"WhatsApp","espera":5,"nota":10,"comprou":true},{"canal":"Telefone","espera":18,"nota":6,"comprou":false},{"canal":"Site","espera":6,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":5,"nota":5,"comprou":true},{"canal":"Site","espera":6,"nota":8,"comprou":false},{"canal":"WhatsApp","espera":7,"nota":9,"comprou":false},{"canal":"WhatsApp","espera":10,"nota":8,"comprou":true},{"canal":"Telefone","espera":24,"nota":3,"comprou":false},{"canal":"Telefone","espera":29,"nota":4,"comprou":false},{"canal":"WhatsApp","espera":7,"nota":10,"comprou":true},{"canal":"Telefone","espera":17,"nota":3,"comprou":false},{"canal":"WhatsApp","espera":11,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":4,"nota":9,"comprou":true},{"canal":"Site","espera":5,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":9,"nota":6,"comprou":true},{"canal":"Telefone","espera":44,"nota":0,"comprou":false},{"canal":"WhatsApp","espera":7,"nota":8,"comprou":false},{"canal":"Telefone","espera":21,"nota":4,"comprou":true},{"canal":"WhatsApp","espera":6,"nota":7,"comprou":true},{"canal":"WhatsApp","espera":15,"nota":5,"comprou":false},{"canal":"Telefone","espera":21,"nota":2,"comprou":false},{"canal":"Telefone","espera":24,"nota":4,"comprou":false},{"canal":"Telefone","espera":11,"nota":8,"comprou":true},{"canal":"Telefone","espera":38,"nota":0,"comprou":false},{"canal":"WhatsApp","espera":5,"nota":8,"comprou":true},{"canal":"WhatsApp","espera":6,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":5,"nota":5,"comprou":true},{"canal":"WhatsApp","espera":15,"nota":6,"comprou":true},{"canal":"Site","espera":2,"nota":10,"comprou":true},{"canal":"WhatsApp","espera":3,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":6,"nota":6,"comprou":true},{"canal":"Telefone","espera":39,"nota":0,"comprou":false},{"canal":"WhatsApp","espera":8,"nota":7,"comprou":false},{"canal":"Telefone","espera":14,"nota":5,"comprou":false},{"canal":"WhatsApp","espera":7,"nota":9,"comprou":false},{"canal":"WhatsApp","espera":13,"nota":7,"comprou":false},{"canal":"Telefone","espera":15,"nota":8,"comprou":true},{"canal":"WhatsApp","espera":6,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":12,"nota":6,"comprou":false},{"canal":"Telefone","espera":3,"nota":7,"comprou":true},{"canal":"Site","espera":5,"nota":8,"comprou":true},{"canal":"Site","espera":2,"nota":10,"comprou":true},{"canal":"WhatsApp","espera":8,"nota":9,"comprou":true},{"canal":"Telefone","espera":15,"nota":6,"comprou":false},{"canal":"Telefone","espera":18,"nota":3,"comprou":false},{"canal":"WhatsApp","espera":9,"nota":10,"comprou":true},{"canal":"WhatsApp","espera":2,"nota":9,"comprou":true},{"canal":"Telefone","espera":9,"nota":6,"comprou":true},{"canal":"WhatsApp","espera":28,"nota":1,"comprou":false},{"canal":"WhatsApp","espera":4,"nota":9,"comprou":true},{"canal":"Site","espera":3,"nota":7,"comprou":false},{"canal":"WhatsApp","espera":7,"nota":7,"comprou":true},{"canal":"WhatsApp","espera":8,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":5,"nota":9,"comprou":false},{"canal":"Telefone","espera":24,"nota":3,"comprou":false},{"canal":"Site","espera":3,"nota":10,"comprou":true},{"canal":"WhatsApp","espera":2,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":10,"nota":5,"comprou":true},{"canal":"WhatsApp","espera":12,"nota":7,"comprou":true},{"canal":"WhatsApp","espera":7,"nota":9,"comprou":true},{"canal":"Telefone","espera":12,"nota":6,"comprou":true},{"canal":"WhatsApp","espera":13,"nota":6,"comprou":true},{"canal":"WhatsApp","espera":9,"nota":9,"comprou":true},{"canal":"Site","espera":4,"nota":9,"comprou":true},{"canal":"Telefone","espera":6,"nota":8,"comprou":false},{"canal":"Site","espera":3,"nota":10,"comprou":true},{"canal":"WhatsApp","espera":6,"nota":10,"comprou":true},{"canal":"Telefone","espera":15,"nota":5,"comprou":false},{"canal":"WhatsApp","espera":10,"nota":9,"comprou":true},{"canal":"Telefone","espera":9,"nota":9,"comprou":true},{"canal":"Telefone","espera":11,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":12,"nota":7,"comprou":true},{"canal":"WhatsApp","espera":6,"nota":8,"comprou":true},{"canal":"Telefone","espera":26,"nota":4,"comprou":false},{"canal":"Telefone","espera":45,"nota":0,"comprou":false},{"canal":"Telefone","espera":35,"nota":0,"comprou":false},{"canal":"Site","espera":7,"nota":9,"comprou":true},{"canal":"WhatsApp","espera":14,"nota":7,"comprou":false},{"canal":"Site","espera":4,"nota":9,"comprou":false},{"canal":"WhatsApp","espera":3,"nota":10,"comprou":true},{"canal":"Telefone","espera":25,"nota":3,"comprou":false},{"canal":"Site","espera":4,"nota":9,"comprou":true}]};
+const reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = id => document.getElementById(id);
+const el = (tag, attrs={}, html) => { const e=document.createElement(tag); for(const k in attrs){ if(k==='class') e.className=attrs[k]; else e.setAttribute(k,attrs[k]); } if(html!==undefined) e.innerHTML=html; return e; };
+const nf = (x,d=1) => Number(x).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const brl = x => Number(x).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const inteiro = x => Math.round(x).toLocaleString('pt-BR');
+const mean = a => a.reduce((s,v)=>s+v,0)/a.length;
+const sum = a => a.reduce((s,v)=>s+v,0);
+const sorted = a => [...a].sort((x,y)=>x-y);
+const median = a => { const s=sorted(a), n=s.length; return n%2 ? s[(n-1)/2] : (s[n/2-1]+s[n/2])/2; };
+const contar = a => { const m=new Map(); a.forEach(v=>m.set(v,(m.get(v)||0)+1)); return m; };
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+function salvar(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function ler(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){return null;}}
+async function copiar(texto, okEl, fallbackEl){
+  try{ await navigator.clipboard.writeText(texto); okEl.hidden=false; setTimeout(()=>okEl.hidden=true,3500); }
+  catch(e){ if(fallbackEl){ fallbackEl.hidden=false; fallbackEl.value=texto; fallbackEl.focus(); fallbackEl.select(); okEl.textContent='Selecionado: use Ctrl+C para copiar.'; okEl.hidden=false; } }
+}
+
+/* ================= LAB 1 · DIKW ================= */
+const CINCO = [
+  {c:'A',esp:5,nota:9,canal:'WhatsApp',comprou:'Sim'},
+  {c:'B',esp:18,nota:5,canal:'Telefone',comprou:'Não'},
+  {c:'C',esp:12,nota:6,canal:'WhatsApp',comprou:'Não'},
+  {c:'D',esp:4,nota:10,canal:'Site',comprou:'Sim'},
+  {c:'E',esp:22,nota:4,canal:'Telefone',comprou:'Não'}
+];
+const ETAPAS=['Dado','Informação','Conhecimento','Insight','Decisão'];
+const DIKW = {
+  satisfacao:{nome:'Nota de satisfação', passos:[
+    ['O cliente C deu nota 6.','Registro isolado. Sozinho, não diz se 6 é bom ou ruim.'],
+    ['A média de satisfação foi 6,8.','Contexto coletivo. Agora sabemos como o grupo avaliou.'],
+    ['As notas caem quando a espera passa de 10 minutos.','Padrão interpretado. Cruzamos a nota com o tempo de espera.'],
+    ['O tempo de espera parece afetar a satisfação.','Achado relevante. Ainda é uma suspeita, não uma prova.'],
+    ['Reforçar a equipe nos horários de pico.','Ação orientada por evidência.']]},
+  saude:{nome:'Frequência cardíaca', passos:[
+    ['105','Um número isolado, sem unidade nem contexto.'],
+    ['105 batimentos por minuto, em repouso.','Ganhou unidade e situação de medida.'],
+    ['Acima da faixa considerada normal em repouso para adultos (60 a 100).','Comparado com uma referência.'],
+    ['Pode indicar taquicardia.','A comparação sugere uma explicação.'],
+    ['Procurar avaliação médica.','A informação vira ação.']]},
+  vendas:{nome:'Pedidos cancelados', passos:[
+    ['37','Um número isolado.'],
+    ['37 pedidos cancelados na semana passada.','Ganhou o que é e quando aconteceu.'],
+    ['É o triplo da média das 8 semanas anteriores.','Comparado com o histórico.'],
+    ['Quase todos são do mesmo produto, depois de uma troca de fornecedor.','Achado que aponta uma causa provável.'],
+    ['Pausar a venda do produto e acionar o fornecedor.','A informação vira ação.']]}
+};
+let dikwEx='satisfacao', dikwPasso=0;
+function desenhaDikw(){
+  const ex=DIKW[dikwEx];
+  $('dikwEx').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed', b.dataset.k===dikwEx));
+  const esc=$('escada'); esc.innerHTML='';
+  ETAPAS.forEach((nome,i)=>{
+    const d=el('button',{class:'degrau'+(i<dikwPasso?' feito':'')+(i===dikwPasso?' agora':''),style:`width:${100-i*12}%`,'aria-label':`Ir para ${nome}`},nome);
+    d.onclick=()=>{dikwPasso=i;desenhaDikw();};
+    esc.appendChild(d);
+  });
+  $('dikwEtapa').textContent=`Etapa ${dikwPasso+1} de 5 · ${ETAPAS[dikwPasso]}`;
+  $('dikwFrase').textContent=ex.passos[dikwPasso][0];
+  $('dikwMuda').innerHTML=`<b>O que muda?</b> ${ex.passos[dikwPasso][1]}`;
+  $('dikwVoltar').disabled=dikwPasso===0;
+  $('dikwSubir').disabled=dikwPasso===4;
+  $('dikwConta').hidden = dikwEx!=='satisfacao';
+  $('dikwTabela').innerHTML = dikwEx==='satisfacao' ? tabelaCinco(dikwPasso) : `<div class="viz-dikw">${dikwEx==='saude'?vizSaude(dikwPasso):vizVendas(dikwPasso)}</div>`;
+}
+function vizSaude(p){
+  const W=560,H=156,L=28,R=W-28,X=v=>L+(R-L)*(v-40)/100,y=84;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Frequência cardíaca na escala de batimentos por minuto">`;
+  if(p===0) return s+`<text x="${W/2}" y="88" text-anchor="middle" class="t-grande">105</text><text x="${W/2}" y="130" text-anchor="middle">Sem unidade e sem referência: 105 o quê?</text></svg>`;
+  if(p>=2) s+=`<rect class="faixa-ok" x="${X(60)}" y="${y-22}" width="${X(100)-X(60)}" height="44" rx="6"/><text class="t-ok" x="${(X(60)+X(100))/2}" y="${y-32}" text-anchor="middle">normal em repouso: 60 a 100</text>`;
+  if(p>=3) s+=`<rect class="faixa-alerta" x="${X(100)}" y="${y-22}" width="${X(140)-X(100)}" height="44" rx="6"/><text class="t-alerta" x="${(X(100)+X(140))/2}" y="${y-32}" text-anchor="middle">acima do normal</text>`;
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${y}" y2="${y}"/>`;
+  [40,60,80,100,120,140].forEach(t=>{ s+=`<line class="eixo" x1="${X(t)}" x2="${X(t)}" y1="${y-5}" y2="${y+5}"/><text x="${X(t)}" y="${y+40}" text-anchor="middle">${t}</text>`; });
+  s+=`<circle class="marcador" cx="${X(105)}" cy="${y}" r="18"/><text class="t-marc" x="${X(105)}" y="${y+5}" text-anchor="middle">105</text>`;
+  s+=`<text x="${L}" y="${H-4}">batimentos por minuto (bpm), em repouso</text>`;
+  return s+'</svg>';
+}
+function vizVendas(p){
+  const sem=[11,13,10,14,12,11,13,14,37], W=560,H=236,L=20,R=W-12,base=190,topo=40,maxv=38,prod=31;
+  const bw=(R-L)/sem.length, Y=v=>base-(base-topo)*v/maxv, med=mean(sem.slice(0,8));
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Pedidos cancelados por semana">`;
+  sem.forEach((v,i)=>{
+    const ult=i===8; if(!ult&&p<2) return;
+    const x=L+i*bw+7, w=bw-14;
+    if(ult&&p>=3){ s+=`<rect class="barra hi" x="${x}" y="${Y(v)}" width="${w}" height="${Y(v-prod)-Y(v)}" rx="3"/><rect class="barra" x="${x}" y="${Y(v-prod)}" width="${w}" height="${base-Y(v-prod)}" rx="3"/><text class="t-branco" x="${x+w/2}" y="${(Y(v)+Y(v-prod))/2+5}" text-anchor="middle">${prod}</text>`; }
+    else s+=`<rect class="barra ${ult?'hi':''}" x="${x}" y="${Y(v)}" width="${w}" height="${base-Y(v)}" rx="3"/>`;
+    if(ult) s+=`<text x="${x+w/2}" y="${Y(v)-8}" text-anchor="middle" class="t-disp" style="font-size:22px">${v}</text>`;
+    if(p>=2) s+=`<text x="${x+w/2}" y="${base+20}" text-anchor="middle" class="${ult?'t-forte':''}">${ult?'última':i+1}</text>`;
+    else if(ult) s+=`<text x="${x+w}" y="${base+20}" text-anchor="end" class="t-forte">semana passada</text>`;
+  });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${base}" y2="${base}"/>`;
+  if(p>=2){ s+=`<line class="linha-media" x1="${L}" x2="${L+8*bw}" y1="${Y(med)}" y2="${Y(med)}"/><line class="linha-media" x1="${L}" x2="${L+28}" y1="12" y2="12"/><text x="${L+36}" y="17">média das 8 semanas anteriores: ${nf(med,0)} por semana</text><text x="${W/2}" y="${H-4}" text-anchor="middle">semanas</text>`; }
+  if(p>=3){ s+=`<rect class="barra hi" x="${L}" y="27" width="28" height="12" rx="3"/><text x="${L+36}" y="38">${prod} de ${sem[8]} são do mesmo produto, após a troca de fornecedor</text>`; }
+  return s+'</svg>';
+}
+function tabelaCinco(p){
+  const notas=CINCO.map(r=>r.nota);
+  let linhas=[...CINCO];
+  if(p>=2) linhas.sort((a,b)=>a.esp-b.esp);
+  const colNota = p>=1, colEsp = p>=3;
+  let h='<div class="tabela-wrap"><table><thead><tr><th>Cliente</th><th>Espera (min)</th><th>Nota (0 a 10)</th></tr></thead><tbody>';
+  linhas.forEach((r,i)=>{
+    const div = p>=2 && i>0 && linhas[i-1].esp<=10 && r.esp>10;
+    h+=`<tr class="${div?'divisor':''}"><td>${r.c}</td><td class="${colEsp?'col-hi':''}">${r.esp}</td><td class="${colNota?'col-hi':''} ${p===0&&r.c==='C'?'hi':''}">${r.nota}</td></tr>`;
+  });
+  h+='</tbody>';
+  if(p===1) h+=`<tfoot><tr><td colspan="2">Média das notas</td><td>${nf(mean(notas))}</td></tr></tfoot>`;
+  if(p>=2){
+    const a=CINCO.filter(r=>r.esp<=10).map(r=>r.nota), b=CINCO.filter(r=>r.esp>10).map(r=>r.nota);
+    h+=`<tfoot><tr><td colspan="2">Média com espera até 10 min</td><td>${nf(mean(a))}</td></tr><tr><td colspan="2">Média com espera acima de 10 min</td><td>${nf(mean(b))}</td></tr></tfoot>`;
+  }
+  return h+'</table></div>';
+}
+(function initDikw(){
+  Object.entries(DIKW).forEach(([k,v])=>{ const b=el('button',{class:'chip','data-k':k,'aria-pressed':'false'},v.nome); b.onclick=()=>{dikwEx=k;dikwPasso=0;desenhaDikw();}; $('dikwEx').appendChild(b); });
+  $('dikwVoltar').onclick=()=>{ if(dikwPasso>0){dikwPasso--;desenhaDikw();} };
+  $('dikwSubir').onclick=()=>{ if(dikwPasso<4){dikwPasso++;desenhaDikw();} };
+  const n=CINCO.map(r=>r.nota), a=CINCO.filter(r=>r.esp<=10).map(r=>r.nota), b=CINCO.filter(r=>r.esp>10).map(r=>r.nota);
+  $('dikwContaCorpo').innerHTML=`Média de todas as notas: (${n.join(' + ')}) ÷ ${n.length} = <b>${nf(mean(n))}</b>.<br>Clientes que esperaram até 10 minutos: (${a.join(' + ')}) ÷ ${a.length} = <b>${nf(mean(a))}</b>.<br>Clientes que esperaram mais de 10 minutos: (${b.join(' + ')}) ÷ ${b.length} = <b>${nf(mean(b))}</b>.`;
+  desenhaDikw();
+})();
+
+/* ================= ESCALAS ================= */
+const ESC=[
+  {k:'nominal',nome:'Nominal',ex:'Cidade, canal, cor',ops:1,msg:'Só dá para contar quantos há em cada categoria e dizer qual é a mais comum (moda).'},
+  {k:'ordinal',nome:'Ordinal',ex:'Escolaridade, satisfação',ops:2,msg:'Além de contar, dá para ordenar e achar o valor do meio (mediana). A distância entre os níveis não é medida.'},
+  {k:'intervalar',nome:'Intervalar',ex:'Temperatura em °C, ano',ops:3,msg:'As distâncias são iguais, então a média faz sentido. Mas o zero não é ausência: 20 °C não é o dobro de 10 °C.'},
+  {k:'razao',nome:'Razão',ex:'Renda, tempo, peso',ops:4,msg:'O zero é ausência de verdade (R$ 0 é nenhum dinheiro). Por isso dá para dizer “o dobro” ou “a metade”.'}
+];
+const OPS=['Contar e moda','Ordenar e mediana','Diferenças e média','Razões (“o dobro”)'];
+let escSel='nominal';
+function desenhaEscalas(){
+  const box=$('escalas'); box.innerHTML='';
+  ESC.forEach(e=>{ const b=el('button',{class:'escala','aria-pressed':String(e.k===escSel)},`<b>${e.nome}</b><span>${e.ex}</span>`); b.onclick=()=>{escSel=e.k;desenhaEscalas();}; box.appendChild(b); });
+  const s=ESC.find(e=>e.k===escSel);
+  $('ops').innerHTML=OPS.map((o,i)=>`<span class="op ${i<s.ops?'on':''}">${i<s.ops?'✓ ':''}${o}</span>`).join('');
+  $('escalaMsg').textContent=s.msg;
+  $('escalaViz').innerHTML=vizEscala(escSel);
+}
+function vizEscala(k){
+  const W=600,H=140; let s=`<svg viewBox="0 0 ${W} ${H}">`;
+  if(k==='nominal'){
+    [['Recife',40,'chipf1'],['Olinda',245,'chipf2'],['Caruaru',450,'chipf3']].forEach(([t,x,c])=>{ s+=`<rect class="${c}" x="${x}" y="30" width="110" height="42" rx="21"/><text class="t-branco" x="${x+55}" y="57" text-anchor="middle" style="font-size:16px">${t}</text>`; });
+    s+=`<text class="t-disp" x="197" y="62" text-anchor="middle" style="font-size:30px">≠</text><text class="t-disp" x="402" y="62" text-anchor="middle" style="font-size:30px">≠</text><text x="${W/2}" y="112" text-anchor="middle">Só dá para dizer se é igual ou diferente. Nenhuma cidade vem antes da outra.</text>`;
+  } else if(k==='ordinal'){
+    const n=['Fundamental','Médio','Superior','Pós'];
+    n.forEach((t,i)=>{ const h=22+i*20, x=40+i*140; s+=`<rect class="barra ${i===3?'hi':''}" x="${x}" y="${92-h}" width="110" height="${h}" rx="4"/><text x="${x+55}" y="112" text-anchor="middle" class="t-forte">${t}</text>`; if(i<3) s+=`<text class="t-disp" x="${x+125}" y="${88-h}" text-anchor="middle" style="font-size:22px">?</text>`; });
+    s+=`<text x="${W/2}" y="134" text-anchor="middle">Tem ordem, mas a distância entre os degraus (?) ninguém mediu.</text>`;
+  } else if(k==='intervalar'){
+    const Y=t=>98-(t+10)/40*80;
+    [[10,170],[20,300]].forEach(([t,x])=>{ s+=`<rect class="contorno" x="${x-8}" y="14" width="16" height="88" rx="8"/><circle class="liq" cx="${x}" cy="110" r="13"/><rect class="liq" x="${x-4}" y="${Y(t)}" width="8" height="${108-Y(t)}" rx="3"/><text x="${x+18}" y="${Y(t)+5}" class="t-forte" style="font-size:16px">${t} °C</text>`; });
+    s+=`<line class="linha-media" x1="120" x2="380" y1="${Y(0)}" y2="${Y(0)}"/><text x="384" y="${Y(0)+5}">0 °C</text>`;
+    s+=`<text x="430" y="54">20 °C não é o</text><text x="430" y="74">dobro de 10 °C:</text><text x="430" y="94">0 °C não é</text><text x="430" y="114">“nenhum calor”.</text>`;
+  } else {
+    const X=v=>120+v*0.07;
+    s+=`<line class="regua" x1="120" x2="120" y1="16" y2="104"/><text x="112" y="44" text-anchor="end">Cliente A</text><text x="112" y="84" text-anchor="end">Cliente B</text>`;
+    s+=`<rect class="barra" x="120" y="28" width="${X(2000)-120}" height="24" rx="3"/><text x="${X(2000)+8}" y="46" class="t-forte">R$ 2.000</text>`;
+    s+=`<rect class="barra hi" x="120" y="68" width="${X(4000)-120}" height="24" rx="3"/><text x="${X(4000)+8}" y="86" class="t-forte">R$ 4.000 · o dobro</text>`;
+    s+=`<text x="120" y="128" text-anchor="middle">R$ 0</text><text x="140" y="128">= nenhum dinheiro. Com zero de verdade, existe “o dobro”.</text>`;
+  }
+  return s+'</svg>';
+}
+desenhaEscalas();
+
+/* ================= LAB 2 · CLASSIFICAR ================= */
+const B40=D.base40;
+const amostra=(f,n=4)=>B40.slice(0,n).map(f);
+const TIPOS={nominal:'Nominal',ordinal:'Ordinal',discreta:'Discreta',continua:'Contínua'};
+const CLS=[
+  {id:'cidade',ex:amostra(r=>r.cidade,3).join(' · '),r:'nominal',dica:'Existe uma ordem natural entre as cidades?',ok:'Categorias sem ordem: Recife não é “maior” que Olinda nesta coluna.'},
+  {id:'cep',ex:amostra(r=>r.cep,3).join(' · '),r:'nominal',dica:'Faz sentido somar dois CEPs?',ok:'Parece número, mas é um código de localização: um rótulo. Por isso é nominal.'},
+  {id:'canal_preferido',ex:amostra(r=>r.canal,4).join(' · '),r:'nominal',dica:'O canal App vem “antes” do Telefone?',ok:'Categorias sem ordem.'},
+  {id:'escolaridade',ex:amostra(r=>r.escolaridade,4).join(' · '),r:'ordinal',dica:'Dá para colocar estes valores em ordem?',ok:'Fundamental, médio, superior, pós: tem ordem, mas a distância entre os níveis não é medida.'},
+  {id:'satisfacao (1 a 5)',ex:amostra(r=>r.satisfacao,5).join(' · '),r:'ordinal',dica:'Uma nota 4 é exatamente o dobro de uma nota 2?',ok:'Os números são códigos de opinião (1 = muito insatisfeito, 5 = muito satisfeito): têm ordem, mas não são medidas.'},
+  {id:'idade',ex:amostra(r=>r.idade+' anos',4).join(' · '),r:'discreta',dica:'Idade em anos completos é contada ou medida?',ok:'Contamos anos completos: 31, 32, 33, sem valores no meio. Por isso a tratamos como discreta.'},
+  {id:'qtd_pedidos',ex:amostra(r=>r.pedidos,5).join(' · '),r:'discreta',dica:'Alguém faz 3,5 pedidos?',ok:'Valores contados, inteiros.'},
+  {id:'renda_mensal',ex:amostra(r=>brl(r.renda),2).join(' · '),r:'continua',dica:'Entre dois valores de renda sempre cabe outro?',ok:'Valor medido, com centavos: entre dois valores sempre cabe outro.'},
+  {id:'tempo_espera_min',ex:amostra(r=>nf(r.espera)+' min',4).join(' · '),r:'continua',dica:'O tempo é contado em unidades ou medido?',ok:'Tempo é medido e pode ter qualquer valor: 4,3 min, 4,35 min.'}
+];
+const estadoCls={};
+function desenhaCls(revelar=false){
+  const box=$('colunas'); box.innerHTML='';
+  let certos=0;
+  CLS.forEach(c=>{
+    const esc=revelar?c.r:estadoCls[c.id];
+    const certo=esc===c.r; if(estadoCls[c.id]===c.r) certos++;
+    const card=el('div',{class:'col-card'+(esc?(certo?' certo':' errado'):'')});
+    card.innerHTML=`<span class="col-nome">${c.id}</span><span class="amostra">${c.ex}</span>`;
+    const op=el('div',{class:'opcoes'});
+    Object.entries(TIPOS).forEach(([k,v])=>{ const b=el('button',{class:esc===k?'marcado':''},v); b.onclick=()=>{estadoCls[c.id]=k;desenhaCls();}; op.appendChild(b); });
+    card.appendChild(op);
+    if(esc){ card.appendChild(el('p',{class:'retorno '+(certo?'ok':'no')}, certo?`Isso. ${c.ok}`:`Ainda não. Pense: ${c.dica}`)); }
+    box.appendChild(card);
+  });
+  $('placar').textContent=`${certos} de ${CLS.length}`;
+}
+$('mostrarResp').onclick=()=>desenhaCls(true);
+$('limparCls').onclick=()=>{ Object.keys(estadoCls).forEach(k=>delete estadoCls[k]); desenhaCls(); };
+desenhaCls();
+const ICO={
+  termo:'<path d="M10 14V5a2 2 0 1 1 4 0v9a4 4 0 1 1-4 0z"/><path d="M12 9v7"/>',
+  crono:'<circle cx="12" cy="14" r="7.5"/><path d="M12 14v-4M9.5 2.5h5M12 2.5v4M18.5 7l1.5-1.5"/>',
+  org:'<rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/>',
+  capelo:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5M22 9v6"/>',
+  predio:'<path d="M3 21h18M5 21V10M19 21V10M9.7 21V10M14.3 21V10M2 10l10-6 10 6z"/>',
+  banco:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+  grade:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/>',
+  clique:'<path d="M5 3l7 17 2.5-7L21 10.5z"/><path d="M14.5 14.5l5 5"/>',
+  api:'<path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/>',
+  web:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8.5h18M12 11v6M9 14l3 3 3-3"/>'
+};
+const icone=k=>`<span class="icone" aria-hidden="true"><svg viewBox="0 0 24 24">${ICO[k]}</svg></span>`;
+const R2=[
+  {id:'Temperatura em graus Celsius',ic:'termo',dica:'É categoria ou número? Tem zero absoluto?',r:['intervalar'],ok:'Tem ordem e distâncias iguais, mas 0 °C não é ausência de temperatura.'},
+  {id:'Tempo de reação em milissegundos',ic:'crono',dica:'É contável ou medido? Zero significa ausência total?',r:['razao'],ok:'Zero é ausência de tempo: 400 ms é o dobro de 200 ms.'},
+  {id:'Cargo na empresa',ic:'org',dica:'Tem ordem hierárquica ou são apenas nomes?',r:['ordinal','nominal'],ok:'Depende: com hierarquia (estagiário, analista, gerente) é ordinal; se forem só funções diferentes (vendas, RH, TI), é nominal.'},
+  {id:'Nível de escolaridade',ic:'capelo',dica:'Fundamental, médio, superior: é só categoria ou tem ordem?',r:['ordinal'],ok:'Tem ordem, sem distância medida entre os níveis.'}
+];
+const estR2={};
+function desenhaR2(revelar=false){
+  const box=$('rodada2'); box.innerHTML='';
+  let certos=0;
+  R2.forEach(c=>{
+    if(estR2[c.id]&&c.r.includes(estR2[c.id])) certos++;
+    const esc=revelar?c.r[0]:estR2[c.id], certo=esc&&c.r.includes(esc);
+    const card=el('div',{class:'col-card'+(esc?(certo?' certo':' errado'):'')});
+    card.innerHTML=`<div class="r2-cab">${icone(c.ic)}<span style="font-weight:600;font-size:1.08rem">${c.id}</span></div>`;
+    const op=el('div',{class:'opcoes'});
+    [['nominal','Nominal'],['ordinal','Ordinal'],['intervalar','Intervalar'],['razao','Razão']].forEach(([k,v])=>{ const b=el('button',{class:esc===k?'marcado':''},v); b.onclick=()=>{estR2[c.id]=k;desenhaR2();}; op.appendChild(b); });
+    card.appendChild(op);
+    if(esc) card.appendChild(el('p',{class:'retorno '+(certo?'ok':'no')}, certo?`Isso. ${c.ok}`:`Ainda não. Pense: ${c.dica}`));
+    box.appendChild(card);
+  });
+  $('placar2').textContent=`${certos} de ${R2.length}`;
+}
+$('mostrarResp2').onclick=()=>desenhaR2(true);
+$('limparR2').onclick=()=>{ Object.keys(estR2).forEach(k=>delete estR2[k]); desenhaR2(); };
+desenhaR2();
+
+/* ================= LAB 3 · CALCULAR ================= */
+const COLS=[
+  {id:'cidade',nome:'cidade',tipo:'nominal',get:r=>r.cidade,plural:'cidades'},
+  {id:'cep',nome:'cep',tipo:'codigo',get:r=>r.cep},
+  {id:'canal',nome:'canal_preferido',tipo:'nominal',get:r=>r.canal,plural:'canais'},
+  {id:'escolaridade',nome:'escolaridade',tipo:'ordinal',ordem:['Fundamental','Médio','Superior','Pós-graduação'],get:r=>r.escolaridade},
+  {id:'satisfacao',nome:'satisfacao',tipo:'ordnum',ordem:[1,2,3,4,5],rot:{1:'Muito insatisfeito',2:'Insatisfeito',3:'Neutro',4:'Satisfeito',5:'Muito satisfeito'},get:r=>r.satisfacao},
+  {id:'idade',nome:'idade',tipo:'discreta',get:r=>r.idade,f:v=>`${nf(v,v%1?1:0)} anos`},
+  {id:'pedidos',nome:'qtd_pedidos',tipo:'discreta',get:r=>r.pedidos,f:v=>`${nf(v,v%1?1:0)} pedidos`},
+  {id:'renda',nome:'renda_mensal',tipo:'continua',get:r=>r.renda,f:v=>brl(v)},
+  {id:'espera',nome:'tempo_espera_min',tipo:'continua',get:r=>r.espera,f:v=>`${nf(v,v%1?1:0)} min`}
+];
+const OPS3=[['freq','Contar por categoria'],['moda','Mais comum (moda)'],['mediana','Valor do meio (mediana)'],['media','Média']];
+const VER={ok:'Faz sentido',cuidado:'Com cuidado',nao:'Não faz sentido',impossivel:'Não dá para calcular'};
+let cSel='cep', oSel='media';
+const fmtCep=v=>{const s=String(Math.round(v)).padStart(8,'0');return s.slice(0,5)+'-'+s.slice(5);};
+function analisar(col,op){
+  const vals=B40.map(col.get), n=vals.length, cnt=contar(vals), maxc=Math.max(...cnt.values());
+  const modas=[...cnt.entries()].filter(([k,v])=>v===maxc).map(([k])=>k);
+  const S=sorted(typeof vals[0]==='number'?vals:[]);
+  const out={viz:'barras',marc:null};
+  const fv=col.f||(v=>String(v));
+  const contaMed = ()=>{ const s=sorted(vals); return `Colocamos os ${n} valores em ordem. Com ${n} valores, o meio fica entre o 20º (${fv(s[19])}) e o 21º (${fv(s[20])}); a mediana é o ponto entre eles.`; };
+  const contaMedia = ()=>`Somamos os ${n} valores (${col.id==='renda'?brl(sum(vals)):nf(sum(vals),col.id==='espera'?1:0)}) e dividimos por ${n}.`;
+  if(op==='freq'){ out.conta=`Contamos quantas vezes cada valor aparece entre os ${n} clientes.`; }
+  if(op==='moda'){ out.conta=`É o valor que aparece mais vezes: ${maxc} ${maxc===1?'vez':'vezes'}.`; }
+  switch(col.tipo){
+    case 'nominal': {
+      const top=modas[0];
+      if(op==='freq'){ Object.assign(out,{v:'ok',valor:`${top}: ${cnt.get(top)} de ${n}`,msg:`Contar quantos clientes há em cada categoria é o resumo natural de uma variável nominal.`,hi:[top]}); }
+      if(op==='moda'){ Object.assign(out,{v:'ok',valor:top,msg:`A categoria mais comum. Para uma variável nominal, é a única medida de centro que existe.`,hi:[top]}); }
+      if(op==='mediana'){ Object.assign(out,{v:'impossivel',valor:'—',msg:`Não existe “${col.nome} do meio”: as categorias não têm ordem.`,conta:'Para achar o valor do meio é preciso colocar os valores em ordem, e categorias nominais não têm ordem.'}); }
+      if(op==='media'){ Object.assign(out,{v:'impossivel',valor:'—',msg:`Não dá para somar ${col.plural}. Sem soma, não há média.`,conta:'A média soma os valores e divide pela quantidade. Palavras não se somam.'}); }
+      out.dados=[...cnt.entries()].sort((a,b)=>b[1]-a[1]); break;
+    }
+    case 'codigo': {
+      out.viz='pontos';
+      if(op==='freq'){ Object.assign(out,{v:'cuidado',valor:`${cnt.size} CEPs diferentes`,msg:'Cada cliente tem um CEP diferente, então contar cada um não resume nada. Agrupar por cidade funcionaria melhor.'}); }
+      if(op==='moda'){ Object.assign(out,{v:'nao',valor:'Nenhuma',msg:'Nenhum CEP se repete: não existe um “CEP mais comum”.'}); }
+      if(op==='mediana'){ Object.assign(out,{v:'nao',valor:fmtCep(median(vals)),msg:'O cálculo funciona porque o CEP está guardado como número, mas o “CEP do meio” não descreve nenhum cliente.',marc:'mediana',conta:contaMed()}); }
+      if(op==='media'){ Object.assign(out,{v:'nao',valor:inteiro(mean(vals)),msg:'Um “CEP médio” que provavelmente nem existe. O Excel calcula esse número sem reclamar; quem precisa saber que ele não significa nada é você.',marc:'media',conta:`Somamos os ${n} CEPs como se fossem quantidades e dividimos por ${n}. A conta é possível; o resultado, sem sentido.`}); }
+      break;
+    }
+    case 'ordinal': {
+      const ord=col.ordem; const idx=vals.map(v=>ord.indexOf(v)).sort((a,b)=>a-b);
+      const med = idx[19]===idx[20]?ord[idx[19]]:`entre ${ord[idx[19]]} e ${ord[idx[20]]}`;
+      if(op==='freq'){ Object.assign(out,{v:'ok',valor:`${modas[0]}: ${maxc} de ${n}`,msg:'Contar por nível funciona; na ordinal, mostre os níveis na ordem deles.',hi:[modas[0]]}); }
+      if(op==='moda'){ Object.assign(out,{v:'ok',valor:modas[0],msg:'O nível mais comum entre os clientes.',hi:[modas[0]]}); }
+      if(op==='mediana'){ Object.assign(out,{v:'ok',valor:med,msg:`Colocando os ${n} clientes em ordem de escolaridade, o do meio está nesse nível. A ordem é o que permite a mediana.`,hi:[ord[idx[19]]],conta:`Ordenamos os ${n} clientes do nível mais baixo ao mais alto. O 20º e o 21º estão no nível ${ord[idx[19]]}${idx[19]===idx[20]?'':' e '+ord[idx[20]]}.`}); }
+      if(op==='media'){ Object.assign(out,{v:'impossivel',valor:'—',msg:'Não dá para tirar média de palavras. Trocar os níveis por 1, 2, 3, 4 criaria distâncias iguais entre eles, que ninguém mediu.',conta:'A média precisa de números com distâncias iguais. Níveis de escolaridade só têm ordem.'}); }
+      out.dados=ord.map(k=>[k,cnt.get(k)||0]); break;
+    }
+    case 'ordnum': {
+      const rot=v=>`${v} · ${col.rot[v]}`; const md=median(vals); const pct=Math.round(100*vals.filter(v=>v>=4).length/n);
+      out.dados=col.ordem.map(k=>[rot(k),cnt.get(k)||0]);
+      if(op==='freq'){ Object.assign(out,{v:'ok',valor:`${pct}% deram 4 ou 5`,msg:'Contar quantos clientes deram cada nota é o melhor retrato de uma escala de opinião.',hi:[rot(4),rot(5)]}); }
+      if(op==='moda'){ Object.assign(out,{v:'ok',valor:rot(modas[0]),msg:'A nota mais frequente.',hi:[rot(modas[0])]}); }
+      if(op==='mediana'){ Object.assign(out,{v:'ok',valor:rot(md),msg:'Metade dos clientes deu essa nota ou menos; a outra metade, essa nota ou mais.',hi:[rot(md)],conta:contaMed()}); }
+      if(op==='media'){ Object.assign(out,{v:'cuidado',valor:nf(mean(vals)),msg:`A conta supõe que a distância entre “insatisfeito” e “neutro” é igual à distância entre “satisfeito” e “muito satisfeito”. Para resumir opinião, prefira a mediana ou o % de notas 4 e 5 (${pct}%).`,conta:contaMedia()}); }
+      break;
+    }
+    case 'discreta': {
+      out.dados=[...cnt.entries()].sort((a,b)=>a[0]-b[0]).map(([k,v])=>[String(k),v]);
+      const muitos=cnt.size>12;
+      if(op==='freq'){ Object.assign(out, muitos?{v:'cuidado',valor:`${cnt.size} valores diferentes`,msg:'São muitos valores, a maioria com 1 ou 2 clientes. Agrupar em faixas (18 a 24, 25 a 34…) resume melhor.'}:{v:'ok',valor:`${modas[0]}: ${maxc} de ${n}`,msg:'Poucos valores possíveis: a contagem por valor funciona bem.',hi:[String(modas[0])]}); }
+      if(op==='moda'){ Object.assign(out, maxc<=3?{v:'cuidado',valor:fv(modas[0]),msg:`O valor mais comum aparece só ${maxc} vezes em ${n}: diz pouco sobre o grupo.`,hi:modas.map(String)}:{v:'ok',valor:fv(modas[0]),msg:`O valor mais frequente, com ${maxc} clientes.`,hi:modas.map(String)}); }
+      if(op==='mediana'){ Object.assign(out,{v:'ok',valor:fv(median(vals)),msg:'Metade dos clientes está abaixo desse valor e metade acima.',viz:'pontos',marc:'mediana',conta:contaMed()}); }
+      if(op==='media'){ const m=mean(vals); Object.assign(out,{v:'ok',valor:fv(Math.round(m*10)/10),msg:col.id==='pedidos'?`Ninguém faz ${nf(m)} pedidos, mas como média do grupo faz sentido: dá para comparar com outro grupo.`:'Faz sentido somar idades e dividir pelo número de clientes.',viz:'pontos',marc:'media',conta:contaMedia()}); }
+      break;
+    }
+    case 'continua': {
+      out.viz='pontos';
+      if(op==='freq'){ Object.assign(out,{v:cnt.size>=38?'nao':'cuidado',valor:`${cnt.size} valores diferentes`,msg:`Em ${n} clientes há ${cnt.size} valores diferentes: contar cada valor não resume nada. Para contar, crie faixas (você fará isso no Encontro 4).`}); }
+      if(op==='moda'){ Object.assign(out, maxc===1?{v:'nao',valor:'Nenhuma',msg:'Nenhum valor se repete, então não há moda.'}:{v:'cuidado',valor:fv(modas[0]),msg:`O valor mais repetido aparece só ${maxc} vezes: em dados medidos, repetir é quase coincidência.`}); }
+      if(op==='mediana'){ Object.assign(out,{v:'ok',valor:fv(median(vals)),msg:'Metade dos clientes está abaixo desse valor e metade acima.',marc:'mediana',conta:contaMed()}); }
+      if(op==='media'){ const m=mean(vals), md=median(vals);
+        Object.assign(out,{v:'ok',valor:fv(col.id==='renda'?m:Math.round(m*10)/10),marc:'media',conta:contaMedia(),
+          msg: m>md*1.15 ? `Faz sentido, mas repare: a média fica bem acima da mediana (${fv(col.id==='renda'?md:Math.round(md*10)/10)}) porque ${col.id==='renda'?'um cliente ganha '+brl(Math.max(...vals)):'alguns clientes esperaram muito mais que os outros'}. Valores extremos puxam a média; você verá isso no Encontro 6.` : 'Faz sentido: somar e dividir valores medidos tem significado.'}); }
+      break;
+    }
+  }
+  if(!out.conta) out.conta='—';
+  return out;
+}
+function svgBarras(dados,hi){
+  const W=560, lh=dados.length>14?20:30, bh=lh-10, padL=170, H=dados.length*lh+10, max=Math.max(...dados.map(d=>d[1]),1);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Contagem por categoria">`;
+  dados.forEach(([k,v],i)=>{ const y=i*lh+6, w=(W-padL-50)*v/max; const isHi=hi&&hi.includes(String(k)); const ty=y+bh/2+4.5;
+    s+=`<text x="${padL-10}" y="${ty}" text-anchor="end" class="${isHi?'t-forte':''}">${k}</text><rect class="barra ${isHi?'hi':''}" x="${padL}" y="${y}" width="${Math.max(w,1.5)}" height="${bh}" rx="4"/><text x="${padL+w+8}" y="${ty}" class="${isHi?'t-forte':''}">${v}</text>`; });
+  return s+'</svg>';
+}
+function svgPontos(vals,marc,fmtv,extra){
+  const W=560, r=6, padX=24, x0=Math.min(...vals), x1=Math.max(...vals), span=(x1-x0)||1;
+  const X=v=>padX+(W-2*padX)*(v-x0)/span;
+  const pilhas=new Map(); const pts=sorted(vals).map(v=>{ const b=Math.round(X(v)/(2*r)); const k=pilhas.get(b)||0; pilhas.set(b,k+1); return {x:b*2*r,k}; });
+  const alto=Math.max(...pts.map(p=>p.k))+1, base=58+alto*2*r, H=base+44;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Distribuição dos valores">`;
+  pts.forEach(p=>{ s+=`<circle class="ponto" cx="${p.x}" cy="${base-r-p.k*2*r}" r="${r-0.8}"/>`; });
+  s+=`<line class="eixo" x1="${padX}" x2="${W-padX}" y1="${base+2}" y2="${base+2}"/>`;
+  s+=`<text x="${padX}" y="${base+22}">${fmtv(x0)}</text><text x="${W-padX}" y="${base+22}" text-anchor="end">${fmtv(x1)}</text>`;
+  const marca=(tipo,v,fraco)=>{ const x=X(v), cls=tipo==='media'?'m-media':'m-mediana', t=tipo==='media'?'t-media':'t-mediana', nome=tipo==='media'?'média':'mediana';
+    const anc = x>W*0.6?'end':'start', dx=x>W*0.6?-6:6, y=tipo==='media'?18:38;
+    return `<line class="${cls} ${fraco?'m-fraco':''}" x1="${x}" x2="${x}" y1="${y+6}" y2="${base+2}"/><text x="${x+dx}" y="${y}" text-anchor="${anc}" class="${t} ${fraco?'m-fraco':''}">${nome}</text>`; };
+  if(marc) s+=marca(marc, marc==='media'?mean(vals):median(vals), false);
+  if(extra) s+=marca(extra, extra==='media'?mean(vals):median(vals), true);
+  return s+'</svg>';
+}
+function desenhaCalc(){
+  $('calcCols').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===cSel));
+  $('calcOps').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===oSel));
+  const col=COLS.find(c=>c.id===cSel), r=analisar(col,oSel);
+  const ver=$('calcVer'); ver.className='veredito v-'+r.v; ver.textContent=VER[r.v];
+  $('calcValor').textContent=r.valor; $('calcMsg').textContent=r.msg; $('calcConta').innerHTML=r.conta;
+  const vals=B40.map(col.get);
+  if(r.viz==='pontos'){ const fv=col.tipo==='codigo'?fmtCep:(col.f||(v=>String(v)));
+    const extra = (r.marc==='media'&&(col.tipo==='continua'||col.tipo==='discreta'))?'mediana':null;
+    $('calcViz').innerHTML=svgPontos(vals,r.marc,fv,extra); }
+  else $('calcViz').innerHTML=svgBarras(r.dados||[],r.hi);
+}
+(function initCalc(){
+  COLS.forEach(c=>{ const b=el('button',{class:'chip','data-k':c.id,'aria-pressed':'false'},c.nome); b.onclick=()=>{cSel=c.id;desenhaCalc();}; $('calcCols').appendChild(b); });
+  OPS3.forEach(([k,v])=>{ const b=el('button',{class:'chip','data-k':k,'aria-pressed':'false'},v); b.onclick=()=>{oSel=k;desenhaCalc();}; $('calcOps').appendChild(b); });
+  desenhaCalc();
+  $('copiarBase').onclick=()=>{
+    const cab=['id_cliente','cidade','cep','canal_preferido','escolaridade','satisfacao','idade','qtd_pedidos','renda_mensal','tempo_espera_min','data_cadastro'];
+    const dt=s=>{const [y,m,d]=s.split('-');return `${d}/${m}/${y}`;};
+    const linhas=B40.map(r=>[r.id,r.cidade,r.cep,r.canal,r.escolaridade,r.satisfacao,r.idade,r.pedidos,nf(r.renda,2).replace(/\./g,''),nf(r.espera,1),dt(r.cadastro)].join('\t'));
+    copiar([cab.join('\t'),...linhas].join('\n'),$('copiadoBase'));
+  };
+  $('chkMedia').textContent=nf(mean(B40.map(r=>r.renda)),2);
+})();
+
+/* ================= FONTES ================= */
+const FONTES=[
+  ['Bases públicas','IBGE, DATASUS, INEP, Banco Central: gratuitas e documentadas.','Podem estar desatualizadas ou em nível agregado (por município, não por pessoa).','predio'],
+  ['Sistemas internos','CRM (clientes e compras) e ERP (estoque, finanças, RH).','Cada sistema registra do seu jeito; juntar os dois exige cuidado.','banco'],
+  ['Planilhas e registros manuais','Ainda muito comuns em pequenas e médias empresas.','Erros de digitação e falta de padrão são frequentes.','grade'],
+  ['Dados digitais','Cliques, navegação, carrinhos abandonados, redes sociais.','Volume enorme, mas só de quem está online.','clique'],
+  ['APIs','Sistemas que conversam e entregam dados atualizados, como previsão do tempo.','Dependem de quem mantém a API e das regras de uso.','api'],
+  ['Web scraping','Extrair dados de páginas quando não há API.','Respeite os termos de uso do site e a legislação de dados.','web']
+];
+$('listaFontes').innerHTML=FONTES.map(f=>`<div class="fonte">${icone(f[3])}<b>${f[0]}</b><p>${f[1]}</p><p class="risco">Cuidado: ${f[2]}</p></div>`).join('');
+const QUIZ=[
+  ['Quantos clientes abandonaram o carrinho ontem?','Dados digitais','Fica registrado no site ou app, a cada clique.'],
+  ['Qual a renda média dos bairros onde a loja quer abrir uma filial?','Bases públicas','O IBGE publica renda por região.'],
+  ['Quais clientes compraram mais de 3 vezes neste ano?','Sistemas internos','O histórico de compras está no CRM da empresa.'],
+  ['Vai chover no fim de semana da promoção?','APIs','Serviços de previsão do tempo entregam isso por API.'],
+  ['Quanto os concorrentes cobram pelo mesmo produto no site deles?','Web scraping','Sem API, coleta-se das páginas, respeitando os termos de uso.']
+];
+const estQuiz={};
+function desenhaQuiz(){
+  $('quiz').innerHTML='';
+  QUIZ.forEach((q,i)=>{
+    const d=el('div',{class:'q'}); d.appendChild(el('p',{},q[0]));
+    const ch=el('div',{class:'chips'});
+    FONTES.map(f=>f[0]).forEach(f=>{ const b=el('button',{class:'chip','aria-pressed':String(estQuiz[i]===f)},f); b.onclick=()=>{estQuiz[i]=f;desenhaQuiz();}; ch.appendChild(b); });
+    d.appendChild(ch);
+    if(estQuiz[i]){ const ok=estQuiz[i]===q[1]; d.appendChild(el('p',{class:'retorno '+(ok?'ok':'no'),style:'margin-top:8px;font-weight:500'}, ok?`Isso. ${q[2]}`:'Ainda não. Pense em quem registra esse dado.')); }
+    $('quiz').appendChild(d);
+  });
+}
+desenhaQuiz();
+
+/* ================= LAB 4 · VIÉS ================= */
+const CANAIS=[['App',.40,.82,'var(--c1)'],['WhatsApp',.25,.70,'var(--c4)'],['Loja',.15,.64,'var(--c3)'],['Telefone',.20,.41,'var(--c2)']];
+const POP=(()=>{ const rnd=mulberry32(1000); const p=[]; CANAIS.forEach(([nome,share,sat],ci)=>{ const n=Math.round(share*1000); for(let i=0;i<n;i++) p.push({canal:ci,sat:rnd()<sat}); }); return p; })();
+const REAL=POP.filter(p=>p.sat).length/POP.length;
+const MODOS=[
+  {k:'app',nome:'Só quem usa o app',tipo:'Viés de coleta',msg:'Só quem usa o app respondeu, e quem usa o app costuma estar mais satisfeito. A pesquisa parece ótima, mas não representa os outros clientes.'},
+  {k:'tel',nome:'Só quem ligou no telefone',tipo:'Viés de coleta',msg:'Só quem ligou respondeu, e quem liga em geral tem um problema. O resultado fica pessimista demais.'},
+  {k:'sorteio',nome:'Sorteio entre todos',tipo:'Amostra representativa',msg:'Todos os clientes tinham a mesma chance de ser sorteados. O resultado fica perto do real; sorteie de novo e veja que ele varia um pouco, mas pouco.'},
+  {k:'queda',nome:'Logo depois de uma queda do sistema',tipo:'Viés de contexto',msg:'O sorteio foi justo, mas a pesquisa saiu no dia em que o site caiu. O momento da coleta puxou as respostas para baixo.'}
+];
+let modo='app', semente=7, mostrouReal=false;
+function amostrar(){
+  const rnd=mulberry32(semente*97+MODOS.findIndex(m=>m.k===modo)), idx=[];
+  let pool=POP.map((p,i)=>i);
+  if(modo==='app') pool=pool.filter(i=>POP[i].canal===0);
+  if(modo==='tel') pool=pool.filter(i=>POP[i].canal===3);
+  const n= modo==='tel'?150:200;
+  const copia=[...pool]; for(let i=0;i<n&&copia.length;i++){ const j=Math.floor(rnd()*copia.length); idx.push(copia.splice(j,1)[0]); }
+  const resp=idx.map(i=> modo==='queda' ? (POP[i].sat && rnd()<0.62) : POP[i].sat);
+  return {idx:new Set(idx), pct:resp.filter(Boolean).length/resp.length, n:idx.length};
+}
+function desenhaVies(){
+  $('viesModos').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===modo));
+  const a=amostrar(), m=MODOS.find(x=>x.k===modo);
+  const cols=40, cel=13, W=cols*cel, H=Math.ceil(POP.length/cols)*cel;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Os 1.000 clientes, com os pesquisados em destaque">`;
+  POP.forEach((p,i)=>{ const x=(i%cols)*cel, y=Math.floor(i/cols)*cel, on=a.idx.has(i);
+    s+=`<rect x="${x+1.5}" y="${y+1.5}" width="${cel-3}" height="${cel-3}" rx="2.5" style="fill:${CANAIS[p.canal][3]};opacity:${on?1:0.16}"/>`; });
+  $('viesGrade').innerHTML=s+'</svg>';
+  $('viesTitulo').textContent=`${m.tipo} · ${a.n} respostas`;
+  $('viesValor').textContent=`${Math.round(a.pct*100)}% satisfeitos`;
+  $('viesMsg').textContent=m.msg;
+  $('barPesq').style.width=(a.pct*100)+'%'; $('txtPesq').textContent=Math.round(a.pct*100)+'%';
+  $('linhaReal').hidden=!mostrouReal; $('barReal').style.width=(REAL*100)+'%'; $('txtReal').textContent=Math.round(REAL*100)+'%';
+  $('viesReal').textContent=mostrouReal?'Esconder o valor real':'Mostrar o valor real';
+  $('viesSortear').hidden = !(modo==='sorteio'||modo==='queda');
+  $('viesConta').innerHTML=`% de satisfeitos = clientes que se disseram satisfeitos ÷ total de respostas. Nesta pesquisa: ${Math.round(a.pct*a.n)} ÷ ${a.n}. O valor real usa os 1.000 clientes: ${POP.filter(p=>p.sat).length} ÷ 1.000.`;
+}
+(function initVies(){
+  MODOS.forEach(m=>{ const b=el('button',{class:'chip','data-k':m.k,'aria-pressed':'false'},m.nome); b.onclick=()=>{modo=m.k;desenhaVies();}; $('viesModos').appendChild(b); });
+  $('viesLegenda').innerHTML=CANAIS.map(c=>`<span><i style="background:${c[3]}"></i>${c[0]} (${Math.round(c[1]*100)}% dos clientes)</span>`).join('')+'<span>Quadrados apagados: não responderam</span>';
+  $('viesReal').onclick=()=>{mostrouReal=!mostrouReal;desenhaVies();};
+  $('viesSortear').onclick=()=>{semente++;desenhaVies();};
+  desenhaVies();
+})();
+
+/* ================= LAB 5 · DECISÃO ================= */
+let vista='orig';
+const VISTAS=[['orig','Ordem original'],['espera','Ordenar por tempo de espera'],['canal','Agrupar por canal']];
+function desenhaDec(){
+  $('decVistas').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===vista));
+  let h='<div class="tabela-wrap"><table>';
+  if(vista==='canal'){
+    const g={}; CINCO.forEach(r=>{(g[r.canal]=g[r.canal]||[]).push(r);});
+    h+='<thead><tr><th>Canal</th><th>Clientes</th><th>Espera média (min)</th><th>Nota média</th><th>Compraram de novo</th></tr></thead><tbody>';
+    Object.entries(g).sort((a,b)=>mean(a[1].map(r=>r.esp))-mean(b[1].map(r=>r.esp))).forEach(([c,rs])=>{
+      h+=`<tr><td>${c}</td><td>${rs.length}</td><td>${nf(mean(rs.map(r=>r.esp)))}</td><td>${nf(mean(rs.map(r=>r.nota)))}</td><td>${Math.round(100*rs.filter(r=>r.comprou==='Sim').length/rs.length)}%</td></tr>`; });
+  } else {
+    const ls=[...CINCO]; if(vista==='espera') ls.sort((a,b)=>a.esp-b.esp);
+    h+='<thead><tr><th>Cliente</th><th>Tempo de espera</th><th>Nota</th><th>Canal</th><th>Comprou novamente?</th></tr></thead><tbody>';
+    ls.forEach((r,i)=>{ const div=vista==='espera'&&i>0&&ls[i-1].esp<=10&&r.esp>10;
+      h+=`<tr class="${div?'divisor':''}"><td>${r.c}</td><td class="${vista==='espera'?'col-hi':''}">${r.esp} min</td><td>${r.nota}</td><td>${r.canal}</td><td>${r.comprou}</td></tr>`; });
+  }
+  $('decTabela').innerHTML=h+'</tbody></table></div>';
+}
+const PERG=[
+  ['1. Quais são os dados brutos?','Cada linha: o cliente, os minutos de espera, a nota de 0 a 10, o canal e se comprou de novo. Sozinhos, não dizem nada.'],
+  ['2. Que informações podemos gerar?','A nota média (6,8), a espera média por canal e o percentual que comprou de novo em cada canal. Use “Agrupar por canal”.'],
+  ['3. Que insight parece surgir?','Quem esperou mais de 10 minutos deu notas menores e não voltou a comprar. Use “Ordenar por tempo de espera”.'],
+  ['4. Que decisão seria possível?','Reduzir a espera no telefone, por exemplo reforçando a equipe nos horários de pico.'],
+  ['5. Que cuidado precisamos ter?','São só 5 clientes. Pode ser coincidência, e outras coisas podem explicar a nota, como o motivo do contato. Antes de decidir, olhe mais dados.']
+];
+function resumo(lista,f){ const a=lista.filter(f); return {n:a.length, nota:mean(a.map(r=>r.nota)), volta:a.filter(r=>r.comprou===true||r.comprou==='Sim').length/a.length}; }
+(function initDec(){
+  VISTAS.forEach(([k,v])=>{ const b=el('button',{class:'chip','data-k':k,'aria-pressed':'false'},v); b.onclick=()=>{vista=k;desenhaDec();}; $('decVistas').appendChild(b); });
+  $('decPerguntas').innerHTML=PERG.map(p=>`<details class="resp"><summary>${p[0]}</summary><p>${p[1]}</p></details>`).join('');
+  desenhaDec();
+  const B=D.base200;
+  const c5a=resumo(CINCO,r=>r.esp<=10), c5b=resumo(CINCO,r=>r.esp>10), ga=resumo(B,r=>r.espera<=10), gb=resumo(B,r=>r.espera>10);
+  const voltou=B.filter(r=>r.espera>10&&r.comprou).length, naoVoltou=B.filter(r=>r.espera<=10&&!r.comprou).length;
+  const card=(t,a,b)=>`<div class="est"><span class="k">${t}</span><div class="v">${a} <small>com 5 clientes</small></div><div class="v">${b} <small>com 200 clientes</small></div></div>`;
+  $('dec200Cards').innerHTML=card('Espera até 10 min · nota média',nf(c5a.nota),nf(ga.nota))+card('Espera acima de 10 min · nota média',nf(c5b.nota),nf(gb.nota))+card('Espera até 10 min · compraram de novo',Math.round(100*c5a.volta)+'%',Math.round(100*ga.volta)+'%')+card('Espera acima de 10 min · compraram de novo',Math.round(100*c5b.volta)+'%',Math.round(100*gb.volta)+'%');
+  $('dec200Msg').innerHTML=`O padrão se mantém, mas deixa de ser absoluto: <b>${voltou} clientes esperaram mais de 10 minutos e voltaram</b>, e <b>${naoVoltou} esperaram pouco e não voltaram</b>. Com 5 clientes você tinha uma pista. Com 200, uma evidência mais forte, que ainda não prova a causa.`;
+  const W=560,H=316,pl=40,pr=16,pt=34,pb=40, X=v=>pl+(W-pl-pr)*v/45, Y=v=>pt+(H-pt-pb)*(1-v/10), rnd=mulberry32(3);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Espera e nota de 200 clientes">`;
+  [0,10,20,30,40].forEach(t=>{ s+=`<text x="${X(t)}" y="${H-pb+20}" text-anchor="middle">${t}</text>`; });
+  [0,5,10].forEach(t=>{ s+=`<text x="${pl-8}" y="${Y(t)+4}" text-anchor="end">${t}</text><line class="eixo" style="opacity:.5" x1="${pl}" x2="${W-pr}" y1="${Y(t)}" y2="${Y(t)}"/>`; });
+  s+=`<text x="${(W+pl)/2}" y="${H-4}" text-anchor="middle">Tempo de espera (min)</text><text x="${pl-8}" y="14">Nota (0 a 10)</text>`;
+  s+=`<line class="m-mediana" x1="${X(10)}" x2="${X(10)}" y1="${pt}" y2="${H-pb}"/>`;
+  B.forEach(r=>{ const jx=(rnd()-.5)*5, jy=(rnd()-.5)*8; s+=`<circle cx="${X(r.espera)+jx}" cy="${Y(r.nota)+jy}" r="4.2" style="fill:${r.comprou?'var(--orange)':'var(--c3)'};opacity:${r.comprou?.9:.75}"/>`; });
+  $('dec200Viz').innerHTML=s+'</svg>';
+  $('decConta').innerHTML=`Separamos os clientes em dois grupos pelo tempo de espera (até 10 minutos e acima de 10). Em cada grupo, a nota média é a soma das notas dividida pelo número de clientes do grupo, e o percentual que voltou é quantos compraram de novo dividido pelo total do grupo. Com 200 clientes: ${ga.n} esperaram até 10 minutos e ${gb.n} esperaram mais.`;
+  $('dec200').onclick=()=>{ const p=$('dec200Painel'); p.hidden=!p.hidden; $('dec200').setAttribute('aria-expanded',String(!p.hidden)); $('dec200').textContent=p.hidden?'E se fossem 200 clientes?':'Voltar aos 5 clientes'; };
+})();
+
+/* ================= ATIVIDADE ================= */
+const ATIV_COLS=['protocolo','data_abertura','canal','motivo','prioridade','tempo_espera_min','duracao_min','nota_atendimento','resolvido_1o_contato','contatos_anteriores','cep_cliente'];
+const ATIV_AM=[
+  ['2026-104233','03/03/2026 09:14','Telefone','Cobrança','Alta','12,4','7,8','2','Não','2','52011020'],
+  ['2026-104234','03/03/2026 09:16','Chat','Entrega','Média','1,2','4,5','5','Sim','0','50740460'],
+  ['2026-104235','03/03/2026 09:21','WhatsApp','Produto com defeito','Urgente','3,7','11,2','4','Sim','1','54400120'],
+  ['2026-104236','03/03/2026 09:30','E-mail','Cancelamento','Baixa','26,0','3,1','3','Não','3','53020300']
+];
+const TIPO_A=['','Nominal','Ordinal','Discreta','Contínua','Temporal (data/hora)'];
+const RES_A=['','Contagem ou %','Moda','Mediana','Média'];
+(function initAtiv(){
+  $('ativAmostra').innerHTML=`<thead><tr>${ATIV_COLS.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${ATIV_AM.map(r=>`<tr>${r.map(v=>`<td>${v}</td>`).join('')}</tr>`).join('')}</tbody>`;
+  const salvo=ler('fad-e1-atividade')||{};
+  const box=$('ativLinhas');
+  box.innerHTML=`<div class="linha-ativ" style="border-top:none;padding-bottom:0"><span class="rotulo" style="margin:0">Coluna</span><span class="rotulo" style="margin:0">Tipo</span><span class="rotulo" style="margin:0">Melhor resumo</span></div>`;
+  ATIV_COLS.forEach((c,i)=>{
+    const l=el('div',{class:'linha-ativ'});
+    l.innerHTML=`<span class="col-nome">${c}</span><select id="tipo-${i}" aria-label="Tipo de ${c}">${TIPO_A.map(t=>`<option value="${t}">${t||'Escolha o tipo'}</option>`).join('')}</select><select id="res-${i}" aria-label="Melhor resumo de ${c}">${RES_A.map(t=>`<option value="${t}">${t||'Escolha o resumo'}</option>`).join('')}</select>`;
+    box.appendChild(l);
+  });
+  ATIV_COLS.forEach((c,i)=>{ if(salvo['tipo-'+i]) $('tipo-'+i).value=salvo['tipo-'+i]; if(salvo['res-'+i]) $('res-'+i).value=salvo['res-'+i]; });
+  ['ativNome','ativQ1','ativQ2'].forEach(k=>{ if(salvo[k]) $(k).value=salvo[k]; });
+  const guardar=()=>{ const o={}; ATIV_COLS.forEach((c,i)=>{o['tipo-'+i]=$('tipo-'+i).value;o['res-'+i]=$('res-'+i).value;}); ['ativNome','ativQ1','ativQ2'].forEach(k=>o[k]=$(k).value); salvar('fad-e1-atividade',o); };
+  document.querySelector('#atividade').addEventListener('input',guardar);
+  document.querySelector('#atividade').addEventListener('change',guardar);
+  $('ativCopiar').onclick=()=>{
+    const limpa=s=>s.replace(/[\t\n]+/g,' ').trim();
+    const linhas=[`Nome\t${limpa($('ativNome').value)}`,'','Coluna\tTipo\tMelhor resumo',...ATIV_COLS.map((c,i)=>`${c}\t${$('tipo-'+i).value}\t${$('res-'+i).value}`),'',`Pergunta 1\t${limpa($('ativQ1').value)}`,`Pergunta 2\t${limpa($('ativQ2').value)}`];
+    copiar(linhas.join('\n'),$('ativOk'),$('ativFallback'));
+  };
+})();
+
+/* ================= NAVEGAÇÃO / MODO AULA ================= */
+const cenas=[...document.querySelectorAll('.cena')];
+const sel=$('irpara');
+cenas.forEach((c,i)=>{ const o=el('option',{value:c.id},`${i+1}. ${c.dataset.nome}`); sel.appendChild(o); });
+let aula=false, atual=0;
+function mostrar(i){ atual=Math.max(0,Math.min(cenas.length-1,i)); cenas.forEach((c,j)=>c.classList.toggle('atual',j===atual)); $('contador').textContent=`${atual+1} / ${cenas.length}`; sel.value=cenas[atual].id; window.scrollTo(0,0); }
+function visivel(){ let best=0; cenas.forEach((c,i)=>{ if(c.getBoundingClientRect().top<window.innerHeight*0.4) best=i; }); return best; }
+sel.addEventListener('change',()=>{ const i=cenas.findIndex(c=>c.id===sel.value); if(aula) mostrar(i); else cenas[i].scrollIntoView({behavior:reduz?'auto':'smooth'}); });
+$('btnAula').onclick=()=>{
+  aula=!aula; document.body.classList.toggle('aula',aula); document.documentElement.classList.toggle('aula',aula); $('btnAula').setAttribute('aria-pressed',String(aula)); $('btnAula').textContent=aula?'Sair do modo aula':'Modo aula';
+  if(aula){ mostrar(visivel()); } else { cenas.forEach(c=>c.classList.remove('atual')); cenas[atual].scrollIntoView(); if(document.fullscreenElement) document.exitFullscreen().catch(()=>{}); }
+};
+$('antes').onclick=()=>mostrar(atual-1);
+$('depois').onclick=()=>mostrar(atual+1);
+$('cheia').onclick=()=>{ const d=document.documentElement; if(document.fullscreenElement){document.exitFullscreen().catch(()=>{});} else if(d.requestFullscreen){ d.requestFullscreen().catch(()=>{}); } };
+document.addEventListener('keydown',e=>{
+  if(!aula) return; if(e.target.closest && e.target.closest('input,select,textarea')) return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();mostrar(atual+1);}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();mostrar(atual-1);}
+  else if(e.key==='Escape'){ $('btnAula').click(); }
+});
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>{ if(aula) return; es.forEach(en=>{ if(en.isIntersecting) sel.value=en.target.id; }); },{rootMargin:'-40% 0px -55% 0px'});
+  cenas.forEach(c=>io.observe(c));
+}
+if(location.hash){ const alvo=document.getElementById(location.hash.slice(1)); if(alvo) setTimeout(()=>alvo.scrollIntoView(),50); }
+</script>
+
+</body>
+</html>

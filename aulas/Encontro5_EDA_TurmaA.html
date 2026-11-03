@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Encontro 5 · Exploração de Dados</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: aula em cenas empilhadas (rolagem) que viram slides no "Modo aula"; laboratórios em cartões com barra laranja, como no template CESAR School */
+:root{
+  --paper:#FEF7EE; --surface:#FFFCF8; --sunk:#FBEEE1; --ink:#212121; --ink-2:#4B4540; --muted:#7D7168;
+  --line:#E5C8B2; --line-soft:#F0E0D0; --orange:#FF6002; --orange-ink:#B84300; --orange-soft:#FFE7D6;
+  --good:#2E7A4C; --good-soft:#E2F1E7; --warn:#93600F; --warn-soft:#FBEED6; --bad:#B53228; --bad-soft:#F8E0DC;
+  --c1:#FF6002; --c2:#212121; --c3:#C99A70; --c4:#5F8A84;
+  --cover:#212121; --cover-ink:#FEF7EE; --cover-cream:#FEF7EE;
+  --f-disp:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  --f-body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:14px; --maxw:1280px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1A1918; --surface:#24221F; --sunk:#2C2825; --ink:#FEF7EE; --ink-2:#E3D8CC; --muted:#B3A597;
+    --line:#4D4036; --line-soft:#352C26; --orange:#FF6A14; --orange-ink:#FF8C4A; --orange-soft:#3B2517;
+    --good:#72C792; --good-soft:#1E3327; --warn:#E6B453; --warn-soft:#3A2F17; --bad:#F2806F; --bad-soft:#3E201C;
+    --c1:#FF6A14; --c2:#FEF7EE; --c3:#C99A70; --c4:#7FB0A9;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1A1918; --surface:#24221F; --sunk:#2C2825; --ink:#FEF7EE; --ink-2:#E3D8CC; --muted:#B3A597;
+  --line:#4D4036; --line-soft:#352C26; --orange:#FF6A14; --orange-ink:#FF8C4A; --orange-soft:#3B2517;
+  --good:#72C792; --good-soft:#1E3327; --warn:#E6B453; --warn-soft:#3A2F17; --bad:#F2806F; --bad-soft:#3E201C;
+  --c1:#FF6A14; --c2:#FEF7EE; --c3:#C99A70; --c4:#7FB0A9;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:clamp(16px,0.55vw + 12px,22px)}
+html.aula{font-size:clamp(19px,1vw + 3px,28px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+h1,h2,h3{font-family:var(--f-disp);font-weight:700;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:.005em}
+p{margin:0}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:6px}
+.num{font-variant-numeric:tabular-nums}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ---------- topo ---------- */
+.topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line-soft)}
+.topo .wrap{display:flex;align-items:center;gap:14px;padding-block:10px}
+.logo{display:block;width:44px;height:40px;flex:none;background:var(--ink);-webkit-mask:url("data:image/png;base64,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") center/contain no-repeat;mask:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABlCAYAAAB6OQxdAAAV1klEQVR4nO2de5yU5XXHvzM7sxd2QVhEjXhbEVSUaGoM4nqB4I2YRAm2qSnGFFqMps2ln3qNTRo0MY2JMY0JJmJUmsQ2iZf0QlXEYoIRG6tVQRPAC6jUCwLiwu7M7uz0j99z8r4zOzPv++6+s8uu8/t85jM7s++8z/M+5zznnOc855wn0dbWxh6GlHvVAWn3ej/QDBwF1ANfBXZXoe00cCFwOPAEsAt4DngLyAK9QLd7z1Wh/X4hNYRtpxFB0kADMAU4GJgKHAnsA7wPDZgNXg+wDbie6hAxAUwEzgP+FI1PGkgCrwBbEXHfQMR9zvWnGxE5U4U+BSIxiDMxDTQhgk0Fprv3qcAR7vu0uzbrXt3AemAtsM69vwg8766zGVvv/u4BOoB8hX4kgBZ3fc610+NeIIKNAg4A2oAPANMQQ7W63zW5+2SBTYiY64A1wONAFyJoV0BfYkE1iZhEDzsKzawZwGmIaOPwuNzQg8TXWmAF8AjwGNCJBrvO95sW4HjgUDRz9gUmoAH8Khq8cmgArgJOcO29gGbZi8Bv3Xe7EQMZ0kCje46TgHOB97p+1LlrevGY7/eu778BViHG6iq6Z2yIm4h1iGj7Ig4+E/gg4mDTb37kgbeBp4B7gAeAlxDhDI3AfmjmtqNBnIyIboP2NLAZWA38jMqDlQb+GDgFOBAxgvWvHngdDf5q4L/RrN/p+30SMcIh7vnmIx3aUtSOqYBO4GHElA+5++0K6GMkxEXEZvQQHwU+hAjXgAYlUeL6bmA7ItztiIhZPGMhhQb2HN/9Gt33u4FnEMEfQKLMRGIOTyxWgolhM55shs1FxtNoxGBdSDIsA+4HXnZtGepcv9qBS4CZwF5l2jS9uQ64G0mbDYigvSH6XBYDIWISEe444ALgDCTS6gN+9yZwG/B94P8oHBTQzPhzZCXuW3S/1cB1SEQZ4eKC6dYpwGLgbDxRmXX9vgMx3Ysl2m4CTgY+g9TGqAptdSMGWQn8HDHj2/RzdvaHiCnEbWehgW7HU/SV0Im4+cto9hR3OAV8GA3gkfS1nJ9CuuilqB3uB8YAPwT+hMLn6gG2AN9As/OdEr9tARYAn0MMGYQMErHLgLvQbI9k5SajXIxE3CIk428FTkccF0TArciYmI/0VzEB08BFaIZOoy8Be4Fn0WwYDHSiPhevBVPAQcC3gG/TVw+CjJibkGh+KERbZq1fgyTMl5DOL7YfyiLsTGxBIuJStPAOEpl+bAD+EonCUgvkBNJ7PwbGVrhPB/A1YCnSp3GKUkMS6cNzkNjev8K1nYihf0p5nXYw6u9sghnd0AO8hhhhKVqHVlymBBExibhiMfARJDajYBvwMTRzy6ERdXhhiPvZunEJEs1v4pnu/TEOknjLh0bEqBci3dYY4vdrkC1QSqwaDkYSZlbEvnWjJdP1wH9SYdlUiYijkOdisetIVGSBaxFHV5o1zUgXnBnx3hm0BFiD1mVvAU/iWag5xMEJ37utNRN4HqIj0Jrx/YhwDRH6sR04DDFrJZwE/BKpo6joAP4Rie+tpS4o53Ybh2TzIipbWZWwBVmgQWIvhxbcUVDvXrOBU909el1bedf2q/Ql4kQkIo2g9uqv+3Etfa3rUvgtYtSFRLdDWoDLkHS4CBmFBSjV+UOBq5ERElq5lsDvCeff7EL6cB7yl0aFOcz9GINmWDWxDfguWucFIYs8OPOJrpJAz3cy8C/AF9DS5A8o5ooJwI+QXhgIAe3eYZX5GuBK5C0ZDngLuBy4l3C+0TzRZ2ApTEP0me3/0n/j0Uh/nRJTg0ci8RUGvWgRPQ94kHDcPRTIIMPqM8hYCbs4bwJOJJq+LYeDkH483L5I+t4/DfwZ4WdPEPZHs2t0yOt7kX9xLvDXyDJ7h6Hft8sjptqADLXTkH82Sr/OQlZ6HJMDNCO/jVuSmXU6Gc2Ag2JqxJBB1u33gR0RfmfbRbPRAHwQ6cuo1mN/YW6xTuC/gP8A/g1ZilHWp2m0tLiF6oztF4Aliba2tiRwM/AXxDcL/cgC/wr8HbCR6Iv0ekS849F21gnIX2t7iPWIw6M4IPx9sy2kHBqYJ5DVuQZZlW+6/0fdF2xFTo4rKe8UHyjWAicm2traWpBnPW5OKcbLwD8gC2sH/fO4mCVaD7wHbQcdi5ZB78UzxvbHW0r4sRPpNFuOPI0s6KfRbv1GPMd6f5zR5vGZiber0R/mCovdwMJEW1vbHCTjS/kB40YW6ZYlyAvxuuvIQHa/6xCxUkXfldI/eTwnAHjryoHq3SbktDgTWfYn0b+lRFRkgdtSyGqqC7g4LtSj/bobkEN8JSLmSqR/Ook+Q40A1fCllkMCifhRyMiYizYDDmVwdLYhCUwttVAeDNQjcTcfbfdsRfpnBfAoCpfoYgiDj4rgD+raG+nndmRwHYIIF5flGRVJCxYaKiTQAEx0rw/h7fr/D9rBfxwFI21x/7PgpjyejzQOmIHkD5ccizw/UykM6jKCDhXhCpBCu9RVj8gKCfOJNqNos7PxCNWNfKxvog3iDIoM2OL+/zbSt2F3M/ZCSyvznx6D9NihaLZNRkQ0oprjfE9CHtiWQkFBGfrv6K4misX9H7n309ADWEwqRA/oNSe4ESbl+264oBd4OIW4+xnkbhsuGE4DXU10AMuTaBbeTnUiqmuoLn4BbDTFbBFXNQwfvIAiIrqNiB1oE3jjkHWphijYheKNnoVCE/kZtAB/awg6VUN4ZJH6uxNn1BWvc+5Gm50lYzlqGHJk0I7IVfhsmGIi5hCVL8HLPKphz8BO4EbgCgpzQ0p6HHLI6vkkCn6tSiZPDZHwPNo7/DKyXwpQzm2UR06AC9AO8vZq9a6GiuhEcTxzkYQs6UcOEwGeRo7ey1B6WXNcPayhLDJo/9WiwCvGHEVJqGlBeX2XoCCoGjHjRwb5gn+EMrDML1wRUbOiLPblPGrEjBOdKNh5GbJHNhBhf7S/+YkJFIZwLpqdM9znaoYijDTk8KLo/glFiL9GPza3B5opbPuBk9AG75moWEEzAw8+HonIo/VdB8rN+DkKyLK6BP1CnDn7VsrkKBRjeToiqFXMeLfCwh93ofzD+1A4yhuEy+MIRLWqZxhBp6K9v3YKs45GMlH9NW02obX2akTATvoX/lgRg1HHxsqWtCJDaDrSocchovrjV4YbLFTEiPY7lG5nYSWb3fdVdZgMZjEig+3WN6B8AqsgdZT7PBYRNOV7DeUmsL8UmFW1yqJcyJdQ9tdaFBOU9V0zaCEvQ0HEPn2gMI5lLCLmgSjOxnIKW1FCpz+YyX5frtRKGPizjPN4UeFbUAzPNmRBbkOBx5spDNqy15BhKGu7GfJoQEzkdKCQRYt3SfpeFhNjhAXN2mPde1TuzyEC7XD37cHLNu71vfyf9zjsCTMxDvgDnqIgjujvIceeMBPjwLAnxECwRwS/1jAw1Ig4AlAj4ghAjYgjADUijgDUiDgCUCPiCEDxOtFy7vpb8G5Pw2A9j7+0WLWTYm0H6A+5mdZwCuXnnYbquq1FNWVerEIn9sYr5r4dFT3YEXMbKZSGfQbe8zyKtobiTgvfG0WjHYaY5UE0dnHvXDSjuuqzka94I4qEeyPR1taWQPEy16D4mW40CL8DzkcF4eLyyM9EAbBT0cyoQynenyXePJCzUHGHieh50mgT9uNogONCGwolbMcbt93AF4EfEB8hR6M6B/ORezGHnmkd8KkkcDQqGDQOcdGNaFtlGgrpD1P3Mwxa3b2PQbEkj6AHnoNKQYatPBWERuATaAdkBYqbfRwxTZwVLRoRsU5Bz7MUZZa1oMpTM4gnsziJDlq5ADHJjxFBNyDaXZ5CXNuCYj0+iUTbra4jvyIebkogUX0U2sqZheIqp6NwhVkozfqpGNpqQgFcO4CLXXtWrChOEdeEgsRyqATm/Sjb+nYkXmejMR1oCEYDil1KIYa8Cj3HRlSpa2YSyfQuVP5qG9IZL6CK+HcQjw5JIQLm0IO94f5+znUmiWZOXOhBz3UxOllmL6qzY5HCO8zEgsM2u+/i2lxIoj3WLJKQDcB4FO6SBDakKCzMY52C6lhZdSia/FokSvdB4jVDfAbHblTm7NPA55G+TaL6bF9DZb/iQgapoV+iwg91SN+nideA6kHi+zr0PPug0iu7gZsGcyvKCiWMRWK7Fw3u26ig69qY2smgorsPoiDnyYhr56LQytOJL3XPJsCBqExZgupUkrJ29kaqrwkxTAfwfAqvuGwx95gOicsyNSW/Gvgm3ozvRpbwazG2k0bqYZX7+wBkSE1DBL0vprbqkSo6Gen4euArSBXFGReUcu38FZr1x6PcmHbg80n3zwZkZIxHRJ0A/C0yOOLw6uTRmjCB4i8fRpajpc4dS3wcfADwHWSO16OZuQNxbZai3L4BIoEkysvuvlvdK27HgtUxfx09ywp0+EoPMCMFLEdFYmch03UVOvPpbHSW0xoqV9Ywyy9D+Vnbg0RmBu9km7vQYvyb7nczKVGkvOhBGik8U6oU9kXBy4tQ3bqH0HEQk1C6XpDYtsCrMNWqTJKZWrJDzez7ONux0E/DSjRuhyXRGmoJ0k0fB76HTNoXUWqV/wS1UngPKqcclFjzv8j87kHrwpdcuy2IWTYH/H6Ua2dywHVPofXbm2httQyts7aitVyfJM0iNCJxOCngujyqjLydQubd5V5BhmEjOo7IrMxK7ex0bfnvmXPf7UqhQf0KKpB3FhJHa1B2TqWZYRiNPCNBOqATpSpvQZ6gMUhvPYRmZVAdnToU4RbE4d1onbsaPc9slHH0CyRlgkRdGjHKrwKu60LMshWPMboRo3YCv6byujSF6sS9SmWnQCc6E3IakiSGDPD3wM7iaDcrUtdDeBPZTjsLe2qnHVeXwAu2DfM7E6cZwuscK7Rn1YXDIEo7yTLX1Lnvg05UbSR8gdxSbSWB3uIlRn+8CzmCRW7x9f2ptp+P2I61FXWBH6WdckQO02bU5ynVVskSKDUMQ9SIOAJQI+IIQI2IIwA1Io4A1Ig4AlAj4gjAcMqKSqNFtBV1f7fAjsyFMlF7w4WIDWiXfj+0ZXUzFc7YHUFIIN/qh93nf0fu0QJP0HAh4ih0cNZ4FEKyjHcHEVNop+dy97kHbSRkiy8aLmhA4nQkl08pBasuYn/3wXAiYq7o/d2C4rM/+qBmnY4AlJuJ/nOQ4jqPyawsCzUYSDRdNa3TOPtpORpVzc/wE9HiG6ehmP+x6CFeQRbRC2iHOSpBG9BG83RUdMjCIlehXfgdRI9JGYN3umk9XkzmTqJvVxlGoc3t43397EbP/hjawQ/LPGNQbsZ0FC7yINrQrUpSjxGxAUUzX+YatzWZBdx2o1JXdwD/jAY+zEbuISg6+lMo+MoUcx64FNW2vh6dAhAUNmFoRIFQp6DQDpsx29Du/XcRw0WJ0jsMWb/nobHwz8QsCvX4HgpOqlRKO+X6dSmKgKtH43g8Cn0J+4yRYCJzAYqnmYaizuzwKxMtoxBX3Qj8BMVZBmEKWgpcgWainTFoRYWaUC7Bze6+rSH73IQCoSa4vxvd+0QU8HUPcGrIe4GCme9CcTVjfP20529Ez3sNevYpZe5TD1yEGOksvIhwu1fVkHIdvBTv8OIdaNa9gjj9AJQnsZfr6Cz0IJUCm8Yjrj3Z991WFLOzE8XKTEKD1oSi39ahWRQmLCSBpIOJ9zrXP0tpuxY4h+CDWo5DwVMWo9LjfvOEu/84lH7Qiggyx/V5IQrdN9SjQ6Cvw0sM6kRlxdahc5Srtq5NoYMn93OfX0WzcpX7bLPmZLxC7mtQsG85pNGMaHef8+h0bzvGyFLaTgW+hYKFrKhdWHQhyXETEqOtaEG8AM2kD6CZdWOF+7ag2WUEzAC3Ad9AXqE8ev73uetmuevaUSDWAlTrLU1fAm5CyS+341VZrNrSKIXEkInV19BsKQ5eug+VgDwXxTu+UuGeo4B57t55FDW2kL6zYjkahO+gWNDbCUfIXpRcuRiF7OHer0Cz8Xw0sPNQjuA7fW8B6CxGkxQ5RJgr6Rtc/AhiiKUoswtEyKUor/MkCgm4AR13/wiDtKZNotA+s7qOQQc1X4EeshUvMnsbqhK/KeCeB+Ed974bHcteTqxtRMbE1ZQf7GJ0IoIXX78T+Cle6OPhlK+h2oDErR38uRZJinLR4ZsQYR70fdeOQupvoJCACxHjDppTIukafATNGktBW+y+X42IMJPwhsf+eDGoWWSeV0In0dZ9WRTwXAp+CVLJmEih7KUkGux7CE45N0Le79pJIluhybX5HBKxvw56AIexKLtpPAPM27BcjIuQmW+GQgpZV0eiJI7lKH/iAoIr7icpFMXVWBuVu6ffAxW0xPA7M9ZXuKcfm5C+L65l0ImMqdUh7gEa27uRJHoMTZx+wx5kE0o3m4dOBduIwvp78NK1jkaGxCIqE3IwDk+Oow0TdxaJHWY2pJFenFj0fRPKhwxKMTBMQFtMo5Hq2Sfk70rCz7m7kcz/HNKH85CF9SSe/hmDQsePqHDPrO++dSinLmwfBgs5ZJzlUR9PJLg2QT1i4K/j5Z3Y4j2BjKTbkC4Owhw8fb2T8GnuJaWLDWATIpC5xN5BVuiV6AEX+DrcTF9O9ONJvAjvJvfbcmlr49Aa8VQGt5B7FtkB5tM8ASURlZvhTYiA16FxAi2zFlJ4jK8tPyoR8giUGGRMs4LwRp1VzihA0nXqWuRp+Bvk67M9uxx6UFukGyrpmw7kAQER5rPIIBhHoZtvMlonLkEntJzI4J1j34ssy3XucwuSOvPQMsUYqgGJui+iGei3QhcBP0NrxGKr9Vak55rxvFRNyJi6BU8HvoMs7UqOAHP/JdGadjQaR/NWkUIz5RL3xUzk57wXLep7kQfkE3gOgU4qrxMzSHeehnySzcg/+lFkBb6CFuMfQxybRF6jduQkHqz4mR2IMDcjC/FA5Cb8DZpd6/HSxKfgMaAtI8wK3YyYdCnKwEqgZ3kAzbKVaBxPQOtsf4GJe6lszeYpXJ7NQ2v5l9DYZYAvJdra2uahZYQ/H8+OD8jjOcNBYugW5L2plIqWQOu/myhU2ua5sOwra2s9Ghh/6pYf45CzfBwa/Elo3VqMOejonuaA6wx1iGm/TqHutkSc4mTRYgL6cRCazWdTGH1gTJku+m4VIn5QXubRiBlsEllh+TSSeh9JIrEyH3HFNrytnAa8FLROxBG3UHSebRnkkXi+EJnQO/EqO5ku6EI7Aj9Bg/9owD17it5LwV/VP4z3J4d2Zi5GW07WT8v7t8ylHWicLqT8zNns/n8Nmi0deIyQcn93oPIvN6BdoyACgk7wvtrdM4O3KWHnc8zw5yfWIYfw+e79EKQrnnUPeCdeZaYoaHT3PAeJpUnIwfwc2tZ6iOABb0HceAJiitMpbQxMRPp4esB1Qf1sxTMinka+31Uh+mmYglLMz6Yw3HC5u9f6kPfx4wzEbMch5noG6eI7/x9UMoLqosOl8wAAAABJRU5ErkJggg==") center/contain no-repeat}
+.topo-titulo{font-family:var(--f-disp);font-weight:700;font-size:1.15rem;line-height:1.1;min-width:0}
+.topo-titulo small{display:block;font-family:var(--f-body);font-weight:500;font-size:.78rem;color:var(--muted);letter-spacing:.02em}
+.topo-acoes{margin-left:auto;display:flex;gap:8px;align-items:center}
+.topo select{max-width:220px;padding:7px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:600;font-size:.95rem;line-height:1.2}
+.btn:hover{border-color:var(--orange)}
+.btn.prim{background:var(--orange);border-color:var(--orange);color:#fff}
+.btn.prim:hover{filter:brightness(1.06)}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+@media (max-width:640px){.topo-titulo small{display:none}.topo select{max-width:130px}.topo-titulo{font-size:1rem}}
+@media (max-width:420px){.topo-titulo{display:none}}
+
+/* ---------- cenas ---------- */
+.cena{padding-block:72px;border-bottom:1px solid var(--line-soft)}
+.eyebrow{font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:10px}
+.cena h2{font-size:clamp(2.3rem,4.8vw,3.5rem);margin-bottom:16px}
+.lede{font-size:1.2rem;color:var(--ink-2);max-width:68ch}
+.pilha{display:flex;flex-direction:column;gap:28px}
+.grade2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.grade3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:820px){.grade2,.grade3{grid-template-columns:1fr}}
+
+.cartao{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:20px 22px;position:relative;overflow:hidden}
+.cartao.barra::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--orange)}
+.cartao h3{font-family:var(--f-body);font-weight:700;font-size:1.15rem;margin-bottom:6px;letter-spacing:0}
+.cartao p{color:var(--ink-2);font-size:1rem}
+
+/* ---------- capa ---------- */
+.capa{background:var(--cover);color:var(--cover-ink);position:relative;overflow:hidden;border-bottom:none;padding-block:84px 120px}
+.capa .wrap{position:relative;z-index:2}
+.capa .logo{background:var(--cover-ink);width:72px;height:64px;margin-bottom:28px}
+.capa h1{font-style:italic;text-transform:uppercase;font-size:clamp(2.6rem,7vw,5rem);max-width:12ch;letter-spacing:.01em}
+.capa .sub{margin-top:22px;font-weight:700;font-size:clamp(1.1rem,2.2vw,1.4rem);max-width:30ch}
+.capa .meta{margin-top:14px;display:flex;flex-direction:column;gap:2px;font-size:1.02rem;color:#E9DED2}
+.capa .meta b{color:var(--cover-ink)}
+.capa .tag{display:inline-block;margin-top:24px;background:var(--orange);color:#fff;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;padding:6px 12px;border-radius:999px}
+.forma{position:absolute;z-index:1;pointer-events:none}
+.f1{width:min(46vw,520px);aspect-ratio:1;border-radius:50%;background:var(--orange);right:-14vw;top:10%;clip-path:inset(0 0 0 0)}
+.f2{width:min(30vw,340px);aspect-ratio:1;border-radius:50%;background:var(--orange);right:min(22vw,250px);top:4%;clip-path:inset(0 50% 0 0)}
+.f3{width:min(34vw,300px);aspect-ratio:2/1;border-radius:300px 300px 0 0;background:var(--cover-cream);left:-40px;bottom:0}
+.f4{width:min(24vw,210px);aspect-ratio:2/1;border-radius:210px 210px 0 0;background:var(--orange);left:min(28vw,240px);bottom:0}
+.f5{width:min(16vw,150px);aspect-ratio:1;border:2px solid var(--cover-ink);border-radius:0 100% 0 0;border-left:2px solid var(--cover-ink);border-bottom:2px solid var(--cover-ink);left:min(48vw,450px);bottom:-2px;border-top-left-radius:0}
+@media (max-width:700px){.f1{right:-40vw;top:auto;bottom:18%;width:70vw}.f2{display:none}.f5{display:none}.capa{padding-block:56px 110px}}
+
+/* ---------- laboratório ---------- */
+.lab{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:24px 26px 22px 30px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:18px}
+.lab::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--orange)}
+.lab-cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.lab-cab .eyebrow{margin:0}
+.lab-cab h3{font-size:2.1rem;flex-basis:100%}
+.instrucao{color:var(--ink-2);max-width:72ch;font-size:1.08rem}
+.instrucao b{color:var(--ink)}
+.conta{border-top:1px dashed var(--line);padding-top:12px}
+.conta summary{cursor:pointer;font-weight:600;color:var(--muted);font-size:.95rem;list-style:none;display:inline-flex;align-items:center;gap:8px}
+.conta summary::-webkit-details-marker{display:none}
+.conta summary::before{content:"+";display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);font-size:.9rem;line-height:1}
+.conta[open] summary::before{content:"−"}
+.conta .corpo{margin-top:10px;background:var(--sunk);border-radius:10px;padding:12px 14px;font-size:.95rem;color:var(--ink-2)}
+.excel{background:var(--sunk);border-radius:12px;padding:14px 16px;font-size:.96rem;color:var(--ink-2)}
+.excel .chip-x{display:inline-block;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:4px}
+.excel ol{margin:6px 0 0;padding-left:20px}
+.excel li{margin-bottom:4px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:.4em .85em;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:500;font-size:1rem}
+.chip:hover{border-color:var(--orange)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.rotulo{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+
+.veredito{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-weight:700;font-size:.85rem}
+.v-ok{background:var(--good-soft);color:var(--good)}
+.v-cuidado{background:var(--warn-soft);color:var(--warn)}
+.v-nao,.v-impossivel{background:var(--bad-soft);color:var(--bad)}
+
+/* tabela */
+.tabela-wrap{overflow-x:auto;border:1.5px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:1rem;font-variant-numeric:tabular-nums}
+th{background:var(--orange);color:#fff;text-align:left;font-weight:600;padding:9px 12px;white-space:nowrap}
+td{padding:8px 12px;border-top:1px solid var(--line-soft);white-space:nowrap}
+tbody tr:nth-child(even) td{background:var(--sunk)}
+td.hi,th.hi{outline:2.5px solid var(--orange);outline-offset:-2.5px}
+td.col-hi{background:var(--orange-soft)!important}
+tr.divisor td{border-top:3px solid var(--ink)}
+tfoot td{font-weight:700;background:var(--surface)}
+
+/* DIKW */
+.dikw{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px;align-items:start}
+@media (max-width:820px){.dikw{grid-template-columns:1fr}}
+.escada{display:flex;flex-direction:column-reverse;gap:6px;align-items:center}
+.degrau{height:2.7rem;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--f-disp);font-weight:700;font-size:1.3rem;border:1.5px solid var(--line);background:var(--surface);color:var(--muted);transition:background .25s,color .25s;cursor:pointer}
+.degrau.feito{background:var(--orange-soft);color:var(--orange-ink);border-color:var(--orange-soft)}
+.degrau.agora{background:var(--orange);color:#fff;border-color:var(--orange)}
+.painel-dikw{display:flex;flex-direction:column;gap:12px}
+.frase-dikw{font-family:var(--f-disp);font-weight:700;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;min-height:2.3em}
+.viz-dikw{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:10px 12px}
+.muda{color:var(--ink-2)}
+.muda b{color:var(--orange-ink)}
+.passos{display:flex;gap:8px;flex-wrap:wrap}
+
+/* tipos */
+.arvore{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.arvore{grid-template-columns:1fr}}
+.ramo{border:1.5px solid var(--line);border-radius:var(--r);padding:16px 18px;background:var(--surface)}
+.ramo h3{font-size:1.5rem;margin-bottom:10px}
+.folhas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.folha{background:var(--sunk);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.folha b{display:block;font-size:1.1rem}
+.folha span{font-size:.95rem;color:var(--ink-2)}
+.folha svg{width:100%;max-width:300px}
+.escala-viz{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:12px 14px}
+.escala-viz svg{max-width:760px;margin:0 auto}
+.escala-viz svg text{font-size:15px}
+.escalas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:720px){.escalas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.escala{border:1.5px solid var(--line);border-radius:12px;padding:12px;background:var(--surface);cursor:pointer;text-align:left}
+.escala[aria-pressed="true"]{border-color:var(--orange);background:var(--orange-soft)}
+.escala b{font-family:var(--f-disp);font-size:1.3rem;display:block}
+.escala span{font-size:.88rem;color:var(--ink-2)}
+.ops{display:flex;flex-wrap:wrap;gap:8px}
+.op{padding:7px 12px;border-radius:999px;font-weight:600;font-size:.92rem;border:1.5px dashed var(--line);color:var(--muted)}
+.op.on{border-style:solid;border-color:var(--good);background:var(--good-soft);color:var(--good)}
+
+/* classificador */
+.colunas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.colunas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.colunas{grid-template-columns:1fr}}
+.col-card{border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--surface);display:flex;flex-direction:column;gap:8px}
+.col-card.certo{border-color:var(--good)}
+.col-card.errado{border-color:var(--warn)}
+.col-nome{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-weight:600;font-size:1rem}
+.amostra{font-size:.95rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.opcoes{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opcoes button{padding:.45em .6em;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-size:.95rem;font-weight:600}
+.r2-cab{display:flex;align-items:center;gap:12px}
+#rodada2{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1000px){#rodada2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){#rodada2{grid-template-columns:1fr}}
+.icone{width:2.6rem;height:2.6rem;flex:none;color:var(--orange-ink)}
+.icone svg{width:100%;height:100%}
+.icone svg *{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.opcoes button:hover{border-color:var(--orange)}
+.opcoes button.marcado{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.retorno{font-size:.95rem;line-height:1.45}
+.retorno.ok{color:var(--good)}
+.retorno.no{color:var(--warn)}
+.placar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.placar .grande{font-family:var(--f-disp);font-weight:700;font-size:2rem}
+
+/* calcular */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:22px}
+@media (max-width:860px){.calc{grid-template-columns:1fr}}
+.resultado{border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--paper);display:flex;flex-direction:column;gap:10px;min-width:0}
+.valor{font-family:var(--f-disp);font-weight:700;font-size:clamp(2.2rem,5vw,3.3rem);line-height:1;font-variant-numeric:tabular-nums;word-break:break-word}
+.msg{color:var(--ink-2)}
+svg{display:block;max-width:100%;height:auto}
+svg text{font-family:var(--f-body);fill:var(--ink-2);font-size:14px}
+svg .faixa-ok{fill:var(--good-soft)}
+svg .faixa-alerta{fill:var(--bad-soft)}
+svg .t-ok{fill:var(--good);font-weight:700}
+svg .t-alerta{fill:var(--bad);font-weight:700}
+svg .marcador{fill:var(--orange)}
+svg .t-marc{fill:#fff;font-weight:700}
+svg .t-grande{font-family:var(--f-disp);font-size:72px;font-weight:700;fill:var(--ink)}
+svg .t-disp{font-family:var(--f-disp);font-weight:700;fill:var(--ink)}
+svg .linha-media{stroke:var(--ink);stroke-width:2;stroke-dasharray:6 5}
+svg .barra.fraca{fill:var(--c3);opacity:.45}
+svg .contorno{fill:none;stroke:var(--ink-2);stroke-width:1.6}
+svg .liq{fill:var(--orange)}
+svg .chipf1{fill:var(--c1)} svg .chipf2{fill:var(--c4)} svg .chipf3{fill:var(--c3)}
+svg .t-branco{fill:#fff;font-weight:700}
+svg .regua{stroke:var(--ink-2);stroke-width:1.4}
+svg .t-forte{fill:var(--ink);font-weight:700}
+svg .barra{fill:var(--c3)}
+svg .barra.hi{fill:var(--orange)}
+svg .eixo{stroke:var(--line);stroke-width:1.2}
+svg .ponto{fill:var(--c3)}
+svg .m-media{stroke:var(--orange);stroke-width:2.5}
+svg .m-mediana{stroke:var(--ink);stroke-width:2;stroke-dasharray:5 4}
+svg .m-fraco{opacity:.45}
+svg .t-media{fill:var(--orange-ink);font-weight:700}
+svg .t-mediana{fill:var(--ink);font-weight:700}
+
+/* fontes */
+.fontes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.fontes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.fontes{grid-template-columns:1fr}}
+.fonte{border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--surface);display:flex;flex-direction:column;gap:4px}
+.fonte .icone{margin-bottom:6px}
+.fonte b{display:block;font-size:1.1rem;margin-bottom:2px}
+.fonte p{font-size:.98rem;color:var(--ink-2)}
+.fonte .risco{margin-top:6px;font-size:.94rem;color:var(--warn)}
+.quiz{display:flex;flex-direction:column;gap:14px}
+.q{border-top:1px solid var(--line-soft);padding-top:12px}
+.q p{font-weight:600;margin-bottom:8px}
+
+/* viés */
+.vies{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:860px){.vies{grid-template-columns:1fr}}
+.legenda{display:flex;flex-wrap:wrap;gap:12px;font-size:.88rem;color:var(--ink-2)}
+.legenda i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.medidor{display:flex;flex-direction:column;gap:8px}
+.medidor .linha{display:grid;grid-template-columns:120px minmax(0,1fr) 54px;align-items:center;gap:10px;font-size:.92rem}
+.medidor .trilho{height:16px;border-radius:8px;background:var(--sunk);position:relative;overflow:hidden}
+.medidor .enche{position:absolute;inset:0 auto 0 0;border-radius:8px;background:var(--orange);transition:width .45s}
+.medidor .enche.real{background:var(--ink)}
+@media (prefers-reduced-motion: reduce){.medidor .enche{transition:none}}
+
+/* regras */
+.regras{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.regras{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.regras{grid-template-columns:1fr}}
+.regra{border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--surface)}
+.regra .n{font-family:var(--f-disp);font-weight:700;color:var(--orange-ink);font-size:.95rem;letter-spacing:.06em;text-transform:uppercase}
+.regra b{display:block;font-size:1.05rem;margin:2px 0 6px}
+.regra p{font-size:.9rem;color:var(--ink-2)}
+.fluxos{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.fluxos{grid-template-columns:1fr}}
+.fluxo{border-radius:14px;padding:16px 18px;border:1.5px solid var(--line)}
+.fluxo.ruim{background:var(--bad-soft);border-color:transparent}
+.fluxo.bom{background:var(--good-soft);border-color:transparent}
+.fluxo h3{font-family:var(--f-body);font-size:1.02rem;margin-bottom:8px}
+.fluxo.ruim h3{color:var(--bad)} .fluxo.bom h3{color:var(--good)}
+.fluxo ol{margin:0;padding-left:20px;color:var(--ink-2)}
+
+/* decisão */
+.estat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.est{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--paper)}
+.est .k{font-size:.82rem;color:var(--muted);font-weight:600}
+.est .v{font-family:var(--f-disp);font-weight:700;font-size:1.7rem;font-variant-numeric:tabular-nums}
+.est .v small{font-family:var(--f-body);font-size:.85rem;font-weight:500;color:var(--muted)}
+details.resp{border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--surface)}
+details.resp summary{cursor:pointer;font-weight:600}
+details.resp p{margin-top:8px;color:var(--ink-2)}
+
+/* atividade */
+.form-ativ{display:flex;flex-direction:column;gap:14px}
+.linha-ativ{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line-soft)}
+@media (max-width:700px){.linha-ativ{grid-template-columns:1fr}}
+.linha-ativ select,.campo input,.campo textarea{width:100%;padding:8px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper)}
+.campo{display:flex;flex-direction:column;gap:6px}
+.campo label{font-weight:600}
+.campo textarea{min-height:84px;resize:vertical}
+.aviso{font-size:.9rem;color:var(--muted)}
+.copiado{font-weight:600;color:var(--good);font-size:.92rem}
+
+/* encerramento */
+.fecho{background:var(--cover);color:var(--cover-ink);border-bottom:none}
+.fecho .eyebrow{color:#FFB58A}
+.fecho h2{color:var(--cover-ink)}
+.fecho li{color:#E9DED2;margin-bottom:12px;font-size:1.2rem}
+.fecho li b{color:var(--cover-ink)}
+.fecho .prox{margin-top:26px;border-left:4px solid var(--orange);padding:6px 0 6px 16px;color:#E9DED2}
+.fecho .prox b{color:var(--cover-ink)}
+
+/* cronograma */
+.crono{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;counter-reset:e}
+@media (max-width:900px){.crono{grid-template-columns:1fr}}
+.crono li{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);font-size:.92rem;line-height:1.3}
+.crono li b{display:block;font-family:var(--f-disp);font-size:1.1rem;color:var(--muted)}
+.crono li.hoje{background:var(--orange);border-color:var(--orange);color:#fff}
+.crono li.hoje b{color:#fff}
+.pesos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;text-align:center}
+@media (max-width:620px){.pesos{grid-template-columns:1fr}}
+.pesos .p{font-family:var(--f-disp);font-weight:700;font-size:2.6rem;line-height:1}
+.pesos b{display:block;margin-top:4px}
+.pesos span{font-size:.9rem;color:var(--ink-2)}
+.ciclo{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ciclo .passo{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px}
+.ciclo .passo b{display:block}
+.ciclo .passo span{font-size:.9rem;color:var(--ink-2)}
+.ciclo .seta{color:var(--orange-ink);font-weight:700;font-size:1.3rem}
+
+/* ---------- modo aula ---------- */
+.controles{display:none}
+body.aula .cena{display:none}
+body.aula .cena.atual{display:block;min-height:calc(100vh - 62px);padding-block:48px 120px;position:relative;border-bottom:none}
+body.aula .cena.atual::after{content:"";position:absolute;left:0;bottom:0;width:92%;height:16px;background:var(--orange);border-radius:0 14px 0 0}
+body.aula .cena.capa.atual::after,body.aula .cena.fecho.atual::after{display:none}
+body.aula .wrap{max-width:min(1560px,94vw)}
+@media (min-width:1200px){body.aula #colunas{grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}}
+body.aula .controles{display:flex;position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(28px + env(safe-area-inset-bottom,0px));z-index:25;gap:8px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:6px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.controles .cont{font-weight:600;font-size:.9rem;min-width:56px;text-align:center}
+
+/* ---------- componentes das aulas 2 a 7 ---------- */
+input[type=range]{accent-color:var(--orange);width:100%}
+.criterios{display:flex;flex-wrap:wrap;gap:8px}
+.crit{padding:.35em .8em;border-radius:999px;font-weight:600;font-size:.95rem;border:1.5px dashed var(--line);color:var(--muted)}
+.crit.on{border-style:solid;border-color:var(--good);background:var(--good-soft);color:var(--good)}
+.pergunta-viva{font-family:var(--f-disp);font-weight:700;font-size:clamp(1.7rem,3.3vw,2.4rem);line-height:1.15;min-height:2.4em}
+.cadeia{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+@media (max-width:900px){.cadeia{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.cadeia{grid-template-columns:1fr}}
+.elo{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface);position:relative;display:flex;flex-direction:column;gap:8px;min-width:0}
+.elo.ok{border-color:var(--good)}
+.elo:not(:last-child)::after{content:"→";position:absolute;right:-22px;top:50%;transform:translateY(-50%);color:var(--orange-ink);font-weight:700;font-size:1.3rem}
+@media (max-width:900px){.elo::after{display:none}}
+.elo .t{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink)}
+.elo .dado{font-weight:600}
+.opc{display:flex;flex-direction:column;gap:6px}
+.opc button{text-align:left;padding:.5em .7em;border-radius:9px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-size:.95rem;line-height:1.35}
+.opc button:hover{border-color:var(--orange)}
+.opc button.certa{border-color:var(--good);background:var(--good-soft);color:var(--good);font-weight:600}
+.opc button.errada{border-color:var(--warn);background:var(--warn-soft)}
+.lista-ordem{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.lista-ordem li{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
+.lista-ordem li .n{font-family:var(--f-disp);font-weight:700;color:var(--orange-ink);width:1.6em}
+.lista-ordem li .txt{flex:1}
+.mini-btn{border:1.5px solid var(--line);background:var(--surface);border-radius:8px;cursor:pointer;width:2.1em;height:2.1em;font-weight:700}
+.mini-btn:hover{border-color:var(--orange)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag-v{display:inline-flex;align-items:center;gap:6px;padding:.3em .7em;border-radius:999px;background:var(--orange-soft);color:var(--orange-ink);font-weight:600;font-size:.95rem}
+.tag-v button{border:none;background:none;color:inherit;cursor:pointer;font-weight:700;font-size:1rem;line-height:1}
+.dois{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.dois.largo{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+@media (max-width:860px){.dois,.dois.largo{grid-template-columns:1fr}}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.compara{grid-template-columns:1fr}}
+.ruim-bom{border-radius:14px;padding:16px 18px}
+.ruim-bom.r{background:var(--bad-soft)} .ruim-bom.b{background:var(--good-soft)}
+.ruim-bom h3{font-family:var(--f-body);font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
+.ruim-bom.r h3{color:var(--bad)} .ruim-bom.b h3{color:var(--good)}
+.ruim-bom .q{font-family:var(--f-disp);font-weight:700;font-size:1.7rem;line-height:1.15;margin:6px 0 10px}
+.ruim-bom ul{margin:0;padding-left:20px;color:var(--ink-2)}
+.slider-box{display:flex;flex-direction:column;gap:6px}
+.slider-rotulos{display:flex;justify-content:space-between;font-size:.9rem;color:var(--muted);gap:8px}
+.slider-rotulos b{color:var(--ink)}
+.check{display:flex;flex-direction:column;gap:8px}
+.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{accent-color:var(--orange);width:1.15em;height:1.15em;margin-top:.25em;flex:none}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px}
+.kpi{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--paper);min-width:0}
+.kpi .k{font-size:.85rem;color:var(--muted);font-weight:600}
+.kpi .v{font-family:var(--f-disp);font-weight:700;font-size:1.8rem;font-variant-numeric:tabular-nums;line-height:1.1;word-break:break-word}
+.kpi .s{font-size:.88rem;color:var(--ink-2)}
+.kpi.alerta{border-color:var(--warn);background:var(--warn-soft)}
+.kpi.bom{border-color:var(--good);background:var(--good-soft)}
+.kpi.ruim{border-color:var(--bad);background:var(--bad-soft)}
+.grade4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.grade4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.grade4{grid-template-columns:1fr}}
+.nota-lab{font-size:.94rem;color:var(--muted)}
+.painel{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--paper);display:flex;flex-direction:column;gap:10px;min-width:0}
+.linha-ctl{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+.linha-ctl .campo{min-width:200px;flex:1}
+.campo select{width:100%;padding:8px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper)}
+.tabela-wrap.alta{max-height:420px;overflow:auto}
+.tabela-wrap.alta thead th{position:sticky;top:0;z-index:1}
+td.vazio{background:var(--warn-soft)!important;color:var(--warn);font-style:italic}
+td.prob{background:var(--bad-soft)!important;color:var(--bad);font-weight:600}
+td.corrig{background:var(--good-soft)!important;color:var(--good);font-weight:600}
+tr.dup td{background:var(--orange-soft)!important}
+.legenda-sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.log{counter-reset:l;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.log li{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface);font-size:.95rem}
+.log li b{display:block}
+.log .vazio-log{color:var(--muted);font-style:italic}
+.timeline{display:flex;flex-direction:column;gap:10px}
+.etapa-pi{display:grid;grid-template-columns:5.5rem minmax(0,1fr);gap:14px;align-items:start;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface)}
+.etapa-pi .e{font-family:var(--f-disp);font-weight:700;font-size:1.3rem;color:var(--orange-ink);line-height:1.1}
+.etapa-pi.agora{border-color:var(--orange);background:var(--orange-soft)}
+.contador{font-size:.88rem;color:var(--muted)}
+.contador.estourou{color:var(--bad);font-weight:600}
+svg .caixa{fill:var(--orange);fill-opacity:.18;stroke:var(--orange);stroke-width:2}
+svg .m-mediana-box{stroke:var(--ink);stroke-width:3}
+svg .p1{fill:var(--c1)} svg .p2{fill:var(--c2)} svg .p3{fill:var(--c3)} svg .p4{fill:var(--c4)}
+svg .alvo{fill:none;stroke:var(--orange);stroke-width:2.5}
+svg .linha-serie{fill:none;stroke:var(--orange);stroke-width:3}
+svg .area-serie{fill:var(--orange);fill-opacity:.12}
+svg .seta{stroke:var(--orange);stroke-width:3;fill:none}
+svg .anel{fill:none;stroke:var(--line);stroke-width:2}
+svg .no{fill:var(--surface);stroke:var(--line);stroke-width:2}
+svg .no.on{fill:var(--orange);stroke:var(--orange)}
+svg .no.alvo-no{stroke:var(--orange);stroke-width:3}
+svg .t-no{font-weight:700;fill:var(--ink)}
+svg .t-no.on{fill:#fff}
+svg .vazio-cel{fill:var(--warn)}
+svg .cheio-cel{fill:var(--line-soft)}
+svg .t-peq{font-size:12px}
+
+.grade5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+@media (max-width:1000px){.grade5{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.grade5{grid-template-columns:1fr}}
+
+.lab svg{max-width:min(100%,900px);margin-inline:auto}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="CESAR School"></span>
+    <div class="topo-titulo">Encontro 5 · Exploração de Dados<small>Fundamentos de Análise de Dados · Turma A</small></div>
+    <div class="topo-acoes">
+      <select id="irpara" aria-label="Ir para a seção"></select>
+      <button class="btn" id="btnAula" aria-pressed="false">Modo aula</button>
+    </div>
+  </div>
+</header>
+<main>
+<section class="cena capa" id="capa" data-nome="Capa">
+  <div class="forma f1"></div><div class="forma f2"></div><div class="forma f3"></div><div class="forma f4"></div><div class="forma f5"></div>
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="CESAR School"></span>
+    <h1>Fundamentos de Análise de Dados</h1>
+    <p class="sub">Encontro 5 · Exploração de Dados</p>
+    <div class="meta">
+      <span><b>Especialização em Análise de Dados e Inteligência Artificial</b></span>
+      <span>Prof. Laura Pacifico · laps@cesar.school</span>
+    </div>
+    <span class="tag">Turma A · aula interativa</span>
+  </div>
+</section>
+
+<section class="cena" id="abertura" data-nome="Onde estamos">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Encontro 5</p>
+      <h2>Explorar antes de concluir</h2>
+      <p class="lede">A análise exploratória (EDA) é olhar os dados com curiosidade antes de tirar conclusões: como cada variável se comporta, onde estão os padrões, o que está fora do lugar e que novas perguntas surgem. Hoje a base é a de clientes do Encontro 3, já limpa: <b>clientes_encontro5_limpa.csv</b>, com 200 clientes.</p>
+    </div>
+    <div class="ciclo">
+      <div class="passo"><b>Observar</b><span>olhar sem pressa</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>Descrever</b><span>o que é típico?</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>Comparar</b><span>grupos são diferentes?</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>Investigar</b><span>por que isso acontece?</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>Formular hipóteses</b><span>para testar no Encontro 6</span></div>
+    </div>
+    <div><p class="rotulo">Os 7 encontros</p><ol class="crono"><li class=""><b>1</b>Fundamentos de Dados</li><li class=""><b>2</b>Processo de Análise</li><li class=""><b>3</b>Limpeza I: qualidade e diagnóstico</li><li class=""><b>4</b>Limpeza II e Preparação</li><li class="hoje"><b>5 · hoje</b>Exploração de Dados</li><li class=""><b>6</b>Estatística Descritiva</li><li class=""><b>7</b>Projeto Integrador</li></ol></div>
+  </div>
+</section>
+
+<section class="cena" id="perguntas" data-nome="Perguntas que guiam a EDA">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Por onde começar</p>
+      <h2>Seis perguntas que guiam a exploração</h2>
+      <p class="lede">Cada laboratório de hoje responde a uma delas.</p>
+    </div>
+    <div class="grade3">
+      <a class="cartao barra" href="#formato" style="text-decoration:none;color:inherit"><h3>O que é típico?</h3><p>O formato da distribuição. Laboratório 1.</p></a>
+      <a class="cartao barra" href="#boxplot" style="text-decoration:none;color:inherit"><h3>Quem são os extremos?</h3><p>O boxplot. Laboratório 2.</p></a>
+      <a class="cartao barra" href="#grupos" style="text-decoration:none;color:inherit"><h3>Existem grupos distintos?</h3><p>Comparar grupos. Laboratório 3.</p></a>
+      <a class="cartao barra" href="#relacao" style="text-decoration:none;color:inherit"><h3>Como as variáveis se relacionam?</h3><p>Dispersão. Laboratório 4.</p></a>
+      <a class="cartao barra" href="#tempo" style="text-decoration:none;color:inherit"><h3>Há padrões no tempo?</h3><p>Sazonalidade. Laboratório 5.</p></a>
+      <a class="cartao barra" href="#contingencia" style="text-decoration:none;color:inherit"><h3>Quem são meus clientes?</h3><p>Duas categorias juntas. Laboratório 6.</p></a>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="formato" data-nome="Laboratório: formato da distribuição">
+  <div class="wrap pilha">
+    <div class="lab" id="lab1">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 1</span><h3>O formato da distribuição</h3></div>
+      <p class="instrucao">Escolha uma variável e mude o número de barras do histograma. Antes de ler a descrição, tente dizer o formato.</p>
+      <div class="chips" id="fmVar"></div>
+      <div class="slider-box" style="max-width:420px"><label for="fmBins">Número de barras: <b id="fmBinsTxt"></b></label><input type="range" id="fmBins" min="4" max="30" value="12"></div>
+      <div class="dois largo">
+        <div class="painel"><div id="fmViz"></div><div class="legenda"><span><i class="legenda-sw" style="background:var(--orange)"></i>Média</span><span><i class="legenda-sw" style="background:var(--ink)"></i>Mediana (tracejada)</span></div></div>
+        <div class="painel">
+          <p class="rotulo">Qual é o formato?</p>
+          <div class="chips" id="fmPalpite"></div>
+          <p class="retorno" id="fmRet"></p>
+          <div class="kpis" id="fmKpis"></div>
+          <p class="msg" id="fmMsg"></p>
+        </div>
+      </div>
+      <details class="conta"><summary>Como isso é calculado?</summary><div class="corpo" id="fmConta"></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="boxplot" data-nome="Laboratório: boxplot passo a passo">
+  <div class="wrap pilha">
+    <div class="lab" id="lab2">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 2</span><h3>Boxplot sem mistério</h3></div>
+      <p class="instrucao">O boxplot resume uma variável inteira num desenho só. Monte o seu passo a passo.</p>
+      <div class="chips" id="bxVar"></div>
+      <div class="painel"><div id="bxViz"></div></div>
+      <div class="painel"><p class="rotulo" id="bxEtapa"></p><p class="msg" style="font-size:1.1rem" id="bxTxt"></p><div class="passos"><button class="btn" id="bxVoltar">← Voltar</button><button class="btn prim" id="bxAvancar">Próximo passo →</button></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="grupos" data-nome="Laboratório: comparar grupos">
+  <div class="wrap pilha">
+    <div class="lab" id="lab3">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 3</span><h3>Comparar grupos</h3></div>
+      <p class="instrucao">Escolha o que medir e como separar os clientes. Um boxplot por grupo mostra, de uma vez, o típico, a variação e os extremos de cada um.</p>
+      <div class="linha-ctl">
+        <div class="campo"><label for="grNum">Medir</label><select id="grNum"></select></div>
+        <div class="campo"><label for="grCat">Separar por</label><select id="grCat"></select></div>
+      </div>
+      <div class="painel"><div id="grViz"></div></div>
+      <div class="dois largo">
+        <div class="tabela-wrap"><table id="grTab"></table></div>
+        <div class="painel"><p class="rotulo">O que aparece</p><p class="msg" id="grMsg"></p></div>
+      </div>
+      <details class="conta"><summary>Como isso é calculado?</summary><div class="corpo">Para cada grupo, a aula separa os clientes, ordena os valores e calcula a mediana (o do meio), a média (soma ÷ quantidade), o menor e o maior valor. Clientes com o valor vazio ficam de fora daquele cálculo.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="relacao" data-nome="Laboratório: relação entre variáveis">
+  <div class="wrap pilha">
+    <div class="lab" id="lab4">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 4</span><h3>Quando uma sobe, a outra sobe?</h3></div>
+      <p class="instrucao">Escolha duas variáveis numéricas. Cada ponto é um cliente. A linha mostra a tendência geral.</p>
+      <div class="linha-ctl">
+        <div class="campo"><label for="rlX">Eixo horizontal</label><select id="rlX"></select></div>
+        <div class="campo"><label for="rlY">Eixo vertical</label><select id="rlY"></select></div>
+        <div class="campo"><label for="rlCor">Colorir por</label><select id="rlCor"></select></div>
+      </div>
+      <div class="check"><label><input type="checkbox" id="rlExt"> Esconder os 2 clientes de renda muito alta</label></div>
+      <div class="dois largo">
+        <div class="painel"><div id="rlViz"></div><div class="legenda" id="rlLeg"></div></div>
+        <div class="painel" aria-live="polite"><p class="rotulo">Leitura</p><p class="valor" style="font-size:2rem" id="rlForca"></p><p class="msg" id="rlMsg"></p></div>
+      </div>
+      <details class="conta"><summary>Como isso é calculado?</summary><div class="corpo" id="rlConta"></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="tempo" data-nome="Laboratório: padrões no tempo">
+  <div class="wrap pilha">
+    <div class="lab" id="lab5">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 5</span><h3>Padrões no tempo</h3></div>
+      <p class="instrucao">Faturamento mensal da loja em 2024 e 2025. Troque a visão para separar a tendência da sazonalidade.</p>
+      <div class="chips" id="tpVista"></div>
+      <div class="painel"><div id="tpViz"></div></div>
+      <p class="msg" id="tpMsg"></p>
+      <details class="conta"><summary>Como isso é calculado?</summary><div class="corpo">Na visão “mês a mês”, a aula junta o mesmo mês dos dois anos e tira a média (por exemplo, a média de dezembro de 2024 e dezembro de 2025). A linha tracejada é a média de todos os meses.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="contingencia" data-nome="Laboratório: duas categorias">
+  <div class="wrap pilha">
+    <div class="lab" id="lab6">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 6</span><h3>Duas categorias juntas</h3></div>
+      <p class="instrucao">Uma tabela de contingência cruza duas categorias. Em quantidade, ela mostra onde estão os clientes; em percentual por linha, ela compara os grupos de forma justa.</p>
+      <div class="linha-ctl">
+        <div class="campo"><label for="ctL">Linhas</label><select id="ctL"></select></div>
+        <div class="campo"><label for="ctC">Colunas</label><select id="ctC"></select></div>
+      </div>
+      <div class="chips" id="ctModo"></div>
+      <div class="tabela-wrap"><table id="ctTab"></table></div>
+      <p class="msg" id="ctMsg"></p>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="hipoteses" data-nome="Laboratório: mural de hipóteses">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Formulação de hipóteses</p>
+      <h2>Da exploração às hipóteses</h2>
+      <p class="lede">A EDA não prova nada: ela sugere. Registre o que viu como hipóteses para testar no Encontro 6. Exemplos: “clientes Premium gastam mais”, “canais digitais têm satisfação diferente dos tradicionais”, “a renda aumenta com a idade até certo ponto”.</p>
+    </div>
+    <div class="lab" id="labHip">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 7</span><h3>Mural de hipóteses</h3></div>
+      <div class="pilha" style="gap:12px" id="hipCards"></div>
+      <div class="passos"><button class="btn prim" id="hipCopiar">Copiar hipóteses</button><span class="copiado" id="hipOk" hidden>Copiado.</span></div>
+      <textarea id="hipFallback" hidden aria-label="Hipóteses para copiar" style="min-height:120px"></textarea>
+    </div>
+    <div class="grade3">
+      <div class="cartao barra"><h3>Correlação não é causalidade</h3><p>Duas coisas andarem juntas não quer dizer que uma causa a outra. Pode haver uma terceira por trás.</p></div>
+      <div class="cartao barra"><h3>Poucos dados enganam</h3><p>Um grupo com 8 clientes pode parecer diferente só por acaso. Olhe sempre o tamanho de cada grupo.</p></div>
+      <div class="cartao barra"><h3>Médias extremas enganam</h3><p>Dois clientes muito ricos mudam a média do grupo. Compare com a mediana.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="excel" data-nome="No Excel, só com cliques">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Mão na massa</p>
+      <h2>No Excel, só com cliques</h2>
+      <p class="lede">Abra <b>clientes_encontro5_limpa.csv</b> e refaça os principais gráficos da aula. O Excel calcula tudo sozinho.</p>
+    </div>
+    <ol class="pilha" style="gap:12px;padding-left:22px;margin:0;font-size:1.05rem" id="xlPassos"></ol>
+  </div>
+</section>
+
+<section class="cena" id="atividade" data-nome="Checkpoint do projeto">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Projeto Integrador · em grupo · Encontro 5</p>
+      <h2>Checkpoint de exploração</h2>
+      <p class="lede">Abram a base preparada do grupo no <a href="../laboratorio/" target="_blank" rel="noopener">Laboratório do projeto</a>. Explorem com as mesmas perguntas de hoje e registrem abaixo três descobertas e duas novas hipóteses. No Excel do projeto, criem uma aba <b>EDA</b> com pelo menos três gráficos feitos com cliques: um histograma, um boxplot por grupo e uma dispersão.</p>
+    </div>
+    <div class="lab" id="labAtiv">
+      <div class="campo"><label for="a5Grupo">Grupo e tema</label><input id="a5Grupo" type="text"></div>
+      <div class="pilha" style="gap:10px" id="a5Desc"></div>
+      <div class="grade2">
+        <div class="campo"><label for="a5H1">Nova hipótese 1</label><textarea id="a5H1"></textarea></div>
+        <div class="campo"><label for="a5H2">Nova hipótese 2</label><textarea id="a5H2"></textarea></div>
+      </div>
+      <div class="passos"><button class="btn prim" id="a5Copiar">Copiar para o Excel</button><span class="copiado" id="a5Ok" hidden>Copiado. Cole na aba EDA.</span></div>
+      <textarea id="a5Fallback" hidden aria-label="Checkpoint para copiar" style="min-height:120px"></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="cena fecho" id="fecho" data-nome="Para levar">
+  <div class="wrap pilha">
+    <div><p class="eyebrow">Para levar</p><h2>O que fica deste encontro</h2></div>
+    <ul style="margin:0;padding-left:20px;max-width:64ch">
+      <li><b>Olhe o formato antes do número.</b> Quando média e mediana se afastam, a distribuição é assimétrica.</li>
+      <li><b>O boxplot mostra o típico, a variação e os extremos</b> num desenho só, e compara grupos lado a lado.</li>
+      <li><b>Separe tendência de sazonalidade.</b> Dezembro alto todo ano não é crescimento.</li>
+      <li><b>A exploração gera hipóteses, não conclusões.</b> No Encontro 6 vamos medir.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+<div class="controles" aria-label="Navegação do modo aula">
+  <button class="btn" id="antes" aria-label="Seção anterior">←</button>
+  <span class="cont num" id="contador"></span>
+  <button class="btn" id="depois" aria-label="Próxima seção">→</button>
+  <button class="btn" id="cheia">Tela cheia</button>
+</div>
+
+<script>
+const D = {"_n":5,"_tema":"Exploração de Dados","cli":[{"id_cliente":"C0001","email":"cliente0001@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Básico","idade":54,"renda_mensal":3209.61,"gasto_mensal":162.48,"satisfacao":3,"data_cadastro":"2025-01-21","data_ultima_compra":"2025-07-03","telefone_2":null},{"id_cliente":"C0002","email":"cliente0002@email.com","cidade":"Recife","canal":"Telefone","plano":"Premium","idade":37,"renda_mensal":8555.24,"gasto_mensal":700.79,"satisfacao":3,"data_cadastro":"2024-09-09","data_ultima_compra":"2025-10-20","telefone_2":null},{"id_cliente":"C0003","email":"cliente0003@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":45,"renda_mensal":4260.57,"gasto_mensal":335.51,"satisfacao":null,"data_cadastro":"2026-07-27","data_ultima_compra":"2026-09-21","telefone_2":null},{"id_cliente":"C0004","email":"cliente0004@email.com","cidade":"Olinda","canal":null,"plano":"Básico","idade":54,"renda_mensal":3423.65,"gasto_mensal":383.37,"satisfacao":3,"data_cadastro":"2022-02-08","data_ultima_compra":"2023-07-30","telefone_2":null},{"id_cliente":"C0005","email":"cliente0005@email.com","cidade":"Recife","canal":"Loja","plano":"Básico","idade":40,"renda_mensal":2113.35,"gasto_mensal":60.0,"satisfacao":5,"data_cadastro":"2023-06-10","data_ultima_compra":null,"telefone_2":"(81) 99159-2395"},{"id_cliente":"C0006","email":"cliente0006@email.com","cidade":"Olinda","canal":"WhatsApp","plano":"Básico","idade":28,"renda_mensal":4435.27,"gasto_mensal":367.12,"satisfacao":null,"data_cadastro":"2025-02-11","data_ultima_compra":"2026-08-27","telefone_2":null},{"id_cliente":"C0007","email":"cliente0007@email.com","cidade":"Recife","canal":"Loja","plano":"Plus","idade":53,"renda_mensal":3829.42,"gasto_mensal":197.07,"satisfacao":null,"data_cadastro":"2022-06-13","data_ultima_compra":"2023-05-04","telefone_2":null},{"id_cliente":"C0008","email":"cliente0008@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Básico","idade":41,"renda_mensal":1740.09,"gasto_mensal":null,"satisfacao":2,"data_cadastro":"2022-09-07","data_ultima_compra":"2023-02-02","telefone_2":null},{"id_cliente":"C0009","email":"cliente0009@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":36,"renda_mensal":2096.6,"gasto_mensal":365.93,"satisfacao":4,"data_cadastro":"2025-10-13","data_ultima_compra":"2026-08-05","telefone_2":null},{"id_cliente":"C0010","email":"cliente0010@email.com","cidade":"Jaboatão dos Guararapes","canal":"Telefone","plano":"Premium","idade":42,"renda_mensal":5856.76,"gasto_mensal":496.09,"satisfacao":3,"data_cadastro":"2023-10-08","data_ultima_compra":"2023-12-21","telefone_2":null},{"id_cliente":"C0011","email":"cliente0011@email.com","cidade":"Caruaru","canal":"App","plano":"Plus","idade":22,"renda_mensal":4781.49,"gasto_mensal":678.42,"satisfacao":4,"data_cadastro":"2024-09-17","data_ultima_compra":"2025-01-29","telefone_2":"(81) 99531-3559"},{"id_cliente":"C0012","email":"cliente0012@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":33,"renda_mensal":4122.01,"gasto_mensal":263.34,"satisfacao":4,"data_cadastro":"2024-05-31","data_ultima_compra":"2025-07-31","telefone_2":"(81) 98559-4798"},{"id_cliente":"C0013","email":"cliente0013@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Plus","idade":30,"renda_mensal":null,"gasto_mensal":616.41,"satisfacao":3,"data_cadastro":"2021-06-25","data_ultima_compra":"2023-08-08","telefone_2":"(81) 98627-5087"},{"id_cliente":"C0014","email":"cliente0014@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Plus","idade":null,"renda_mensal":5834.31,"gasto_mensal":613.59,"satisfacao":4,"data_cadastro":"2024-09-24","data_ultima_compra":"2024-11-27","telefone_2":null},{"id_cliente":"C0015","email":"cliente0015@email.com","cidade":"Paulista","canal":"Telefone","plano":"Básico","idade":47,"renda_mensal":1603.33,"gasto_mensal":90.25,"satisfacao":4,"data_cadastro":"2022-03-22","data_ultima_compra":"2022-03-29","telefone_2":null},{"id_cliente":"C0016","email":"cliente0016@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":20,"renda_mensal":2679.19,"gasto_mensal":222.94,"satisfacao":null,"data_cadastro":"2022-12-28","data_ultima_compra":"2023-02-13","telefone_2":"(81) 99171-7084"},{"id_cliente":"C0017","email":"cliente0017@email.com","cidade":"Recife","canal":"Loja","plano":"Básico","idade":35,"renda_mensal":2511.51,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2024-10-04","data_ultima_compra":"2025-02-25","telefone_2":null},{"id_cliente":"C0018","email":"cliente0018@email.com","cidade":"Recife","canal":"App","plano":"Premium","idade":45,"renda_mensal":23051.26,"gasto_mensal":1252.51,"satisfacao":4,"data_cadastro":"2022-05-12","data_ultima_compra":"2022-10-21","telefone_2":null},{"id_cliente":"C0019","email":"cliente0019@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Básico","idade":null,"renda_mensal":2922.76,"gasto_mensal":283.33,"satisfacao":2,"data_cadastro":"2022-11-22","data_ultima_compra":"2024-01-26","telefone_2":null},{"id_cliente":"C0020","email":"cliente0020@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Básico","idade":38,"renda_mensal":4903.85,"gasto_mensal":427.59,"satisfacao":3,"data_cadastro":"2025-01-14","data_ultima_compra":"2026-01-16","telefone_2":"(81) 98642-9841"},{"id_cliente":"C0021","email":"cliente0021@email.com","cidade":"Olinda","canal":"WhatsApp","plano":"Plus","idade":18,"renda_mensal":5528.77,"gasto_mensal":413.09,"satisfacao":4,"data_cadastro":"2024-02-04","data_ultima_compra":"2026-03-31","telefone_2":null},{"id_cliente":"C0022","email":"cliente0022@email.com","cidade":"Paulista","canal":"App","plano":"Básico","idade":42,"renda_mensal":2666.08,"gasto_mensal":210.79,"satisfacao":4,"data_cadastro":"2025-03-10","data_ultima_compra":null,"telefone_2":"(81) 98195-3535"},{"id_cliente":"C0023","email":"cliente0023@email.com","cidade":"Recife","canal":"Telefone","plano":"Plus","idade":31,"renda_mensal":5962.96,"gasto_mensal":504.35,"satisfacao":3,"data_cadastro":"2026-03-13","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0024","email":"cliente0024@email.com","cidade":"Jaboatão dos Guararapes","canal":null,"plano":"Plus","idade":38,"renda_mensal":4699.34,"gasto_mensal":271.8,"satisfacao":3,"data_cadastro":"2023-05-17","data_ultima_compra":"2024-09-26","telefone_2":null},{"id_cliente":"C0025","email":"cliente0025@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":31,"renda_mensal":5200.55,"gasto_mensal":357.88,"satisfacao":4,"data_cadastro":"2024-03-16","data_ultima_compra":"2026-05-01","telefone_2":null},{"id_cliente":"C0026","email":"cliente0026@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":56,"renda_mensal":4234.3,"gasto_mensal":548.92,"satisfacao":null,"data_cadastro":"2026-08-02","data_ultima_compra":"2026-09-01","telefone_2":"(81) 98324-1066"},{"id_cliente":"C0027","email":"cliente0027@email.com","cidade":"Jaboatão dos Guararapes","canal":"Loja","plano":"Básico","idade":45,"renda_mensal":1795.21,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2026-02-24","data_ultima_compra":"2026-08-31","telefone_2":null},{"id_cliente":"C0028","email":"cliente0028@email.com","cidade":"Paulista","canal":"WhatsApp","plano":"Básico","idade":36,"renda_mensal":2378.98,"gasto_mensal":182.3,"satisfacao":4,"data_cadastro":"2021-07-14","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0029","email":"cliente0029@email.com","cidade":"Caruaru","canal":"Loja","plano":"Básico","idade":null,"renda_mensal":2682.37,"gasto_mensal":60.0,"satisfacao":2,"data_cadastro":"2026-03-20","data_ultima_compra":"2026-09-05","telefone_2":"(81) 99511-4983"},{"id_cliente":"C0030","email":"cliente0030@email.com","cidade":"Jaboatão dos Guararapes","canal":"Telefone","plano":"Premium","idade":46,"renda_mensal":14548.27,"gasto_mensal":805.56,"satisfacao":4,"data_cadastro":"2021-08-30","data_ultima_compra":"2022-06-22","telefone_2":null},{"id_cliente":"C0031","email":"cliente0031@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Plus","idade":51,"renda_mensal":7489.94,"gasto_mensal":460.06,"satisfacao":4,"data_cadastro":"2023-05-09","data_ultima_compra":"2024-10-17","telefone_2":null},{"id_cliente":"C0032","email":"cliente0032@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":23,"renda_mensal":5338.14,"gasto_mensal":292.46,"satisfacao":4,"data_cadastro":"2024-12-24","data_ultima_compra":"2026-09-03","telefone_2":"(81) 98735-2646"},{"id_cliente":"C0033","email":"cliente0033@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Premium","idade":73,"renda_mensal":11474.75,"gasto_mensal":804.41,"satisfacao":4,"data_cadastro":"2021-09-22","data_ultima_compra":"2021-12-12","telefone_2":null},{"id_cliente":"C0034","email":"cliente0034@email.com","cidade":"Caruaru","canal":"App","plano":"Plus","idade":36,"renda_mensal":2562.41,"gasto_mensal":208.89,"satisfacao":3,"data_cadastro":"2021-12-16","data_ultima_compra":"2024-02-28","telefone_2":null},{"id_cliente":"C0035","email":"cliente0035@email.com","cidade":"Recife","canal":"Telefone","plano":"Básico","idade":29,"renda_mensal":1925.98,"gasto_mensal":180.86,"satisfacao":3,"data_cadastro":"2026-07-01","data_ultima_compra":"2026-08-11","telefone_2":null},{"id_cliente":"C0036","email":"cliente0036@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Básico","idade":null,"renda_mensal":1817.02,"gasto_mensal":137.88,"satisfacao":2,"data_cadastro":"2026-05-27","data_ultima_compra":"2026-09-18","telefone_2":"(81) 99239-8047"},{"id_cliente":"C0037","email":"cliente0037@email.com","cidade":"Recife","canal":null,"plano":"Básico","idade":32,"renda_mensal":null,"gasto_mensal":121.08,"satisfacao":3,"data_cadastro":"2022-12-06","data_ultima_compra":"2024-02-02","telefone_2":"(81) 98625-5641"},{"id_cliente":"C0038","email":"cliente0038@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Plus","idade":35,"renda_mensal":6053.93,"gasto_mensal":391.26,"satisfacao":2,"data_cadastro":"2023-06-13","data_ultima_compra":"2023-09-09","telefone_2":null},{"id_cliente":"C0039","email":"cliente0039@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":48,"renda_mensal":4799.85,"gasto_mensal":88.68,"satisfacao":null,"data_cadastro":"2022-05-16","data_ultima_compra":"2024-07-27","telefone_2":null},{"id_cliente":"C0040","email":"cliente0040@email.com","cidade":"Recife","canal":"Loja","plano":"Básico","idade":null,"renda_mensal":3653.85,"gasto_mensal":129.46,"satisfacao":3,"data_cadastro":"2023-06-28","data_ultima_compra":"2024-03-31","telefone_2":"(81) 98509-9371"},{"id_cliente":"C0041","email":"cliente0041@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Plus","idade":60,"renda_mensal":6205.81,"gasto_mensal":419.53,"satisfacao":4,"data_cadastro":"2022-10-01","data_ultima_compra":"2024-06-07","telefone_2":"(81) 98776-8478"},{"id_cliente":"C0042","email":"cliente0042@email.com","cidade":"Jaboatão dos Guararapes","canal":"WhatsApp","plano":"Básico","idade":37,"renda_mensal":2669.08,"gasto_mensal":233.09,"satisfacao":3,"data_cadastro":"2023-01-21","data_ultima_compra":"2024-09-10","telefone_2":null},{"id_cliente":"C0043","email":"cliente0043@email.com","cidade":"Paulista","canal":"App","plano":"Plus","idade":18,"renda_mensal":7452.11,"gasto_mensal":544.79,"satisfacao":5,"data_cadastro":"2023-06-24","data_ultima_compra":null,"telefone_2":"(81) 99820-7849"},{"id_cliente":"C0044","email":"cliente0044@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Plus","idade":39,"renda_mensal":5676.47,"gasto_mensal":647.98,"satisfacao":4,"data_cadastro":"2025-12-31","data_ultima_compra":"2026-09-22","telefone_2":"(81) 99152-3979"},{"id_cliente":"C0045","email":"cliente0045@email.com","cidade":"Recife","canal":"Telefone","plano":"Premium","idade":62,"renda_mensal":7843.1,"gasto_mensal":851.36,"satisfacao":3,"data_cadastro":"2023-07-10","data_ultima_compra":"2023-11-03","telefone_2":"(81) 99807-8068"},{"id_cliente":"C0046","email":"cliente0046@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Básico","idade":29,"renda_mensal":4204.02,"gasto_mensal":null,"satisfacao":3,"data_cadastro":"2025-04-03","data_ultima_compra":"2025-12-23","telefone_2":"(81) 98069-7794"},{"id_cliente":"C0047","email":"cliente0047@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Plus","idade":55,"renda_mensal":5854.52,"gasto_mensal":270.2,"satisfacao":4,"data_cadastro":"2022-11-07","data_ultima_compra":"2023-09-04","telefone_2":"(81) 99083-9057"},{"id_cliente":"C0048","email":"cliente0048@email.com","cidade":"Paulista","canal":"App","plano":"Básico","idade":60,"renda_mensal":3038.85,"gasto_mensal":309.87,"satisfacao":4,"data_cadastro":"2023-04-24","data_ultima_compra":"2023-11-21","telefone_2":"(81) 98671-4760"},{"id_cliente":"C0049","email":"cliente0049@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Básico","idade":35,"renda_mensal":2013.76,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2026-01-01","data_ultima_compra":"2026-08-15","telefone_2":null},{"id_cliente":"C0050","email":"cliente0050@email.com","cidade":"Caruaru","canal":"App","plano":"Premium","idade":61,"renda_mensal":10041.09,"gasto_mensal":573.43,"satisfacao":3,"data_cadastro":"2025-08-25","data_ultima_compra":"2026-09-26","telefone_2":null},{"id_cliente":"C0051","email":"cliente0051@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Premium","idade":39,"renda_mensal":12516.69,"gasto_mensal":816.66,"satisfacao":4,"data_cadastro":"2026-02-20","data_ultima_compra":"2026-08-02","telefone_2":null},{"id_cliente":"C0052","email":"cliente0052@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Básico","idade":45,"renda_mensal":1625.44,"gasto_mensal":184.24,"satisfacao":4,"data_cadastro":"2025-08-22","data_ultima_compra":"2026-09-12","telefone_2":"(81) 99532-3609"},{"id_cliente":"C0053","email":"cliente0053@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":24,"renda_mensal":3066.65,"gasto_mensal":73.63,"satisfacao":null,"data_cadastro":"2022-08-28","data_ultima_compra":"2023-03-13","telefone_2":null},{"id_cliente":"C0054","email":"cliente0054@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Plus","idade":45,"renda_mensal":7478.27,"gasto_mensal":763.07,"satisfacao":4,"data_cadastro":"2024-08-27","data_ultima_compra":"2026-09-27","telefone_2":null},{"id_cliente":"C0055","email":"cliente0055@email.com","cidade":"Jaboatão dos Guararapes","canal":"Telefone","plano":"Premium","idade":45,"renda_mensal":11952.54,"gasto_mensal":825.97,"satisfacao":5,"data_cadastro":"2024-04-20","data_ultima_compra":"2025-12-16","telefone_2":null},{"id_cliente":"C0056","email":"cliente0056@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Básico","idade":null,"renda_mensal":3804.59,"gasto_mensal":188.9,"satisfacao":4,"data_cadastro":"2026-06-28","data_ultima_compra":"2026-08-15","telefone_2":"(81) 99801-7858"},{"id_cliente":"C0057","email":"cliente0057@email.com","cidade":"Olinda","canal":"App","plano":"Básico","idade":35,"renda_mensal":4772.57,"gasto_mensal":258.65,"satisfacao":5,"data_cadastro":"2021-03-12","data_ultima_compra":"2022-04-16","telefone_2":null},{"id_cliente":"C0058","email":"cliente0058@email.com","cidade":"Jaboatão dos Guararapes","canal":"Telefone","plano":"Premium","idade":null,"renda_mensal":28500.0,"gasto_mensal":1980.0,"satisfacao":3,"data_cadastro":"2024-05-12","data_ultima_compra":"2025-03-31","telefone_2":"(81) 98973-7738"},{"id_cliente":"C0059","email":"cliente0059@email.com","cidade":"Olinda","canal":"WhatsApp","plano":"Premium","idade":50,"renda_mensal":11619.79,"gasto_mensal":915.12,"satisfacao":3,"data_cadastro":"2023-03-16","data_ultima_compra":"2025-07-22","telefone_2":null},{"id_cliente":"C0060","email":"cliente0060@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Básico","idade":30,"renda_mensal":2029.16,"gasto_mensal":248.87,"satisfacao":3,"data_cadastro":"2022-07-09","data_ultima_compra":"2024-03-12","telefone_2":"(81) 99737-2468"},{"id_cliente":"C0061","email":"cliente0061@email.com","cidade":"Jaboatão dos Guararapes","canal":"WhatsApp","plano":"Plus","idade":39,"renda_mensal":10745.84,"gasto_mensal":577.75,"satisfacao":null,"data_cadastro":"2026-02-24","data_ultima_compra":"2026-09-11","telefone_2":"(81) 99960-9882"},{"id_cliente":"C0062","email":"cliente0062@email.com","cidade":"Recife","canal":"Loja","plano":"Básico","idade":43,"renda_mensal":1706.66,"gasto_mensal":119.13,"satisfacao":3,"data_cadastro":"2021-12-02","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0063","email":"cliente0063@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Premium","idade":23,"renda_mensal":6808.76,"gasto_mensal":658.7,"satisfacao":4,"data_cadastro":"2023-11-09","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0064","email":"cliente0064@email.com","cidade":"Jaboatão dos Guararapes","canal":"Telefone","plano":"Plus","idade":51,"renda_mensal":null,"gasto_mensal":285.78,"satisfacao":2,"data_cadastro":"2021-07-14","data_ultima_compra":"2022-01-25","telefone_2":null},{"id_cliente":"C0065","email":"cliente0065@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Plus","idade":54,"renda_mensal":6228.83,"gasto_mensal":398.31,"satisfacao":4,"data_cadastro":"2025-03-21","data_ultima_compra":"2026-09-09","telefone_2":"(81) 98226-6254"},{"id_cliente":"C0066","email":"cliente0066@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Premium","idade":42,"renda_mensal":5677.52,"gasto_mensal":562.2,"satisfacao":4,"data_cadastro":"2023-07-12","data_ultima_compra":"2024-05-17","telefone_2":null},{"id_cliente":"C0067","email":"cliente0067@email.com","cidade":"Olinda","canal":"App","plano":"Básico","idade":21,"renda_mensal":null,"gasto_mensal":312.84,"satisfacao":4,"data_cadastro":"2026-07-16","data_ultima_compra":"2026-09-01","telefone_2":null},{"id_cliente":"C0068","email":"cliente0068@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":44,"renda_mensal":3618.87,"gasto_mensal":259.58,"satisfacao":3,"data_cadastro":"2021-09-25","data_ultima_compra":"2021-10-16","telefone_2":null},{"id_cliente":"C0069","email":"cliente0069@email.com","cidade":"Olinda","canal":"Loja","plano":"Plus","idade":49,"renda_mensal":5879.59,"gasto_mensal":378.33,"satisfacao":4,"data_cadastro":"2026-05-20","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0070","email":"cliente0070@email.com","cidade":"Recife","canal":"Telefone","plano":"Plus","idade":31,"renda_mensal":2911.75,"gasto_mensal":340.18,"satisfacao":null,"data_cadastro":"2023-08-05","data_ultima_compra":"2024-07-02","telefone_2":null},{"id_cliente":"C0071","email":"cliente0071@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":18,"renda_mensal":2762.77,"gasto_mensal":232.89,"satisfacao":5,"data_cadastro":"2025-05-13","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0072","email":"cliente0072@email.com","cidade":"Jaboatão dos Guararapes","canal":"Telefone","plano":"Básico","idade":25,"renda_mensal":2865.21,"gasto_mensal":364.29,"satisfacao":3,"data_cadastro":"2025-10-08","data_ultima_compra":"2026-08-29","telefone_2":null},{"id_cliente":"C0073","email":"cliente0073@email.com","cidade":"Paulista","canal":"App","plano":"Básico","idade":53,"renda_mensal":1550.01,"gasto_mensal":80.81,"satisfacao":4,"data_cadastro":"2026-01-12","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0074","email":"cliente0074@email.com","cidade":"Recife","canal":"App","plano":"Premium","idade":35,"renda_mensal":9990.43,"gasto_mensal":757.67,"satisfacao":5,"data_cadastro":"2024-04-02","data_ultima_compra":"2026-08-01","telefone_2":null},{"id_cliente":"C0075","email":"cliente0075@email.com","cidade":"Paulista","canal":"App","plano":"Premium","idade":44,"renda_mensal":9725.34,"gasto_mensal":374.39,"satisfacao":4,"data_cadastro":"2025-06-02","data_ultima_compra":"2026-08-13","telefone_2":null},{"id_cliente":"C0076","email":"cliente0076@email.com","cidade":"Paulista","canal":"WhatsApp","plano":"Plus","idade":37,"renda_mensal":5313.8,"gasto_mensal":74.7,"satisfacao":4,"data_cadastro":"2024-11-21","data_ultima_compra":"2025-12-04","telefone_2":"(81) 99910-7069"},{"id_cliente":"C0077","email":"cliente0077@email.com","cidade":"Caruaru","canal":"App","plano":"Plus","idade":64,"renda_mensal":7692.16,"gasto_mensal":602.83,"satisfacao":5,"data_cadastro":"2024-08-02","data_ultima_compra":"2025-11-15","telefone_2":null},{"id_cliente":"C0078","email":"cliente0078@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Premium","idade":29,"renda_mensal":10271.9,"gasto_mensal":541.08,"satisfacao":3,"data_cadastro":"2024-07-03","data_ultima_compra":"2024-09-11","telefone_2":"(81) 99579-8057"},{"id_cliente":"C0079","email":"cliente0079@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Plus","idade":35,"renda_mensal":5275.74,"gasto_mensal":282.1,"satisfacao":3,"data_cadastro":"2024-02-20","data_ultima_compra":"2026-06-27","telefone_2":null},{"id_cliente":"C0080","email":"cliente0080@email.com","cidade":"Recife","canal":"Telefone","plano":"Básico","idade":51,"renda_mensal":2931.43,"gasto_mensal":412.06,"satisfacao":2,"data_cadastro":"2024-04-06","data_ultima_compra":"2025-06-20","telefone_2":"(81) 98902-6069"},{"id_cliente":"C0081","email":"cliente0081@email.com","cidade":"Paulista","canal":null,"plano":"Plus","idade":60,"renda_mensal":4894.74,"gasto_mensal":230.85,"satisfacao":3,"data_cadastro":"2026-03-20","data_ultima_compra":"2026-08-11","telefone_2":null},{"id_cliente":"C0082","email":"cliente0082@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Básico","idade":37,"renda_mensal":2180.4,"gasto_mensal":385.17,"satisfacao":4,"data_cadastro":"2022-08-18","data_ultima_compra":"2024-01-08","telefone_2":null},{"id_cliente":"C0083","email":"cliente0083@email.com","cidade":"Paulista","canal":"App","plano":"Plus","idade":60,"renda_mensal":5324.6,"gasto_mensal":347.71,"satisfacao":4,"data_cadastro":"2022-03-30","data_ultima_compra":"2023-05-27","telefone_2":null},{"id_cliente":"C0084","email":"cliente0084@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Plus","idade":54,"renda_mensal":3997.13,"gasto_mensal":562.89,"satisfacao":5,"data_cadastro":"2025-05-31","data_ultima_compra":"2026-08-11","telefone_2":null},{"id_cliente":"C0085","email":"cliente0085@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":41,"renda_mensal":2124.18,"gasto_mensal":160.99,"satisfacao":5,"data_cadastro":"2022-07-11","data_ultima_compra":"2023-02-12","telefone_2":null},{"id_cliente":"C0086","email":"cliente0086@email.com","cidade":"Recife","canal":"Loja","plano":"Básico","idade":49,"renda_mensal":3132.6,"gasto_mensal":282.19,"satisfacao":3,"data_cadastro":"2024-11-03","data_ultima_compra":"2025-08-23","telefone_2":null},{"id_cliente":"C0087","email":"cliente0087@email.com","cidade":"Olinda","canal":"App","plano":"Básico","idade":33,"renda_mensal":2337.17,"gasto_mensal":327.34,"satisfacao":4,"data_cadastro":"2026-05-29","data_ultima_compra":"2026-08-27","telefone_2":null},{"id_cliente":"C0088","email":"cliente0088@email.com","cidade":"Olinda","canal":"App","plano":"Básico","idade":44,"renda_mensal":2426.25,"gasto_mensal":362.17,"satisfacao":4,"data_cadastro":"2024-06-06","data_ultima_compra":"2025-12-14","telefone_2":"(81) 99666-7550"},{"id_cliente":"C0089","email":"cliente0089@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":18,"renda_mensal":1596.83,"gasto_mensal":135.29,"satisfacao":2,"data_cadastro":"2024-05-15","data_ultima_compra":"2025-05-29","telefone_2":null},{"id_cliente":"C0090","email":"cliente0090@email.com","cidade":"Jaboatão dos Guararapes","canal":"WhatsApp","plano":"Básico","idade":25,"renda_mensal":1412.0,"gasto_mensal":155.88,"satisfacao":4,"data_cadastro":"2022-12-07","data_ultima_compra":"2025-02-15","telefone_2":"(81) 98297-9383"},{"id_cliente":"C0091","email":"cliente0091@email.com","cidade":"Paulista","canal":"WhatsApp","plano":"Plus","idade":30,"renda_mensal":3889.4,"gasto_mensal":379.37,"satisfacao":4,"data_cadastro":"2024-02-20","data_ultima_compra":null,"telefone_2":"(81) 99531-3354"},{"id_cliente":"C0092","email":"cliente0092@email.com","cidade":"Olinda","canal":"Loja","plano":"Premium","idade":42,"renda_mensal":5547.3,"gasto_mensal":737.21,"satisfacao":null,"data_cadastro":"2023-08-12","data_ultima_compra":"2025-08-15","telefone_2":null},{"id_cliente":"C0093","email":"cliente0093@email.com","cidade":"Olinda","canal":null,"plano":"Plus","idade":37,"renda_mensal":7020.78,"gasto_mensal":255.31,"satisfacao":5,"data_cadastro":"2023-01-23","data_ultima_compra":"2025-01-02","telefone_2":null},{"id_cliente":"C0094","email":"cliente0094@email.com","cidade":"Jaboatão dos Guararapes","canal":"Loja","plano":"Plus","idade":null,"renda_mensal":5199.64,"gasto_mensal":639.18,"satisfacao":2,"data_cadastro":"2026-07-29","data_ultima_compra":"2026-08-05","telefone_2":"(81) 98547-9190"},{"id_cliente":"C0095","email":"cliente0095@email.com","cidade":"Recife","canal":"Telefone","plano":"Básico","idade":52,"renda_mensal":1890.09,"gasto_mensal":196.15,"satisfacao":3,"data_cadastro":"2024-05-29","data_ultima_compra":"2024-11-29","telefone_2":"(81) 98571-8727"},{"id_cliente":"C0096","email":"cliente0096@email.com","cidade":"Jaboatão dos Guararapes","canal":"Loja","plano":"Básico","idade":18,"renda_mensal":2862.28,"gasto_mensal":138.66,"satisfacao":5,"data_cadastro":"2021-10-05","data_ultima_compra":"2023-06-11","telefone_2":"(81) 99299-4096"},{"id_cliente":"C0097","email":"cliente0097@email.com","cidade":"Jaboatão dos Guararapes","canal":"WhatsApp","plano":"Básico","idade":26,"renda_mensal":2075.17,"gasto_mensal":209.04,"satisfacao":5,"data_cadastro":"2023-12-06","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0098","email":"cliente0098@email.com","cidade":"Paulista","canal":"WhatsApp","plano":"Básico","idade":41,"renda_mensal":1412.0,"gasto_mensal":317.49,"satisfacao":4,"data_cadastro":"2026-07-15","data_ultima_compra":"2026-08-16","telefone_2":"(81) 98157-4178"},{"id_cliente":"C0099","email":"cliente0099@email.com","cidade":"Recife","canal":"Telefone","plano":"Básico","idade":35,"renda_mensal":null,"gasto_mensal":149.11,"satisfacao":3,"data_cadastro":"2024-11-16","data_ultima_compra":"2025-11-30","telefone_2":"(81) 99293-7729"},{"id_cliente":"C0100","email":"cliente0100@email.com","cidade":"Caruaru","canal":"App","plano":"Básico","idade":36,"renda_mensal":null,"gasto_mensal":280.34,"satisfacao":3,"data_cadastro":"2024-07-29","data_ultima_compra":"2026-09-07","telefone_2":null},{"id_cliente":"C0101","email":"cliente0101@email.com","cidade":"Recife","canal":"Telefone","plano":"Básico","idade":29,"renda_mensal":null,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2025-01-25","data_ultima_compra":"2025-07-20","telefone_2":null},{"id_cliente":"C0102","email":"cliente0102@email.com","cidade":"Caruaru","canal":null,"plano":"Básico","idade":41,"renda_mensal":2274.74,"gasto_mensal":170.57,"satisfacao":4,"data_cadastro":"2024-02-05","data_ultima_compra":"2026-03-24","telefone_2":"(81) 98241-9201"},{"id_cliente":"C0103","email":"cliente0103@email.com","cidade":"Recife","canal":"Telefone","plano":"Premium","idade":37,"renda_mensal":11117.06,"gasto_mensal":870.72,"satisfacao":3,"data_cadastro":"2025-06-29","data_ultima_compra":"2026-05-16","telefone_2":"(81) 99473-7993"},{"id_cliente":"C0104","email":"cliente0104@email.com","cidade":"Caruaru","canal":"App","plano":"Básico","idade":53,"renda_mensal":2317.49,"gasto_mensal":null,"satisfacao":5,"data_cadastro":"2024-06-08","data_ultima_compra":"2024-10-16","telefone_2":null},{"id_cliente":"C0105","email":"cliente0105@email.com","cidade":"Recife","canal":"Telefone","plano":"Básico","idade":54,"renda_mensal":2379.8,"gasto_mensal":392.55,"satisfacao":4,"data_cadastro":"2024-03-31","data_ultima_compra":"2024-08-20","telefone_2":null},{"id_cliente":"C0106","email":"cliente0106@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Plus","idade":36,"renda_mensal":2648.21,"gasto_mensal":257.68,"satisfacao":4,"data_cadastro":"2023-02-18","data_ultima_compra":"2023-08-09","telefone_2":"(81) 99683-5281"},{"id_cliente":"C0107","email":"cliente0107@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":27,"renda_mensal":4064.51,"gasto_mensal":499.71,"satisfacao":4,"data_cadastro":"2024-01-28","data_ultima_compra":"2025-09-10","telefone_2":"(81) 99208-3137"},{"id_cliente":"C0108","email":"cliente0108@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Básico","idade":42,"renda_mensal":3426.42,"gasto_mensal":275.14,"satisfacao":3,"data_cadastro":"2024-09-27","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0109","email":"cliente0109@email.com","cidade":"Paulista","canal":"Telefone","plano":"Básico","idade":32,"renda_mensal":2086.59,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2024-03-19","data_ultima_compra":"2025-08-03","telefone_2":null},{"id_cliente":"C0110","email":"cliente0110@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":43,"renda_mensal":2176.65,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2021-04-26","data_ultima_compra":"2021-08-12","telefone_2":null},{"id_cliente":"C0111","email":"cliente0111@email.com","cidade":"Caruaru","canal":"Loja","plano":"Plus","idade":49,"renda_mensal":3140.72,"gasto_mensal":178.84,"satisfacao":null,"data_cadastro":"2023-07-09","data_ultima_compra":"2023-10-15","telefone_2":null},{"id_cliente":"C0112","email":"cliente0112@email.com","cidade":"Recife","canal":"Telefone","plano":"Básico","idade":49,"renda_mensal":3716.73,"gasto_mensal":60.0,"satisfacao":2,"data_cadastro":"2021-07-17","data_ultima_compra":"2021-12-23","telefone_2":"(81) 98018-1065"},{"id_cliente":"C0113","email":"cliente0113@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Plus","idade":29,"renda_mensal":3700.51,"gasto_mensal":507.51,"satisfacao":3,"data_cadastro":"2021-10-30","data_ultima_compra":"2023-02-02","telefone_2":"(81) 98593-1616"},{"id_cliente":"C0114","email":"cliente0114@email.com","cidade":"Caruaru","canal":"App","plano":"Básico","idade":41,"renda_mensal":2902.58,"gasto_mensal":null,"satisfacao":3,"data_cadastro":"2025-04-07","data_ultima_compra":"2026-09-25","telefone_2":null},{"id_cliente":"C0115","email":"cliente0115@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Plus","idade":53,"renda_mensal":null,"gasto_mensal":396.61,"satisfacao":4,"data_cadastro":"2024-08-28","data_ultima_compra":"2025-07-20","telefone_2":"(81) 98911-6356"},{"id_cliente":"C0116","email":"cliente0116@email.com","cidade":"Recife","canal":"Telefone","plano":"Premium","idade":19,"renda_mensal":null,"gasto_mensal":561.14,"satisfacao":4,"data_cadastro":"2021-01-29","data_ultima_compra":"2021-06-20","telefone_2":null},{"id_cliente":"C0117","email":"cliente0117@email.com","cidade":"Olinda","canal":"Loja","plano":"Plus","idade":32,"renda_mensal":4357.0,"gasto_mensal":231.8,"satisfacao":3,"data_cadastro":"2025-05-29","data_ultima_compra":"2025-08-21","telefone_2":null},{"id_cliente":"C0118","email":"cliente0118@email.com","cidade":"Caruaru","canal":"Loja","plano":"Básico","idade":43,"renda_mensal":1968.11,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2024-06-25","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0119","email":"cliente0119@email.com","cidade":"Jaboatão dos Guararapes","canal":"WhatsApp","plano":"Básico","idade":35,"renda_mensal":2680.47,"gasto_mensal":179.03,"satisfacao":4,"data_cadastro":"2021-03-05","data_ultima_compra":"2023-05-31","telefone_2":null},{"id_cliente":"C0120","email":"cliente0120@email.com","cidade":"Olinda","canal":"App","plano":"Básico","idade":28,"renda_mensal":3624.78,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2025-03-09","data_ultima_compra":"2026-01-31","telefone_2":null},{"id_cliente":"C0121","email":"cliente0121@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":41,"renda_mensal":6413.12,"gasto_mensal":510.75,"satisfacao":5,"data_cadastro":"2026-07-08","data_ultima_compra":"2026-09-28","telefone_2":"(81) 98694-2528"},{"id_cliente":"C0122","email":"cliente0122@email.com","cidade":"Caruaru","canal":"App","plano":"Premium","idade":24,"renda_mensal":5697.52,"gasto_mensal":510.53,"satisfacao":4,"data_cadastro":"2023-01-24","data_ultima_compra":"2025-02-25","telefone_2":null},{"id_cliente":"C0123","email":"cliente0123@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Plus","idade":44,"renda_mensal":null,"gasto_mensal":210.18,"satisfacao":4,"data_cadastro":"2024-05-13","data_ultima_compra":"2026-03-15","telefone_2":null},{"id_cliente":"C0124","email":"cliente0124@email.com","cidade":"Olinda","canal":"WhatsApp","plano":"Básico","idade":51,"renda_mensal":null,"gasto_mensal":163.56,"satisfacao":4,"data_cadastro":"2025-11-17","data_ultima_compra":"2026-09-09","telefone_2":null},{"id_cliente":"C0125","email":"cliente0125@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":39,"renda_mensal":3676.86,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2023-02-20","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0126","email":"cliente0126@email.com","cidade":"Caruaru","canal":"Loja","plano":"Básico","idade":null,"renda_mensal":2767.97,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2023-05-12","data_ultima_compra":"2025-05-23","telefone_2":null},{"id_cliente":"C0127","email":"cliente0127@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":40,"renda_mensal":2849.29,"gasto_mensal":127.5,"satisfacao":4,"data_cadastro":"2024-10-27","data_ultima_compra":"2026-08-08","telefone_2":null},{"id_cliente":"C0128","email":"cliente0128@email.com","cidade":"Recife","canal":"Telefone","plano":"Plus","idade":42,"renda_mensal":4680.19,"gasto_mensal":444.5,"satisfacao":3,"data_cadastro":"2021-11-09","data_ultima_compra":"2022-03-13","telefone_2":null},{"id_cliente":"C0129","email":"cliente0129@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Premium","idade":28,"renda_mensal":null,"gasto_mensal":681.66,"satisfacao":5,"data_cadastro":"2024-03-05","data_ultima_compra":"2025-06-12","telefone_2":"(81) 99609-5006"},{"id_cliente":"C0130","email":"cliente0130@email.com","cidade":"Jaboatão dos Guararapes","canal":"Loja","plano":"Plus","idade":36,"renda_mensal":7746.35,"gasto_mensal":435.51,"satisfacao":4,"data_cadastro":"2025-11-11","data_ultima_compra":"2026-09-29","telefone_2":null},{"id_cliente":"C0131","email":"cliente0131@email.com","cidade":"Paulista","canal":"WhatsApp","plano":"Básico","idade":null,"renda_mensal":2356.1,"gasto_mensal":188.71,"satisfacao":4,"data_cadastro":"2021-08-16","data_ultima_compra":"2023-10-16","telefone_2":null},{"id_cliente":"C0132","email":"cliente0132@email.com","cidade":"Olinda","canal":"WhatsApp","plano":"Premium","idade":29,"renda_mensal":9779.0,"gasto_mensal":null,"satisfacao":4,"data_cadastro":"2023-11-25","data_ultima_compra":"2026-03-30","telefone_2":null},{"id_cliente":"C0133","email":"cliente0133@email.com","cidade":"Olinda","canal":"Telefone","plano":"Básico","idade":53,"renda_mensal":1935.04,"gasto_mensal":137.74,"satisfacao":null,"data_cadastro":"2023-01-01","data_ultima_compra":"2023-11-19","telefone_2":null},{"id_cliente":"C0134","email":"cliente0134@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":40,"renda_mensal":null,"gasto_mensal":169.55,"satisfacao":4,"data_cadastro":"2026-02-26","data_ultima_compra":"2026-09-08","telefone_2":null},{"id_cliente":"C0135","email":"cliente0135@email.com","cidade":"Olinda","canal":"Loja","plano":"Básico","idade":23,"renda_mensal":4095.66,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2025-01-08","data_ultima_compra":"2026-02-08","telefone_2":"(81) 98806-6436"},{"id_cliente":"C0136","email":"cliente0136@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Plus","idade":40,"renda_mensal":3546.94,"gasto_mensal":112.95,"satisfacao":5,"data_cadastro":"2026-04-23","data_ultima_compra":"2026-08-06","telefone_2":null},{"id_cliente":"C0137","email":"cliente0137@email.com","cidade":"Caruaru","canal":"App","plano":"Básico","idade":43,"renda_mensal":1954.02,"gasto_mensal":60.0,"satisfacao":5,"data_cadastro":"2026-02-04","data_ultima_compra":null,"telefone_2":"(81) 99241-1603"},{"id_cliente":"C0138","email":"cliente0138@email.com","cidade":"Caruaru","canal":"App","plano":"Premium","idade":22,"renda_mensal":6816.6,"gasto_mensal":753.95,"satisfacao":4,"data_cadastro":"2024-09-26","data_ultima_compra":"2026-09-19","telefone_2":null},{"id_cliente":"C0139","email":"cliente0139@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":48,"renda_mensal":3017.57,"gasto_mensal":231.3,"satisfacao":4,"data_cadastro":"2023-04-15","data_ultima_compra":"2025-04-28","telefone_2":null},{"id_cliente":"C0140","email":"cliente0140@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Plus","idade":35,"renda_mensal":4354.9,"gasto_mensal":329.79,"satisfacao":4,"data_cadastro":"2023-03-17","data_ultima_compra":"2023-11-18","telefone_2":"(81) 98918-4408"},{"id_cliente":"C0141","email":"cliente0141@email.com","cidade":"Olinda","canal":null,"plano":"Plus","idade":40,"renda_mensal":4162.75,"gasto_mensal":88.63,"satisfacao":3,"data_cadastro":"2022-01-05","data_ultima_compra":"2022-05-22","telefone_2":"(81) 98482-4637"},{"id_cliente":"C0142","email":"cliente0142@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":59,"renda_mensal":4483.94,"gasto_mensal":329.11,"satisfacao":4,"data_cadastro":"2023-11-27","data_ultima_compra":"2025-09-03","telefone_2":null},{"id_cliente":"C0143","email":"cliente0143@email.com","cidade":"Recife","canal":"Telefone","plano":"Plus","idade":23,"renda_mensal":3297.79,"gasto_mensal":592.54,"satisfacao":3,"data_cadastro":"2021-06-16","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0144","email":"cliente0144@email.com","cidade":"Paulista","canal":"App","plano":"Premium","idade":20,"renda_mensal":41000.0,"gasto_mensal":null,"satisfacao":2,"data_cadastro":"2025-02-05","data_ultima_compra":"2025-10-24","telefone_2":"(81) 98951-4717"},{"id_cliente":"C0145","email":"cliente0145@email.com","cidade":"Paulista","canal":"Telefone","plano":"Básico","idade":26,"renda_mensal":2669.29,"gasto_mensal":190.78,"satisfacao":3,"data_cadastro":"2026-02-16","data_ultima_compra":"2026-06-04","telefone_2":null},{"id_cliente":"C0146","email":"cliente0146@email.com","cidade":"Recife","canal":"App","plano":"Premium","idade":42,"renda_mensal":4940.55,"gasto_mensal":482.31,"satisfacao":5,"data_cadastro":"2026-06-21","data_ultima_compra":"2026-08-05","telefone_2":null},{"id_cliente":"C0147","email":"cliente0147@email.com","cidade":"Paulista","canal":"App","plano":"Básico","idade":29,"renda_mensal":2228.29,"gasto_mensal":109.23,"satisfacao":3,"data_cadastro":"2024-10-12","data_ultima_compra":"2026-05-31","telefone_2":"(81) 98658-2405"},{"id_cliente":"C0148","email":"cliente0148@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Plus","idade":26,"renda_mensal":null,"gasto_mensal":390.77,"satisfacao":5,"data_cadastro":"2025-11-01","data_ultima_compra":"2026-09-27","telefone_2":"(81) 98545-5233"},{"id_cliente":"C0149","email":"cliente0149@email.com","cidade":"Paulista","canal":"Telefone","plano":"Plus","idade":null,"renda_mensal":5242.96,"gasto_mensal":245.36,"satisfacao":4,"data_cadastro":"2021-01-30","data_ultima_compra":"2023-04-16","telefone_2":"(81) 98004-8922"},{"id_cliente":"C0150","email":"cliente0150@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Básico","idade":22,"renda_mensal":2041.41,"gasto_mensal":108.46,"satisfacao":3,"data_cadastro":"2023-08-04","data_ultima_compra":"2023-11-14","telefone_2":"(81) 98889-9104"},{"id_cliente":"C0151","email":"cliente0151@email.com","cidade":"Jaboatão dos Guararapes","canal":"WhatsApp","plano":"Premium","idade":26,"renda_mensal":11675.12,"gasto_mensal":874.55,"satisfacao":3,"data_cadastro":"2021-02-24","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0152","email":"cliente0152@email.com","cidade":"Recife","canal":"App","plano":"Premium","idade":18,"renda_mensal":11439.52,"gasto_mensal":677.42,"satisfacao":null,"data_cadastro":"2024-04-08","data_ultima_compra":"2025-08-23","telefone_2":"(81) 99757-7533"},{"id_cliente":"C0153","email":"cliente0153@email.com","cidade":"Recife","canal":"Loja","plano":"Básico","idade":36,"renda_mensal":1795.44,"gasto_mensal":225.89,"satisfacao":null,"data_cadastro":"2025-05-15","data_ultima_compra":"2026-09-09","telefone_2":"(81) 98780-5458"},{"id_cliente":"C0154","email":"cliente0154@email.com","cidade":"Jaboatão dos Guararapes","canal":"WhatsApp","plano":"Premium","idade":52,"renda_mensal":5787.95,"gasto_mensal":665.86,"satisfacao":4,"data_cadastro":"2021-11-26","data_ultima_compra":"2023-03-09","telefone_2":null},{"id_cliente":"C0155","email":"cliente0155@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Básico","idade":null,"renda_mensal":1810.92,"gasto_mensal":319.63,"satisfacao":3,"data_cadastro":"2021-01-10","data_ultima_compra":"2022-02-06","telefone_2":null},{"id_cliente":"C0156","email":"cliente0156@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Básico","idade":49,"renda_mensal":3284.71,"gasto_mensal":243.85,"satisfacao":1,"data_cadastro":"2025-05-14","data_ultima_compra":"2025-07-27","telefone_2":"(81) 99596-7336"},{"id_cliente":"C0157","email":"cliente0157@email.com","cidade":"Olinda","canal":"Telefone","plano":"Plus","idade":32,"renda_mensal":5805.75,"gasto_mensal":370.39,"satisfacao":3,"data_cadastro":"2024-04-23","data_ultima_compra":"2024-06-19","telefone_2":"(81) 98133-9533"},{"id_cliente":"C0158","email":"cliente0158@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":28,"renda_mensal":2913.41,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2026-04-09","data_ultima_compra":"2026-09-11","telefone_2":"(81) 98939-1494"},{"id_cliente":"C0159","email":"cliente0159@email.com","cidade":"Caruaru","canal":"Loja","plano":"Plus","idade":46,"renda_mensal":6779.36,"gasto_mensal":384.06,"satisfacao":4,"data_cadastro":"2022-03-30","data_ultima_compra":"2024-07-11","telefone_2":null},{"id_cliente":"C0160","email":"cliente0160@email.com","cidade":"Caruaru","canal":"Loja","plano":"Básico","idade":35,"renda_mensal":null,"gasto_mensal":60.0,"satisfacao":2,"data_cadastro":"2023-09-29","data_ultima_compra":"2025-04-17","telefone_2":"(81) 98558-3791"},{"id_cliente":"C0161","email":"cliente0161@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":41,"renda_mensal":5750.88,"gasto_mensal":506.46,"satisfacao":4,"data_cadastro":"2022-11-13","data_ultima_compra":"2023-04-24","telefone_2":"(81) 98952-3449"},{"id_cliente":"C0162","email":"cliente0162@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":null,"renda_mensal":5208.66,"gasto_mensal":515.58,"satisfacao":4,"data_cadastro":"2025-06-20","data_ultima_compra":"2025-09-17","telefone_2":null},{"id_cliente":"C0163","email":"cliente0163@email.com","cidade":"Recife","canal":"Loja","plano":"Básico","idade":39,"renda_mensal":1429.0,"gasto_mensal":60.0,"satisfacao":2,"data_cadastro":"2024-05-10","data_ultima_compra":"2024-05-17","telefone_2":null},{"id_cliente":"C0164","email":"cliente0164@email.com","cidade":"Caruaru","canal":"App","plano":"Básico","idade":21,"renda_mensal":1908.79,"gasto_mensal":null,"satisfacao":4,"data_cadastro":"2023-06-18","data_ultima_compra":"2024-04-05","telefone_2":"(81) 99989-7030"},{"id_cliente":"C0165","email":"cliente0165@email.com","cidade":"Jaboatão dos Guararapes","canal":"Loja","plano":"Premium","idade":49,"renda_mensal":6680.69,"gasto_mensal":595.97,"satisfacao":3,"data_cadastro":"2024-08-16","data_ultima_compra":"2025-06-01","telefone_2":null},{"id_cliente":"C0166","email":"cliente0166@email.com","cidade":"Olinda","canal":"WhatsApp","plano":"Básico","idade":55,"renda_mensal":4513.09,"gasto_mensal":null,"satisfacao":3,"data_cadastro":"2024-07-21","data_ultima_compra":"2024-10-31","telefone_2":null},{"id_cliente":"C0167","email":"cliente0167@email.com","cidade":"Olinda","canal":"Loja","plano":"Básico","idade":32,"renda_mensal":3336.67,"gasto_mensal":255.07,"satisfacao":2,"data_cadastro":"2024-06-30","data_ultima_compra":"2025-07-07","telefone_2":null},{"id_cliente":"C0168","email":"cliente0168@email.com","cidade":"Recife","canal":"Loja","plano":"Premium","idade":27,"renda_mensal":4494.99,"gasto_mensal":679.24,"satisfacao":4,"data_cadastro":"2024-05-17","data_ultima_compra":null,"telefone_2":"(81) 99787-7778"},{"id_cliente":"C0169","email":"cliente0169@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":50,"renda_mensal":1929.04,"gasto_mensal":250.74,"satisfacao":4,"data_cadastro":"2021-10-29","data_ultima_compra":"2023-05-11","telefone_2":"(81) 99747-6050"},{"id_cliente":"C0170","email":"cliente0170@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Básico","idade":74,"renda_mensal":1859.27,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2026-06-15","data_ultima_compra":"2026-08-21","telefone_2":"(81) 99053-7428"},{"id_cliente":"C0171","email":"cliente0171@email.com","cidade":"Olinda","canal":"App","plano":"Plus","idade":52,"renda_mensal":4218.34,"gasto_mensal":384.75,"satisfacao":3,"data_cadastro":"2025-09-14","data_ultima_compra":"2026-08-24","telefone_2":null},{"id_cliente":"C0172","email":"cliente0172@email.com","cidade":"Caruaru","canal":"App","plano":"Premium","idade":27,"renda_mensal":13822.36,"gasto_mensal":734.88,"satisfacao":5,"data_cadastro":"2021-07-30","data_ultima_compra":"2021-11-17","telefone_2":null},{"id_cliente":"C0173","email":"cliente0173@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":38,"renda_mensal":3819.1,"gasto_mensal":303.1,"satisfacao":5,"data_cadastro":"2022-05-20","data_ultima_compra":"2023-12-10","telefone_2":null},{"id_cliente":"C0174","email":"cliente0174@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":null,"renda_mensal":1833.74,"gasto_mensal":257.14,"satisfacao":3,"data_cadastro":"2026-01-26","data_ultima_compra":"2026-09-10","telefone_2":"(81) 98794-1262"},{"id_cliente":"C0175","email":"cliente0175@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":31,"renda_mensal":5632.35,"gasto_mensal":339.47,"satisfacao":4,"data_cadastro":"2024-03-27","data_ultima_compra":"2024-07-06","telefone_2":null},{"id_cliente":"C0176","email":"cliente0176@email.com","cidade":"Paulista","canal":"App","plano":"Básico","idade":57,"renda_mensal":2817.92,"gasto_mensal":342.86,"satisfacao":null,"data_cadastro":"2024-01-07","data_ultima_compra":"2026-02-22","telefone_2":null},{"id_cliente":"C0177","email":"cliente0177@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":32,"renda_mensal":2973.33,"gasto_mensal":79.54,"satisfacao":3,"data_cadastro":"2025-03-04","data_ultima_compra":"2025-11-01","telefone_2":null},{"id_cliente":"C0178","email":"cliente0178@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Básico","idade":55,"renda_mensal":null,"gasto_mensal":180.43,"satisfacao":3,"data_cadastro":"2021-04-02","data_ultima_compra":"2022-08-01","telefone_2":"(81) 99050-5116"},{"id_cliente":"C0179","email":"cliente0179@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Plus","idade":53,"renda_mensal":7322.61,"gasto_mensal":446.93,"satisfacao":4,"data_cadastro":"2024-05-09","data_ultima_compra":"2025-07-28","telefone_2":null},{"id_cliente":"C0180","email":"cliente0180@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Plus","idade":31,"renda_mensal":4669.0,"gasto_mensal":419.17,"satisfacao":4,"data_cadastro":"2025-04-28","data_ultima_compra":"2026-07-31","telefone_2":"(81) 98540-7046"},{"id_cliente":"C0181","email":"cliente0181@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Básico","idade":45,"renda_mensal":1460.57,"gasto_mensal":324.67,"satisfacao":5,"data_cadastro":"2025-02-28","data_ultima_compra":"2026-01-18","telefone_2":null},{"id_cliente":"C0182","email":"cliente0182@email.com","cidade":"Caruaru","canal":"App","plano":"Plus","idade":40,"renda_mensal":5551.93,"gasto_mensal":277.87,"satisfacao":3,"data_cadastro":"2025-03-25","data_ultima_compra":"2026-09-25","telefone_2":null},{"id_cliente":"C0183","email":"cliente0183@email.com","cidade":"Olinda","canal":"Telefone","plano":"Básico","idade":34,"renda_mensal":3001.7,"gasto_mensal":60.0,"satisfacao":2,"data_cadastro":"2024-08-14","data_ultima_compra":"2025-09-07","telefone_2":"(81) 98824-9138"},{"id_cliente":"C0184","email":"cliente0184@email.com","cidade":"Caruaru","canal":"App","plano":"Básico","idade":null,"renda_mensal":2215.39,"gasto_mensal":166.38,"satisfacao":4,"data_cadastro":"2022-10-20","data_ultima_compra":"2025-02-04","telefone_2":null},{"id_cliente":"C0185","email":"cliente0185@email.com","cidade":"Recife","canal":null,"plano":"Básico","idade":43,"renda_mensal":4514.76,"gasto_mensal":60.0,"satisfacao":2,"data_cadastro":"2026-06-10","data_ultima_compra":"2026-08-22","telefone_2":"(81) 98470-8418"},{"id_cliente":"C0186","email":"cliente0186@email.com","cidade":"Olinda","canal":"App","plano":"Básico","idade":43,"renda_mensal":1967.0,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2022-08-04","data_ultima_compra":"2024-10-12","telefone_2":null},{"id_cliente":"C0187","email":"cliente0187@email.com","cidade":"Olinda","canal":"App","plano":"Premium","idade":49,"renda_mensal":9271.33,"gasto_mensal":673.08,"satisfacao":5,"data_cadastro":"2022-04-14","data_ultima_compra":"2024-06-24","telefone_2":null},{"id_cliente":"C0188","email":"cliente0188@email.com","cidade":"Paulista","canal":null,"plano":"Premium","idade":30,"renda_mensal":14538.12,"gasto_mensal":670.21,"satisfacao":4,"data_cadastro":"2022-06-01","data_ultima_compra":"2024-04-29","telefone_2":"(81) 99007-7641"},{"id_cliente":"C0189","email":"cliente0189@email.com","cidade":"Caruaru","canal":"Loja","plano":"Premium","idade":51,"renda_mensal":null,"gasto_mensal":803.6,"satisfacao":5,"data_cadastro":"2021-11-28","data_ultima_compra":"2023-01-16","telefone_2":null},{"id_cliente":"C0190","email":"cliente0190@email.com","cidade":"Olinda","canal":"Loja","plano":"Básico","idade":57,"renda_mensal":4082.93,"gasto_mensal":336.77,"satisfacao":null,"data_cadastro":"2026-08-13","data_ultima_compra":"2026-08-27","telefone_2":null},{"id_cliente":"C0191","email":"cliente0191@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":31,"renda_mensal":1412.0,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2022-02-23","data_ultima_compra":"2023-05-05","telefone_2":null},{"id_cliente":"C0192","email":"cliente0192@email.com","cidade":"Olinda","canal":"WhatsApp","plano":"Básico","idade":null,"renda_mensal":4938.75,"gasto_mensal":139.68,"satisfacao":4,"data_cadastro":"2024-11-10","data_ultima_compra":"2026-08-06","telefone_2":null},{"id_cliente":"C0193","email":"cliente0193@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":39,"renda_mensal":null,"gasto_mensal":358.18,"satisfacao":5,"data_cadastro":"2024-10-07","data_ultima_compra":"2025-09-22","telefone_2":"(81) 99763-6713"},{"id_cliente":"C0194","email":"cliente0194@email.com","cidade":"Olinda","canal":"Telefone","plano":"Básico","idade":32,"renda_mensal":2656.09,"gasto_mensal":112.84,"satisfacao":3,"data_cadastro":"2021-02-16","data_ultima_compra":"2021-04-25","telefone_2":null},{"id_cliente":"C0195","email":"cliente0195@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Básico","idade":37,"renda_mensal":1604.77,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2022-01-05","data_ultima_compra":"2022-04-01","telefone_2":null},{"id_cliente":"C0196","email":"cliente0196@email.com","cidade":"Olinda","canal":null,"plano":"Básico","idade":31,"renda_mensal":3792.81,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2023-03-31","data_ultima_compra":"2023-04-12","telefone_2":null},{"id_cliente":"C0197","email":"cliente0197@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":65,"renda_mensal":null,"gasto_mensal":275.36,"satisfacao":5,"data_cadastro":"2025-12-05","data_ultima_compra":"2026-08-03","telefone_2":null},{"id_cliente":"C0198","email":"cliente0198@email.com","cidade":"Recife","canal":"Loja","plano":"Premium","idade":33,"renda_mensal":16166.6,"gasto_mensal":964.12,"satisfacao":5,"data_cadastro":"2021-09-23","data_ultima_compra":"2024-01-06","telefone_2":null},{"id_cliente":"C0199","email":"cliente0199@email.com","cidade":"Caruaru","canal":"App","plano":"Plus","idade":26,"renda_mensal":4387.25,"gasto_mensal":585.77,"satisfacao":5,"data_cadastro":"2024-09-25","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0200","email":"cliente0200@email.com","cidade":"Recife","canal":"Loja","plano":"Premium","idade":32,"renda_mensal":8183.86,"gasto_mensal":520.92,"satisfacao":4,"data_cadastro":"2021-05-27","data_ultima_compra":"2023-06-10","telefone_2":null}],"_lab":"../laboratorio/"};
+
+const reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = id => document.getElementById(id);
+const el = (tag, attrs={}, html) => { const e=document.createElement(tag); for(const k in attrs){ if(k==='class') e.className=attrs[k]; else e.setAttribute(k,attrs[k]); } if(html!==undefined) e.innerHTML=html; return e; };
+const nf = (x,d=1) => Number(x).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const brl = x => Number(x).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const inteiro = x => Math.round(x).toLocaleString('pt-BR');
+const mean = a => a.reduce((s,v)=>s+v,0)/a.length;
+const sum = a => a.reduce((s,v)=>s+v,0);
+const sorted = a => [...a].sort((x,y)=>x-y);
+const median = a => { const s=sorted(a), n=s.length; return n%2 ? s[(n-1)/2] : (s[n/2-1]+s[n/2])/2; };
+const contar = a => { const m=new Map(); a.forEach(v=>m.set(v,(m.get(v)||0)+1)); return m; };
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+function salvar(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function ler(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){return null;}}
+async function copiar(texto, okEl, fallbackEl){
+  try{ await navigator.clipboard.writeText(texto); okEl.hidden=false; setTimeout(()=>okEl.hidden=true,3500); }
+  catch(e){ if(fallbackEl){ fallbackEl.hidden=false; fallbackEl.value=texto; fallbackEl.focus(); fallbackEl.select(); okEl.textContent='Selecionado: use Ctrl+C para copiar.'; okEl.hidden=false; } }
+}
+
+const ICO={
+  termo:'<path d="M10 14V5a2 2 0 1 1 4 0v9a4 4 0 1 1-4 0z"/><path d="M12 9v7"/>',
+  crono:'<circle cx="12" cy="14" r="7.5"/><path d="M12 14v-4M9.5 2.5h5M12 2.5v4M18.5 7l1.5-1.5"/>',
+  org:'<rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/>',
+  capelo:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5M22 9v6"/>',
+  predio:'<path d="M3 21h18M5 21V10M19 21V10M9.7 21V10M14.3 21V10M2 10l10-6 10 6z"/>',
+  banco:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+  grade:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/>',
+  clique:'<path d="M5 3l7 17 2.5-7L21 10.5z"/><path d="M14.5 14.5l5 5"/>',
+  api:'<path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/>',
+  web:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8.5h18M12 11v6M9 14l3 3 3-3"/>'
+};
+const icone=k=>`<span class="icone" aria-hidden="true"><svg viewBox="0 0 24 24">${ICO[k]}</svg></span>`;
+
+function svgBarras(dados,hi){
+  const W=560, lh=dados.length>14?20:30, bh=lh-10, padL=170, H=dados.length*lh+10, max=Math.max(...dados.map(d=>d[1]),1);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Contagem por categoria">`;
+  dados.forEach(([k,v],i)=>{ const y=i*lh+6, w=(W-padL-50)*v/max; const isHi=hi&&hi.includes(String(k)); const ty=y+bh/2+4.5;
+    s+=`<text x="${padL-10}" y="${ty}" text-anchor="end" class="${isHi?'t-forte':''}">${k}</text><rect class="barra ${isHi?'hi':''}" x="${padL}" y="${y}" width="${Math.max(w,1.5)}" height="${bh}" rx="4"/><text x="${padL+w+8}" y="${ty}" class="${isHi?'t-forte':''}">${v}</text>`; });
+  return s+'</svg>';
+}
+function svgPontos(vals,marc,fmtv,extra){
+  const W=560, r=6, padX=24, x0=Math.min(...vals), x1=Math.max(...vals), span=(x1-x0)||1;
+  const X=v=>padX+(W-2*padX)*(v-x0)/span;
+  const pilhas=new Map(); const pts=sorted(vals).map(v=>{ const b=Math.round(X(v)/(2*r)); const k=pilhas.get(b)||0; pilhas.set(b,k+1); return {x:b*2*r,k}; });
+  const alto=Math.max(...pts.map(p=>p.k))+1, base=58+alto*2*r, H=base+44;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Distribuição dos valores">`;
+  pts.forEach(p=>{ s+=`<circle class="ponto" cx="${p.x}" cy="${base-r-p.k*2*r}" r="${r-0.8}"/>`; });
+  s+=`<line class="eixo" x1="${padX}" x2="${W-padX}" y1="${base+2}" y2="${base+2}"/>`;
+  s+=`<text x="${padX}" y="${base+22}">${fmtv(x0)}</text><text x="${W-padX}" y="${base+22}" text-anchor="end">${fmtv(x1)}</text>`;
+  const marca=(tipo,v,fraco)=>{ const x=X(v), cls=tipo==='media'?'m-media':'m-mediana', t=tipo==='media'?'t-media':'t-mediana', nome=tipo==='media'?'média':'mediana';
+    const anc = x>W*0.6?'end':'start', dx=x>W*0.6?-6:6, y=tipo==='media'?18:38;
+    return `<line class="${cls} ${fraco?'m-fraco':''}" x1="${x}" x2="${x}" y1="${y+6}" y2="${base+2}"/><text x="${x+dx}" y="${y}" text-anchor="${anc}" class="${t} ${fraco?'m-fraco':''}">${nome}</text>`; };
+  if(marc) s+=marca(marc, marc==='media'?mean(vals):median(vals), false);
+  if(extra) s+=marca(extra, extra==='media'?mean(vals):median(vals), true);
+  return s+'</svg>';
+}
+
+/* ================= KIT: estatística e gráficos (as contas ficam aqui, escondidas) ================= */
+const isNum = v => typeof v==='number' && isFinite(v);
+function quantil(a,p){ const s=sorted(a), n=s.length; if(!n) return NaN; const h=(n-1)*p, lo=Math.floor(h), hi=Math.ceil(h); return s[lo]+(s[hi]-s[lo])*(h-lo); }
+function desvio(a){ if(a.length<2) return 0; const m=mean(a); return Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/(a.length-1)); }
+function correl(x,y){ const mx=mean(x), my=mean(y); let sxy=0,sx=0,sy=0; for(let i=0;i<x.length;i++){const dx=x[i]-mx, dy=y[i]-my; sxy+=dx*dy; sx+=dx*dx; sy+=dy*dy;} return sxy/Math.sqrt(sx*sy); }
+function reta(x,y){ const mx=mean(x),my=mean(y); let sxy=0,sxx=0; x.forEach((v,i)=>{sxy+=(v-mx)*(y[i]-my); sxx+=(v-mx)**2;}); const b=sxy/sxx; return {a:my-b*mx,b}; }
+function forcaR(r){ const a=Math.abs(r); if(a<0.1) return 'praticamente nenhuma relação'; const f=a<0.3?'fraca':a<0.6?'moderada':'forte'; return `${f} e ${r>0?'positiva':'negativa'}`; }
+function ticks(lo,hi,n=5){ const span=(hi-lo)||1; const st0=span/n; const mag=10**Math.floor(Math.log10(st0)); const e=st0/mag; const step=(e>=7.5?10:e>=3.5?5:e>=1.5?2:1)*mag; const t=[]; for(let v=Math.ceil(lo/step)*step; v<=hi+step*1e-9; v+=step) t.push(+v.toFixed(10)); return t; }
+function fmtCurto(v){ const a=Math.abs(v); if(a>=1e6) return nf(v/1e6,1)+' mi'; if(a>=1e4) return nf(v/1e3,0)+' mil'; if(a>=1000) return nf(v/1e3,1)+' mil'; return nf(v, Number.isInteger(v)?0:1); }
+let _uid=0;
+function svgHist(vals,{bins=10,fv=fmtCurto,marcas=[],W=600,H=280,lo,hi,classe=()=>''}={}){
+  vals=vals.filter(isNum); if(!vals.length) return '';
+  lo=lo??Math.min(...vals); hi=hi??Math.max(...vals); if(hi===lo) hi=lo+1;
+  const L=44,R=W-16,T=48,B=H-36, bw=(hi-lo)/bins, cnt=new Array(bins).fill(0);
+  vals.forEach(v=>{ let b=Math.floor((v-lo)/bw); if(b>=bins) b=bins-1; if(b<0) b=0; cnt[b]++; });
+  const max=Math.max(...cnt,1), X=v=>L+(R-L)*(v-lo)/(hi-lo), Y=c=>B-(B-T)*c/max;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Histograma">`;
+  ticks(0,max,4).forEach(t=>{ if(t>max) return; s+=`<line class="eixo" style="opacity:.4" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${t}</text>`; });
+  cnt.forEach((c,i)=>{ const x0=X(lo+i*bw), x1=X(lo+(i+1)*bw); s+=`<rect class="barra ${classe(i,lo+i*bw,lo+(i+1)*bw)}" x="${x0+1}" y="${Y(c)}" width="${Math.max(x1-x0-2,1)}" height="${B-Y(c)}" rx="2"/>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>`;
+  ticks(lo,hi,5).forEach(t=>{ if(t<lo||t>hi) return; s+=`<text x="${X(t)}" y="${B+20}" text-anchor="middle">${fv(t)}</text>`; });
+  marcas.forEach((m,j)=>{ const x=X(m.v), dir=x>W*.62; s+=`<line class="${m.cls}" x1="${x}" x2="${x}" y1="${T-14+j*0}" y2="${B}"/><text x="${x+(dir?-6:6)}" y="${16+j*18}" text-anchor="${dir?'end':'start'}" class="${m.tcls||'t-forte'}">${m.label}</text>`; });
+  return s+'</svg>';
+}
+function svgBoxH(groups,{fv=fmtCurto,W=600,pontos=true,lo,hi,rowH=60}={}){
+  groups=groups.map(g=>({nome:g.nome,vals:g.vals.filter(isNum)})).filter(g=>g.vals.length);
+  const all=groups.flatMap(g=>g.vals); if(!all.length) return '';
+  lo=lo??Math.min(...all); hi=hi??Math.max(...all); if(hi===lo) hi=lo+1;
+  const L=128,R=W-18,T=12,H=T+groups.length*rowH+34, X=v=>L+(R-L)*(v-lo)/(hi-lo), rnd=mulberry32(11);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Boxplot">`;
+  ticks(lo,hi,5).forEach(t=>{ if(t<lo||t>hi)return; s+=`<line class="eixo" style="opacity:.3" x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${H-30}"/><text x="${X(t)}" y="${H-10}" text-anchor="middle">${fv(t)}</text>`; });
+  groups.forEach((g,i)=>{ const v=g.vals, y=T+i*rowH+rowH/2; const q1=quantil(v,.25),md=quantil(v,.5),q3=quantil(v,.75),iq=q3-q1, li=q1-1.5*iq, ls=q3+1.5*iq; const dentro=v.filter(x=>x>=li&&x<=ls); const wmin=Math.min(...dentro), wmax=Math.max(...dentro);
+    s+=`<text x="${L-12}" y="${y+5}" text-anchor="end" class="t-forte">${g.nome}</text>`;
+    if(pontos) v.forEach(x=>{ const out=x<li||x>ls; s+=`<circle cx="${X(x)}" cy="${y+(rnd()-.5)*24}" r="${out?4.8:3.2}" class="${out?'marcador':'ponto'}" style="opacity:${out?1:.5}"/>`; });
+    s+=`<line class="regua" x1="${X(wmin)}" x2="${X(q1)}" y1="${y}" y2="${y}"/><line class="regua" x1="${X(q3)}" x2="${X(wmax)}" y1="${y}" y2="${y}"/><line class="regua" x1="${X(wmin)}" x2="${X(wmin)}" y1="${y-9}" y2="${y+9}"/><line class="regua" x1="${X(wmax)}" x2="${X(wmax)}" y1="${y-9}" y2="${y+9}"/>`;
+    s+=`<rect class="caixa" x="${X(q1)}" y="${y-15}" width="${Math.max(X(q3)-X(q1),1.5)}" height="30" rx="4"/><line class="m-mediana-box" x1="${X(md)}" x2="${X(md)}" y1="${y-15}" y2="${y+15}"/>`;
+  });
+  return s+'</svg>';
+}
+function svgScatter(pts,{fx=fmtCurto,fy=fmtCurto,xlab='',ylab='',W=600,H=360,tend=false,x0,x1,y0,y1}={}){
+  if(!pts.length) return '';
+  const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
+  let a0=x0??Math.min(...xs), a1=x1??Math.max(...xs), b0=y0??Math.min(...ys), b1=y1??Math.max(...ys);
+  if(x0===undefined){const p=(a1-a0)*.05||1; a0-=p; a1+=p;} if(y0===undefined){const p=(b1-b0)*.08||1; b0-=p; b1+=p;}
+  const L=62,R=W-16,T=30,B=H-48, X=v=>L+(R-L)*(v-a0)/(a1-a0), Y=v=>B-(B-T)*(v-b0)/(b1-b0), id='cp'+(++_uid);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de dispersão"><defs><clipPath id="${id}"><rect x="${L}" y="${T}" width="${R-L}" height="${B-T}"/></clipPath></defs>`;
+  ticks(b0,b1,4).forEach(t=>{ if(t<b0||t>b1)return; s+=`<line class="eixo" style="opacity:.35" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${fy(t)}</text>`; });
+  ticks(a0,a1,5).forEach(t=>{ if(t<a0||t>a1)return; s+=`<text x="${X(t)}" y="${B+20}" text-anchor="middle">${fx(t)}</text>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/><line class="eixo" x1="${L}" x2="${L}" y1="${T}" y2="${B}"/>`;
+  pts.forEach(p=>{ s+=`<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="${p.r||5}" class="${p.cls||'ponto'}" style="opacity:${p.op??.75}"/>`; });
+  if(tend){ const r=reta(xs,ys); s+=`<line clip-path="url(#${id})" class="m-media" x1="${X(a0)}" x2="${X(a1)}" y1="${Y(r.a+r.b*a0)}" y2="${Y(r.a+r.b*a1)}"/>`; }
+  s+=`<text x="${(L+R)/2}" y="${H-6}" text-anchor="middle" class="t-forte">${xlab}</text><text x="${L}" y="16" class="t-forte">${ylab}</text>`;
+  return s+'</svg>';
+}
+function svgBarrasV(itens,{fv=v=>String(v),W=600,H=280,rot=false}={}){
+  if(!itens.length) return '';
+  const L=44,R=W-12,T=30,B=H-(rot?70:40), max=Math.max(...itens.map(i=>i.v),1), bw=(R-L)/itens.length, Y=v=>B-(B-T)*v/max;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de barras">`;
+  ticks(0,max,4).forEach(t=>{ if(t>max) return; s+=`<line class="eixo" style="opacity:.35" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${fv(t)}</text>`; });
+  itens.forEach((it,i)=>{ const x=L+i*bw+bw*.14, w=bw*.72; s+=`<rect class="barra ${it.cls||''}" x="${x}" y="${Y(it.v)}" width="${w}" height="${B-Y(it.v)}" rx="3"/><text x="${x+w/2}" y="${Y(it.v)-7}" text-anchor="middle" class="${it.cls?'t-forte':''}">${fv(it.v)}</text>`;
+    s+= rot ? `<text x="${x+w/2}" y="${B+14}" text-anchor="end" transform="rotate(-35 ${x+w/2} ${B+14})">${it.k}</text>` : `<text x="${x+w/2}" y="${B+20}" text-anchor="middle" class="${it.cls?'t-forte':''}">${it.k}</text>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>`;
+  return s+'</svg>';
+}
+function svgLinha(rotulos,vals,{fv=fmtCurto,W=600,H=280,destaque=[]}={}){
+  const L=70,R=W-34,T=30,B=H-42, max=Math.max(...vals)*1.1, min=0, X=i=>L+(R-L)*i/(vals.length-1), Y=v=>B-(B-T)*(v-min)/(max-min);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de linha">`;
+  ticks(0,max,4).forEach(t=>{ if(t>max) return; s+=`<line class="eixo" style="opacity:.35" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${fv(t)}</text>`; });
+  s+=`<path class="area-serie" d="M${X(0)} ${B} ${vals.map((v,i)=>`L${X(i)} ${Y(v)}`).join(' ')} L${X(vals.length-1)} ${B}Z"/><path class="linha-serie" d="${vals.map((v,i)=>`${i?'L':'M'}${X(i)} ${Y(v)}`).join(' ')}"/>`;
+  vals.forEach((v,i)=>{ const hi=destaque.includes(i); s+=`<circle cx="${X(i)}" cy="${Y(v)}" r="${hi?6:3.5}" class="marcador"/>`; if(hi) s+=`<text x="${X(i)}" y="${Y(v)-12}" text-anchor="${i===vals.length-1?'end':'middle'}" class="t-forte">${fv(v)}</text>`; });
+  rotulos.forEach((r,i)=>{ if(rotulos.length>14 && i%2) return; s+=`<text x="${X(i)}" y="${B+20}" text-anchor="middle" class="t-peq">${r}</text>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>`;
+  return s+'</svg>';
+}
+function montaQuiz({box,placar,itens,opcoes,limpar,mostrar,umaColuna=false}){
+  const est={};
+  function draw(rev=false){
+    const Bx=$(box); Bx.innerHTML=''; let ok=0;
+    itens.forEach((it,i)=>{
+      if(est[i]&&it.r.includes(est[i])) ok++;
+      const sel=rev?it.r[0]:est[i], certo=sel&&it.r.includes(sel);
+      const card=el('div',{class:'col-card'+(sel?(certo?' certo':' errado'):'')});
+      card.innerHTML=(it.ic?`<div class="r2-cab">${icone(it.ic)}<span style="font-weight:600;font-size:1.05rem">${it.t}</span></div>`:`<span style="font-weight:600;font-size:1.05rem">${it.t}</span>`)+(it.sub?`<span class="amostra">${it.sub}</span>`:'');
+      const op=el('div',{class:'opcoes'}); if(umaColuna) op.style.gridTemplateColumns='1fr';
+      opcoes.forEach(([k,v])=>{ const b=el('button',{class:sel===k?'marcado':''},v); b.onclick=()=>{est[i]=k;draw();}; op.appendChild(b); });
+      card.appendChild(op);
+      if(sel) card.appendChild(el('p',{class:'retorno '+(certo?'ok':'no')}, certo?`Isso. ${it.ok}`:`Ainda não. ${it.dica}`));
+      Bx.appendChild(card);
+    });
+    if(placar) $(placar).textContent=`${ok} de ${itens.length}`;
+  }
+  if(limpar) $(limpar).onclick=()=>{Object.keys(est).forEach(k=>delete est[k]);draw();};
+  if(mostrar) $(mostrar).onclick=()=>draw(true);
+  draw();
+}
+function guardaForm(chave,raiz){
+  const salvo=ler(chave)||{};
+  raiz.querySelectorAll('input[id],textarea[id],select[id]').forEach(e=>{ if(salvo[e.id]!==undefined){ if(e.type==='checkbox') e.checked=!!salvo[e.id]; else e.value=salvo[e.id]; } });
+  const g=()=>{ const o={}; raiz.querySelectorAll('input[id],textarea[id],select[id]').forEach(e=>{ o[e.id]= e.type==='checkbox'?e.checked:e.value; }); salvar(chave,o); };
+  raiz.addEventListener('input',g); raiz.addEventListener('change',g);
+}
+const limpaTxt = s => String(s??'').replace(/[\t\n\r]+/g,' ').trim();
+const dataBR = s => { if(!s||!/^\d{4}-\d{2}-\d{2}$/.test(s)) return s??''; const [y,m,d]=s.split('-'); return `${d}/${m}/${y}`; };
+
+const REF='2026-10-01';
+const CL=D.cli.map(r=>{ const o={...r}; o.tempo_cliente=r.data_cadastro?Math.max(0,Math.round((Date.parse(REF)-Date.parse(r.data_cadastro))/(864e5*30.44))):null;
+  o.faixa_etaria=r.idade==null?null:r.idade<25?'18 a 24':r.idade<35?'25 a 34':r.idade<45?'35 a 44':r.idade<60?'45 a 59':'60 ou mais'; return o; });
+const NUM={idade:{n:'Idade',f:v=>`${nf(v,0)} anos`,c:v=>nf(v,0)},renda_mensal:{n:'Renda mensal',f:brl,c:fmtCurto},gasto_mensal:{n:'Gasto mensal',f:brl,c:fmtCurto},satisfacao:{n:'Satisfação (1 a 5)',f:v=>nf(v,1),c:v=>nf(v,0)},tempo_cliente:{n:'Tempo de cliente (meses)',f:v=>`${nf(v,0)} meses`,c:v=>nf(v,0)}};
+const CAT={plano:{n:'Plano',ord:['Básico','Plus','Premium']},canal:{n:'Canal',ord:['App','WhatsApp','Loja','Telefone']},cidade:{n:'Cidade',ord:['Recife','Olinda','Jaboatão dos Guararapes','Paulista','Caruaru']},faixa_etaria:{n:'Faixa etária',ord:['18 a 24','25 a 34','35 a 44','45 a 59','60 ou mais']}};
+const vals=k=>CL.map(r=>r[k]).filter(isNum);
+const opt=(id,obj,sel)=>{ $(id).innerHTML=Object.entries(obj).map(([k,v])=>`<option value="${k}" ${k===sel?'selected':''}>${v.n}</option>`).join(''); };
+
+/* ================= LAB 1 · FORMATO ================= */
+let fmV='renda_mensal', palpite=null;
+function formatoDe(v){ const m=mean(v), md=median(v), sd=desvio(v), sk=(m-md)/sd; return sk>0.12?'dir':sk<-0.12?'esq':'sim'; }
+const FORM={sim:'Aproximadamente simétrica',dir:'Assimétrica à direita',esq:'Assimétrica à esquerda'};
+function desenhaFm(){
+  $('fmVar').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===fmV));
+  $('fmPalpite').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===palpite));
+  const v=vals(fmV), M=NUM[fmV], bins=+$('fmBins').value; $('fmBinsTxt').textContent=bins;
+  const m=mean(v), md=median(v), q1=quantil(v,.25), q3=quantil(v,.75), fo=formatoDe(v);
+  const lo=fmV==='satisfacao'?0.5:Math.min(...v), hi=fmV==='satisfacao'?5.5:(fmV==='renda_mensal'?Math.max(...v):Math.max(...v));
+  $('fmViz').innerHTML=svgHist(v,{bins:fmV==='satisfacao'?5:bins,lo,hi,fv:M.c,marcas:[{v:m,cls:'m-media',tcls:'t-media',label:`média ${M.f(m)}`},{v:md,cls:'m-mediana',tcls:'t-mediana',label:`mediana ${M.f(md)}`}]});
+  $('fmKpis').innerHTML=[['Clientes com o dado',v.length],['Metade está entre',`${M.f(q1)} e ${M.f(q3)}`],['Do menor ao maior',`${M.f(Math.min(...v))} a ${M.f(Math.max(...v))}`]].map(k=>`<div class="kpi"><span class="k">${k[0]}</span><div class="v" style="font-size:1.35rem">${k[1]}</div></div>`).join('');
+  const txt={dir:`A maioria dos clientes tem valores baixos e poucos têm valores muito altos: uma cauda longa à direita. Por isso a média (${M.f(m)}) fica acima da mediana (${M.f(md)}).`,esq:`A maioria tem valores altos e poucos têm valores baixos: cauda à esquerda. A média (${M.f(m)}) fica abaixo da mediana (${M.f(md)}).`,sim:`Os valores se espalham de forma parecida dos dois lados do centro. Média (${M.f(m)}) e mediana (${M.f(md)}) ficam próximas.`}[fo];
+  $('fmMsg').innerHTML=palpite?`<b>${FORM[fo]}.</b> ${txt}`:'Escolha um formato acima para ver a descrição.';
+  const r=$('fmRet'); if(palpite){ r.className='retorno '+(palpite===fo?'ok':'no'); r.textContent=palpite===fo?'Isso.':'Ainda não. Compare a altura das barras dos dois lados e a posição da média e da mediana.'; } else { r.textContent=''; }
+  $('fmConta').textContent=`Média = soma ÷ quantidade = ${M.f(m)}. Mediana = valor do meio com os ${v.length} valores em ordem = ${M.f(md)}. A aula chama de assimétrica quando a média se afasta da mediana em mais de 12% de um desvio padrão.`;
+}
+(function(){
+  Object.entries(NUM).forEach(([k,v])=>{ const b=el('button',{class:'chip','data-k':k},v.n); b.onclick=()=>{fmV=k;palpite=null;desenhaFm();}; $('fmVar').appendChild(b); });
+  Object.entries(FORM).forEach(([k,v])=>{ const b=el('button',{class:'chip','data-k':k},v); b.onclick=()=>{palpite=k;desenhaFm();}; $('fmPalpite').appendChild(b); });
+  $('fmBins').oninput=desenhaFm; desenhaFm();
+})();
+
+/* ================= LAB 2 · BOXPLOT PASSO A PASSO ================= */
+let bxV='gasto_mensal', bxP=0;
+const BXT=[['Passo 1 de 5 · Os clientes em fila','Cada ponto é um cliente, do menor valor (esquerda) ao maior (direita). Os pontos estão espalhados para cima e para baixo só para não ficarem uns sobre os outros.'],
+  ['Passo 2 de 5 · A mediana','A linha preta divide os clientes ao meio: metade está à esquerda, metade à direita.'],
+  ['Passo 3 de 5 · A caixa','A caixa vai do primeiro ao terceiro quartil: dentro dela estão os 50% de clientes do meio. Quanto mais larga a caixa, mais variados são os clientes típicos.'],
+  ['Passo 4 de 5 · Os bigodes e a cerca','As linhas que saem da caixa (bigodes) vão até o último cliente que ainda está dentro da cerca. A cerca fica a 1,5 vez a largura da caixa.'],
+  ['Passo 5 de 5 · Os extremos','Quem passa da cerca vira ponto laranja: são os outliers. O boxplot pronto mostra o típico, a variação e os extremos num desenho só.']];
+function desenhaBx(){
+  $('bxVar').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===bxV));
+  const v=vals(bxV), M=NUM[bxV], q1=quantil(v,.25), md=quantil(v,.5), q3=quantil(v,.75), iq=q3-q1, ls=q3+1.5*iq, li=q1-1.5*iq;
+  const dentro=v.filter(x=>x>=li&&x<=ls), wmin=Math.min(...dentro), wmax=Math.max(...dentro), outs=v.filter(x=>x>ls||x<li);
+  const W=600,H=230,L=20,R=W-20,lo=Math.min(...v),hi=Math.max(...v), X=x=>L+(R-L)*(x-lo)/(hi-lo), y=120, rnd=mulberry32(9);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Boxplot montado passo a passo">`;
+  ticks(lo,hi,6).forEach(t=>{ if(t<lo||t>hi) return; s+=`<line class="eixo" style="opacity:.3" x1="${X(t)}" x2="${X(t)}" y1="40" y2="${H-30}"/><text x="${X(t)}" y="${H-10}" text-anchor="middle">${M.c(t)}</text>`; });
+  if(bxP>=2) s+=`<rect class="caixa" x="${X(q1)}" y="${y-32}" width="${X(q3)-X(q1)}" height="64" rx="5"/><text x="${X(q1)}" y="${y+50}" text-anchor="middle" class="t-forte">Q1 ${M.f(q1)}</text><text x="${X(q3)}" y="${y+50}" text-anchor="middle" class="t-forte">Q3 ${M.f(q3)}</text>`;
+  if(bxP>=3) s+=`<line class="regua" x1="${X(wmin)}" x2="${X(q1)}" y1="${y}" y2="${y}" style="stroke-width:2.5"/><line class="regua" x1="${X(q3)}" x2="${X(wmax)}" y1="${y}" y2="${y}" style="stroke-width:2.5"/><line class="regua" x1="${X(wmin)}" x2="${X(wmin)}" y1="${y-14}" y2="${y+14}" style="stroke-width:2.5"/><line class="regua" x1="${X(wmax)}" x2="${X(wmax)}" y1="${y-14}" y2="${y+14}" style="stroke-width:2.5"/>${ls<=hi?`<line x1="${X(ls)}" x2="${X(ls)}" y1="46" y2="${H-36}" style="stroke:var(--bad);stroke-width:2;stroke-dasharray:6 4"/><text x="${X(ls)+6}" y="42" class="t-alerta">cerca</text>`:''}`;
+  v.forEach(x=>{ const o=x>ls||x<li; s+=`<circle cx="${X(x)}" cy="${y+(rnd()-.5)*56}" r="${bxP>=4&&o?6:3.4}" class="${bxP>=4&&o?'marcador':'ponto'}" style="opacity:${bxP>=4&&o?1:(bxP>=2?.35:.6)}"/>`; });
+  if(bxP>=1) s+=`<line class="m-mediana-box" x1="${X(md)}" x2="${X(md)}" y1="${y-40}" y2="${y+40}"/><text x="${X(md)}" y="${y-46}" text-anchor="middle" class="t-forte">mediana ${M.f(md)}</text>`;
+  $('bxViz').innerHTML=s+'</svg>';
+  $('bxEtapa').textContent=BXT[bxP][0];
+  $('bxTxt').textContent=BXT[bxP][1]+(bxP===4?` Aqui: ${outs.length} ${outs.length===1?'cliente':'clientes'} além da cerca.`:'');
+  $('bxVoltar').disabled=bxP===0; $('bxAvancar').disabled=bxP===4;
+}
+(function(){
+  ['gasto_mensal','renda_mensal','idade'].forEach(k=>{ const b=el('button',{class:'chip','data-k':k},NUM[k].n); b.onclick=()=>{bxV=k;desenhaBx();}; $('bxVar').appendChild(b); });
+  $('bxVoltar').onclick=()=>{ if(bxP>0){bxP--;desenhaBx();} }; $('bxAvancar').onclick=()=>{ if(bxP<4){bxP++;desenhaBx();} };
+  desenhaBx();
+})();
+
+/* ================= LAB 3 · GRUPOS ================= */
+function desenhaGr(){
+  const n=$('grNum').value, c=$('grCat').value, M=NUM[n], ord=CAT[c].ord;
+  const G=ord.map(g=>({nome:g,vals:CL.filter(r=>r[c]===g).map(r=>r[n]).filter(isNum)})).filter(g=>g.vals.length);
+  $('grViz').innerHTML=svgBoxH(G.map(g=>({nome:g.nome.length>14?g.nome.slice(0,13)+'…':g.nome,vals:g.vals})),{fv:M.c});
+  $('grTab').innerHTML='<thead><tr><th>Grupo</th><th>Clientes</th><th>Mediana</th><th>Média</th><th>Menor</th><th>Maior</th></tr></thead><tbody>'+G.map(g=>`<tr><td>${g.nome}</td><td>${g.vals.length}</td><td>${M.f(median(g.vals))}</td><td>${M.f(mean(g.vals))}</td><td>${M.f(Math.min(...g.vals))}</td><td>${M.f(Math.max(...g.vals))}</td></tr>`).join('')+'</tbody>';
+  const s=[...G].sort((a,b)=>median(b.vals)-median(a.vals)), top=s[0], bot=s[s.length-1], razao=median(top.vals)/median(bot.vals), peq=G.filter(g=>g.vals.length<15);
+  let msg=razao>=1.15?`O valor típico de <b>${M.n.toLowerCase()}</b> no grupo <b>${top.nome}</b> (${M.f(median(top.vals))}) é ${razao>=2?nf(razao,1)+' vezes':nf(100*(razao-1),0)+'% maior que'} o do grupo <b>${bot.nome}</b> (${M.f(median(bot.vals))}).`:`Os grupos têm valores típicos parecidos: de ${M.f(median(bot.vals))} a ${M.f(median(top.vals))}. Separar por ${CAT[c].n.toLowerCase()} não parece fazer muita diferença aqui.`;
+  if(peq.length) msg+=` Cuidado: ${peq.map(g=>`${g.nome} tem só ${g.vals.length} clientes`).join('; ')}. Poucos dados enganam.`;
+  $('grMsg').innerHTML=msg;
+}
+(function(){ opt('grNum',NUM,'gasto_mensal'); opt('grCat',CAT,'plano'); $('grNum').onchange=desenhaGr; $('grCat').onchange=desenhaGr; desenhaGr(); })();
+
+/* ================= LAB 4 · RELAÇÃO ================= */
+const CORES={nenhum:{n:'Nenhum'},plano:{n:'Plano'},canal:{n:'Canal'}};
+function desenhaRl(){
+  const x=$('rlX').value, y=$('rlY').value, cor=$('rlCor').value, ext=$('rlExt').checked;
+  let P=CL.filter(r=>isNum(r[x])&&isNum(r[y]));
+  if(ext) P=P.filter(r=>!(isNum(r.renda_mensal)&&r.renda_mensal>25000));
+  const ord=cor!=='nenhum'?CAT[cor].ord:[], cls=r=>cor==='nenhum'?'ponto':'p'+(ord.indexOf(r[cor])+1);
+  $('rlViz').innerHTML=svgScatter(P.map(r=>({x:r[x],y:r[y],cls:cls(r),r:4.5,op:.8})),{fx:NUM[x].c,fy:NUM[y].c,xlab:NUM[x].n,ylab:NUM[y].n,tend:true});
+  $('rlLeg').innerHTML=cor==='nenhum'?'<span>Linha laranja: tendência geral</span>':ord.map((g,i)=>`<span><i class="legenda-sw" style="background:var(--c${i+1})"></i>${g}</span>`).join('');
+  const r=correl(P.map(o=>o[x]),P.map(o=>o[y])), f=forcaR(r);
+  $('rlForca').textContent=f.charAt(0).toUpperCase()+f.slice(1);
+  const dir=r>0?`quanto maior ${NUM[x].n.toLowerCase()}, maior tende a ser ${NUM[y].n.toLowerCase()}`:`quanto maior ${NUM[x].n.toLowerCase()}, menor tende a ser ${NUM[y].n.toLowerCase()}`;
+  $('rlMsg').innerHTML=(Math.abs(r)<0.1?'Os pontos não formam um desenho: uma variável não ajuda a prever a outra.':`Em geral, ${dir}. ${Math.abs(r)<0.3?'Mas os pontos estão muito espalhados: a relação é fraca.':''}`)+(x===y?'':(((x==='renda_mensal'||y==='renda_mensal')&&!ext)?' Repare nos 2 pontos isolados de renda muito alta: marque a caixa acima e veja se a leitura muda.':''))+' Relação não é causa: isso vira hipótese para o Encontro 6.';
+  $('rlConta').textContent=`A aula calcula o coeficiente de correlação de Pearson com ${P.length} clientes: r = ${nf(r,2)}. Ele vai de −1 a +1. Perto de 0: sem relação; acima de 0,6 (ou abaixo de −0,6): relação forte. A linha é a reta que passa mais perto de todos os pontos.`;
+}
+(function(){ opt('rlX',NUM,'renda_mensal'); opt('rlY',NUM,'gasto_mensal'); opt('rlCor',CORES,'nenhum'); ['rlX','rlY','rlCor','rlExt'].forEach(id=>$(id).onchange=desenhaRl); desenhaRl(); })();
+
+/* ================= LAB 5 · TEMPO ================= */
+const SERIE=(()=>{ const rnd=mulberry32(77), saz=[.85,.9,1,.98,1.02,.97,1.08,1,.96,1.03,1.25,1.45], v=[]; for(let i=0;i<24;i++){ const m=i%12; v.push(Math.round(120*(1+0.012*i)*saz[m]*(1+(rnd()-.5)*.08))); } return v; })();
+const MS=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+let tpV='linha';
+function desenhaTp(){
+  $('tpVista').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===tpV));
+  if(tpV==='linha'){ $('tpViz').innerHTML=svgLinha(SERIE.map((v,i)=>`${MS[i%12]}/${i<12?24:25}`),SERIE,{fv:v=>`${nf(v,0)} mil`,destaque:[11,23]});
+    const a1=sum(SERIE.slice(0,12)), a2=sum(SERIE.slice(12)); $('tpMsg').innerHTML=`Duas coisas ao mesmo tempo: uma <b>tendência</b> de crescimento (o faturamento de 2025 foi ${nf(100*(a2/a1-1),0)}% maior que o de 2024) e picos que se repetem todo fim de ano. Para separar as duas, troque para “Mês a mês”.`; }
+  else { const med=MS.map((m,i)=>(SERIE[i]+SERIE[i+12])/2), g=mean(med); const it=med.map((v,i)=>({k:MS[i],v:Math.round(v),cls:i>=10?'hi':''}));
+    let s=svgBarrasV(it,{fv:v=>nf(v,0)}); $('tpViz').innerHTML=s; $('tpMsg').innerHTML=`Juntando os dois anos, aparece a <b>sazonalidade</b>: dezembro fica ${nf(100*(med[11]/g-1),0)}% acima da média do ano e novembro ${nf(100*(med[10]/g-1),0)}%. Um dezembro alto não é sinal de crescimento: acontece todo ano.`; }
+}
+(function(){ [['linha','Linha do tempo (24 meses)'],['mes','Mês a mês (média dos 2 anos)']].forEach(([k,v])=>{ const b=el('button',{class:'chip','data-k':k},v); b.onclick=()=>{tpV=k;desenhaTp();}; $('tpVista').appendChild(b); }); desenhaTp(); })();
+
+/* ================= LAB 6 · CONTINGÊNCIA ================= */
+let ctM='n';
+function desenhaCt(){
+  $('ctModo').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===ctM));
+  const l=$('ctL').value, c=$('ctC').value, Lo=CAT[l].ord, Co=CAT[c].ord;
+  if(l===c){ $('ctTab').innerHTML=''; $('ctMsg').textContent='Escolha duas categorias diferentes.'; return; }
+  const B=CL.filter(r=>r[l]&&r[c]), m={}; B.forEach(r=>{ const k=r[l]+'|'+r[c]; m[k]=(m[k]||0)+1; });
+  const tl=Object.fromEntries(Lo.map(a=>[a,sum(Co.map(b=>m[a+'|'+b]||0))]));
+  const val=(a,b)=>ctM==='n'?(m[a+'|'+b]||0):(tl[a]?100*(m[a+'|'+b]||0)/tl[a]:0), mx=Math.max(...Lo.flatMap(a=>Co.map(b=>val(a,b))));
+  $('ctTab').innerHTML='<thead><tr><th></th>'+Co.map(b=>`<th>${b}</th>`).join('')+'<th>Total</th></tr></thead><tbody>'+Lo.map(a=>`<tr><td><b>${a}</b></td>${Co.map(b=>{ const v=val(a,b); return `<td style="background:color-mix(in srgb, var(--orange) ${Math.round(70*v/mx)}%, transparent)">${ctM==='n'?v:nf(v,0)+'%'}</td>`; }).join('')}<td>${ctM==='n'?tl[a]:'100%'}</td></tr>`).join('')+'</tbody>';
+  if(ctM==='pct'){ const ult=Co[Co.length-1]; const s=Lo.filter(a=>tl[a]>=10).map(a=>[a,val(a,ult)]).sort((x,y)=>y[1]-x[1]); $('ctMsg').innerHTML=s.length>1?`Entre os clientes de <b>${s[0][0]}</b>, ${nf(s[0][1],0)}% estão em “${ult}”; entre os de <b>${s[s.length-1][0]}</b>, ${nf(s[s.length-1][1],0)}%. Em percentual, grupos de tamanhos diferentes ficam comparáveis.`:''; }
+  else { const big=Lo.map(a=>[a,tl[a]]).sort((x,y)=>y[1]-x[1])[0]; $('ctMsg').innerHTML=`Em quantidade, <b>${big[0]}</b> domina porque tem mais clientes (${big[1]}). Para comparar grupos, troque para “% em cada linha”.`; }
+}
+(function(){ opt('ctL',CAT,'canal'); opt('ctC',CAT,'plano'); [['n','Quantidade'],['pct','% em cada linha']].forEach(([k,v])=>{ const b=el('button',{class:'chip','data-k':k},v); b.onclick=()=>{ctM=k;desenhaCt();}; $('ctModo').appendChild(b); }); ['ctL','ctC'].forEach(id=>$(id).onchange=desenhaCt); desenhaCt(); })();
+
+/* ================= LAB 7 · MURAL ================= */
+(function(){
+  const VI=['O formato da distribuição','Diferença entre grupos','Relação entre duas variáveis','Padrão no tempo','Cruzamento de duas categorias'], TE=['Comparar médias ou medianas de grupos','Correlação entre duas variáveis','Comparar percentuais entre grupos','Comparar períodos'];
+  for(let i=1;i<=3;i++){ const d=el('div',{class:'painel'}); d.innerHTML=`<div class="campo"><label for="hp${i}">Hipótese ${i}</label><input id="hp${i}" type="text" placeholder="${['Ex.: Clientes Premium gastam mais que os do Básico.','Ex.: Clientes do app estão mais satisfeitos.','Ex.: Quem ganha mais gasta mais.'][i-1]}"></div><div class="dois"><div class="campo"><label for="hv${i}">O que eu vi</label><select id="hv${i}"><option value="">Escolha</option>${VI.map(v=>`<option>${v}</option>`).join('')}</select></div><div class="campo"><label for="ht${i}">Como testar no Encontro 6</label><select id="ht${i}"><option value="">Escolha</option>${TE.map(v=>`<option>${v}</option>`).join('')}</select></div></div>`; $('hipCards').appendChild(d); }
+  guardaForm('fad-e5-hip',$('labHip'));
+  $('hipCopiar').onclick=()=>copiar(['Hipótese\tO que eu vi\tComo testar',...[1,2,3].map(i=>`${limpaTxt($('hp'+i).value)}\t${$('hv'+i).value}\t${$('ht'+i).value}`)].join('\n'),$('hipOk'),$('hipFallback'));
+})();
+
+/* ================= EXCEL ================= */
+(function(){
+  const mp=CAT.plano.ord.map(p=>`${p}: ${brl(mean(CL.filter(r=>r.plano===p).map(r=>r.gasto_mensal).filter(isNum)))}`).join(' · ');
+  const passos=[
+    ['Abra e formate.','Dois cliques em <b>clientes_encontro5_limpa.csv</b> e <b>Formatar como Tabela</b>. São 200 clientes.'],
+    ['Histograma.','Selecione a coluna <b>renda_mensal</b> e use <b>Inserir → Gráficos → Inserir Gráfico Estatístico → Histograma</b>. Para mudar o número de barras: clique no eixo de baixo, <b>Formatar Eixo → Número de compartimentos</b>.'],
+    ['Boxplot.','Selecione <b>gasto_mensal</b> e use <b>Inserir Gráfico Estatístico → Caixa e Caule</b>. Os pontos soltos são os outliers.'],
+    ['Dispersão.','Selecione <b>renda_mensal</b> e <b>gasto_mensal</b> juntas (segure Ctrl) e use <b>Inserir → Dispersão</b>. Para a linha de tendência: clique num ponto com o botão direito e escolha <b>Adicionar Linha de Tendência</b>.'],
+    ['Comparar grupos sem fórmula.',`<b>Inserir → Tabela Dinâmica</b>. Arraste <b>plano</b> para Linhas e <b>gasto_mensal</b> para Valores. Clique na seta de “Soma de gasto_mensal”, <b>Configurações do Campo de Valor → Média</b>. Confira: ${mp}.`],
+    ['Filtrar com um clique.','Com a tabela dinâmica selecionada, <b>Inserir → Segmentação de Dados → canal</b>. Clique num canal e veja as médias mudarem.'],
+    ['Cruzar categorias.','Numa nova tabela dinâmica, coloque <b>canal</b> em Linhas, <b>plano</b> em Colunas e <b>id_cliente</b> em Valores (Contagem). Para percentuais: <b>Mostrar Valores Como → % do Total da Linha</b>.']];
+  $('xlPassos').innerHTML=passos.map(p=>`<li><b>${p[0]}</b> ${p[1]}</li>`).join('');
+})();
+
+/* ================= ATIVIDADE ================= */
+(function(){
+  for(let i=1;i<=3;i++){ const d=el('div',{class:'painel'}); d.innerHTML=`<p class="rotulo">Descoberta ${i}</p><div class="grade3"><div class="campo"><label for="a5o${i}">O que vimos</label><input id="a5o${i}" type="text"></div><div class="campo"><label for="a5g${i}">Em qual gráfico</label><select id="a5g${i}"><option value="">Escolha</option><option>Histograma</option><option>Boxplot por grupo</option><option>Dispersão</option><option>Linha do tempo</option><option>Tabela de contingência</option></select></div><div class="campo"><label for="a5s${i}">O que pode significar</label><input id="a5s${i}" type="text"></div></div>`; $('a5Desc').appendChild(d); }
+  guardaForm('fad-e5-ativ',$('labAtiv'));
+  $('a5Copiar').onclick=()=>{ const L=[`Grupo e tema\t${limpaTxt($('a5Grupo').value)}`,'','Descoberta\tO que vimos\tGráfico\tO que pode significar',...[1,2,3].map(i=>`${i}\t${limpaTxt($('a5o'+i).value)}\t${$('a5g'+i).value}\t${limpaTxt($('a5s'+i).value)}`),'',`Nova hipótese 1\t${limpaTxt($('a5H1').value)}`,`Nova hipótese 2\t${limpaTxt($('a5H2').value)}`]; copiar(L.join('\n'),$('a5Ok'),$('a5Fallback')); };
+})();
+
+/* ================= NAVEGAÇÃO / MODO AULA ================= */
+const cenas=[...document.querySelectorAll('.cena')];
+const sel=$('irpara');
+cenas.forEach((c,i)=>{ const o=el('option',{value:c.id},`${i+1}. ${c.dataset.nome}`); sel.appendChild(o); });
+let aula=false, atual=0;
+function mostrar(i){ atual=Math.max(0,Math.min(cenas.length-1,i)); cenas.forEach((c,j)=>c.classList.toggle('atual',j===atual)); $('contador').textContent=`${atual+1} / ${cenas.length}`; sel.value=cenas[atual].id; window.scrollTo(0,0); }
+function visivel(){ let best=0; cenas.forEach((c,i)=>{ if(c.getBoundingClientRect().top<window.innerHeight*0.4) best=i; }); return best; }
+sel.addEventListener('change',()=>{ const i=cenas.findIndex(c=>c.id===sel.value); if(aula) mostrar(i); else cenas[i].scrollIntoView({behavior:reduz?'auto':'smooth'}); });
+$('btnAula').onclick=()=>{
+  aula=!aula; document.body.classList.toggle('aula',aula); document.documentElement.classList.toggle('aula',aula); $('btnAula').setAttribute('aria-pressed',String(aula)); $('btnAula').textContent=aula?'Sair do modo aula':'Modo aula';
+  if(aula){ mostrar(visivel()); } else { cenas.forEach(c=>c.classList.remove('atual')); cenas[atual].scrollIntoView(); if(document.fullscreenElement) document.exitFullscreen().catch(()=>{}); }
+};
+$('antes').onclick=()=>mostrar(atual-1);
+$('depois').onclick=()=>mostrar(atual+1);
+$('cheia').onclick=()=>{ const d=document.documentElement; if(document.fullscreenElement){document.exitFullscreen().catch(()=>{});} else if(d.requestFullscreen){ d.requestFullscreen().catch(()=>{}); } };
+document.addEventListener('keydown',e=>{
+  if(!aula||e.defaultPrevented) return; if(e.target.closest && e.target.closest('input,select,textarea')) return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();mostrar(atual+1);}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();mostrar(atual-1);}
+  else if(e.key==='Escape'){ $('btnAula').click(); }
+});
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>{ if(aula) return; es.forEach(en=>{ if(en.isIntersecting) sel.value=en.target.id; }); },{rootMargin:'-40% 0px -55% 0px'});
+  cenas.forEach(c=>io.observe(c));
+}
+if(location.hash){ const alvo=document.getElementById(location.hash.slice(1)); if(alvo) setTimeout(()=>alvo.scrollIntoView(),50); }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+﻿id_cliente;cidade;cep;canal_preferido;escolaridade;satisfacao;idade;qtd_pedidos;renda_mensal;tempo_espera_min;data_cadastro
+C001;Recife;50986050;Loja;Médio;3;40;5;2811,38;8,5;14/02/2025
+C002;Paulista;53402960;App;Médio;4;46;5;5444,77;1,5;16/04/2026
+C003;Recife;51039440;App;Fundamental;5;27;2;3749,80;1,2;21/06/2025
+C004;Recife;51168950;App;Superior;5;20;4;3809,77;2,8;05/08/2023
+C005;Jaboatão dos Guararapes;54383940;App;Médio;5;61;5;2522,86;3,8;10/03/2023
+C006;Recife;51678410;Telefone;Superior;3;28;5;5484,85;4,4;20/03/2025
+C007;Olinda;53140530;WhatsApp;Médio;3;29;4;1511,08;10,3;31/05/2026
+C008;Recife;52237570;Loja;Superior;4;52;6;7322,79;5,4;12/12/2023
+C009;Jaboatão dos Guararapes;54113730;App;Médio;3;26;4;5241,82;3,2;23/05/2024
+C010;Caruaru;55078730;Telefone;Médio;2;37;1;2843,21;28,9;24/12/2024
+C011;Recife;51975080;App;Pós-graduação;5;19;8;13202,73;0,8;08/08/2024
+C012;Caruaru;55094700;WhatsApp;Médio;4;27;2;1627,80;3,1;14/01/2024
+C013;Recife;50139800;App;Médio;5;46;6;2379,67;4,8;27/10/2024
+C014;Recife;51205070;App;Superior;5;25;4;3424,58;1,1;09/02/2025
+C015;Recife;51790990;Loja;Superior;4;31;2;11326,75;1,6;23/07/2025
+C016;Jaboatão dos Guararapes;54190310;App;Médio;4;24;2;2163,55;1,5;06/03/2024
+C017;Olinda;53158460;App;Fundamental;4;30;3;1599,14;1,8;04/11/2024
+C018;Olinda;53099590;App;Pós-graduação;4;25;4;18450,00;1,5;22/10/2025
+C019;Jaboatão dos Guararapes;54139140;Telefone;Superior;2;36;5;5670,60;20,7;22/06/2023
+C020;Caruaru;55060800;Loja;Superior;4;19;5;11663,45;4,2;21/03/2026
+C021;Recife;51835020;WhatsApp;Superior;5;28;1;4325,44;3,6;26/06/2026
+C022;Recife;50633330;Telefone;Médio;4;53;8;1587,43;4,8;28/06/2025
+C023;Olinda;53096790;WhatsApp;Fundamental;4;39;6;1497,08;10,5;06/09/2023
+C024;Caruaru;55033700;WhatsApp;Médio;3;31;4;2243,22;5,3;05/03/2023
+C025;Olinda;53115820;WhatsApp;Superior;4;40;9;5205,44;5,4;23/03/2023
+C026;Jaboatão dos Guararapes;54260920;App;Médio;3;36;7;2196,25;2,8;17/07/2023
+C027;Recife;52264460;WhatsApp;Médio;4;25;5;2734,33;6,6;18/07/2025
+C028;Recife;52075770;Telefone;Fundamental;4;30;1;1669,23;3,7;07/04/2024
+C029;Recife;52088440;WhatsApp;Fundamental;3;34;7;2097,27;16,4;24/06/2026
+C030;Jaboatão dos Guararapes;54323920;Telefone;Médio;2;39;4;3550,10;17,2;29/06/2024
+C031;Caruaru;55031480;WhatsApp;Superior;3;57;1;4989,38;9,9;11/11/2023
+C032;Jaboatão dos Guararapes;54045770;Telefone;Pós-graduação;3;31;4;6740,37;13,1;19/01/2026
+C033;Recife;52129970;Telefone;Médio;5;22;1;1412,00;0,6;19/07/2026
+C034;Caruaru;55037540;App;Fundamental;5;32;4;2008,76;3,4;10/08/2025
+C035;Olinda;53010250;Telefone;Pós-graduação;3;31;4;8976,08;16,8;23/06/2026
+C036;Paulista;53404100;App;Pós-graduação;4;29;5;4129,32;3,2;22/02/2023
+C037;Recife;51955810;WhatsApp;Pós-graduação;4;42;6;8067,28;10,7;16/12/2023
+C038;Recife;50078920;App;Fundamental;3;42;5;1748,33;5,1;07/07/2024
+C039;Jaboatão dos Guararapes;54040810;App;Médio;4;28;6;2205,40;6,7;02/01/2025
+C040;Jaboatão dos Guararapes;54291890;App;Médio;4;27;5;4964,43;0,5;09/03/2026

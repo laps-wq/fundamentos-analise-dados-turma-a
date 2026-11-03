@@ -1,0 +1,211 @@
+﻿id_cliente;email;cidade;canal;plano;idade;renda_mensal;gasto_mensal;satisfacao;data_cadastro;data_ultima_compra;telefone_2
+C0001;cliente0001@email.com;Recife;WhatsApp;Básico;54;3209,61;162,48;3;21/01/2025;03/07/2025;
+C0002;cliente0002@email.com;Recife;Telefone;Premium;37;8555,24;700,79;3;09/09/2024;20/10/2025;
+C0003;cliente0003@email.com;Recife;APP;Plus;45;4260,57;335,51;;27/07/2026;21/09/2026;
+C0004;cliente0004@email.com;olinda;;Básico;54;R$ 3.423,65;383,37;3;08/02/2022;30/07/2023;
+C0158;cliente0158@email.com;Caruaru;whatsapp;Básico;28;2913,41;60,00;3;09/04/2026;30/09/2026;(81) 98939-1494
+C0005;cliente0005@email.com;Recife;Loja;Básico;40;2113,35;60,00;5;10/06/2023;;(81) 99159-2395
+C0006;cliente0006@email.com;Olinda;WhatsApp;Básico;28;4435,27;367,12;;11/02/2025;27/08/2026;
+C0007;cliente0007@email.com;Recife;Loja;Plus;53;3829,42;197,07;;13/06/2022;04/05/2023;
+C0008;cliente0008@email.com;Recife;WhatsApp;Básico;41;1740,09;;2;07/09/2022;02/02/2023;
+C0009;cliente0009@email.com;Recife;APP;Básico;36;2096,60;365,93;4;13/10/2025;05/08/2026;
+C0010;cliente0010@email.com;Jaboatão dos Guararapes;telefone;Premium;42;5856,76;496,09;3;08/10/2023;21/12/2023;
+C0011;cliente0011@email.com;caruaru;App;Plus;22;4781,49;678,42;4;17/09/2024;29/01/2025;(81) 99531-3559
+C0012;cliente0012@email.com;caruaru;WhatsApp;Básico;33;4122,01;263,34;4;31/05/2024;31/07/2025;(81) 98559-4798
+C0013;cliente0013@email.com;Jaboatão dos Guararapes;App;Plus;30;;616,41;3;25/06/2021;08/08/2023;(81) 98627-5087
+C0014;cliente0014@email.com;Caruaru;WhatsApp;Plus;;5834,31;613,59;4;24/09/2024;27/11/2024;
+C0015;cliente0015@email.com;Paulista;Telefone;Básico;47;1603,33;90,25;4;22/03/2022;29/03/2022;
+C0016;cliente0016@email.com;Recife;App;Básico;20;2679,19;222,94;;28/12/2022;13/02/2023;(81) 99171-7084
+C0046;cliente0046@email.com;recife;WhatsApp;Básico;29;4204,02;;3;03/04/2025;23/12/2025;(81) 98069-7794
+C0017;cliente0017@email.com;RECIFE;Loja;Básico;35;2511,51;60,00;4;04/10/2024;25/02/2025;
+C0018;cliente0018@email.com;Recife;App;Premium;45;23051,26;1252,51;4;12/05/2022;21/10/2022;
+C0019;cliente0019@email.com;Caruaru;Telefone;Básico;;2922,76;283,33;2;22/11/2022;26/01/2024;
+C0020;cliente0020@email.com;Caruaru;Telefone;Básico;38;4903,85;427,59;3;14/01/2025;16/01/2026;(81) 98642-9841
+C0021;cliente0021@email.com;Olinda;WhatsApp;Plus;18;5528,77;413,09;4;04/02/2024;31/03/2026;
+C0022;cliente0022@email.com;Paulista;App;Básico;42;2666,08;210,79;4;10/03/2025;;(81) 98195-3535
+C0023;cliente0023@email.com;Recife;Tel.;Plus;31;5962,96;504,35;3;13/03/2026;;
+C0024;cliente0024@email.com;Jaboatão dos Guararapes;;Plus;38;4699,34;271,80;3;17/05/2023;03/09/2022;
+C0025;cliente0025@email.com;recife;App;Plus;31;5200,55;357,88;4;16/03/2024;01/05/2026;
+C0026;cliente0026@email.com;Recife;App;Básico;56;4234,30;548,92;;02/08/2026;01/09/2026;(81) 98324-1066
+C0027;cliente0027@email.com;Jaboatão dos Guararapes;Loja;Básico;45;1795,21;60,00;4;24/02/2026;31/08/2026;
+C0028;cliente0028@email.com;paulista ;WhatsApp;Básico;36;2378,98;182,30;4;14/07/2021;;
+C0029;cliente0029@email.com;Caruaru;loja;Básico;0;2682,37;60,00;2;20/03/2026;05/09/2026;(81) 99511-4983
+C0030;cliente0030@email.com;Jaboatão dos Guararapes;Telefone;Premium;46;14548,27;805,56;4;30/08/2021;22/06/2022;
+C0031;cliente0031@email.com;Caruaru;WhatsApp;Plus;51;7489,94;460,06;4;09/05/2023;17/10/2024;
+C0032;cliente0032@email.com;Recife;App;Plus;23;5338,14;292,46;4;24/12/2024;03/09/2026;(81) 98735-2646
+C0033;cliente0033@email.com;Caruaru;WhatsApp;Premium;73;11474,75;804,41;4;22/09/2021;12/12/2021;
+C0034;cliente0034@email.com;Caruaru;App;Plus;36;2562,41;208,89;3;16/12/2021;28/02/2024;
+C0035;cliente0035@email.com;Recife;Telefone;Básico;29;1925,98;180,86;3;01/07/2026;11/08/2026;
+C0036;cliente0036@email.com;CARUARU;Telefone;Básico;;1817,02;137,88;2;27/05/2026;18/09/2026;(81) 99239-8047
+C0037;cliente0037@email.com;Recife;;Básico;32;-2500,00;121,08;3;06/12/2022;02/02/2024;(81) 98625-5641
+C0038;cliente0038@email.com;Jaboatão dos Guararapes;App;Plus;35;6053,93;391,26;2;13/06/2023;09/09/2023;
+C0039;cliente0039@email.com;RECIFE;App;Básico;48;4799,85;88,68;;16/05/2022;27/07/2024;
+C0040;cliente0040@email.com;Recife;Loja;Básico;;R$ 3.653,85;129,46;3;28/06/2023;31/03/2024;(81) 98509-9371
+C0041;cliente0041@email.com;Jaboatão dos Guararapes;App;Plus;60;6205,81;419,53;4;01/10/2022;07/06/2024;(81) 98776-8478
+C0042;cliente0042@email.com;Jaboatao dos Guararapes;whatsapp;Básico;37;2669,08;233,09;3;21/01/2023;10/09/2024;
+C0119;cliente0119@email.com;Jaboatão dos Guararapes;WhatsApp;Básico;35;2680,47;179,03;4;05/03/2021;31/05/2023;
+C0043;cliente0043@email.com;Paulista;App;Plus;18;7452,11;544,79;5;24/06/2023;;(81) 99820-7849
+C0044;cliente0044@email.com;Jaboatao dos Guararapes;App;Plus;39;5676,47;647,98;4;15/03/2027;22/09/2026;(81) 99152-3979
+C0045;cliente0045@email.com; Recife;Telefone;Premium;62;7843,10;851,36;3;10/07/2023;03/11/2023;(81) 99807-8068
+C0046;cliente0046@email.com;recife;WhatsApp;Básico;29;4204,02;;3;03/04/2025;23/12/2025;(81) 98069-7794
+C0047;cliente0047@email.com;Recife;WhatsApp;Plus;55;5854,52;270,20;4;07/11/2022;04/09/2023;(81) 99083-9057
+C0048;cliente0048@email.com;Paulista;App;Básico;60;3038,85;309,87;4;24/04/2023;21/11/2023;(81) 98671-4760
+C0049;cliente0049@email.com;jaboatão dos guararapes;App;Básico;35;2013,76;60,00;4;01/01/2026;15/08/2026;
+C0050;cliente0050@email.com;Caruaru;App;Premium;61;10041,09;573,43;3;25/08/2025;26/09/2026;
+C0051;cliente0051@email.com;Recife;WhatsApp;Premium;39;12516,69;816,66;4;20/02/2026;02/08/2026;
+C0052;cliente0052@email.com;Jaboatão dos Guararapes;App;Básico;45;1625,44;184,24;4;22/08/2025;12/09/2026;(81) 99532-3609
+C0053;cliente0053@email.com; Recife;APP;Básico;24;3066,65;73,63;;28/08/2022;13/03/2023;
+C0054;cliente0054@email.com;Caruaru;Whatsapp;Plus;45;7478,27;763,07;4;27/08/2024;27/09/2026;
+C0057;cliente0057@email.com;Olinda;App;Básico;35;4772,57;258,65;5;12/03/2021;16/04/2022;
+C0055;cliente0055@email.com;Jaboatão dos Guararapes;Telefone;Premium;45;11952,54;825,97;5;20/04/2024;16/12/2025;
+C0056;cliente0056@email.com;Recife;WhatsApp;Básico;;R$ 3.804,59;188,90;4;28/06/2026;15/08/2026;(81) 99801-7858
+C0057;cliente0057@email.com;Olinda;App;Básico;35;4772,57;258,65;5;12/03/2021;16/04/2022;
+C0058;cliente0058@email.com;Jaboatão dos Guararapes;Telefone;Premium;-3;28500,00;1980,00;3;12/05/2024;31/03/2025;(81) 98973-7738
+C0059;cliente0059@email.com;Olinda;WhatsApp;Premium;50;11619,79;915,12;3;16/03/2023;22/07/2025;
+C0060;cliente0060@email.com;Jaboatão dos Guararapes;App;Básico;30;2029,16;248,87;3;09/07/2022;12/03/2024;(81) 99737-2468
+C0061;cliente0061@email.com;Jaboatão dos Guararapes;WhatsApp;Plus;39;10745,84;577,75;;24/02/2026;11/09/2026;(81) 99960-9882
+C0062;cliente0062@email.com;Recife;Loja;Básico;43;1706,66;119,13;3;02/12/2021;;
+C0063;cliente0063@email.com;Caruaru;WhatsApp;Premium;23;6808,76;658,70;4;09/11/2023;;
+C0064;cliente0064@email.com;Jaboatão dos Guararapes;Tel.;Plus;51;;285,78;2;14/07/2021;25/01/2022;
+C0065;cliente0065@email.com;Caruaru;WhatsApp;Plus;54;6228,83;398,31;4;21/03/2025;09/09/2026;(81) 98226-6254
+C0066;cliente0066@email.com;Caruaru;WhatsApp;Premium;42;5677,52;562,20;4;12/07/2023;17/05/2024;
+C0067;cliente0067@email.com;Olinda;App;Básico;21;;312,84;4;16/07/2026;01/09/2026;
+C0068;cliente0068@email.com;Caruaru;WhatsApp;Básico;44;3618,87;259,58;3;25/09/2021;16/10/2021;
+C0069;cliente0069@email.com;Olinda;Loja;Plus;49;5879,59;378,33;4;20/05/2026;;
+C0070;cliente0070@email.com;Recife;Telefone;Plus;31;2911,75;340,18;;05/08/2023;02/07/2024;
+C0071;cliente0071@email.com;Recife;App;Básico;18;2762,77;232,89;5;13/05/2025;;
+C0072;cliente0072@email.com;Jaboatão dos Guararapes;Telefone;Básico;25;2865,21;364,29;3;08/10/2025;29/08/2026;
+C0073;cliente0073@email.com;Paulista;App;Básico;53;1550,01;80,81;4;12/01/2026;;
+C0074;cliente0074@email.com;Recife;App;Premium;35;9990,43;757,67;5;;01/08/2026;
+C0075;cliente0075@email.com;Paulista;App;Premium;44;9725,34;374,39;4;02/06/2025;13/08/2026;
+C0076;cliente0076@email.com;paulista ;WhatsApp;Plus;37;5313,80;74,70;4;21/11/2024;04/12/2025;(81) 99910-7069
+C0077;cliente0077@email.com;Caruaru;App;Plus;64;7692,16;602,83;5;02/08/2024;15/11/2025;
+C0078;cliente0078@email.com;Recife;whatsapp;Premium;29;10271,90;541,08;3;03/07/2024;11/09/2024;(81) 99579-8057
+C0079;cliente0079@email.com;Caruaru;Telefone;Plus;35;5275,74;282,10;3;20/02/2024;27/06/2026;
+C0080;cliente0080@email.com;Recife;Telefone;Básico;51;2931,43;412,06;2;06/04/2024;20/06/2025;(81) 98902-6069
+C0081;cliente0081@email.com;Paulista;;Plus;60;4894,74;230,85;3;20/03/2026;11/08/2026;
+C0082;cliente0082@email.com;Caruaru;telefone;Básico;37;2180,40;385,17;4;18/08/2022;08/01/2024;
+C0083;cliente0083@email.com;Paulista;App;Plus;60;5324,60;347,71;4;30/03/2022;27/05/2023;
+C0084;cliente0084@email.com;Recife;WhatsApp;Plus;54;3997,13;562,89;5;31/05/2025;11/08/2026;
+C0085;cliente0085@email.com;recife;app;Básico;41;2124,18;160,99;0;11/07/2022;12/02/2023;
+C0086;cliente0086@email.com;Recife;Loja;Básico;49;3132,60;282,19;3;03/11/2024;23/08/2025;
+C0087;cliente0087@email.com;Olinda;App;Básico;33;2337,17;327,34;4;29/05/2026;27/08/2026;
+C0088;cliente0088@email.com;Olinda;App;Básico;44;2426,25;362,17;4;06/06/2024;14/12/2025;(81) 99666-7550
+C0089;cliente0089@email.com;Caruaru;WhatsApp;Básico;18;1596,83;135,29;2;15/05/2024;29/05/2025;
+C0090;cliente0090@email.com;Jaboatão dos Guararapes;WhatsApp;Básico;25;1412,00;155,88;4;07/12/2022;15/02/2025;(81) 98297-9383
+C0081;cliente0081@email.com;Paulista;;Plus;60;4894,74;230,85;3;20/03/2026;11/08/2026;
+C0091;cliente0091@email.com;Paulista;WhatsApp;Plus;30;3889,40;379,37;4;20/02/2024;;(81) 99531-3354
+C0092;cliente0092@email.com;Olinda;Loja;Premium;42;5547,30;737,21;;12/08/2023;15/08/2025;
+C0093;cliente0093@email.com;Olinda;;Plus;37;7020,78;255,31;5;23/01/2023;02/01/2025;
+C0094;cliente0094@email.com;Jaboatão dos Guararapes;Loja;Plus;;5199,64;639,18;2;29/07/2026;05/08/2026;(81) 98547-9190
+C0095;cliente0095@email.com;Recife;Telefone;Básico;52;1890,09;196,15;3;29/05/2024;29/11/2024;(81) 98571-8727
+C0096;cliente0096@email.com;Jaboatao dos Guararapes;Loja;Básico;18;2862,28;138,66;5;05/10/2021;11/06/2023;(81) 99299-4096
+C0097;cliente0097@email.com;Jaboatão dos Guararapes;WhatsApp;Básico;26;2075,17;209,04;5;06/12/2023;;
+C0098;cliente0098@email.com;Paulista;WhatsApp;Básico;41;1412,00;317,49;4;15/07/2026;16/08/2026;(81) 98157-4178
+C0099;cliente0099@email.com;Recife;Telefone;Básico;35;;149,11;3;16/11/2024;30/11/2025;(81) 99293-7729
+C0100;cliente0100@email.com;Caruaru;App;Básico;36;;280,34;3;29/07/2024;07/09/2026;
+C0101;cliente0101@email.com;recife;Telefone;Básico;29;;60,00;3;25/01/2025;20/07/2025;
+C0102;cliente0102@email.com;Caruaru;;Básico;41;2274,74;170,57;4;05/02/2024;24/03/2026;(81) 98241-9201
+C0103;cliente0103@email.com;Recife;Telefone;Premium;37;11117,06;870,72;3;29/06/2025;16/05/2026;(81) 99473-7993
+C0104;cliente0104@email.com;Caruaru;app;Básico;53;2317,49;;5;08/06/2024;16/10/2024;
+C0105;cliente0105@email.com;Recife;Telefone;Básico;54;2379,80;392,55;4;31/03/2024;20/08/2024;
+C0106;cliente0106@email.com;Recfie;WhatsApp;Plus;36;2648,21;257,68;4;18/02/2023;09/08/2023;(81) 99683-5281
+C0107;cliente0107@email.com;Recife;App;Plus;27;4064,51;499,71;4;28/01/2024;10/09/2025;(81) 99208-3137
+C0108;cliente0108@email.com;Caruaru;Telefone;Básico;42;3426,42;275,14;3;27/09/2024;;
+C0109;cliente0109@email.com;Paulista;Telefone;Básico;32;2086,59;60,00;3;19/03/2024;03/08/2025;
+C0110;cliente0110@email.com;Caruaru;WhatsApp;Básico;43;2176,65;60,00;3;;12/08/2021;
+C0111;cliente0111@email.com;Caruaru;Loja;Plus;49;3140,72;178,84;;09/07/2023;15/10/2023;
+C0112;cliente0112@email.com; Recife;Telefone;Básico;49;3716,73;60,00;2;17/07/2021;23/12/2021;(81) 98018-1065
+C0113;cliente0113@email.com;Caruaru;WhatsApp;Plus;29;3700,51;507,51;10;30/10/2021;02/02/2023;(81) 98593-1616
+C0114;cliente0114@email.com;Caruaru;App;Básico;41;2902,58;;3;07/04/2025;25/09/2026;
+C0115;cliente0115@email.com;RECIFE;WhatsApp;Plus;53;;396,61;4;28/08/2024;20/07/2025;(81) 98911-6356
+C0104;cliente0104@email.com;Caruaru;app;Básico;53;2317,49;;5;08/06/2024;16/10/2024;
+C0116;cliente0116@email.com;Recife;telefone;Premium;19;;561,14;4;29/01/2021;20/06/2021;
+C0117;cliente0117@email.com;Olinda;Loja;Plus;32;4357,00;231,80;3;29/05/2025;21/08/2025;
+C0118;cliente0118@email.com;Caruaru;Loja;Básico;43;1968,11;60,00;3;25/06/2024;;
+C0119;cliente0119@email.com;Jaboatão dos Guararapes;WhatsApp;Básico;35;2680,47;179,03;4;05/03/2021;31/05/2023;
+C0120;cliente0120@email.com;olinda;App;Básico;28;3624,78;60,00;3;09/03/2025;31/01/2026;
+C0094;cliente0094@email.com;Jaboatão dos Guararapes;Loja;Plus;;5199,64;639,18;2;29/07/2026;30/09/2026;(81) 98547-9190
+C0121;cliente0121@email.com;Recife;App;Plus;41;6413,12;510,75;5;08/07/2026;28/09/2026;(81) 98694-2528
+C0122;cliente0122@email.com;Caruaru;App;Premium;24;5697,52;510,53;4;24/01/2023;25/02/2025;
+C0123;cliente0123@email.com;Jaboatão dos Guararapes;App;Plus;44;;210,18;4;13/05/2024;15/03/2026;
+C0124;cliente0124@email.com;Olinda;whatsapp;Básico;51;;163,56;4;17/11/2025;09/09/2026;
+C0125;cliente0125@email.com;Recife;App;Plus;39;3676,86;60,00;3;20/02/2023;;
+C0126;cliente0126@email.com;Caruaru;Loja;Básico;;2767,97;60,00;4;12/05/2023;23/05/2025;
+C0127;cliente0127@email.com;Caruaru;WhatsApp;Básico;40;2849,29;127,50;4;27/10/2024;08/08/2026;
+C0128;cliente0128@email.com;Recife;Telefone;Plus;42;4680,19;444,50;3;02/01/2028;13/03/2022;
+C0129;cliente0129@email.com;Recife;WhatsApp;Premium;28;;681,66;5;05/03/2024;12/06/2025;(81) 99609-5006
+C0130;cliente0130@email.com;Jaboatão dos Guararapes;Loja;Plus;36;7746,35;435,51;4;11/11/2025;29/09/2026;
+C0131;cliente0131@email.com;Paulista;WhatsApp;Básico;;2356,10;188,71;4;16/08/2021;16/10/2023;
+C0132;cliente0132@email.com;Olinda;Whatsapp;Premium;29;9779,00;;4;25/11/2023;30/03/2026;
+C0133;cliente0133@email.com;Olinda;Telefone;Básico;53;1935,04;137,74;;01/01/2023;19/11/2023;
+C0134;cliente0134@email.com;Recife;App;Básico;40;;169,55;4;26/02/2026;08/09/2026;
+C0135;cliente0135@email.com;Olinda;Loja;Básico;23;4095,66;60,00;4;08/01/2025;08/02/2026;(81) 98806-6436
+C0136;cliente0136@email.com;Jaboatao dos Guararapes;App;Plus;40;3546,94;112,95;5;23/04/2026;06/08/2026;
+C0137;cliente0137@email.com;Caruaru;App;Básico;43;1954,02;60,00;5;04/02/2026;;(81) 99241-1603
+C0051;cliente0051@email.com;Recife;WhatsApp;Premium;39;12516,69;816,66;4;20/02/2026;02/08/2026;
+C0138;cliente0138@email.com;Caruaru;App;Premium;22;6816,60;753,95;4;26/09/2024;19/09/2026;
+C0183;cliente0183@email.com;Recife;Telefone;Básico;34;3001,70;60,00;2;14/08/2024;08/12/2025;(81) 98824-9138
+C0139;cliente0139@email.com;Caruaru;WhatsApp;Básico;48;3017,57;231,30;4;15/04/2023;28/04/2025;
+C0140;cliente0140@email.com;Jaboatão dos Guararapes;App;Plus;35;4354,90;329,79;4;17/03/2023;18/11/2023;(81) 98918-4408
+C0141;cliente0141@email.com;Olinda;;Plus;40;416275,00;88,63;3;05/01/2022;11/09/2021;(81) 98482-4637
+C0142;cliente0142@email.com;Recife;App;Plus;59;4483,94;329,11;4;27/11/2023;03/09/2025;
+C0143;cliente0143@email.com;Recife;Telefone;Plus;23;3297,79;592,54;3;16/06/2021;;
+C0144;cliente0144@email.com;Paulista;App;Premium;20;41000,00;;2;05/02/2025;24/10/2025;(81) 98951-4717
+C0145;cliente0145@email.com;Paulista;Telefone;Básico;26;2669,29;190,78;3;16/02/2026;04/06/2026;
+C0146;cliente0146@email.com;Recife;App;Premium;42;4940,55;482,31;5;21/06/2026;05/08/2026;
+C0147;cliente0147@email.com;Paulista;App;Básico;29;2228,29;109,23;3;12/10/2024;31/05/2026;(81) 98658-2405
+C0148;cliente0148@email.com;Recife;WhatsApp;Plus;26;;390,77;5;01/11/2025;27/09/2026;(81) 98545-5233
+C0149;cliente0149@email.com;Paulista;Telefone;Plus;;5242,96;245,36;4;30/01/2021;16/04/2023;(81) 98004-8922
+C0150;cliente0150@email.com;jaboatão dos guararapes;APP;Básico;22;2041,41;108,46;3;04/08/2023;14/11/2023;(81) 98889-9104
+C0151;cliente0151@email.com;Jaboatão dos Guararapes;WhatsApp;Premium;26;11675,12;874,55;3;24/02/2021;;
+C0152;cliente0152@email.com;Recife;App;Premium;18;11439,52;677,42;;08/04/2024;23/08/2025;(81) 99757-7533
+C0153;cliente0153@email.com;Recife;Loja;Básico;36;1795,44;225,89;;15/05/2025;09/09/2026;(81) 98780-5458
+C0154;cliente0154@email.com;Jaboatão dos Guararapes;Whatsapp;Premium;52;5787,95;665,86;4;26/11/2021;09/03/2023;
+C0155;cliente0155@email.com;Recife;WhatsApp;Básico;;1810,92;319,63;3;10/01/2021;06/02/2022;
+C0156;cliente0156@email.com;caruaru;Telefone;Básico;49;3284,71;243,85;1;14/05/2025;27/07/2025;(81) 99596-7336
+C0157;cliente0157@email.com;Olinda;Telefone;Plus;32;5805,75;370,39;3;23/04/2024;19/06/2024;(81) 98133-9533
+C0158;cliente0158@email.com;Caruaru;whatsapp;Básico;28;2913,41;60,00;3;09/04/2026;11/09/2026;(81) 98939-1494
+C0159;cliente0159@email.com;Caruaru;Loja;Plus;46;6779,36;384,06;4;30/03/2022;11/07/2024;
+C0160;cliente0160@email.com;Caruaru;Loja;Básico;35;;60,00;2;29/09/2023;17/04/2025;(81) 98558-3791
+C0161;cliente0161@email.com;Recife;App;Plus;41;5750,88;506,46;4;13/11/2022;24/04/2023;(81) 98952-3449
+C0162;cliente0162@email.com;Recife;App;Plus;210;5208,66;515,58;4;20/06/2025;17/09/2025;
+C0163;cliente0163@email.com;recife;Loja;Básico;39;1429,00;60,00;7;10/05/2024;17/05/2024;
+C0164;cliente0164@email.com;Caruaru;App;Básico;21;1908,79;;4;18/06/2023;05/04/2024;(81) 99989-7030
+C0165;cliente0165@email.com;Jaboatão dos Guararapes;Loja;Premium;49;6680,69;595,97;3;16/08/2024;01/06/2025;
+C0166;cliente0166@email.com;Olinda;WhatsApp;Básico;55;4513,09;;3;21/07/2024;31/10/2024;
+C0167;cliente0167@email.com;Olinda;Loja;Básico;32;3336,67;255,07;2;30/06/2024;07/07/2025;
+C0168;cliente0168@email.com;Recife;Loja;Premium;27;4494,99;679,24;4;17/05/2024;;(81) 99787-7778
+C0169;cliente0169@email.com;Caruaru;WhatsApp;Básico;50;1929,04;250,74;4;29/10/2021;11/05/2023;(81) 99747-6050
+C0170;cliente0170@email.com;Caruaru;Telefone;Básico;74;1859,27;60,00;3;15/06/2026;21/08/2026;(81) 99053-7428
+C0171;cliente0171@email.com;Olinda;App;Plus;52;4218,34;384,75;3;14/09/2025;24/08/2026;
+C0172;cliente0172@email.com;Caruaru;App;Premium;27;13822,36;734,88;5;30/07/2021;17/11/2021;
+C0173;cliente0173@email.com;Recife;App;Plus;38;3819,10;303,10;5;20/05/2022;10/12/2023;
+C0174;cliente0174@email.com;Recife;App;Básico;150;1833,74;257,14;3;26/01/2026;10/09/2026;(81) 98794-1262
+C0175;cliente0175@email.com;Recife;App;Plus;31;5632,35;339,47;4;27/03/2024;06/07/2024;
+C0176;cliente0176@email.com;Paulista;App;Básico;57;2817,92;342,86;;07/01/2024;22/02/2026;
+C0177;cliente0177@email.com;CARUARU;whatsapp;Básico;32;2973,33;79,54;3;04/03/2025;01/11/2025;
+C0178;cliente0178@email.com;Recife;WhatsApp;Básico;55;;180,43;3;02/04/2021;01/08/2022;(81) 99050-5116
+C0179;cliente0179@email.com;Caruaru;Telefone;Plus;53;7322,61;446,93;4;09/05/2024;28/07/2025;
+C0110;cliente0110@email.com;Caruaru;WhatsApp;Básico;43;2176,65;60,00;3;;31/10/2021;
+C0180;cliente0180@email.com;Recife;WhatsApp;Plus;31;4669,00;419,17;4;28/04/2025;31/07/2026;(81) 98540-7046
+C0181;cliente0181@email.com;Recife;WhatsApp;Básico;45;1460,57;324,67;5;28/02/2025;18/01/2026;
+C0182;cliente0182@email.com;Caruaru;App;Plus;40;5551,93;277,87;3;25/03/2025;25/09/2026;
+C0183;cliente0183@email.com;Olinda;Telefone;Básico;34;3001,70;60,00;2;14/08/2024;07/09/2025;(81) 98824-9138
+C0184;cliente0184@email.com;Caruaru;app;Básico;;2215,39;166,38;4;20/10/2022;04/02/2025;
+C0185;cliente0185@email.com;RECIFE;;Básico;43;4514,76;60,00;2;10/06/2026;22/08/2026;(81) 98470-8418
+C0186;cliente0186@email.com;olinda;App;Básico;43;1967,00;60,00;4;04/08/2022;12/10/2024;
+C0187;cliente0187@email.com;Olinda;App;Premium;49;9271,33;673,08;5;14/04/2022;24/06/2024;
+C0188;cliente0188@email.com;Paulista;;Premium;30;14538,12;670,21;4;01/06/2022;24/03/2022;(81) 99007-7641
+C0189;cliente0189@email.com;Caruaru;loja;Premium;51;;803,60;5;28/11/2021;16/01/2023;
+C0190;cliente0190@email.com;Olinda;Loja;Básico;57;4082,93;336,77;;13/08/2026;27/08/2026;
+C0191;cliente0191@email.com;Recife;App;Básico;31;1412,00;60,00;4;23/02/2022;05/05/2023;
+C0192;cliente0192@email.com;Olinda;WhatsApp;Básico;;4938,75;139,68;4;10/11/2024;06/08/2026;
+C0193;cliente0193@email.com;recife;App;Plus;39;;358,18;5;07/10/2024;22/09/2025;(81) 99763-6713
+C0194;cliente0194@email.com;Olinda;Telefone;Básico;32;2656,09;112,84;3;16/02/2021;25/04/2021;
+C0195;cliente0195@email.com;Caruaru;Telefone;Básico;37;1604,77;60,00;3;05/01/2022;01/04/2022;
+C0196;cliente0196@email.com;Olinda;;Básico;31;379281,00;60,00;3;31/03/2023;11/09/2022;
+C0197;cliente0197@email.com;Recife;App;Plus;65;;275,36;5;05/12/2025;03/08/2026;
+C0198;cliente0198@email.com;Recife;Loja;Premium;33;16166,60;964,12;5;23/09/2021;06/01/2024;
+C0199;cliente0199@email.com;Caruaru;App;Plus;26;4387,25;585,77;5;25/09/2024;;
+C0200;cliente0200@email.com;Recfie;Loja;Premium;32;8183,86;520,92;4;27/05/2021;10/06/2023;

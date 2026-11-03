@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Encontro 3 · Limpeza I</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: aula em cenas empilhadas (rolagem) que viram slides no "Modo aula"; laboratórios em cartões com barra laranja, como no template CESAR School */
+:root{
+  --paper:#FEF7EE; --surface:#FFFCF8; --sunk:#FBEEE1; --ink:#212121; --ink-2:#4B4540; --muted:#7D7168;
+  --line:#E5C8B2; --line-soft:#F0E0D0; --orange:#FF6002; --orange-ink:#B84300; --orange-soft:#FFE7D6;
+  --good:#2E7A4C; --good-soft:#E2F1E7; --warn:#93600F; --warn-soft:#FBEED6; --bad:#B53228; --bad-soft:#F8E0DC;
+  --c1:#FF6002; --c2:#212121; --c3:#C99A70; --c4:#5F8A84;
+  --cover:#212121; --cover-ink:#FEF7EE; --cover-cream:#FEF7EE;
+  --f-disp:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  --f-body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:14px; --maxw:1280px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1A1918; --surface:#24221F; --sunk:#2C2825; --ink:#FEF7EE; --ink-2:#E3D8CC; --muted:#B3A597;
+    --line:#4D4036; --line-soft:#352C26; --orange:#FF6A14; --orange-ink:#FF8C4A; --orange-soft:#3B2517;
+    --good:#72C792; --good-soft:#1E3327; --warn:#E6B453; --warn-soft:#3A2F17; --bad:#F2806F; --bad-soft:#3E201C;
+    --c1:#FF6A14; --c2:#FEF7EE; --c3:#C99A70; --c4:#7FB0A9;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1A1918; --surface:#24221F; --sunk:#2C2825; --ink:#FEF7EE; --ink-2:#E3D8CC; --muted:#B3A597;
+  --line:#4D4036; --line-soft:#352C26; --orange:#FF6A14; --orange-ink:#FF8C4A; --orange-soft:#3B2517;
+  --good:#72C792; --good-soft:#1E3327; --warn:#E6B453; --warn-soft:#3A2F17; --bad:#F2806F; --bad-soft:#3E201C;
+  --c1:#FF6A14; --c2:#FEF7EE; --c3:#C99A70; --c4:#7FB0A9;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:clamp(16px,0.55vw + 12px,22px)}
+html.aula{font-size:clamp(19px,1vw + 3px,28px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+h1,h2,h3{font-family:var(--f-disp);font-weight:700;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:.005em}
+p{margin:0}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:6px}
+.num{font-variant-numeric:tabular-nums}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ---------- topo ---------- */
+.topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line-soft)}
+.topo .wrap{display:flex;align-items:center;gap:14px;padding-block:10px}
+.logo{display:block;width:44px;height:40px;flex:none;background:var(--ink);-webkit-mask:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHEAAABlCAYAAAB6OQxdAAAV1klEQVR4nO2de5yU5XXHvzM7sxd2QVhEjXhbEVSUaGoM4nqB4I2YRAm2qSnGFFqMps2ln3qNTRo0MY2JMY0JJmJUmsQ2iZf0QlXEYoIRG6tVQRPAC6jUCwLiwu7M7uz0j99z8r4zOzPv++6+s8uu8/t85jM7s++8z/M+5zznnOc855wn0dbWxh6GlHvVAWn3ej/QDBwF1ANfBXZXoe00cCFwOPAEsAt4DngLyAK9QLd7z1Wh/X4hNYRtpxFB0kADMAU4GJgKHAnsA7wPDZgNXg+wDbie6hAxAUwEzgP+FI1PGkgCrwBbEXHfQMR9zvWnGxE5U4U+BSIxiDMxDTQhgk0Fprv3qcAR7vu0uzbrXt3AemAtsM69vwg8766zGVvv/u4BOoB8hX4kgBZ3fc610+NeIIKNAg4A2oAPANMQQ7W63zW5+2SBTYiY64A1wONAFyJoV0BfYkE1iZhEDzsKzawZwGmIaOPwuNzQg8TXWmAF8AjwGNCJBrvO95sW4HjgUDRz9gUmoAH8Khq8cmgArgJOcO29gGbZi8Bv3Xe7EQMZ0kCje46TgHOB97p+1LlrevGY7/eu778BViHG6iq6Z2yIm4h1iGj7Ig4+E/gg4mDTb37kgbeBp4B7gAeAlxDhDI3AfmjmtqNBnIyIboP2NLAZWA38jMqDlQb+GDgFOBAxgvWvHngdDf5q4L/RrN/p+30SMcIh7vnmIx3aUtSOqYBO4GHElA+5++0K6GMkxEXEZvQQHwU+hAjXgAYlUeL6bmA7ItztiIhZPGMhhQb2HN/9Gt33u4FnEMEfQKLMRGIOTyxWgolhM55shs1FxtNoxGBdSDIsA+4HXnZtGepcv9qBS4CZwF5l2jS9uQ64G0mbDYigvSH6XBYDIWISEe444ALgDCTS6gN+9yZwG/B94P8oHBTQzPhzZCXuW3S/1cB1SEQZ4eKC6dYpwGLgbDxRmXX9vgMx3Ysl2m4CTgY+g9TGqAptdSMGWQn8HDHj2/RzdvaHiCnEbWehgW7HU/SV0Im4+cto9hR3OAV8GA3gkfS1nJ9CuuilqB3uB8YAPwT+hMLn6gG2AN9As/OdEr9tARYAn0MMGYQMErHLgLvQbI9k5SajXIxE3CIk428FTkccF0TArciYmI/0VzEB08BFaIZOoy8Be4Fn0WwYDHSiPhevBVPAQcC3gG/TVw+CjJibkGh+KERbZq1fgyTMl5DOL7YfyiLsTGxBIuJStPAOEpl+bAD+EonCUgvkBNJ7PwbGVrhPB/A1YCnSp3GKUkMS6cNzkNjev8K1nYihf0p5nXYw6u9sghnd0AO8hhhhKVqHVlymBBExibhiMfARJDajYBvwMTRzy6ERdXhhiPvZunEJEs1v4pnu/TEOknjLh0bEqBci3dYY4vdrkC1QSqwaDkYSZlbEvnWjJdP1wH9SYdlUiYijkOdisetIVGSBaxFHV5o1zUgXnBnx3hm0BFiD1mVvAU/iWag5xMEJ37utNRN4HqIj0Jrx/YhwDRH6sR04DDFrJZwE/BKpo6joAP4Rie+tpS4o53Ybh2TzIipbWZWwBVmgQWIvhxbcUVDvXrOBU909el1bedf2q/Ql4kQkIo2g9uqv+3Etfa3rUvgtYtSFRLdDWoDLkHS4CBmFBSjV+UOBq5ERElq5lsDvCeff7EL6cB7yl0aFOcz9GINmWDWxDfguWucFIYs8OPOJrpJAz3cy8C/AF9DS5A8o5ooJwI+QXhgIAe3eYZX5GuBK5C0ZDngLuBy4l3C+0TzRZ2ApTEP0me3/0n/j0Uh/nRJTg0ci8RUGvWgRPQ94kHDcPRTIIMPqM8hYCbs4bwJOJJq+LYeDkH483L5I+t4/DfwZ4WdPEPZHs2t0yOt7kX9xLvDXyDJ7h6Hft8sjptqADLXTkH82Sr/OQlZ6HJMDNCO/jVuSmXU6Gc2Ag2JqxJBB1u33gR0RfmfbRbPRAHwQ6cuo1mN/YW6xTuC/gP8A/g1ZilHWp2m0tLiF6oztF4Aliba2tiRwM/AXxDcL/cgC/wr8HbCR6Iv0ekS849F21gnIX2t7iPWIw6M4IPx9sy2kHBqYJ5DVuQZZlW+6/0fdF2xFTo4rKe8UHyjWAicm2traWpBnPW5OKcbLwD8gC2sH/fO4mCVaD7wHbQcdi5ZB78UzxvbHW0r4sRPpNFuOPI0s6KfRbv1GPMd6f5zR5vGZiber0R/mCovdwMJEW1vbHCTjS/kB40YW6ZYlyAvxuuvIQHa/6xCxUkXfldI/eTwnAHjryoHq3SbktDgTWfYn0b+lRFRkgdtSyGqqC7g4LtSj/bobkEN8JSLmSqR/Ook+Q40A1fCllkMCifhRyMiYizYDDmVwdLYhCUwttVAeDNQjcTcfbfdsRfpnBfAoCpfoYgiDj4rgD+raG+nndmRwHYIIF5flGRVJCxYaKiTQAEx0rw/h7fr/D9rBfxwFI21x/7PgpjyejzQOmIHkD5ccizw/UykM6jKCDhXhCpBCu9RVj8gKCfOJNqNos7PxCNWNfKxvog3iDIoM2OL+/zbSt2F3M/ZCSyvznx6D9NihaLZNRkQ0oprjfE9CHtiWQkFBGfrv6K4misX9H7n309ADWEwqRA/oNSe4ESbl+264oBd4OIW4+xnkbhsuGE4DXU10AMuTaBbeTnUiqmuoLn4BbDTFbBFXNQwfvIAiIrqNiB1oE3jjkHWphijYheKNnoVCE/kZtAB/awg6VUN4ZJH6uxNn1BWvc+5Gm50lYzlqGHJk0I7IVfhsmGIi5hCVL8HLPKphz8BO4EbgCgpzQ0p6HHLI6vkkCn6tSiZPDZHwPNo7/DKyXwpQzm2UR06AC9AO8vZq9a6GiuhEcTxzkYQs6UcOEwGeRo7ey1B6WXNcPayhLDJo/9WiwCvGHEVJqGlBeX2XoCCoGjHjRwb5gn+EMrDML1wRUbOiLPblPGrEjBOdKNh5GbJHNhBhf7S/+YkJFIZwLpqdM9znaoYijDTk8KLo/glFiL9GPza3B5opbPuBk9AG75moWEEzAw8+HonIo/VdB8rN+DkKyLK6BP1CnDn7VsrkKBRjeToiqFXMeLfCwh93ofzD+1A4yhuEy+MIRLWqZxhBp6K9v3YKs45GMlH9NW02obX2akTATvoX/lgRg1HHxsqWtCJDaDrSocchovrjV4YbLFTEiPY7lG5nYSWb3fdVdZgMZjEig+3WN6B8AqsgdZT7PBYRNOV7DeUmsL8UmFW1yqJcyJdQ9tdaFBOU9V0zaCEvQ0HEPn2gMI5lLCLmgSjOxnIKW1FCpz+YyX5frtRKGPizjPN4UeFbUAzPNmRBbkOBx5spDNqy15BhKGu7GfJoQEzkdKCQRYt3SfpeFhNjhAXN2mPde1TuzyEC7XD37cHLNu71vfyf9zjsCTMxDvgDnqIgjujvIceeMBPjwLAnxECwRwS/1jAw1Ig4AlAj4ghAjYgjADUijgDUiDgCUCPiCEDxOtFy7vpb8G5Pw2A9j7+0WLWTYm0H6A+5mdZwCuXnnYbquq1FNWVerEIn9sYr5r4dFT3YEXMbKZSGfQbe8zyKtobiTgvfG0WjHYaY5UE0dnHvXDSjuuqzka94I4qEeyPR1taWQPEy16D4mW40CL8DzkcF4eLyyM9EAbBT0cyoQynenyXePJCzUHGHieh50mgT9uNogONCGwolbMcbt93AF4EfEB8hR6M6B/ORezGHnmkd8KkkcDQqGDQOcdGNaFtlGgrpD1P3Mwxa3b2PQbEkj6AHnoNKQYatPBWERuATaAdkBYqbfRwxTZwVLRoRsU5Bz7MUZZa1oMpTM4gnsziJDlq5ADHJjxFBNyDaXZ5CXNuCYj0+iUTbra4jvyIebkogUX0U2sqZheIqp6NwhVkozfqpGNpqQgFcO4CLXXtWrChOEdeEgsRyqATm/Sjb+nYkXmejMR1oCEYDil1KIYa8Cj3HRlSpa2YSyfQuVP5qG9IZL6CK+HcQjw5JIQLm0IO94f5+znUmiWZOXOhBz3UxOllmL6qzY5HCO8zEgsM2u+/i2lxIoj3WLJKQDcB4FO6SBDakKCzMY52C6lhZdSia/FokSvdB4jVDfAbHblTm7NPA55G+TaL6bF9DZb/iQgapoV+iwg91SN+nideA6kHi+zr0PPug0iu7gZsGcyvKCiWMRWK7Fw3u26ig69qY2smgorsPoiDnyYhr56LQytOJL3XPJsCBqExZgupUkrJ29kaqrwkxTAfwfAqvuGwx95gOicsyNSW/Gvgm3ozvRpbwazG2k0bqYZX7+wBkSE1DBL0vprbqkSo6Gen4euArSBXFGReUcu38FZr1x6PcmHbg80n3zwZkZIxHRJ0A/C0yOOLw6uTRmjCB4i8fRpajpc4dS3wcfADwHWSO16OZuQNxbZai3L4BIoEkysvuvlvdK27HgtUxfx09ywp0+EoPMCMFLEdFYmch03UVOvPpbHSW0xoqV9Ywyy9D+Vnbg0RmBu9km7vQYvyb7nczKVGkvOhBGik8U6oU9kXBy4tQ3bqH0HEQk1C6XpDYtsCrMNWqTJKZWrJDzez7ONux0E/DSjRuhyXRGmoJ0k0fB76HTNoXUWqV/wS1UngPKqcclFjzv8j87kHrwpdcuy2IWTYH/H6Ua2dywHVPofXbm2httQyts7aitVyfJM0iNCJxOCngujyqjLydQubd5V5BhmEjOo7IrMxK7ex0bfnvmXPf7UqhQf0KKpB3FhJHa1B2TqWZYRiNPCNBOqATpSpvQZ6gMUhvPYRmZVAdnToU4RbE4d1onbsaPc9slHH0CyRlgkRdGjHKrwKu60LMshWPMboRo3YCv6byujSF6sS9SmWnQCc6E3IakiSGDPD3wM7iaDcrUtdDeBPZTjsLe2qnHVeXwAu2DfM7E6cZwuscK7Rn1YXDIEo7yTLX1Lnvg05UbSR8gdxSbSWB3uIlRn+8CzmCRW7x9f2ptp+P2I61FXWBH6WdckQO02bU5ynVVskSKDUMQ9SIOAJQI+IIQI2IIwA1Io4A1Ig4AlAj4gjAcMqKSqNFtBV1f7fAjsyFMlF7w4WIDWiXfj+0ZXUzFc7YHUFIIN/qh93nf0fu0QJP0HAh4ih0cNZ4FEKyjHcHEVNop+dy97kHbSRkiy8aLmhA4nQkl08pBasuYn/3wXAiYq7o/d2C4rM/+qBmnY4AlJuJ/nOQ4jqPyawsCzUYSDRdNa3TOPtpORpVzc/wE9HiG6ehmP+x6CFeQRbRC2iHOSpBG9BG83RUdMjCIlehXfgdRI9JGYN3umk9XkzmTqJvVxlGoc3t43397EbP/hjawQ/LPGNQbsZ0FC7yINrQrUpSjxGxAUUzX+YatzWZBdx2o1JXdwD/jAY+zEbuISg6+lMo+MoUcx64FNW2vh6dAhAUNmFoRIFQp6DQDpsx29Du/XcRw0WJ0jsMWb/nobHwz8QsCvX4HgpOqlRKO+X6dSmKgKtH43g8Cn0J+4yRYCJzAYqnmYaizuzwKxMtoxBX3Qj8BMVZBmEKWgpcgWainTFoRYWaUC7Bze6+rSH73IQCoSa4vxvd+0QU8HUPcGrIe4GCme9CcTVjfP20529Ez3sNevYpZe5TD1yEGOksvIhwu1fVkHIdvBTv8OIdaNa9gjj9AJQnsZfr6Cz0IJUCm8Yjrj3Z991WFLOzE8XKTEKD1oSi39ahWRQmLCSBpIOJ9zrXP0tpuxY4h+CDWo5DwVMWo9LjfvOEu/84lH7Qiggyx/V5IQrdN9SjQ6Cvw0sM6kRlxdahc5Srtq5NoYMn93OfX0WzcpX7bLPmZLxC7mtQsG85pNGMaHef8+h0bzvGyFLaTgW+hYKFrKhdWHQhyXETEqOtaEG8AM2kD6CZdWOF+7ag2WUEzAC3Ad9AXqE8ev73uetmuevaUSDWAlTrLU1fAm5CyS+341VZrNrSKIXEkInV19BsKQ5eug+VgDwXxTu+UuGeo4B57t55FDW2kL6zYjkahO+gWNDbCUfIXpRcuRiF7OHer0Cz8Xw0sPNQjuA7fW8B6CxGkxQ5RJgr6Rtc/AhiiKUoswtEyKUor/MkCgm4AR13/wiDtKZNotA+s7qOQQc1X4EeshUvMnsbqhK/KeCeB+Ed974bHcteTqxtRMbE1ZQf7GJ0IoIXX78T+Cle6OPhlK+h2oDErR38uRZJinLR4ZsQYR70fdeOQupvoJCACxHjDppTIukafATNGktBW+y+X42IMJPwhsf+eDGoWWSeV0In0dZ9WRTwXAp+CVLJmEih7KUkGux7CE45N0Le79pJIluhybX5HBKxvw56AIexKLtpPAPM27BcjIuQmW+GQgpZV0eiJI7lKH/iAoIr7icpFMXVWBuVu6ffAxW0xPA7M9ZXuKcfm5C+L65l0ImMqdUh7gEa27uRJHoMTZx+wx5kE0o3m4dOBduIwvp78NK1jkaGxCIqE3IwDk+Oow0TdxaJHWY2pJFenFj0fRPKhwxKMTBMQFtMo5Hq2Sfk70rCz7m7kcz/HNKH85CF9SSe/hmDQsePqHDPrO++dSinLmwfBgs5ZJzlUR9PJLg2QT1i4K/j5Z3Y4j2BjKTbkC4Owhw8fb2T8GnuJaWLDWATIpC5xN5BVuiV6AEX+DrcTF9O9ONJvAjvJvfbcmlr49Aa8VQGt5B7FtkB5tM8ASURlZvhTYiA16FxAi2zFlJ4jK8tPyoR8giUGGRMs4LwRp1VzihA0nXqWuRp+Bvk67M9uxx6UFukGyrpmw7kAQER5rPIIBhHoZtvMlonLkEntJzI4J1j34ssy3XucwuSOvPQMsUYqgGJui+iGei3QhcBP0NrxGKr9Vak55rxvFRNyJi6BU8HvoMs7UqOAHP/JdGadjQaR/NWkUIz5RL3xUzk57wXLep7kQfkE3gOgU4qrxMzSHeehnySzcg/+lFkBb6CFuMfQxybRF6jduQkHqz4mR2IMDcjC/FA5Cb8DZpd6/HSxKfgMaAtI8wK3YyYdCnKwEqgZ3kAzbKVaBxPQOtsf4GJe6lszeYpXJ7NQ2v5l9DYZYAvJdra2uahZYQ/H8+OD8jjOcNBYugW5L2plIqWQOu/myhU2ua5sOwra2s9Ghh/6pYf45CzfBwa/Elo3VqMOejonuaA6wx1iGm/TqHutkSc4mTRYgL6cRCazWdTGH1gTJku+m4VIn5QXubRiBlsEllh+TSSeh9JIrEyH3HFNrytnAa8FLROxBG3UHSebRnkkXi+EJnQO/EqO5ku6EI7Aj9Bg/9owD17it5LwV/VP4z3J4d2Zi5GW07WT8v7t8ylHWicLqT8zNns/n8Nmi0deIyQcn93oPIvN6BdoyACgk7wvtrdM4O3KWHnc8zw5yfWIYfw+e79EKQrnnUPeCdeZaYoaHT3PAeJpUnIwfwc2tZ6iOABb0HceAJiitMpbQxMRPp4esB1Qf1sxTMinka+31Uh+mmYglLMz6Yw3HC5u9f6kPfx4wzEbMch5noG6eI7/x9UMoLqosOl8wAAAABJRU5ErkJggg==") center/contain no-repeat;mask:url("data:image/png;base64,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") center/contain no-repeat}
+.topo-titulo{font-family:var(--f-disp);font-weight:700;font-size:1.15rem;line-height:1.1;min-width:0}
+.topo-titulo small{display:block;font-family:var(--f-body);font-weight:500;font-size:.78rem;color:var(--muted);letter-spacing:.02em}
+.topo-acoes{margin-left:auto;display:flex;gap:8px;align-items:center}
+.topo select{max-width:220px;padding:7px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:600;font-size:.95rem;line-height:1.2}
+.btn:hover{border-color:var(--orange)}
+.btn.prim{background:var(--orange);border-color:var(--orange);color:#fff}
+.btn.prim:hover{filter:brightness(1.06)}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+@media (max-width:640px){.topo-titulo small{display:none}.topo select{max-width:130px}.topo-titulo{font-size:1rem}}
+@media (max-width:420px){.topo-titulo{display:none}}
+
+/* ---------- cenas ---------- */
+.cena{padding-block:72px;border-bottom:1px solid var(--line-soft)}
+.eyebrow{font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:10px}
+.cena h2{font-size:clamp(2.3rem,4.8vw,3.5rem);margin-bottom:16px}
+.lede{font-size:1.2rem;color:var(--ink-2);max-width:68ch}
+.pilha{display:flex;flex-direction:column;gap:28px}
+.grade2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.grade3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:820px){.grade2,.grade3{grid-template-columns:1fr}}
+
+.cartao{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:20px 22px;position:relative;overflow:hidden}
+.cartao.barra::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--orange)}
+.cartao h3{font-family:var(--f-body);font-weight:700;font-size:1.15rem;margin-bottom:6px;letter-spacing:0}
+.cartao p{color:var(--ink-2);font-size:1rem}
+
+/* ---------- capa ---------- */
+.capa{background:var(--cover);color:var(--cover-ink);position:relative;overflow:hidden;border-bottom:none;padding-block:84px 120px}
+.capa .wrap{position:relative;z-index:2}
+.capa .logo{background:var(--cover-ink);width:72px;height:64px;margin-bottom:28px}
+.capa h1{font-style:italic;text-transform:uppercase;font-size:clamp(2.6rem,7vw,5rem);max-width:12ch;letter-spacing:.01em}
+.capa .sub{margin-top:22px;font-weight:700;font-size:clamp(1.1rem,2.2vw,1.4rem);max-width:30ch}
+.capa .meta{margin-top:14px;display:flex;flex-direction:column;gap:2px;font-size:1.02rem;color:#E9DED2}
+.capa .meta b{color:var(--cover-ink)}
+.capa .tag{display:inline-block;margin-top:24px;background:var(--orange);color:#fff;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;padding:6px 12px;border-radius:999px}
+.forma{position:absolute;z-index:1;pointer-events:none}
+.f1{width:min(46vw,520px);aspect-ratio:1;border-radius:50%;background:var(--orange);right:-14vw;top:10%;clip-path:inset(0 0 0 0)}
+.f2{width:min(30vw,340px);aspect-ratio:1;border-radius:50%;background:var(--orange);right:min(22vw,250px);top:4%;clip-path:inset(0 50% 0 0)}
+.f3{width:min(34vw,300px);aspect-ratio:2/1;border-radius:300px 300px 0 0;background:var(--cover-cream);left:-40px;bottom:0}
+.f4{width:min(24vw,210px);aspect-ratio:2/1;border-radius:210px 210px 0 0;background:var(--orange);left:min(28vw,240px);bottom:0}
+.f5{width:min(16vw,150px);aspect-ratio:1;border:2px solid var(--cover-ink);border-radius:0 100% 0 0;border-left:2px solid var(--cover-ink);border-bottom:2px solid var(--cover-ink);left:min(48vw,450px);bottom:-2px;border-top-left-radius:0}
+@media (max-width:700px){.f1{right:-40vw;top:auto;bottom:18%;width:70vw}.f2{display:none}.f5{display:none}.capa{padding-block:56px 110px}}
+
+/* ---------- laboratório ---------- */
+.lab{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:24px 26px 22px 30px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:18px}
+.lab::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--orange)}
+.lab-cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.lab-cab .eyebrow{margin:0}
+.lab-cab h3{font-size:2.1rem;flex-basis:100%}
+.instrucao{color:var(--ink-2);max-width:72ch;font-size:1.08rem}
+.instrucao b{color:var(--ink)}
+.conta{border-top:1px dashed var(--line);padding-top:12px}
+.conta summary{cursor:pointer;font-weight:600;color:var(--muted);font-size:.95rem;list-style:none;display:inline-flex;align-items:center;gap:8px}
+.conta summary::-webkit-details-marker{display:none}
+.conta summary::before{content:"+";display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);font-size:.9rem;line-height:1}
+.conta[open] summary::before{content:"−"}
+.conta .corpo{margin-top:10px;background:var(--sunk);border-radius:10px;padding:12px 14px;font-size:.95rem;color:var(--ink-2)}
+.excel{background:var(--sunk);border-radius:12px;padding:14px 16px;font-size:.96rem;color:var(--ink-2)}
+.excel .chip-x{display:inline-block;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:4px}
+.excel ol{margin:6px 0 0;padding-left:20px}
+.excel li{margin-bottom:4px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:.4em .85em;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:500;font-size:1rem}
+.chip:hover{border-color:var(--orange)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.rotulo{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+
+.veredito{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-weight:700;font-size:.85rem}
+.v-ok{background:var(--good-soft);color:var(--good)}
+.v-cuidado{background:var(--warn-soft);color:var(--warn)}
+.v-nao,.v-impossivel{background:var(--bad-soft);color:var(--bad)}
+
+/* tabela */
+.tabela-wrap{overflow-x:auto;border:1.5px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:1rem;font-variant-numeric:tabular-nums}
+th{background:var(--orange);color:#fff;text-align:left;font-weight:600;padding:9px 12px;white-space:nowrap}
+td{padding:8px 12px;border-top:1px solid var(--line-soft);white-space:nowrap}
+tbody tr:nth-child(even) td{background:var(--sunk)}
+td.hi,th.hi{outline:2.5px solid var(--orange);outline-offset:-2.5px}
+td.col-hi{background:var(--orange-soft)!important}
+tr.divisor td{border-top:3px solid var(--ink)}
+tfoot td{font-weight:700;background:var(--surface)}
+
+/* DIKW */
+.dikw{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px;align-items:start}
+@media (max-width:820px){.dikw{grid-template-columns:1fr}}
+.escada{display:flex;flex-direction:column-reverse;gap:6px;align-items:center}
+.degrau{height:2.7rem;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--f-disp);font-weight:700;font-size:1.3rem;border:1.5px solid var(--line);background:var(--surface);color:var(--muted);transition:background .25s,color .25s;cursor:pointer}
+.degrau.feito{background:var(--orange-soft);color:var(--orange-ink);border-color:var(--orange-soft)}
+.degrau.agora{background:var(--orange);color:#fff;border-color:var(--orange)}
+.painel-dikw{display:flex;flex-direction:column;gap:12px}
+.frase-dikw{font-family:var(--f-disp);font-weight:700;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;min-height:2.3em}
+.viz-dikw{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:10px 12px}
+.muda{color:var(--ink-2)}
+.muda b{color:var(--orange-ink)}
+.passos{display:flex;gap:8px;flex-wrap:wrap}
+
+/* tipos */
+.arvore{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.arvore{grid-template-columns:1fr}}
+.ramo{border:1.5px solid var(--line);border-radius:var(--r);padding:16px 18px;background:var(--surface)}
+.ramo h3{font-size:1.5rem;margin-bottom:10px}
+.folhas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.folha{background:var(--sunk);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.folha b{display:block;font-size:1.1rem}
+.folha span{font-size:.95rem;color:var(--ink-2)}
+.folha svg{width:100%;max-width:300px}
+.escala-viz{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:12px 14px}
+.escala-viz svg{max-width:760px;margin:0 auto}
+.escala-viz svg text{font-size:15px}
+.escalas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:720px){.escalas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.escala{border:1.5px solid var(--line);border-radius:12px;padding:12px;background:var(--surface);cursor:pointer;text-align:left}
+.escala[aria-pressed="true"]{border-color:var(--orange);background:var(--orange-soft)}
+.escala b{font-family:var(--f-disp);font-size:1.3rem;display:block}
+.escala span{font-size:.88rem;color:var(--ink-2)}
+.ops{display:flex;flex-wrap:wrap;gap:8px}
+.op{padding:7px 12px;border-radius:999px;font-weight:600;font-size:.92rem;border:1.5px dashed var(--line);color:var(--muted)}
+.op.on{border-style:solid;border-color:var(--good);background:var(--good-soft);color:var(--good)}
+
+/* classificador */
+.colunas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.colunas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.colunas{grid-template-columns:1fr}}
+.col-card{border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--surface);display:flex;flex-direction:column;gap:8px}
+.col-card.certo{border-color:var(--good)}
+.col-card.errado{border-color:var(--warn)}
+.col-nome{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-weight:600;font-size:1rem}
+.amostra{font-size:.95rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.opcoes{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opcoes button{padding:.45em .6em;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-size:.95rem;font-weight:600}
+.r2-cab{display:flex;align-items:center;gap:12px}
+#rodada2{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1000px){#rodada2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){#rodada2{grid-template-columns:1fr}}
+.icone{width:2.6rem;height:2.6rem;flex:none;color:var(--orange-ink)}
+.icone svg{width:100%;height:100%}
+.icone svg *{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.opcoes button:hover{border-color:var(--orange)}
+.opcoes button.marcado{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.retorno{font-size:.95rem;line-height:1.45}
+.retorno.ok{color:var(--good)}
+.retorno.no{color:var(--warn)}
+.placar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.placar .grande{font-family:var(--f-disp);font-weight:700;font-size:2rem}
+
+/* calcular */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:22px}
+@media (max-width:860px){.calc{grid-template-columns:1fr}}
+.resultado{border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--paper);display:flex;flex-direction:column;gap:10px;min-width:0}
+.valor{font-family:var(--f-disp);font-weight:700;font-size:clamp(2.2rem,5vw,3.3rem);line-height:1;font-variant-numeric:tabular-nums;word-break:break-word}
+.msg{color:var(--ink-2)}
+svg{display:block;max-width:100%;height:auto}
+svg text{font-family:var(--f-body);fill:var(--ink-2);font-size:14px}
+svg .faixa-ok{fill:var(--good-soft)}
+svg .faixa-alerta{fill:var(--bad-soft)}
+svg .t-ok{fill:var(--good);font-weight:700}
+svg .t-alerta{fill:var(--bad);font-weight:700}
+svg .marcador{fill:var(--orange)}
+svg .t-marc{fill:#fff;font-weight:700}
+svg .t-grande{font-family:var(--f-disp);font-size:72px;font-weight:700;fill:var(--ink)}
+svg .t-disp{font-family:var(--f-disp);font-weight:700;fill:var(--ink)}
+svg .linha-media{stroke:var(--ink);stroke-width:2;stroke-dasharray:6 5}
+svg .barra.fraca{fill:var(--c3);opacity:.45}
+svg .contorno{fill:none;stroke:var(--ink-2);stroke-width:1.6}
+svg .liq{fill:var(--orange)}
+svg .chipf1{fill:var(--c1)} svg .chipf2{fill:var(--c4)} svg .chipf3{fill:var(--c3)}
+svg .t-branco{fill:#fff;font-weight:700}
+svg .regua{stroke:var(--ink-2);stroke-width:1.4}
+svg .t-forte{fill:var(--ink);font-weight:700}
+svg .barra{fill:var(--c3)}
+svg .barra.hi{fill:var(--orange)}
+svg .eixo{stroke:var(--line);stroke-width:1.2}
+svg .ponto{fill:var(--c3)}
+svg .m-media{stroke:var(--orange);stroke-width:2.5}
+svg .m-mediana{stroke:var(--ink);stroke-width:2;stroke-dasharray:5 4}
+svg .m-fraco{opacity:.45}
+svg .t-media{fill:var(--orange-ink);font-weight:700}
+svg .t-mediana{fill:var(--ink);font-weight:700}
+
+/* fontes */
+.fontes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.fontes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.fontes{grid-template-columns:1fr}}
+.fonte{border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--surface);display:flex;flex-direction:column;gap:4px}
+.fonte .icone{margin-bottom:6px}
+.fonte b{display:block;font-size:1.1rem;margin-bottom:2px}
+.fonte p{font-size:.98rem;color:var(--ink-2)}
+.fonte .risco{margin-top:6px;font-size:.94rem;color:var(--warn)}
+.quiz{display:flex;flex-direction:column;gap:14px}
+.q{border-top:1px solid var(--line-soft);padding-top:12px}
+.q p{font-weight:600;margin-bottom:8px}
+
+/* viés */
+.vies{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:860px){.vies{grid-template-columns:1fr}}
+.legenda{display:flex;flex-wrap:wrap;gap:12px;font-size:.88rem;color:var(--ink-2)}
+.legenda i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.medidor{display:flex;flex-direction:column;gap:8px}
+.medidor .linha{display:grid;grid-template-columns:120px minmax(0,1fr) 54px;align-items:center;gap:10px;font-size:.92rem}
+.medidor .trilho{height:16px;border-radius:8px;background:var(--sunk);position:relative;overflow:hidden}
+.medidor .enche{position:absolute;inset:0 auto 0 0;border-radius:8px;background:var(--orange);transition:width .45s}
+.medidor .enche.real{background:var(--ink)}
+@media (prefers-reduced-motion: reduce){.medidor .enche{transition:none}}
+
+/* regras */
+.regras{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.regras{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.regras{grid-template-columns:1fr}}
+.regra{border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--surface)}
+.regra .n{font-family:var(--f-disp);font-weight:700;color:var(--orange-ink);font-size:.95rem;letter-spacing:.06em;text-transform:uppercase}
+.regra b{display:block;font-size:1.05rem;margin:2px 0 6px}
+.regra p{font-size:.9rem;color:var(--ink-2)}
+.fluxos{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.fluxos{grid-template-columns:1fr}}
+.fluxo{border-radius:14px;padding:16px 18px;border:1.5px solid var(--line)}
+.fluxo.ruim{background:var(--bad-soft);border-color:transparent}
+.fluxo.bom{background:var(--good-soft);border-color:transparent}
+.fluxo h3{font-family:var(--f-body);font-size:1.02rem;margin-bottom:8px}
+.fluxo.ruim h3{color:var(--bad)} .fluxo.bom h3{color:var(--good)}
+.fluxo ol{margin:0;padding-left:20px;color:var(--ink-2)}
+
+/* decisão */
+.estat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.est{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--paper)}
+.est .k{font-size:.82rem;color:var(--muted);font-weight:600}
+.est .v{font-family:var(--f-disp);font-weight:700;font-size:1.7rem;font-variant-numeric:tabular-nums}
+.est .v small{font-family:var(--f-body);font-size:.85rem;font-weight:500;color:var(--muted)}
+details.resp{border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--surface)}
+details.resp summary{cursor:pointer;font-weight:600}
+details.resp p{margin-top:8px;color:var(--ink-2)}
+
+/* atividade */
+.form-ativ{display:flex;flex-direction:column;gap:14px}
+.linha-ativ{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line-soft)}
+@media (max-width:700px){.linha-ativ{grid-template-columns:1fr}}
+.linha-ativ select,.campo input,.campo textarea{width:100%;padding:8px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper)}
+.campo{display:flex;flex-direction:column;gap:6px}
+.campo label{font-weight:600}
+.campo textarea{min-height:84px;resize:vertical}
+.aviso{font-size:.9rem;color:var(--muted)}
+.copiado{font-weight:600;color:var(--good);font-size:.92rem}
+
+/* encerramento */
+.fecho{background:var(--cover);color:var(--cover-ink);border-bottom:none}
+.fecho .eyebrow{color:#FFB58A}
+.fecho h2{color:var(--cover-ink)}
+.fecho li{color:#E9DED2;margin-bottom:12px;font-size:1.2rem}
+.fecho li b{color:var(--cover-ink)}
+.fecho .prox{margin-top:26px;border-left:4px solid var(--orange);padding:6px 0 6px 16px;color:#E9DED2}
+.fecho .prox b{color:var(--cover-ink)}
+
+/* cronograma */
+.crono{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;counter-reset:e}
+@media (max-width:900px){.crono{grid-template-columns:1fr}}
+.crono li{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);font-size:.92rem;line-height:1.3}
+.crono li b{display:block;font-family:var(--f-disp);font-size:1.1rem;color:var(--muted)}
+.crono li.hoje{background:var(--orange);border-color:var(--orange);color:#fff}
+.crono li.hoje b{color:#fff}
+.pesos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;text-align:center}
+@media (max-width:620px){.pesos{grid-template-columns:1fr}}
+.pesos .p{font-family:var(--f-disp);font-weight:700;font-size:2.6rem;line-height:1}
+.pesos b{display:block;margin-top:4px}
+.pesos span{font-size:.9rem;color:var(--ink-2)}
+.ciclo{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ciclo .passo{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px}
+.ciclo .passo b{display:block}
+.ciclo .passo span{font-size:.9rem;color:var(--ink-2)}
+.ciclo .seta{color:var(--orange-ink);font-weight:700;font-size:1.3rem}
+
+/* ---------- modo aula ---------- */
+.controles{display:none}
+body.aula .cena{display:none}
+body.aula .cena.atual{display:block;min-height:calc(100vh - 62px);padding-block:48px 120px;position:relative;border-bottom:none}
+body.aula .cena.atual::after{content:"";position:absolute;left:0;bottom:0;width:92%;height:16px;background:var(--orange);border-radius:0 14px 0 0}
+body.aula .cena.capa.atual::after,body.aula .cena.fecho.atual::after{display:none}
+body.aula .wrap{max-width:min(1560px,94vw)}
+@media (min-width:1200px){body.aula #colunas{grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}}
+body.aula .controles{display:flex;position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(28px + env(safe-area-inset-bottom,0px));z-index:25;gap:8px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:6px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.controles .cont{font-weight:600;font-size:.9rem;min-width:56px;text-align:center}
+
+/* ---------- componentes das aulas 2 a 7 ---------- */
+input[type=range]{accent-color:var(--orange);width:100%}
+.criterios{display:flex;flex-wrap:wrap;gap:8px}
+.crit{padding:.35em .8em;border-radius:999px;font-weight:600;font-size:.95rem;border:1.5px dashed var(--line);color:var(--muted)}
+.crit.on{border-style:solid;border-color:var(--good);background:var(--good-soft);color:var(--good)}
+.pergunta-viva{font-family:var(--f-disp);font-weight:700;font-size:clamp(1.7rem,3.3vw,2.4rem);line-height:1.15;min-height:2.4em}
+.cadeia{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+@media (max-width:900px){.cadeia{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.cadeia{grid-template-columns:1fr}}
+.elo{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface);position:relative;display:flex;flex-direction:column;gap:8px;min-width:0}
+.elo.ok{border-color:var(--good)}
+.elo:not(:last-child)::after{content:"→";position:absolute;right:-22px;top:50%;transform:translateY(-50%);color:var(--orange-ink);font-weight:700;font-size:1.3rem}
+@media (max-width:900px){.elo::after{display:none}}
+.elo .t{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink)}
+.elo .dado{font-weight:600}
+.opc{display:flex;flex-direction:column;gap:6px}
+.opc button{text-align:left;padding:.5em .7em;border-radius:9px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-size:.95rem;line-height:1.35}
+.opc button:hover{border-color:var(--orange)}
+.opc button.certa{border-color:var(--good);background:var(--good-soft);color:var(--good);font-weight:600}
+.opc button.errada{border-color:var(--warn);background:var(--warn-soft)}
+.lista-ordem{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.lista-ordem li{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
+.lista-ordem li .n{font-family:var(--f-disp);font-weight:700;color:var(--orange-ink);width:1.6em}
+.lista-ordem li .txt{flex:1}
+.mini-btn{border:1.5px solid var(--line);background:var(--surface);border-radius:8px;cursor:pointer;width:2.1em;height:2.1em;font-weight:700}
+.mini-btn:hover{border-color:var(--orange)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag-v{display:inline-flex;align-items:center;gap:6px;padding:.3em .7em;border-radius:999px;background:var(--orange-soft);color:var(--orange-ink);font-weight:600;font-size:.95rem}
+.tag-v button{border:none;background:none;color:inherit;cursor:pointer;font-weight:700;font-size:1rem;line-height:1}
+.dois{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.dois.largo{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+@media (max-width:860px){.dois,.dois.largo{grid-template-columns:1fr}}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.compara{grid-template-columns:1fr}}
+.ruim-bom{border-radius:14px;padding:16px 18px}
+.ruim-bom.r{background:var(--bad-soft)} .ruim-bom.b{background:var(--good-soft)}
+.ruim-bom h3{font-family:var(--f-body);font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
+.ruim-bom.r h3{color:var(--bad)} .ruim-bom.b h3{color:var(--good)}
+.ruim-bom .q{font-family:var(--f-disp);font-weight:700;font-size:1.7rem;line-height:1.15;margin:6px 0 10px}
+.ruim-bom ul{margin:0;padding-left:20px;color:var(--ink-2)}
+.slider-box{display:flex;flex-direction:column;gap:6px}
+.slider-rotulos{display:flex;justify-content:space-between;font-size:.9rem;color:var(--muted);gap:8px}
+.slider-rotulos b{color:var(--ink)}
+.check{display:flex;flex-direction:column;gap:8px}
+.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{accent-color:var(--orange);width:1.15em;height:1.15em;margin-top:.25em;flex:none}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px}
+.kpi{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--paper);min-width:0}
+.kpi .k{font-size:.85rem;color:var(--muted);font-weight:600}
+.kpi .v{font-family:var(--f-disp);font-weight:700;font-size:1.8rem;font-variant-numeric:tabular-nums;line-height:1.1;word-break:break-word}
+.kpi .s{font-size:.88rem;color:var(--ink-2)}
+.kpi.alerta{border-color:var(--warn);background:var(--warn-soft)}
+.kpi.bom{border-color:var(--good);background:var(--good-soft)}
+.kpi.ruim{border-color:var(--bad);background:var(--bad-soft)}
+.grade4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.grade4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.grade4{grid-template-columns:1fr}}
+.nota-lab{font-size:.94rem;color:var(--muted)}
+.painel{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--paper);display:flex;flex-direction:column;gap:10px;min-width:0}
+.linha-ctl{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+.linha-ctl .campo{min-width:200px;flex:1}
+.campo select{width:100%;padding:8px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper)}
+.tabela-wrap.alta{max-height:420px;overflow:auto}
+.tabela-wrap.alta thead th{position:sticky;top:0;z-index:1}
+td.vazio{background:var(--warn-soft)!important;color:var(--warn);font-style:italic}
+td.prob{background:var(--bad-soft)!important;color:var(--bad);font-weight:600}
+td.corrig{background:var(--good-soft)!important;color:var(--good);font-weight:600}
+tr.dup td{background:var(--orange-soft)!important}
+.legenda-sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.log{counter-reset:l;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.log li{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface);font-size:.95rem}
+.log li b{display:block}
+.log .vazio-log{color:var(--muted);font-style:italic}
+.timeline{display:flex;flex-direction:column;gap:10px}
+.etapa-pi{display:grid;grid-template-columns:5.5rem minmax(0,1fr);gap:14px;align-items:start;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface)}
+.etapa-pi .e{font-family:var(--f-disp);font-weight:700;font-size:1.3rem;color:var(--orange-ink);line-height:1.1}
+.etapa-pi.agora{border-color:var(--orange);background:var(--orange-soft)}
+.contador{font-size:.88rem;color:var(--muted)}
+.contador.estourou{color:var(--bad);font-weight:600}
+svg .caixa{fill:var(--orange);fill-opacity:.18;stroke:var(--orange);stroke-width:2}
+svg .m-mediana-box{stroke:var(--ink);stroke-width:3}
+svg .p1{fill:var(--c1)} svg .p2{fill:var(--c2)} svg .p3{fill:var(--c3)} svg .p4{fill:var(--c4)}
+svg .alvo{fill:none;stroke:var(--orange);stroke-width:2.5}
+svg .linha-serie{fill:none;stroke:var(--orange);stroke-width:3}
+svg .area-serie{fill:var(--orange);fill-opacity:.12}
+svg .seta{stroke:var(--orange);stroke-width:3;fill:none}
+svg .anel{fill:none;stroke:var(--line);stroke-width:2}
+svg .no{fill:var(--surface);stroke:var(--line);stroke-width:2}
+svg .no.on{fill:var(--orange);stroke:var(--orange)}
+svg .no.alvo-no{stroke:var(--orange);stroke-width:3}
+svg .t-no{font-weight:700;fill:var(--ink)}
+svg .t-no.on{fill:#fff}
+svg .vazio-cel{fill:var(--warn)}
+svg .cheio-cel{fill:var(--line-soft)}
+svg .t-peq{font-size:12px}
+
+.grade5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+@media (max-width:1000px){.grade5{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.grade5{grid-template-columns:1fr}}
+
+.lab svg{max-width:min(100%,900px);margin-inline:auto}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="CESAR School"></span>
+    <div class="topo-titulo">Encontro 3 · Limpeza I: qualidade e diagnóstico<small>Fundamentos de Análise de Dados · Turma A</small></div>
+    <div class="topo-acoes">
+      <select id="irpara" aria-label="Ir para a seção"></select>
+      <button class="btn" id="btnAula" aria-pressed="false">Modo aula</button>
+    </div>
+  </div>
+</header>
+<main>
+<section class="cena capa" id="capa" data-nome="Capa">
+  <div class="forma f1"></div><div class="forma f2"></div><div class="forma f3"></div><div class="forma f4"></div><div class="forma f5"></div>
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="CESAR School"></span>
+    <h1>Fundamentos de Análise de Dados</h1>
+    <p class="sub">Encontro 3 · Limpeza I: qualidade e diagnóstico</p>
+    <div class="meta">
+      <span><b>Especialização em Análise de Dados e Inteligência Artificial</b></span>
+      <span>Prof. Laura Pacifico · laps@cesar.school</span>
+    </div>
+    <span class="tag">Turma A · aula interativa</span>
+  </div>
+</section>
+
+<section class="cena" id="abertura" data-nome="Onde estamos">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Encontro 3</p>
+      <h2>A análise só é tão boa quanto os dados</h2>
+      <p class="lede">Limpar e preparar dados costuma tomar a maior parte do tempo de uma análise, e é a etapa mais crítica: um erro aqui contamina tudo o que vem depois. Hoje você vai diagnosticar uma base suja de 210 linhas e decidir, com justificativa, o que fazer com cada problema.</p>
+    </div>
+    <div class="ciclo" aria-label="Roteiro de hoje">
+      <div class="passo"><b>Raio-X</b><span>o que está errado?</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>Vazios</b><span>preencher, manter ou remover?</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>Repetidos</b><span>o que conta como duplicata?</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>Texto</b><span>Recife, recife, RECIFE…</span></div><span class="seta" aria-hidden="true">→</span>
+      <div class="passo"><b>Log</b><span>o que foi feito e por quê</span></div>
+    </div>
+    <div><p class="rotulo">Os 7 encontros</p><ol class="crono"><li class=""><b>1</b>Fundamentos de Dados</li><li class=""><b>2</b>Processo de Análise</li><li class="hoje"><b>3 · hoje</b>Limpeza I: qualidade e diagnóstico</li><li class=""><b>4</b>Limpeza II e Preparação</li><li class=""><b>5</b>Exploração de Dados</li><li class=""><b>6</b>Estatística Descritiva</li><li class=""><b>7</b>Projeto Integrador</li></ol></div>
+  </div>
+</section>
+
+<section class="cena" id="raiox" data-nome="Raio-X da base">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Qualidade de dados</p>
+      <h2>As cinco dimensões da qualidade</h2>
+    </div>
+    <div class="grade5" id="dimCards"></div>
+    <div class="lab" id="lab1">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 1</span><h3>Raio-X da base de clientes</h3></div>
+      <p class="instrucao">Esta é a base que você vai limpar hoje: <b>clientes_encontro3.csv</b>. A aula já passou um pente-fino nela. Veja o placar das cinco dimensões, o mapa de vazios e clique numa coluna para ver o que está errado.</p>
+      <div class="kpis" id="rxKpis"></div>
+      <div class="dois largo">
+        <div class="painel"><p class="rotulo">Mapa da base · cada linha é um cliente, cada faixa é uma coluna</p><div id="rxMapa"></div><div class="legenda"><span><i class="legenda-sw" style="background:var(--warn)"></i>Vazio</span><span><i class="legenda-sw" style="background:var(--bad)"></i>Valor com problema</span><span><i class="legenda-sw" style="background:var(--line-soft);border:1px solid var(--line)"></i>Preenchido</span></div></div>
+        <div class="painel">
+          <p class="rotulo">Dimensões</p><div id="rxDim"></div>
+          <p class="rotulo" style="margin-top:8px">Coluna</p><div class="chips" id="rxCols"></div>
+          <div id="rxCol" aria-live="polite"></div>
+        </div>
+      </div>
+      <details class="conta"><summary>Como isso é calculado?</summary><div class="corpo">Completude: células preenchidas ÷ total de células. Unicidade: linhas diferentes ÷ total de linhas. Consistência: textos de cidade e canal escritos no padrão ÷ total. Precisão: valores dentro do possível (idade de 1 a 110, satisfação de 1 a 5, renda numérica e positiva, datas que existem e não estão no futuro) ÷ valores preenchidos. Atualidade: clientes com compra nos últimos 2 anos ÷ clientes com data de compra.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="causas" data-nome="Por que os problemas acontecem">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Origem dos problemas</p>
+      <h2>Por que a base chega assim?</h2>
+      <p class="lede">Quase nunca é descuido de uma pessoa só. Os problemas nascem no caminho entre o mundo real e a planilha.</p>
+    </div>
+    <div class="grade5">
+      <div class="cartao barra"><h3>Erros humanos</h3><p>Digitação errada, campo preenchido no lugar errado.</p></div>
+      <div class="cartao barra"><h3>Sistemas desconectados</h3><p>Fontes que não conversam e se contradizem.</p></div>
+      <div class="cartao barra"><h3>Falta de padrão</h3><p>Cada um escreve “Recife” de um jeito.</p></div>
+      <div class="cartao barra"><h3>Extração inadequada</h3><p>Falhas ao copiar dados de um sistema para outro.</p></div>
+      <div class="cartao barra"><h3>Falhas de integração</h3><p>Juntar bases com estruturas incompatíveis.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="ausentes" data-nome="Laboratório: valores ausentes">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Valores ausentes</p>
+      <h2>O dado que deveria estar lá e não está</h2>
+      <p class="lede">Ausentes aparecem como célula vazia, NULL, NaN, “—”, “N/A” ou só espaços. Acontecem porque a pessoa não respondeu, porque o dado não existe (data de saída de quem ainda é cliente), por falha de sistema, campo opcional ou formulário interrompido. Entender o motivo decide o tratamento.</p>
+    </div>
+    <div class="lab" id="lab2">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 2</span><h3>Vazios: o que fazer?</h3></div>
+      <p class="instrucao">Escolha uma coluna e uma estratégia. A aula aplica na hora e mostra o antes e o depois. Quando gostar da decisão, clique em <b>Registrar no log</b>.</p>
+      <div><p class="rotulo">Coluna</p><div class="chips" id="ausCols"></div></div>
+      <div><p class="rotulo">Estratégia</p><div class="chips" id="ausEst"></div></div>
+      <div class="painel">
+        <p class="rotulo">Quanto falta nesta coluna</p>
+        <div id="ausMedidor"></div>
+      </div>
+      <div class="dois largo">
+        <div class="painel"><p class="rotulo" id="ausVizTit">Depois do tratamento</p><div id="ausViz"></div><div class="legenda" id="ausLeg"></div></div>
+        <div class="painel" aria-live="polite"><span class="veredito" id="ausVer"></span><div class="kpis" id="ausKpis"></div><p class="msg" id="ausMsg"></p><div class="passos"><button class="btn prim" id="ausLog">Registrar no log</button><span class="copiado" id="ausLogOk" hidden>Registrado.</span></div></div>
+      </div>
+      <details class="conta"><summary>Como isso é calculado?</summary><div class="corpo" id="ausConta"></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="duplicatas" data-nome="Laboratório: duplicatas">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Unicidade</p>
+      <h2>Quando o mesmo cliente aparece duas vezes</h2>
+      <p class="lede">Duplicatas inflam contagens e totais e distorcem médias. As <b>exatas</b> têm todos os campos iguais e saem sem dúvida. As <b>parciais</b> têm a mesma chave (o mesmo id) com algum campo diferente: aí é preciso decidir qual versão fica.</p>
+    </div>
+    <div class="lab" id="lab3">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 3</span><h3>Caça às duplicatas</h3></div>
+      <p class="instrucao">Escolha o que conta como repetido. Veja quantas linhas aparecem, o que muda entre elas e quanto elas estavam inflando os números.</p>
+      <div class="chips" id="dupCrit"></div>
+      <div class="kpis" id="dupKpis"></div>
+      <div id="dupTab"></div>
+      <p class="msg" id="dupMsg"></p>
+      <div class="passos"><button class="btn prim" id="dupLog">Registrar no log</button><span class="copiado" id="dupLogOk" hidden>Registrado.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="texto" data-nome="Laboratório: texto bagunçado">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Consistência</p>
+      <h2>Recife, recife, RECIFE e “Recfie”</h2>
+      <p class="lede">Para o computador, cada grafia é uma cidade diferente. Uma contagem por cidade fica errada e um gráfico mostra barras que não existem.</p>
+    </div>
+    <div class="lab" id="lab4">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 4</span><h3>Padronize as categorias</h3></div>
+      <p class="instrucao">Escolha a coluna e ligue as correções na ordem. Veja as barras se juntarem e o número de grafias diferentes cair. Espaços invisíveis aparecem como ␣.</p>
+      <div class="chips" id="txCols"></div>
+      <div class="chips" id="txPassos"></div>
+      <div class="dois largo">
+        <div class="painel"><p class="rotulo" id="txTit"></p><div id="txViz"></div></div>
+        <div class="painel" aria-live="polite"><div class="kpis" id="txKpis"></div><p class="msg" id="txMsg"></p><div class="passos"><button class="btn prim" id="txLog">Registrar no log</button><span class="copiado" id="txLogOk" hidden>Registrado.</span></div></div>
+      </div>
+      <details class="conta"><summary>Como isso é calculado?</summary><div class="corpo">Tirar espaços remove espaços no começo, no fim e repetidos no meio (como a função ARRUMAR). Padronizar maiúsculas deixa a primeira letra de cada palavra maiúscula (como PRI.MAIÚSCULA): por isso “dos” vira “Dos” e “WhatsApp” vira “Whatsapp”. Corrigir digitação troca cada grafia errada pela certa a partir de uma lista de correções.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="log" data-nome="Log de decisões">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Documente tudo</p>
+      <h2>Diagnóstico e log de decisões</h2>
+      <p class="lede">Para cada decisão de limpeza, responda: o que foi feito, por que foi feito assim e qual seria o risco de não fazer. As decisões que você registrou nos laboratórios aparecem aqui prontas para copiar.</p>
+    </div>
+    <div class="lab" id="lab5">
+      <div class="lab-cab"><span class="eyebrow">Laboratório 5</span><h3>Antes e depois</h3></div>
+      <div class="tabela-wrap"><table id="diagTab"></table></div>
+      <div><p class="rotulo">Log de decisões</p><ol class="log" id="logLista"></ol></div>
+      <div class="passos"><button class="btn prim" id="logCopiar">Copiar log para o Excel</button><button class="btn" id="logLimpar">Limpar log</button><span class="copiado" id="logOk" hidden>Copiado. Cole na aba 2_Base_Limpa, ao lado da base.</span></div>
+      <textarea id="logFallback" hidden aria-label="Log para copiar" style="min-height:120px"></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="cena" id="excel" data-nome="No Excel, só com cliques">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Mão na massa</p>
+      <h2>No Excel, só com cliques</h2>
+      <p class="lede">Abra <b>clientes_encontro3.csv</b> e refaça a limpeza sem nenhuma fórmula. Os números de conferência vêm dos laboratórios.</p>
+    </div>
+    <ol class="pilha" style="gap:12px;padding-left:22px;margin:0;font-size:1.05rem" id="xlPassos"></ol>
+  </div>
+</section>
+
+<section class="cena" id="atividade" data-nome="Atividade do encontro">
+  <div class="wrap pilha">
+    <div>
+      <p class="eyebrow">Atividade individual · Encontro 3</p>
+      <h2>Diagnóstico e limpeza da base de clientes</h2>
+      <p class="lede">Entregue o Excel limpo (feito com cliques) e as respostas abaixo. Para cada coluna com vazios, diga quantos encontrou no Excel e o que decidiu fazer.</p>
+    </div>
+    <div class="lab" id="labAtiv">
+      <div class="campo"><label for="a3Nome">Seu nome completo</label><input id="a3Nome" type="text" autocomplete="name"></div>
+      <div class="tabela-wrap"><table id="a3Tab"></table></div>
+      <div class="grade3">
+        <div class="campo"><label for="a3DupE">Duplicatas exatas removidas</label><input id="a3DupE" type="number" min="0"></div>
+        <div class="campo"><label for="a3DupP">Duplicatas por id removidas</label><input id="a3DupP" type="number" min="0"></div>
+        <div class="campo"><label for="a3Cid">Grafias de cidade: antes → depois</label><input id="a3Cid" type="text" placeholder="Ex.: 15 → 5"></div>
+      </div>
+      <div class="campo"><label for="a3Q1">1. Qual problema teria o maior impacto se não fosse tratado? Por quê?</label><textarea id="a3Q1"></textarea></div>
+      <div class="campo"><label for="a3Q2">2. Algum vazio desta base é informativo, ou seja, diz algo por si só? Qual e por quê?</label><textarea id="a3Q2"></textarea></div>
+      <div class="passos"><button class="btn prim" id="a3Copiar">Copiar minhas respostas</button><span class="copiado" id="a3Ok" hidden>Copiado. Cole numa aba nova do seu Excel.</span></div>
+      <textarea id="a3Fallback" hidden aria-label="Respostas para copiar" style="min-height:120px"></textarea>
+      <p class="aviso">Entrega: Excel com a base limpa + uma aba com estas respostas e o log de decisões. Nome do arquivo: <b>SeuNome_Encontro3_Limpeza</b>.</p>
+    </div>
+    <div class="cartao barra"><h3>No projeto do grupo</h3><p>Abram a base do grupo no <a href="../laboratorio/" target="_blank" rel="noopener">Laboratório do projeto</a>, rodem o Raio-X e registrem na aba 0_Documentação os três principais problemas encontrados. No Encontro 4 vocês fazem a limpeza completa.</p></div>
+  </div>
+</section>
+
+<section class="cena fecho" id="fecho" data-nome="Para levar">
+  <div class="wrap pilha">
+    <div><p class="eyebrow">Para levar</p><h2>O que fica deste encontro</h2></div>
+    <ul style="margin:0;padding-left:20px;max-width:64ch">
+      <li><b>Diagnostique antes de mexer.</b> Conte vazios, repetidos e grafias antes de qualquer correção.</li>
+      <li><b>Não existe tratamento universal para vazios.</b> Até 15% costuma ser tranquilo; acima de 40%, pense em excluir a coluna. Preencher muita coisa com o mesmo valor cria um pico que não existe.</li>
+      <li><b>Defina o que é duplicata.</b> Linha inteira igual sai; mesmo id com dados diferentes pede uma regra.</li>
+      <li><b>Documente cada decisão.</b> O que, por quê e qual o risco de não fazer.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+<div class="controles" aria-label="Navegação do modo aula">
+  <button class="btn" id="antes" aria-label="Seção anterior">←</button>
+  <span class="cont num" id="contador"></span>
+  <button class="btn" id="depois" aria-label="Próxima seção">→</button>
+  <button class="btn" id="cheia">Tela cheia</button>
+</div>
+
+<script>
+const D = {"_n":3,"_tema":"Limpeza I: qualidade e diagnóstico","cli":[{"id_cliente":"C0001","email":"cliente0001@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Básico","idade":54,"renda_mensal":3209.61,"gasto_mensal":162.48,"satisfacao":3,"data_cadastro":"2025-01-21","data_ultima_compra":"2025-07-03","telefone_2":null},{"id_cliente":"C0002","email":"cliente0002@email.com","cidade":"Recife","canal":"Telefone","plano":"Premium","idade":37,"renda_mensal":8555.24,"gasto_mensal":700.79,"satisfacao":3,"data_cadastro":"2024-09-09","data_ultima_compra":"2025-10-20","telefone_2":null},{"id_cliente":"C0003","email":"cliente0003@email.com","cidade":"Recife","canal":"APP","plano":"Plus","idade":45,"renda_mensal":4260.57,"gasto_mensal":335.51,"satisfacao":null,"data_cadastro":"2026-07-27","data_ultima_compra":"2026-09-21","telefone_2":null},{"id_cliente":"C0004","email":"cliente0004@email.com","cidade":"olinda","canal":null,"plano":"Básico","idade":54,"renda_mensal":"R$ 3.423,65","gasto_mensal":383.37,"satisfacao":3,"data_cadastro":"2022-02-08","data_ultima_compra":"2023-07-30","telefone_2":null},{"id_cliente":"C0158","email":"cliente0158@email.com","cidade":"Caruaru","canal":"whatsapp","plano":"Básico","idade":28,"renda_mensal":2913.41,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2026-04-09","data_ultima_compra":"2026-09-30","telefone_2":"(81) 98939-1494"},{"id_cliente":"C0005","email":"cliente0005@email.com","cidade":"Recife","canal":"Loja","plano":"Básico","idade":40,"renda_mensal":2113.35,"gasto_mensal":60.0,"satisfacao":5,"data_cadastro":"2023-06-10","data_ultima_compra":null,"telefone_2":"(81) 99159-2395"},{"id_cliente":"C0006","email":"cliente0006@email.com","cidade":"Olinda","canal":"WhatsApp","plano":"Básico","idade":28,"renda_mensal":4435.27,"gasto_mensal":367.12,"satisfacao":null,"data_cadastro":"2025-02-11","data_ultima_compra":"2026-08-27","telefone_2":null},{"id_cliente":"C0007","email":"cliente0007@email.com","cidade":"Recife","canal":"Loja","plano":"Plus","idade":53,"renda_mensal":3829.42,"gasto_mensal":197.07,"satisfacao":null,"data_cadastro":"2022-06-13","data_ultima_compra":"2023-05-04","telefone_2":null},{"id_cliente":"C0008","email":"cliente0008@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Básico","idade":41,"renda_mensal":1740.09,"gasto_mensal":null,"satisfacao":2,"data_cadastro":"2022-09-07","data_ultima_compra":"2023-02-02","telefone_2":null},{"id_cliente":"C0009","email":"cliente0009@email.com","cidade":"Recife","canal":"APP","plano":"Básico","idade":36,"renda_mensal":2096.6,"gasto_mensal":365.93,"satisfacao":4,"data_cadastro":"2025-10-13","data_ultima_compra":"2026-08-05","telefone_2":null},{"id_cliente":"C0010","email":"cliente0010@email.com","cidade":"Jaboatão dos Guararapes","canal":"telefone","plano":"Premium","idade":42,"renda_mensal":5856.76,"gasto_mensal":496.09,"satisfacao":3,"data_cadastro":"2023-10-08","data_ultima_compra":"2023-12-21","telefone_2":null},{"id_cliente":"C0011","email":"cliente0011@email.com","cidade":"caruaru","canal":"App","plano":"Plus","idade":22,"renda_mensal":4781.49,"gasto_mensal":678.42,"satisfacao":4,"data_cadastro":"2024-09-17","data_ultima_compra":"2025-01-29","telefone_2":"(81) 99531-3559"},{"id_cliente":"C0012","email":"cliente0012@email.com","cidade":"caruaru","canal":"WhatsApp","plano":"Básico","idade":33,"renda_mensal":4122.01,"gasto_mensal":263.34,"satisfacao":4,"data_cadastro":"2024-05-31","data_ultima_compra":"2025-07-31","telefone_2":"(81) 98559-4798"},{"id_cliente":"C0013","email":"cliente0013@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Plus","idade":30,"renda_mensal":null,"gasto_mensal":616.41,"satisfacao":3,"data_cadastro":"2021-06-25","data_ultima_compra":"2023-08-08","telefone_2":"(81) 98627-5087"},{"id_cliente":"C0014","email":"cliente0014@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Plus","idade":null,"renda_mensal":5834.31,"gasto_mensal":613.59,"satisfacao":4,"data_cadastro":"2024-09-24","data_ultima_compra":"2024-11-27","telefone_2":null},{"id_cliente":"C0015","email":"cliente0015@email.com","cidade":"Paulista","canal":"Telefone","plano":"Básico","idade":47,"renda_mensal":1603.33,"gasto_mensal":90.25,"satisfacao":4,"data_cadastro":"2022-03-22","data_ultima_compra":"2022-03-29","telefone_2":null},{"id_cliente":"C0016","email":"cliente0016@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":20,"renda_mensal":2679.19,"gasto_mensal":222.94,"satisfacao":null,"data_cadastro":"2022-12-28","data_ultima_compra":"2023-02-13","telefone_2":"(81) 99171-7084"},{"id_cliente":"C0046","email":"cliente0046@email.com","cidade":"recife","canal":"WhatsApp","plano":"Básico","idade":29,"renda_mensal":4204.02,"gasto_mensal":null,"satisfacao":3,"data_cadastro":"2025-04-03","data_ultima_compra":"2025-12-23","telefone_2":"(81) 98069-7794"},{"id_cliente":"C0017","email":"cliente0017@email.com","cidade":"RECIFE","canal":"Loja","plano":"Básico","idade":35,"renda_mensal":2511.51,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2024-10-04","data_ultima_compra":"2025-02-25","telefone_2":null},{"id_cliente":"C0018","email":"cliente0018@email.com","cidade":"Recife","canal":"App","plano":"Premium","idade":45,"renda_mensal":23051.26,"gasto_mensal":1252.51,"satisfacao":4,"data_cadastro":"2022-05-12","data_ultima_compra":"2022-10-21","telefone_2":null},{"id_cliente":"C0019","email":"cliente0019@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Básico","idade":null,"renda_mensal":2922.76,"gasto_mensal":283.33,"satisfacao":2,"data_cadastro":"2022-11-22","data_ultima_compra":"2024-01-26","telefone_2":null},{"id_cliente":"C0020","email":"cliente0020@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Básico","idade":38,"renda_mensal":4903.85,"gasto_mensal":427.59,"satisfacao":3,"data_cadastro":"2025-01-14","data_ultima_compra":"2026-01-16","telefone_2":"(81) 98642-9841"},{"id_cliente":"C0021","email":"cliente0021@email.com","cidade":"Olinda","canal":"WhatsApp","plano":"Plus","idade":18,"renda_mensal":5528.77,"gasto_mensal":413.09,"satisfacao":4,"data_cadastro":"2024-02-04","data_ultima_compra":"2026-03-31","telefone_2":null},{"id_cliente":"C0022","email":"cliente0022@email.com","cidade":"Paulista","canal":"App","plano":"Básico","idade":42,"renda_mensal":2666.08,"gasto_mensal":210.79,"satisfacao":4,"data_cadastro":"2025-03-10","data_ultima_compra":null,"telefone_2":"(81) 98195-3535"},{"id_cliente":"C0023","email":"cliente0023@email.com","cidade":"Recife","canal":"Tel.","plano":"Plus","idade":31,"renda_mensal":5962.96,"gasto_mensal":504.35,"satisfacao":3,"data_cadastro":"2026-03-13","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0024","email":"cliente0024@email.com","cidade":"Jaboatão dos Guararapes","canal":null,"plano":"Plus","idade":38,"renda_mensal":4699.34,"gasto_mensal":271.8,"satisfacao":3,"data_cadastro":"2023-05-17","data_ultima_compra":"2022-09-03","telefone_2":null},{"id_cliente":"C0025","email":"cliente0025@email.com","cidade":"recife","canal":"App","plano":"Plus","idade":31,"renda_mensal":5200.55,"gasto_mensal":357.88,"satisfacao":4,"data_cadastro":"2024-03-16","data_ultima_compra":"2026-05-01","telefone_2":null},{"id_cliente":"C0026","email":"cliente0026@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":56,"renda_mensal":4234.3,"gasto_mensal":548.92,"satisfacao":null,"data_cadastro":"2026-08-02","data_ultima_compra":"2026-09-01","telefone_2":"(81) 98324-1066"},{"id_cliente":"C0027","email":"cliente0027@email.com","cidade":"Jaboatão dos Guararapes","canal":"Loja","plano":"Básico","idade":45,"renda_mensal":1795.21,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2026-02-24","data_ultima_compra":"2026-08-31","telefone_2":null},{"id_cliente":"C0028","email":"cliente0028@email.com","cidade":"paulista ","canal":"WhatsApp","plano":"Básico","idade":36,"renda_mensal":2378.98,"gasto_mensal":182.3,"satisfacao":4,"data_cadastro":"2021-07-14","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0029","email":"cliente0029@email.com","cidade":"Caruaru","canal":"loja","plano":"Básico","idade":0,"renda_mensal":2682.37,"gasto_mensal":60.0,"satisfacao":2,"data_cadastro":"2026-03-20","data_ultima_compra":"2026-09-05","telefone_2":"(81) 99511-4983"},{"id_cliente":"C0030","email":"cliente0030@email.com","cidade":"Jaboatão dos Guararapes","canal":"Telefone","plano":"Premium","idade":46,"renda_mensal":14548.27,"gasto_mensal":805.56,"satisfacao":4,"data_cadastro":"2021-08-30","data_ultima_compra":"2022-06-22","telefone_2":null},{"id_cliente":"C0031","email":"cliente0031@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Plus","idade":51,"renda_mensal":7489.94,"gasto_mensal":460.06,"satisfacao":4,"data_cadastro":"2023-05-09","data_ultima_compra":"2024-10-17","telefone_2":null},{"id_cliente":"C0032","email":"cliente0032@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":23,"renda_mensal":5338.14,"gasto_mensal":292.46,"satisfacao":4,"data_cadastro":"2024-12-24","data_ultima_compra":"2026-09-03","telefone_2":"(81) 98735-2646"},{"id_cliente":"C0033","email":"cliente0033@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Premium","idade":73,"renda_mensal":11474.75,"gasto_mensal":804.41,"satisfacao":4,"data_cadastro":"2021-09-22","data_ultima_compra":"2021-12-12","telefone_2":null},{"id_cliente":"C0034","email":"cliente0034@email.com","cidade":"Caruaru","canal":"App","plano":"Plus","idade":36,"renda_mensal":2562.41,"gasto_mensal":208.89,"satisfacao":3,"data_cadastro":"2021-12-16","data_ultima_compra":"2024-02-28","telefone_2":null},{"id_cliente":"C0035","email":"cliente0035@email.com","cidade":"Recife","canal":"Telefone","plano":"Básico","idade":29,"renda_mensal":1925.98,"gasto_mensal":180.86,"satisfacao":3,"data_cadastro":"2026-07-01","data_ultima_compra":"2026-08-11","telefone_2":null},{"id_cliente":"C0036","email":"cliente0036@email.com","cidade":"CARUARU","canal":"Telefone","plano":"Básico","idade":null,"renda_mensal":1817.02,"gasto_mensal":137.88,"satisfacao":2,"data_cadastro":"2026-05-27","data_ultima_compra":"2026-09-18","telefone_2":"(81) 99239-8047"},{"id_cliente":"C0037","email":"cliente0037@email.com","cidade":"Recife","canal":null,"plano":"Básico","idade":32,"renda_mensal":-2500.0,"gasto_mensal":121.08,"satisfacao":3,"data_cadastro":"2022-12-06","data_ultima_compra":"2024-02-02","telefone_2":"(81) 98625-5641"},{"id_cliente":"C0038","email":"cliente0038@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Plus","idade":35,"renda_mensal":6053.93,"gasto_mensal":391.26,"satisfacao":2,"data_cadastro":"2023-06-13","data_ultima_compra":"2023-09-09","telefone_2":null},{"id_cliente":"C0039","email":"cliente0039@email.com","cidade":"RECIFE","canal":"App","plano":"Básico","idade":48,"renda_mensal":4799.85,"gasto_mensal":88.68,"satisfacao":null,"data_cadastro":"2022-05-16","data_ultima_compra":"2024-07-27","telefone_2":null},{"id_cliente":"C0040","email":"cliente0040@email.com","cidade":"Recife","canal":"Loja","plano":"Básico","idade":null,"renda_mensal":"R$ 3.653,85","gasto_mensal":129.46,"satisfacao":3,"data_cadastro":"2023-06-28","data_ultima_compra":"2024-03-31","telefone_2":"(81) 98509-9371"},{"id_cliente":"C0041","email":"cliente0041@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Plus","idade":60,"renda_mensal":6205.81,"gasto_mensal":419.53,"satisfacao":4,"data_cadastro":"2022-10-01","data_ultima_compra":"2024-06-07","telefone_2":"(81) 98776-8478"},{"id_cliente":"C0042","email":"cliente0042@email.com","cidade":"Jaboatao dos Guararapes","canal":"whatsapp","plano":"Básico","idade":37,"renda_mensal":2669.08,"gasto_mensal":233.09,"satisfacao":3,"data_cadastro":"2023-01-21","data_ultima_compra":"2024-09-10","telefone_2":null},{"id_cliente":"C0119","email":"cliente0119@email.com","cidade":"Jaboatão dos Guararapes","canal":"WhatsApp","plano":"Básico","idade":35,"renda_mensal":2680.47,"gasto_mensal":179.03,"satisfacao":4,"data_cadastro":"2021-03-05","data_ultima_compra":"2023-05-31","telefone_2":null},{"id_cliente":"C0043","email":"cliente0043@email.com","cidade":"Paulista","canal":"App","plano":"Plus","idade":18,"renda_mensal":7452.11,"gasto_mensal":544.79,"satisfacao":5,"data_cadastro":"2023-06-24","data_ultima_compra":null,"telefone_2":"(81) 99820-7849"},{"id_cliente":"C0044","email":"cliente0044@email.com","cidade":"Jaboatao dos Guararapes","canal":"App","plano":"Plus","idade":39,"renda_mensal":5676.47,"gasto_mensal":647.98,"satisfacao":4,"data_cadastro":"2027-03-15","data_ultima_compra":"2026-09-22","telefone_2":"(81) 99152-3979"},{"id_cliente":"C0045","email":"cliente0045@email.com","cidade":" Recife","canal":"Telefone","plano":"Premium","idade":62,"renda_mensal":7843.1,"gasto_mensal":851.36,"satisfacao":3,"data_cadastro":"2023-07-10","data_ultima_compra":"2023-11-03","telefone_2":"(81) 99807-8068"},{"id_cliente":"C0046","email":"cliente0046@email.com","cidade":"recife","canal":"WhatsApp","plano":"Básico","idade":29,"renda_mensal":4204.02,"gasto_mensal":null,"satisfacao":3,"data_cadastro":"2025-04-03","data_ultima_compra":"2025-12-23","telefone_2":"(81) 98069-7794"},{"id_cliente":"C0047","email":"cliente0047@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Plus","idade":55,"renda_mensal":5854.52,"gasto_mensal":270.2,"satisfacao":4,"data_cadastro":"2022-11-07","data_ultima_compra":"2023-09-04","telefone_2":"(81) 99083-9057"},{"id_cliente":"C0048","email":"cliente0048@email.com","cidade":"Paulista","canal":"App","plano":"Básico","idade":60,"renda_mensal":3038.85,"gasto_mensal":309.87,"satisfacao":4,"data_cadastro":"2023-04-24","data_ultima_compra":"2023-11-21","telefone_2":"(81) 98671-4760"},{"id_cliente":"C0049","email":"cliente0049@email.com","cidade":"jaboatão dos guararapes","canal":"App","plano":"Básico","idade":35,"renda_mensal":2013.76,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2026-01-01","data_ultima_compra":"2026-08-15","telefone_2":null},{"id_cliente":"C0050","email":"cliente0050@email.com","cidade":"Caruaru","canal":"App","plano":"Premium","idade":61,"renda_mensal":10041.09,"gasto_mensal":573.43,"satisfacao":3,"data_cadastro":"2025-08-25","data_ultima_compra":"2026-09-26","telefone_2":null},{"id_cliente":"C0051","email":"cliente0051@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Premium","idade":39,"renda_mensal":12516.69,"gasto_mensal":816.66,"satisfacao":4,"data_cadastro":"2026-02-20","data_ultima_compra":"2026-08-02","telefone_2":null},{"id_cliente":"C0052","email":"cliente0052@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Básico","idade":45,"renda_mensal":1625.44,"gasto_mensal":184.24,"satisfacao":4,"data_cadastro":"2025-08-22","data_ultima_compra":"2026-09-12","telefone_2":"(81) 99532-3609"},{"id_cliente":"C0053","email":"cliente0053@email.com","cidade":" Recife","canal":"APP","plano":"Básico","idade":24,"renda_mensal":3066.65,"gasto_mensal":73.63,"satisfacao":null,"data_cadastro":"2022-08-28","data_ultima_compra":"2023-03-13","telefone_2":null},{"id_cliente":"C0054","email":"cliente0054@email.com","cidade":"Caruaru","canal":"Whatsapp","plano":"Plus","idade":45,"renda_mensal":7478.27,"gasto_mensal":763.07,"satisfacao":4,"data_cadastro":"2024-08-27","data_ultima_compra":"2026-09-27","telefone_2":null},{"id_cliente":"C0057","email":"cliente0057@email.com","cidade":"Olinda","canal":"App","plano":"Básico","idade":35,"renda_mensal":4772.57,"gasto_mensal":258.65,"satisfacao":5,"data_cadastro":"2021-03-12","data_ultima_compra":"2022-04-16","telefone_2":null},{"id_cliente":"C0055","email":"cliente0055@email.com","cidade":"Jaboatão dos Guararapes","canal":"Telefone","plano":"Premium","idade":45,"renda_mensal":11952.54,"gasto_mensal":825.97,"satisfacao":5,"data_cadastro":"2024-04-20","data_ultima_compra":"2025-12-16","telefone_2":null},{"id_cliente":"C0056","email":"cliente0056@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Básico","idade":null,"renda_mensal":"R$ 3.804,59","gasto_mensal":188.9,"satisfacao":4,"data_cadastro":"2026-06-28","data_ultima_compra":"2026-08-15","telefone_2":"(81) 99801-7858"},{"id_cliente":"C0057","email":"cliente0057@email.com","cidade":"Olinda","canal":"App","plano":"Básico","idade":35,"renda_mensal":4772.57,"gasto_mensal":258.65,"satisfacao":5,"data_cadastro":"2021-03-12","data_ultima_compra":"2022-04-16","telefone_2":null},{"id_cliente":"C0058","email":"cliente0058@email.com","cidade":"Jaboatão dos Guararapes","canal":"Telefone","plano":"Premium","idade":-3,"renda_mensal":28500.0,"gasto_mensal":1980.0,"satisfacao":3,"data_cadastro":"2024-05-12","data_ultima_compra":"2025-03-31","telefone_2":"(81) 98973-7738"},{"id_cliente":"C0059","email":"cliente0059@email.com","cidade":"Olinda","canal":"WhatsApp","plano":"Premium","idade":50,"renda_mensal":11619.79,"gasto_mensal":915.12,"satisfacao":3,"data_cadastro":"2023-03-16","data_ultima_compra":"2025-07-22","telefone_2":null},{"id_cliente":"C0060","email":"cliente0060@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Básico","idade":30,"renda_mensal":2029.16,"gasto_mensal":248.87,"satisfacao":3,"data_cadastro":"2022-07-09","data_ultima_compra":"2024-03-12","telefone_2":"(81) 99737-2468"},{"id_cliente":"C0061","email":"cliente0061@email.com","cidade":"Jaboatão dos Guararapes","canal":"WhatsApp","plano":"Plus","idade":39,"renda_mensal":10745.84,"gasto_mensal":577.75,"satisfacao":null,"data_cadastro":"2026-02-24","data_ultima_compra":"2026-09-11","telefone_2":"(81) 99960-9882"},{"id_cliente":"C0062","email":"cliente0062@email.com","cidade":"Recife","canal":"Loja","plano":"Básico","idade":43,"renda_mensal":1706.66,"gasto_mensal":119.13,"satisfacao":3,"data_cadastro":"2021-12-02","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0063","email":"cliente0063@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Premium","idade":23,"renda_mensal":6808.76,"gasto_mensal":658.7,"satisfacao":4,"data_cadastro":"2023-11-09","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0064","email":"cliente0064@email.com","cidade":"Jaboatão dos Guararapes","canal":"Tel.","plano":"Plus","idade":51,"renda_mensal":null,"gasto_mensal":285.78,"satisfacao":2,"data_cadastro":"2021-07-14","data_ultima_compra":"2022-01-25","telefone_2":null},{"id_cliente":"C0065","email":"cliente0065@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Plus","idade":54,"renda_mensal":6228.83,"gasto_mensal":398.31,"satisfacao":4,"data_cadastro":"2025-03-21","data_ultima_compra":"2026-09-09","telefone_2":"(81) 98226-6254"},{"id_cliente":"C0066","email":"cliente0066@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Premium","idade":42,"renda_mensal":5677.52,"gasto_mensal":562.2,"satisfacao":4,"data_cadastro":"2023-07-12","data_ultima_compra":"2024-05-17","telefone_2":null},{"id_cliente":"C0067","email":"cliente0067@email.com","cidade":"Olinda","canal":"App","plano":"Básico","idade":21,"renda_mensal":null,"gasto_mensal":312.84,"satisfacao":4,"data_cadastro":"2026-07-16","data_ultima_compra":"2026-09-01","telefone_2":null},{"id_cliente":"C0068","email":"cliente0068@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":44,"renda_mensal":3618.87,"gasto_mensal":259.58,"satisfacao":3,"data_cadastro":"2021-09-25","data_ultima_compra":"2021-10-16","telefone_2":null},{"id_cliente":"C0069","email":"cliente0069@email.com","cidade":"Olinda","canal":"Loja","plano":"Plus","idade":49,"renda_mensal":5879.59,"gasto_mensal":378.33,"satisfacao":4,"data_cadastro":"2026-05-20","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0070","email":"cliente0070@email.com","cidade":"Recife","canal":"Telefone","plano":"Plus","idade":31,"renda_mensal":2911.75,"gasto_mensal":340.18,"satisfacao":null,"data_cadastro":"2023-08-05","data_ultima_compra":"2024-07-02","telefone_2":null},{"id_cliente":"C0071","email":"cliente0071@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":18,"renda_mensal":2762.77,"gasto_mensal":232.89,"satisfacao":5,"data_cadastro":"2025-05-13","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0072","email":"cliente0072@email.com","cidade":"Jaboatão dos Guararapes","canal":"Telefone","plano":"Básico","idade":25,"renda_mensal":2865.21,"gasto_mensal":364.29,"satisfacao":3,"data_cadastro":"2025-10-08","data_ultima_compra":"2026-08-29","telefone_2":null},{"id_cliente":"C0073","email":"cliente0073@email.com","cidade":"Paulista","canal":"App","plano":"Básico","idade":53,"renda_mensal":1550.01,"gasto_mensal":80.81,"satisfacao":4,"data_cadastro":"2026-01-12","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0074","email":"cliente0074@email.com","cidade":"Recife","canal":"App","plano":"Premium","idade":35,"renda_mensal":9990.43,"gasto_mensal":757.67,"satisfacao":5,"data_cadastro":null,"data_ultima_compra":"2026-08-01","telefone_2":null},{"id_cliente":"C0075","email":"cliente0075@email.com","cidade":"Paulista","canal":"App","plano":"Premium","idade":44,"renda_mensal":9725.34,"gasto_mensal":374.39,"satisfacao":4,"data_cadastro":"2025-06-02","data_ultima_compra":"2026-08-13","telefone_2":null},{"id_cliente":"C0076","email":"cliente0076@email.com","cidade":"paulista ","canal":"WhatsApp","plano":"Plus","idade":37,"renda_mensal":5313.8,"gasto_mensal":74.7,"satisfacao":4,"data_cadastro":"2024-11-21","data_ultima_compra":"2025-12-04","telefone_2":"(81) 99910-7069"},{"id_cliente":"C0077","email":"cliente0077@email.com","cidade":"Caruaru","canal":"App","plano":"Plus","idade":64,"renda_mensal":7692.16,"gasto_mensal":602.83,"satisfacao":5,"data_cadastro":"2024-08-02","data_ultima_compra":"2025-11-15","telefone_2":null},{"id_cliente":"C0078","email":"cliente0078@email.com","cidade":"Recife","canal":"whatsapp","plano":"Premium","idade":29,"renda_mensal":10271.9,"gasto_mensal":541.08,"satisfacao":3,"data_cadastro":"2024-07-03","data_ultima_compra":"2024-09-11","telefone_2":"(81) 99579-8057"},{"id_cliente":"C0079","email":"cliente0079@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Plus","idade":35,"renda_mensal":5275.74,"gasto_mensal":282.1,"satisfacao":3,"data_cadastro":"2024-02-20","data_ultima_compra":"2026-06-27","telefone_2":null},{"id_cliente":"C0080","email":"cliente0080@email.com","cidade":"Recife","canal":"Telefone","plano":"Básico","idade":51,"renda_mensal":2931.43,"gasto_mensal":412.06,"satisfacao":2,"data_cadastro":"2024-04-06","data_ultima_compra":"2025-06-20","telefone_2":"(81) 98902-6069"},{"id_cliente":"C0081","email":"cliente0081@email.com","cidade":"Paulista","canal":null,"plano":"Plus","idade":60,"renda_mensal":4894.74,"gasto_mensal":230.85,"satisfacao":3,"data_cadastro":"2026-03-20","data_ultima_compra":"2026-08-11","telefone_2":null},{"id_cliente":"C0082","email":"cliente0082@email.com","cidade":"Caruaru","canal":"telefone","plano":"Básico","idade":37,"renda_mensal":2180.4,"gasto_mensal":385.17,"satisfacao":4,"data_cadastro":"2022-08-18","data_ultima_compra":"2024-01-08","telefone_2":null},{"id_cliente":"C0083","email":"cliente0083@email.com","cidade":"Paulista","canal":"App","plano":"Plus","idade":60,"renda_mensal":5324.6,"gasto_mensal":347.71,"satisfacao":4,"data_cadastro":"2022-03-30","data_ultima_compra":"2023-05-27","telefone_2":null},{"id_cliente":"C0084","email":"cliente0084@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Plus","idade":54,"renda_mensal":3997.13,"gasto_mensal":562.89,"satisfacao":5,"data_cadastro":"2025-05-31","data_ultima_compra":"2026-08-11","telefone_2":null},{"id_cliente":"C0085","email":"cliente0085@email.com","cidade":"recife","canal":"app","plano":"Básico","idade":41,"renda_mensal":2124.18,"gasto_mensal":160.99,"satisfacao":0,"data_cadastro":"2022-07-11","data_ultima_compra":"2023-02-12","telefone_2":null},{"id_cliente":"C0086","email":"cliente0086@email.com","cidade":"Recife","canal":"Loja","plano":"Básico","idade":49,"renda_mensal":3132.6,"gasto_mensal":282.19,"satisfacao":3,"data_cadastro":"2024-11-03","data_ultima_compra":"2025-08-23","telefone_2":null},{"id_cliente":"C0087","email":"cliente0087@email.com","cidade":"Olinda","canal":"App","plano":"Básico","idade":33,"renda_mensal":2337.17,"gasto_mensal":327.34,"satisfacao":4,"data_cadastro":"2026-05-29","data_ultima_compra":"2026-08-27","telefone_2":null},{"id_cliente":"C0088","email":"cliente0088@email.com","cidade":"Olinda","canal":"App","plano":"Básico","idade":44,"renda_mensal":2426.25,"gasto_mensal":362.17,"satisfacao":4,"data_cadastro":"2024-06-06","data_ultima_compra":"2025-12-14","telefone_2":"(81) 99666-7550"},{"id_cliente":"C0089","email":"cliente0089@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":18,"renda_mensal":1596.83,"gasto_mensal":135.29,"satisfacao":2,"data_cadastro":"2024-05-15","data_ultima_compra":"2025-05-29","telefone_2":null},{"id_cliente":"C0090","email":"cliente0090@email.com","cidade":"Jaboatão dos Guararapes","canal":"WhatsApp","plano":"Básico","idade":25,"renda_mensal":1412.0,"gasto_mensal":155.88,"satisfacao":4,"data_cadastro":"2022-12-07","data_ultima_compra":"2025-02-15","telefone_2":"(81) 98297-9383"},{"id_cliente":"C0081","email":"cliente0081@email.com","cidade":"Paulista","canal":null,"plano":"Plus","idade":60,"renda_mensal":4894.74,"gasto_mensal":230.85,"satisfacao":3,"data_cadastro":"2026-03-20","data_ultima_compra":"2026-08-11","telefone_2":null},{"id_cliente":"C0091","email":"cliente0091@email.com","cidade":"Paulista","canal":"WhatsApp","plano":"Plus","idade":30,"renda_mensal":3889.4,"gasto_mensal":379.37,"satisfacao":4,"data_cadastro":"2024-02-20","data_ultima_compra":null,"telefone_2":"(81) 99531-3354"},{"id_cliente":"C0092","email":"cliente0092@email.com","cidade":"Olinda","canal":"Loja","plano":"Premium","idade":42,"renda_mensal":5547.3,"gasto_mensal":737.21,"satisfacao":null,"data_cadastro":"2023-08-12","data_ultima_compra":"2025-08-15","telefone_2":null},{"id_cliente":"C0093","email":"cliente0093@email.com","cidade":"Olinda","canal":null,"plano":"Plus","idade":37,"renda_mensal":7020.78,"gasto_mensal":255.31,"satisfacao":5,"data_cadastro":"2023-01-23","data_ultima_compra":"2025-01-02","telefone_2":null},{"id_cliente":"C0094","email":"cliente0094@email.com","cidade":"Jaboatão dos Guararapes","canal":"Loja","plano":"Plus","idade":null,"renda_mensal":5199.64,"gasto_mensal":639.18,"satisfacao":2,"data_cadastro":"2026-07-29","data_ultima_compra":"2026-08-05","telefone_2":"(81) 98547-9190"},{"id_cliente":"C0095","email":"cliente0095@email.com","cidade":"Recife","canal":"Telefone","plano":"Básico","idade":52,"renda_mensal":1890.09,"gasto_mensal":196.15,"satisfacao":3,"data_cadastro":"2024-05-29","data_ultima_compra":"2024-11-29","telefone_2":"(81) 98571-8727"},{"id_cliente":"C0096","email":"cliente0096@email.com","cidade":"Jaboatao dos Guararapes","canal":"Loja","plano":"Básico","idade":18,"renda_mensal":2862.28,"gasto_mensal":138.66,"satisfacao":5,"data_cadastro":"2021-10-05","data_ultima_compra":"2023-06-11","telefone_2":"(81) 99299-4096"},{"id_cliente":"C0097","email":"cliente0097@email.com","cidade":"Jaboatão dos Guararapes","canal":"WhatsApp","plano":"Básico","idade":26,"renda_mensal":2075.17,"gasto_mensal":209.04,"satisfacao":5,"data_cadastro":"2023-12-06","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0098","email":"cliente0098@email.com","cidade":"Paulista","canal":"WhatsApp","plano":"Básico","idade":41,"renda_mensal":1412.0,"gasto_mensal":317.49,"satisfacao":4,"data_cadastro":"2026-07-15","data_ultima_compra":"2026-08-16","telefone_2":"(81) 98157-4178"},{"id_cliente":"C0099","email":"cliente0099@email.com","cidade":"Recife","canal":"Telefone","plano":"Básico","idade":35,"renda_mensal":null,"gasto_mensal":149.11,"satisfacao":3,"data_cadastro":"2024-11-16","data_ultima_compra":"2025-11-30","telefone_2":"(81) 99293-7729"},{"id_cliente":"C0100","email":"cliente0100@email.com","cidade":"Caruaru","canal":"App","plano":"Básico","idade":36,"renda_mensal":null,"gasto_mensal":280.34,"satisfacao":3,"data_cadastro":"2024-07-29","data_ultima_compra":"2026-09-07","telefone_2":null},{"id_cliente":"C0101","email":"cliente0101@email.com","cidade":"recife","canal":"Telefone","plano":"Básico","idade":29,"renda_mensal":null,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2025-01-25","data_ultima_compra":"2025-07-20","telefone_2":null},{"id_cliente":"C0102","email":"cliente0102@email.com","cidade":"Caruaru","canal":null,"plano":"Básico","idade":41,"renda_mensal":2274.74,"gasto_mensal":170.57,"satisfacao":4,"data_cadastro":"2024-02-05","data_ultima_compra":"2026-03-24","telefone_2":"(81) 98241-9201"},{"id_cliente":"C0103","email":"cliente0103@email.com","cidade":"Recife","canal":"Telefone","plano":"Premium","idade":37,"renda_mensal":11117.06,"gasto_mensal":870.72,"satisfacao":3,"data_cadastro":"2025-06-29","data_ultima_compra":"2026-05-16","telefone_2":"(81) 99473-7993"},{"id_cliente":"C0104","email":"cliente0104@email.com","cidade":"Caruaru","canal":"app","plano":"Básico","idade":53,"renda_mensal":2317.49,"gasto_mensal":null,"satisfacao":5,"data_cadastro":"2024-06-08","data_ultima_compra":"2024-10-16","telefone_2":null},{"id_cliente":"C0105","email":"cliente0105@email.com","cidade":"Recife","canal":"Telefone","plano":"Básico","idade":54,"renda_mensal":2379.8,"gasto_mensal":392.55,"satisfacao":4,"data_cadastro":"2024-03-31","data_ultima_compra":"2024-08-20","telefone_2":null},{"id_cliente":"C0106","email":"cliente0106@email.com","cidade":"Recfie","canal":"WhatsApp","plano":"Plus","idade":36,"renda_mensal":2648.21,"gasto_mensal":257.68,"satisfacao":4,"data_cadastro":"2023-02-18","data_ultima_compra":"2023-08-09","telefone_2":"(81) 99683-5281"},{"id_cliente":"C0107","email":"cliente0107@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":27,"renda_mensal":4064.51,"gasto_mensal":499.71,"satisfacao":4,"data_cadastro":"2024-01-28","data_ultima_compra":"2025-09-10","telefone_2":"(81) 99208-3137"},{"id_cliente":"C0108","email":"cliente0108@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Básico","idade":42,"renda_mensal":3426.42,"gasto_mensal":275.14,"satisfacao":3,"data_cadastro":"2024-09-27","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0109","email":"cliente0109@email.com","cidade":"Paulista","canal":"Telefone","plano":"Básico","idade":32,"renda_mensal":2086.59,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2024-03-19","data_ultima_compra":"2025-08-03","telefone_2":null},{"id_cliente":"C0110","email":"cliente0110@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":43,"renda_mensal":2176.65,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":null,"data_ultima_compra":"2021-08-12","telefone_2":null},{"id_cliente":"C0111","email":"cliente0111@email.com","cidade":"Caruaru","canal":"Loja","plano":"Plus","idade":49,"renda_mensal":3140.72,"gasto_mensal":178.84,"satisfacao":null,"data_cadastro":"2023-07-09","data_ultima_compra":"2023-10-15","telefone_2":null},{"id_cliente":"C0112","email":"cliente0112@email.com","cidade":" Recife","canal":"Telefone","plano":"Básico","idade":49,"renda_mensal":3716.73,"gasto_mensal":60.0,"satisfacao":2,"data_cadastro":"2021-07-17","data_ultima_compra":"2021-12-23","telefone_2":"(81) 98018-1065"},{"id_cliente":"C0113","email":"cliente0113@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Plus","idade":29,"renda_mensal":3700.51,"gasto_mensal":507.51,"satisfacao":10,"data_cadastro":"2021-10-30","data_ultima_compra":"2023-02-02","telefone_2":"(81) 98593-1616"},{"id_cliente":"C0114","email":"cliente0114@email.com","cidade":"Caruaru","canal":"App","plano":"Básico","idade":41,"renda_mensal":2902.58,"gasto_mensal":null,"satisfacao":3,"data_cadastro":"2025-04-07","data_ultima_compra":"2026-09-25","telefone_2":null},{"id_cliente":"C0115","email":"cliente0115@email.com","cidade":"RECIFE","canal":"WhatsApp","plano":"Plus","idade":53,"renda_mensal":null,"gasto_mensal":396.61,"satisfacao":4,"data_cadastro":"2024-08-28","data_ultima_compra":"2025-07-20","telefone_2":"(81) 98911-6356"},{"id_cliente":"C0104","email":"cliente0104@email.com","cidade":"Caruaru","canal":"app","plano":"Básico","idade":53,"renda_mensal":2317.49,"gasto_mensal":null,"satisfacao":5,"data_cadastro":"2024-06-08","data_ultima_compra":"2024-10-16","telefone_2":null},{"id_cliente":"C0116","email":"cliente0116@email.com","cidade":"Recife","canal":"telefone","plano":"Premium","idade":19,"renda_mensal":null,"gasto_mensal":561.14,"satisfacao":4,"data_cadastro":"2021-01-29","data_ultima_compra":"2021-06-20","telefone_2":null},{"id_cliente":"C0117","email":"cliente0117@email.com","cidade":"Olinda","canal":"Loja","plano":"Plus","idade":32,"renda_mensal":4357.0,"gasto_mensal":231.8,"satisfacao":3,"data_cadastro":"2025-05-29","data_ultima_compra":"2025-08-21","telefone_2":null},{"id_cliente":"C0118","email":"cliente0118@email.com","cidade":"Caruaru","canal":"Loja","plano":"Básico","idade":43,"renda_mensal":1968.11,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2024-06-25","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0119","email":"cliente0119@email.com","cidade":"Jaboatão dos Guararapes","canal":"WhatsApp","plano":"Básico","idade":35,"renda_mensal":2680.47,"gasto_mensal":179.03,"satisfacao":4,"data_cadastro":"2021-03-05","data_ultima_compra":"2023-05-31","telefone_2":null},{"id_cliente":"C0120","email":"cliente0120@email.com","cidade":"olinda","canal":"App","plano":"Básico","idade":28,"renda_mensal":3624.78,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2025-03-09","data_ultima_compra":"2026-01-31","telefone_2":null},{"id_cliente":"C0094","email":"cliente0094@email.com","cidade":"Jaboatão dos Guararapes","canal":"Loja","plano":"Plus","idade":null,"renda_mensal":5199.64,"gasto_mensal":639.18,"satisfacao":2,"data_cadastro":"2026-07-29","data_ultima_compra":"2026-09-30","telefone_2":"(81) 98547-9190"},{"id_cliente":"C0121","email":"cliente0121@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":41,"renda_mensal":6413.12,"gasto_mensal":510.75,"satisfacao":5,"data_cadastro":"2026-07-08","data_ultima_compra":"2026-09-28","telefone_2":"(81) 98694-2528"},{"id_cliente":"C0122","email":"cliente0122@email.com","cidade":"Caruaru","canal":"App","plano":"Premium","idade":24,"renda_mensal":5697.52,"gasto_mensal":510.53,"satisfacao":4,"data_cadastro":"2023-01-24","data_ultima_compra":"2025-02-25","telefone_2":null},{"id_cliente":"C0123","email":"cliente0123@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Plus","idade":44,"renda_mensal":null,"gasto_mensal":210.18,"satisfacao":4,"data_cadastro":"2024-05-13","data_ultima_compra":"2026-03-15","telefone_2":null},{"id_cliente":"C0124","email":"cliente0124@email.com","cidade":"Olinda","canal":"whatsapp","plano":"Básico","idade":51,"renda_mensal":null,"gasto_mensal":163.56,"satisfacao":4,"data_cadastro":"2025-11-17","data_ultima_compra":"2026-09-09","telefone_2":null},{"id_cliente":"C0125","email":"cliente0125@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":39,"renda_mensal":3676.86,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2023-02-20","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0126","email":"cliente0126@email.com","cidade":"Caruaru","canal":"Loja","plano":"Básico","idade":null,"renda_mensal":2767.97,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2023-05-12","data_ultima_compra":"2025-05-23","telefone_2":null},{"id_cliente":"C0127","email":"cliente0127@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":40,"renda_mensal":2849.29,"gasto_mensal":127.5,"satisfacao":4,"data_cadastro":"2024-10-27","data_ultima_compra":"2026-08-08","telefone_2":null},{"id_cliente":"C0128","email":"cliente0128@email.com","cidade":"Recife","canal":"Telefone","plano":"Plus","idade":42,"renda_mensal":4680.19,"gasto_mensal":444.5,"satisfacao":3,"data_cadastro":"2028-01-02","data_ultima_compra":"2022-03-13","telefone_2":null},{"id_cliente":"C0129","email":"cliente0129@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Premium","idade":28,"renda_mensal":null,"gasto_mensal":681.66,"satisfacao":5,"data_cadastro":"2024-03-05","data_ultima_compra":"2025-06-12","telefone_2":"(81) 99609-5006"},{"id_cliente":"C0130","email":"cliente0130@email.com","cidade":"Jaboatão dos Guararapes","canal":"Loja","plano":"Plus","idade":36,"renda_mensal":7746.35,"gasto_mensal":435.51,"satisfacao":4,"data_cadastro":"2025-11-11","data_ultima_compra":"2026-09-29","telefone_2":null},{"id_cliente":"C0131","email":"cliente0131@email.com","cidade":"Paulista","canal":"WhatsApp","plano":"Básico","idade":null,"renda_mensal":2356.1,"gasto_mensal":188.71,"satisfacao":4,"data_cadastro":"2021-08-16","data_ultima_compra":"2023-10-16","telefone_2":null},{"id_cliente":"C0132","email":"cliente0132@email.com","cidade":"Olinda","canal":"Whatsapp","plano":"Premium","idade":29,"renda_mensal":9779.0,"gasto_mensal":null,"satisfacao":4,"data_cadastro":"2023-11-25","data_ultima_compra":"2026-03-30","telefone_2":null},{"id_cliente":"C0133","email":"cliente0133@email.com","cidade":"Olinda","canal":"Telefone","plano":"Básico","idade":53,"renda_mensal":1935.04,"gasto_mensal":137.74,"satisfacao":null,"data_cadastro":"2023-01-01","data_ultima_compra":"2023-11-19","telefone_2":null},{"id_cliente":"C0134","email":"cliente0134@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":40,"renda_mensal":null,"gasto_mensal":169.55,"satisfacao":4,"data_cadastro":"2026-02-26","data_ultima_compra":"2026-09-08","telefone_2":null},{"id_cliente":"C0135","email":"cliente0135@email.com","cidade":"Olinda","canal":"Loja","plano":"Básico","idade":23,"renda_mensal":4095.66,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2025-01-08","data_ultima_compra":"2026-02-08","telefone_2":"(81) 98806-6436"},{"id_cliente":"C0136","email":"cliente0136@email.com","cidade":"Jaboatao dos Guararapes","canal":"App","plano":"Plus","idade":40,"renda_mensal":3546.94,"gasto_mensal":112.95,"satisfacao":5,"data_cadastro":"2026-04-23","data_ultima_compra":"2026-08-06","telefone_2":null},{"id_cliente":"C0137","email":"cliente0137@email.com","cidade":"Caruaru","canal":"App","plano":"Básico","idade":43,"renda_mensal":1954.02,"gasto_mensal":60.0,"satisfacao":5,"data_cadastro":"2026-02-04","data_ultima_compra":null,"telefone_2":"(81) 99241-1603"},{"id_cliente":"C0051","email":"cliente0051@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Premium","idade":39,"renda_mensal":12516.69,"gasto_mensal":816.66,"satisfacao":4,"data_cadastro":"2026-02-20","data_ultima_compra":"2026-08-02","telefone_2":null},{"id_cliente":"C0138","email":"cliente0138@email.com","cidade":"Caruaru","canal":"App","plano":"Premium","idade":22,"renda_mensal":6816.6,"gasto_mensal":753.95,"satisfacao":4,"data_cadastro":"2024-09-26","data_ultima_compra":"2026-09-19","telefone_2":null},{"id_cliente":"C0183","email":"cliente0183@email.com","cidade":"Recife","canal":"Telefone","plano":"Básico","idade":34,"renda_mensal":3001.7,"gasto_mensal":60.0,"satisfacao":2,"data_cadastro":"2024-08-14","data_ultima_compra":"2025-12-08","telefone_2":"(81) 98824-9138"},{"id_cliente":"C0139","email":"cliente0139@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":48,"renda_mensal":3017.57,"gasto_mensal":231.3,"satisfacao":4,"data_cadastro":"2023-04-15","data_ultima_compra":"2025-04-28","telefone_2":null},{"id_cliente":"C0140","email":"cliente0140@email.com","cidade":"Jaboatão dos Guararapes","canal":"App","plano":"Plus","idade":35,"renda_mensal":4354.9,"gasto_mensal":329.79,"satisfacao":4,"data_cadastro":"2023-03-17","data_ultima_compra":"2023-11-18","telefone_2":"(81) 98918-4408"},{"id_cliente":"C0141","email":"cliente0141@email.com","cidade":"Olinda","canal":null,"plano":"Plus","idade":40,"renda_mensal":416275.0,"gasto_mensal":88.63,"satisfacao":3,"data_cadastro":"2022-01-05","data_ultima_compra":"2021-09-11","telefone_2":"(81) 98482-4637"},{"id_cliente":"C0142","email":"cliente0142@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":59,"renda_mensal":4483.94,"gasto_mensal":329.11,"satisfacao":4,"data_cadastro":"2023-11-27","data_ultima_compra":"2025-09-03","telefone_2":null},{"id_cliente":"C0143","email":"cliente0143@email.com","cidade":"Recife","canal":"Telefone","plano":"Plus","idade":23,"renda_mensal":3297.79,"gasto_mensal":592.54,"satisfacao":3,"data_cadastro":"2021-06-16","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0144","email":"cliente0144@email.com","cidade":"Paulista","canal":"App","plano":"Premium","idade":20,"renda_mensal":41000.0,"gasto_mensal":null,"satisfacao":2,"data_cadastro":"2025-02-05","data_ultima_compra":"2025-10-24","telefone_2":"(81) 98951-4717"},{"id_cliente":"C0145","email":"cliente0145@email.com","cidade":"Paulista","canal":"Telefone","plano":"Básico","idade":26,"renda_mensal":2669.29,"gasto_mensal":190.78,"satisfacao":3,"data_cadastro":"2026-02-16","data_ultima_compra":"2026-06-04","telefone_2":null},{"id_cliente":"C0146","email":"cliente0146@email.com","cidade":"Recife","canal":"App","plano":"Premium","idade":42,"renda_mensal":4940.55,"gasto_mensal":482.31,"satisfacao":5,"data_cadastro":"2026-06-21","data_ultima_compra":"2026-08-05","telefone_2":null},{"id_cliente":"C0147","email":"cliente0147@email.com","cidade":"Paulista","canal":"App","plano":"Básico","idade":29,"renda_mensal":2228.29,"gasto_mensal":109.23,"satisfacao":3,"data_cadastro":"2024-10-12","data_ultima_compra":"2026-05-31","telefone_2":"(81) 98658-2405"},{"id_cliente":"C0148","email":"cliente0148@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Plus","idade":26,"renda_mensal":null,"gasto_mensal":390.77,"satisfacao":5,"data_cadastro":"2025-11-01","data_ultima_compra":"2026-09-27","telefone_2":"(81) 98545-5233"},{"id_cliente":"C0149","email":"cliente0149@email.com","cidade":"Paulista","canal":"Telefone","plano":"Plus","idade":null,"renda_mensal":5242.96,"gasto_mensal":245.36,"satisfacao":4,"data_cadastro":"2021-01-30","data_ultima_compra":"2023-04-16","telefone_2":"(81) 98004-8922"},{"id_cliente":"C0150","email":"cliente0150@email.com","cidade":"jaboatão dos guararapes","canal":"APP","plano":"Básico","idade":22,"renda_mensal":2041.41,"gasto_mensal":108.46,"satisfacao":3,"data_cadastro":"2023-08-04","data_ultima_compra":"2023-11-14","telefone_2":"(81) 98889-9104"},{"id_cliente":"C0151","email":"cliente0151@email.com","cidade":"Jaboatão dos Guararapes","canal":"WhatsApp","plano":"Premium","idade":26,"renda_mensal":11675.12,"gasto_mensal":874.55,"satisfacao":3,"data_cadastro":"2021-02-24","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0152","email":"cliente0152@email.com","cidade":"Recife","canal":"App","plano":"Premium","idade":18,"renda_mensal":11439.52,"gasto_mensal":677.42,"satisfacao":null,"data_cadastro":"2024-04-08","data_ultima_compra":"2025-08-23","telefone_2":"(81) 99757-7533"},{"id_cliente":"C0153","email":"cliente0153@email.com","cidade":"Recife","canal":"Loja","plano":"Básico","idade":36,"renda_mensal":1795.44,"gasto_mensal":225.89,"satisfacao":null,"data_cadastro":"2025-05-15","data_ultima_compra":"2026-09-09","telefone_2":"(81) 98780-5458"},{"id_cliente":"C0154","email":"cliente0154@email.com","cidade":"Jaboatão dos Guararapes","canal":"Whatsapp","plano":"Premium","idade":52,"renda_mensal":5787.95,"gasto_mensal":665.86,"satisfacao":4,"data_cadastro":"2021-11-26","data_ultima_compra":"2023-03-09","telefone_2":null},{"id_cliente":"C0155","email":"cliente0155@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Básico","idade":null,"renda_mensal":1810.92,"gasto_mensal":319.63,"satisfacao":3,"data_cadastro":"2021-01-10","data_ultima_compra":"2022-02-06","telefone_2":null},{"id_cliente":"C0156","email":"cliente0156@email.com","cidade":"caruaru","canal":"Telefone","plano":"Básico","idade":49,"renda_mensal":3284.71,"gasto_mensal":243.85,"satisfacao":1,"data_cadastro":"2025-05-14","data_ultima_compra":"2025-07-27","telefone_2":"(81) 99596-7336"},{"id_cliente":"C0157","email":"cliente0157@email.com","cidade":"Olinda","canal":"Telefone","plano":"Plus","idade":32,"renda_mensal":5805.75,"gasto_mensal":370.39,"satisfacao":3,"data_cadastro":"2024-04-23","data_ultima_compra":"2024-06-19","telefone_2":"(81) 98133-9533"},{"id_cliente":"C0158","email":"cliente0158@email.com","cidade":"Caruaru","canal":"whatsapp","plano":"Básico","idade":28,"renda_mensal":2913.41,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2026-04-09","data_ultima_compra":"2026-09-11","telefone_2":"(81) 98939-1494"},{"id_cliente":"C0159","email":"cliente0159@email.com","cidade":"Caruaru","canal":"Loja","plano":"Plus","idade":46,"renda_mensal":6779.36,"gasto_mensal":384.06,"satisfacao":4,"data_cadastro":"2022-03-30","data_ultima_compra":"2024-07-11","telefone_2":null},{"id_cliente":"C0160","email":"cliente0160@email.com","cidade":"Caruaru","canal":"Loja","plano":"Básico","idade":35,"renda_mensal":null,"gasto_mensal":60.0,"satisfacao":2,"data_cadastro":"2023-09-29","data_ultima_compra":"2025-04-17","telefone_2":"(81) 98558-3791"},{"id_cliente":"C0161","email":"cliente0161@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":41,"renda_mensal":5750.88,"gasto_mensal":506.46,"satisfacao":4,"data_cadastro":"2022-11-13","data_ultima_compra":"2023-04-24","telefone_2":"(81) 98952-3449"},{"id_cliente":"C0162","email":"cliente0162@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":210,"renda_mensal":5208.66,"gasto_mensal":515.58,"satisfacao":4,"data_cadastro":"2025-06-20","data_ultima_compra":"2025-09-17","telefone_2":null},{"id_cliente":"C0163","email":"cliente0163@email.com","cidade":"recife","canal":"Loja","plano":"Básico","idade":39,"renda_mensal":1429.0,"gasto_mensal":60.0,"satisfacao":7,"data_cadastro":"2024-05-10","data_ultima_compra":"2024-05-17","telefone_2":null},{"id_cliente":"C0164","email":"cliente0164@email.com","cidade":"Caruaru","canal":"App","plano":"Básico","idade":21,"renda_mensal":1908.79,"gasto_mensal":null,"satisfacao":4,"data_cadastro":"2023-06-18","data_ultima_compra":"2024-04-05","telefone_2":"(81) 99989-7030"},{"id_cliente":"C0165","email":"cliente0165@email.com","cidade":"Jaboatão dos Guararapes","canal":"Loja","plano":"Premium","idade":49,"renda_mensal":6680.69,"gasto_mensal":595.97,"satisfacao":3,"data_cadastro":"2024-08-16","data_ultima_compra":"2025-06-01","telefone_2":null},{"id_cliente":"C0166","email":"cliente0166@email.com","cidade":"Olinda","canal":"WhatsApp","plano":"Básico","idade":55,"renda_mensal":4513.09,"gasto_mensal":null,"satisfacao":3,"data_cadastro":"2024-07-21","data_ultima_compra":"2024-10-31","telefone_2":null},{"id_cliente":"C0167","email":"cliente0167@email.com","cidade":"Olinda","canal":"Loja","plano":"Básico","idade":32,"renda_mensal":3336.67,"gasto_mensal":255.07,"satisfacao":2,"data_cadastro":"2024-06-30","data_ultima_compra":"2025-07-07","telefone_2":null},{"id_cliente":"C0168","email":"cliente0168@email.com","cidade":"Recife","canal":"Loja","plano":"Premium","idade":27,"renda_mensal":4494.99,"gasto_mensal":679.24,"satisfacao":4,"data_cadastro":"2024-05-17","data_ultima_compra":null,"telefone_2":"(81) 99787-7778"},{"id_cliente":"C0169","email":"cliente0169@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":50,"renda_mensal":1929.04,"gasto_mensal":250.74,"satisfacao":4,"data_cadastro":"2021-10-29","data_ultima_compra":"2023-05-11","telefone_2":"(81) 99747-6050"},{"id_cliente":"C0170","email":"cliente0170@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Básico","idade":74,"renda_mensal":1859.27,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2026-06-15","data_ultima_compra":"2026-08-21","telefone_2":"(81) 99053-7428"},{"id_cliente":"C0171","email":"cliente0171@email.com","cidade":"Olinda","canal":"App","plano":"Plus","idade":52,"renda_mensal":4218.34,"gasto_mensal":384.75,"satisfacao":3,"data_cadastro":"2025-09-14","data_ultima_compra":"2026-08-24","telefone_2":null},{"id_cliente":"C0172","email":"cliente0172@email.com","cidade":"Caruaru","canal":"App","plano":"Premium","idade":27,"renda_mensal":13822.36,"gasto_mensal":734.88,"satisfacao":5,"data_cadastro":"2021-07-30","data_ultima_compra":"2021-11-17","telefone_2":null},{"id_cliente":"C0173","email":"cliente0173@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":38,"renda_mensal":3819.1,"gasto_mensal":303.1,"satisfacao":5,"data_cadastro":"2022-05-20","data_ultima_compra":"2023-12-10","telefone_2":null},{"id_cliente":"C0174","email":"cliente0174@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":150,"renda_mensal":1833.74,"gasto_mensal":257.14,"satisfacao":3,"data_cadastro":"2026-01-26","data_ultima_compra":"2026-09-10","telefone_2":"(81) 98794-1262"},{"id_cliente":"C0175","email":"cliente0175@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":31,"renda_mensal":5632.35,"gasto_mensal":339.47,"satisfacao":4,"data_cadastro":"2024-03-27","data_ultima_compra":"2024-07-06","telefone_2":null},{"id_cliente":"C0176","email":"cliente0176@email.com","cidade":"Paulista","canal":"App","plano":"Básico","idade":57,"renda_mensal":2817.92,"gasto_mensal":342.86,"satisfacao":null,"data_cadastro":"2024-01-07","data_ultima_compra":"2026-02-22","telefone_2":null},{"id_cliente":"C0177","email":"cliente0177@email.com","cidade":"CARUARU","canal":"whatsapp","plano":"Básico","idade":32,"renda_mensal":2973.33,"gasto_mensal":79.54,"satisfacao":3,"data_cadastro":"2025-03-04","data_ultima_compra":"2025-11-01","telefone_2":null},{"id_cliente":"C0178","email":"cliente0178@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Básico","idade":55,"renda_mensal":null,"gasto_mensal":180.43,"satisfacao":3,"data_cadastro":"2021-04-02","data_ultima_compra":"2022-08-01","telefone_2":"(81) 99050-5116"},{"id_cliente":"C0179","email":"cliente0179@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Plus","idade":53,"renda_mensal":7322.61,"gasto_mensal":446.93,"satisfacao":4,"data_cadastro":"2024-05-09","data_ultima_compra":"2025-07-28","telefone_2":null},{"id_cliente":"C0110","email":"cliente0110@email.com","cidade":"Caruaru","canal":"WhatsApp","plano":"Básico","idade":43,"renda_mensal":2176.65,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":null,"data_ultima_compra":"2021-10-31","telefone_2":null},{"id_cliente":"C0180","email":"cliente0180@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Plus","idade":31,"renda_mensal":4669.0,"gasto_mensal":419.17,"satisfacao":4,"data_cadastro":"2025-04-28","data_ultima_compra":"2026-07-31","telefone_2":"(81) 98540-7046"},{"id_cliente":"C0181","email":"cliente0181@email.com","cidade":"Recife","canal":"WhatsApp","plano":"Básico","idade":45,"renda_mensal":1460.57,"gasto_mensal":324.67,"satisfacao":5,"data_cadastro":"2025-02-28","data_ultima_compra":"2026-01-18","telefone_2":null},{"id_cliente":"C0182","email":"cliente0182@email.com","cidade":"Caruaru","canal":"App","plano":"Plus","idade":40,"renda_mensal":5551.93,"gasto_mensal":277.87,"satisfacao":3,"data_cadastro":"2025-03-25","data_ultima_compra":"2026-09-25","telefone_2":null},{"id_cliente":"C0183","email":"cliente0183@email.com","cidade":"Olinda","canal":"Telefone","plano":"Básico","idade":34,"renda_mensal":3001.7,"gasto_mensal":60.0,"satisfacao":2,"data_cadastro":"2024-08-14","data_ultima_compra":"2025-09-07","telefone_2":"(81) 98824-9138"},{"id_cliente":"C0184","email":"cliente0184@email.com","cidade":"Caruaru","canal":"app","plano":"Básico","idade":null,"renda_mensal":2215.39,"gasto_mensal":166.38,"satisfacao":4,"data_cadastro":"2022-10-20","data_ultima_compra":"2025-02-04","telefone_2":null},{"id_cliente":"C0185","email":"cliente0185@email.com","cidade":"RECIFE","canal":null,"plano":"Básico","idade":43,"renda_mensal":4514.76,"gasto_mensal":60.0,"satisfacao":2,"data_cadastro":"2026-06-10","data_ultima_compra":"2026-08-22","telefone_2":"(81) 98470-8418"},{"id_cliente":"C0186","email":"cliente0186@email.com","cidade":"olinda","canal":"App","plano":"Básico","idade":43,"renda_mensal":1967.0,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2022-08-04","data_ultima_compra":"2024-10-12","telefone_2":null},{"id_cliente":"C0187","email":"cliente0187@email.com","cidade":"Olinda","canal":"App","plano":"Premium","idade":49,"renda_mensal":9271.33,"gasto_mensal":673.08,"satisfacao":5,"data_cadastro":"2022-04-14","data_ultima_compra":"2024-06-24","telefone_2":null},{"id_cliente":"C0188","email":"cliente0188@email.com","cidade":"Paulista","canal":null,"plano":"Premium","idade":30,"renda_mensal":14538.12,"gasto_mensal":670.21,"satisfacao":4,"data_cadastro":"2022-06-01","data_ultima_compra":"2022-03-24","telefone_2":"(81) 99007-7641"},{"id_cliente":"C0189","email":"cliente0189@email.com","cidade":"Caruaru","canal":"loja","plano":"Premium","idade":51,"renda_mensal":null,"gasto_mensal":803.6,"satisfacao":5,"data_cadastro":"2021-11-28","data_ultima_compra":"2023-01-16","telefone_2":null},{"id_cliente":"C0190","email":"cliente0190@email.com","cidade":"Olinda","canal":"Loja","plano":"Básico","idade":57,"renda_mensal":4082.93,"gasto_mensal":336.77,"satisfacao":null,"data_cadastro":"2026-08-13","data_ultima_compra":"2026-08-27","telefone_2":null},{"id_cliente":"C0191","email":"cliente0191@email.com","cidade":"Recife","canal":"App","plano":"Básico","idade":31,"renda_mensal":1412.0,"gasto_mensal":60.0,"satisfacao":4,"data_cadastro":"2022-02-23","data_ultima_compra":"2023-05-05","telefone_2":null},{"id_cliente":"C0192","email":"cliente0192@email.com","cidade":"Olinda","canal":"WhatsApp","plano":"Básico","idade":null,"renda_mensal":4938.75,"gasto_mensal":139.68,"satisfacao":4,"data_cadastro":"2024-11-10","data_ultima_compra":"2026-08-06","telefone_2":null},{"id_cliente":"C0193","email":"cliente0193@email.com","cidade":"recife","canal":"App","plano":"Plus","idade":39,"renda_mensal":null,"gasto_mensal":358.18,"satisfacao":5,"data_cadastro":"2024-10-07","data_ultima_compra":"2025-09-22","telefone_2":"(81) 99763-6713"},{"id_cliente":"C0194","email":"cliente0194@email.com","cidade":"Olinda","canal":"Telefone","plano":"Básico","idade":32,"renda_mensal":2656.09,"gasto_mensal":112.84,"satisfacao":3,"data_cadastro":"2021-02-16","data_ultima_compra":"2021-04-25","telefone_2":null},{"id_cliente":"C0195","email":"cliente0195@email.com","cidade":"Caruaru","canal":"Telefone","plano":"Básico","idade":37,"renda_mensal":1604.77,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2022-01-05","data_ultima_compra":"2022-04-01","telefone_2":null},{"id_cliente":"C0196","email":"cliente0196@email.com","cidade":"Olinda","canal":null,"plano":"Básico","idade":31,"renda_mensal":379281.0,"gasto_mensal":60.0,"satisfacao":3,"data_cadastro":"2023-03-31","data_ultima_compra":"2022-09-11","telefone_2":null},{"id_cliente":"C0197","email":"cliente0197@email.com","cidade":"Recife","canal":"App","plano":"Plus","idade":65,"renda_mensal":null,"gasto_mensal":275.36,"satisfacao":5,"data_cadastro":"2025-12-05","data_ultima_compra":"2026-08-03","telefone_2":null},{"id_cliente":"C0198","email":"cliente0198@email.com","cidade":"Recife","canal":"Loja","plano":"Premium","idade":33,"renda_mensal":16166.6,"gasto_mensal":964.12,"satisfacao":5,"data_cadastro":"2021-09-23","data_ultima_compra":"2024-01-06","telefone_2":null},{"id_cliente":"C0199","email":"cliente0199@email.com","cidade":"Caruaru","canal":"App","plano":"Plus","idade":26,"renda_mensal":4387.25,"gasto_mensal":585.77,"satisfacao":5,"data_cadastro":"2024-09-25","data_ultima_compra":null,"telefone_2":null},{"id_cliente":"C0200","email":"cliente0200@email.com","cidade":"Recfie","canal":"Loja","plano":"Premium","idade":32,"renda_mensal":8183.86,"gasto_mensal":520.92,"satisfacao":4,"data_cadastro":"2021-05-27","data_ultima_compra":"2023-06-10","telefone_2":null}],"_lab":"../laboratorio/"};
+
+const reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = id => document.getElementById(id);
+const el = (tag, attrs={}, html) => { const e=document.createElement(tag); for(const k in attrs){ if(k==='class') e.className=attrs[k]; else e.setAttribute(k,attrs[k]); } if(html!==undefined) e.innerHTML=html; return e; };
+const nf = (x,d=1) => Number(x).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const brl = x => Number(x).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const inteiro = x => Math.round(x).toLocaleString('pt-BR');
+const mean = a => a.reduce((s,v)=>s+v,0)/a.length;
+const sum = a => a.reduce((s,v)=>s+v,0);
+const sorted = a => [...a].sort((x,y)=>x-y);
+const median = a => { const s=sorted(a), n=s.length; return n%2 ? s[(n-1)/2] : (s[n/2-1]+s[n/2])/2; };
+const contar = a => { const m=new Map(); a.forEach(v=>m.set(v,(m.get(v)||0)+1)); return m; };
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+function salvar(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function ler(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){return null;}}
+async function copiar(texto, okEl, fallbackEl){
+  try{ await navigator.clipboard.writeText(texto); okEl.hidden=false; setTimeout(()=>okEl.hidden=true,3500); }
+  catch(e){ if(fallbackEl){ fallbackEl.hidden=false; fallbackEl.value=texto; fallbackEl.focus(); fallbackEl.select(); okEl.textContent='Selecionado: use Ctrl+C para copiar.'; okEl.hidden=false; } }
+}
+
+const ICO={
+  termo:'<path d="M10 14V5a2 2 0 1 1 4 0v9a4 4 0 1 1-4 0z"/><path d="M12 9v7"/>',
+  crono:'<circle cx="12" cy="14" r="7.5"/><path d="M12 14v-4M9.5 2.5h5M12 2.5v4M18.5 7l1.5-1.5"/>',
+  org:'<rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/>',
+  capelo:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5M22 9v6"/>',
+  predio:'<path d="M3 21h18M5 21V10M19 21V10M9.7 21V10M14.3 21V10M2 10l10-6 10 6z"/>',
+  banco:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+  grade:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/>',
+  clique:'<path d="M5 3l7 17 2.5-7L21 10.5z"/><path d="M14.5 14.5l5 5"/>',
+  api:'<path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/>',
+  web:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8.5h18M12 11v6M9 14l3 3 3-3"/>'
+};
+const icone=k=>`<span class="icone" aria-hidden="true"><svg viewBox="0 0 24 24">${ICO[k]}</svg></span>`;
+
+function svgBarras(dados,hi){
+  const W=560, lh=dados.length>14?20:30, bh=lh-10, padL=170, H=dados.length*lh+10, max=Math.max(...dados.map(d=>d[1]),1);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Contagem por categoria">`;
+  dados.forEach(([k,v],i)=>{ const y=i*lh+6, w=(W-padL-50)*v/max; const isHi=hi&&hi.includes(String(k)); const ty=y+bh/2+4.5;
+    s+=`<text x="${padL-10}" y="${ty}" text-anchor="end" class="${isHi?'t-forte':''}">${k}</text><rect class="barra ${isHi?'hi':''}" x="${padL}" y="${y}" width="${Math.max(w,1.5)}" height="${bh}" rx="4"/><text x="${padL+w+8}" y="${ty}" class="${isHi?'t-forte':''}">${v}</text>`; });
+  return s+'</svg>';
+}
+function svgPontos(vals,marc,fmtv,extra){
+  const W=560, r=6, padX=24, x0=Math.min(...vals), x1=Math.max(...vals), span=(x1-x0)||1;
+  const X=v=>padX+(W-2*padX)*(v-x0)/span;
+  const pilhas=new Map(); const pts=sorted(vals).map(v=>{ const b=Math.round(X(v)/(2*r)); const k=pilhas.get(b)||0; pilhas.set(b,k+1); return {x:b*2*r,k}; });
+  const alto=Math.max(...pts.map(p=>p.k))+1, base=58+alto*2*r, H=base+44;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Distribuição dos valores">`;
+  pts.forEach(p=>{ s+=`<circle class="ponto" cx="${p.x}" cy="${base-r-p.k*2*r}" r="${r-0.8}"/>`; });
+  s+=`<line class="eixo" x1="${padX}" x2="${W-padX}" y1="${base+2}" y2="${base+2}"/>`;
+  s+=`<text x="${padX}" y="${base+22}">${fmtv(x0)}</text><text x="${W-padX}" y="${base+22}" text-anchor="end">${fmtv(x1)}</text>`;
+  const marca=(tipo,v,fraco)=>{ const x=X(v), cls=tipo==='media'?'m-media':'m-mediana', t=tipo==='media'?'t-media':'t-mediana', nome=tipo==='media'?'média':'mediana';
+    const anc = x>W*0.6?'end':'start', dx=x>W*0.6?-6:6, y=tipo==='media'?18:38;
+    return `<line class="${cls} ${fraco?'m-fraco':''}" x1="${x}" x2="${x}" y1="${y+6}" y2="${base+2}"/><text x="${x+dx}" y="${y}" text-anchor="${anc}" class="${t} ${fraco?'m-fraco':''}">${nome}</text>`; };
+  if(marc) s+=marca(marc, marc==='media'?mean(vals):median(vals), false);
+  if(extra) s+=marca(extra, extra==='media'?mean(vals):median(vals), true);
+  return s+'</svg>';
+}
+
+/* ================= KIT: estatística e gráficos (as contas ficam aqui, escondidas) ================= */
+const isNum = v => typeof v==='number' && isFinite(v);
+function quantil(a,p){ const s=sorted(a), n=s.length; if(!n) return NaN; const h=(n-1)*p, lo=Math.floor(h), hi=Math.ceil(h); return s[lo]+(s[hi]-s[lo])*(h-lo); }
+function desvio(a){ if(a.length<2) return 0; const m=mean(a); return Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/(a.length-1)); }
+function correl(x,y){ const mx=mean(x), my=mean(y); let sxy=0,sx=0,sy=0; for(let i=0;i<x.length;i++){const dx=x[i]-mx, dy=y[i]-my; sxy+=dx*dy; sx+=dx*dx; sy+=dy*dy;} return sxy/Math.sqrt(sx*sy); }
+function reta(x,y){ const mx=mean(x),my=mean(y); let sxy=0,sxx=0; x.forEach((v,i)=>{sxy+=(v-mx)*(y[i]-my); sxx+=(v-mx)**2;}); const b=sxy/sxx; return {a:my-b*mx,b}; }
+function forcaR(r){ const a=Math.abs(r); if(a<0.1) return 'praticamente nenhuma relação'; const f=a<0.3?'fraca':a<0.6?'moderada':'forte'; return `${f} e ${r>0?'positiva':'negativa'}`; }
+function ticks(lo,hi,n=5){ const span=(hi-lo)||1; const st0=span/n; const mag=10**Math.floor(Math.log10(st0)); const e=st0/mag; const step=(e>=7.5?10:e>=3.5?5:e>=1.5?2:1)*mag; const t=[]; for(let v=Math.ceil(lo/step)*step; v<=hi+step*1e-9; v+=step) t.push(+v.toFixed(10)); return t; }
+function fmtCurto(v){ const a=Math.abs(v); if(a>=1e6) return nf(v/1e6,1)+' mi'; if(a>=1e4) return nf(v/1e3,0)+' mil'; if(a>=1000) return nf(v/1e3,1)+' mil'; return nf(v, Number.isInteger(v)?0:1); }
+let _uid=0;
+function svgHist(vals,{bins=10,fv=fmtCurto,marcas=[],W=600,H=280,lo,hi,classe=()=>''}={}){
+  vals=vals.filter(isNum); if(!vals.length) return '';
+  lo=lo??Math.min(...vals); hi=hi??Math.max(...vals); if(hi===lo) hi=lo+1;
+  const L=44,R=W-16,T=48,B=H-36, bw=(hi-lo)/bins, cnt=new Array(bins).fill(0);
+  vals.forEach(v=>{ let b=Math.floor((v-lo)/bw); if(b>=bins) b=bins-1; if(b<0) b=0; cnt[b]++; });
+  const max=Math.max(...cnt,1), X=v=>L+(R-L)*(v-lo)/(hi-lo), Y=c=>B-(B-T)*c/max;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Histograma">`;
+  ticks(0,max,4).forEach(t=>{ if(t>max) return; s+=`<line class="eixo" style="opacity:.4" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${t}</text>`; });
+  cnt.forEach((c,i)=>{ const x0=X(lo+i*bw), x1=X(lo+(i+1)*bw); s+=`<rect class="barra ${classe(i,lo+i*bw,lo+(i+1)*bw)}" x="${x0+1}" y="${Y(c)}" width="${Math.max(x1-x0-2,1)}" height="${B-Y(c)}" rx="2"/>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>`;
+  ticks(lo,hi,5).forEach(t=>{ if(t<lo||t>hi) return; s+=`<text x="${X(t)}" y="${B+20}" text-anchor="middle">${fv(t)}</text>`; });
+  marcas.forEach((m,j)=>{ const x=X(m.v), dir=x>W*.62; s+=`<line class="${m.cls}" x1="${x}" x2="${x}" y1="${T-14+j*0}" y2="${B}"/><text x="${x+(dir?-6:6)}" y="${16+j*18}" text-anchor="${dir?'end':'start'}" class="${m.tcls||'t-forte'}">${m.label}</text>`; });
+  return s+'</svg>';
+}
+function svgBoxH(groups,{fv=fmtCurto,W=600,pontos=true,lo,hi,rowH=60}={}){
+  groups=groups.map(g=>({nome:g.nome,vals:g.vals.filter(isNum)})).filter(g=>g.vals.length);
+  const all=groups.flatMap(g=>g.vals); if(!all.length) return '';
+  lo=lo??Math.min(...all); hi=hi??Math.max(...all); if(hi===lo) hi=lo+1;
+  const L=128,R=W-18,T=12,H=T+groups.length*rowH+34, X=v=>L+(R-L)*(v-lo)/(hi-lo), rnd=mulberry32(11);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Boxplot">`;
+  ticks(lo,hi,5).forEach(t=>{ if(t<lo||t>hi)return; s+=`<line class="eixo" style="opacity:.3" x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${H-30}"/><text x="${X(t)}" y="${H-10}" text-anchor="middle">${fv(t)}</text>`; });
+  groups.forEach((g,i)=>{ const v=g.vals, y=T+i*rowH+rowH/2; const q1=quantil(v,.25),md=quantil(v,.5),q3=quantil(v,.75),iq=q3-q1, li=q1-1.5*iq, ls=q3+1.5*iq; const dentro=v.filter(x=>x>=li&&x<=ls); const wmin=Math.min(...dentro), wmax=Math.max(...dentro);
+    s+=`<text x="${L-12}" y="${y+5}" text-anchor="end" class="t-forte">${g.nome}</text>`;
+    if(pontos) v.forEach(x=>{ const out=x<li||x>ls; s+=`<circle cx="${X(x)}" cy="${y+(rnd()-.5)*24}" r="${out?4.8:3.2}" class="${out?'marcador':'ponto'}" style="opacity:${out?1:.5}"/>`; });
+    s+=`<line class="regua" x1="${X(wmin)}" x2="${X(q1)}" y1="${y}" y2="${y}"/><line class="regua" x1="${X(q3)}" x2="${X(wmax)}" y1="${y}" y2="${y}"/><line class="regua" x1="${X(wmin)}" x2="${X(wmin)}" y1="${y-9}" y2="${y+9}"/><line class="regua" x1="${X(wmax)}" x2="${X(wmax)}" y1="${y-9}" y2="${y+9}"/>`;
+    s+=`<rect class="caixa" x="${X(q1)}" y="${y-15}" width="${Math.max(X(q3)-X(q1),1.5)}" height="30" rx="4"/><line class="m-mediana-box" x1="${X(md)}" x2="${X(md)}" y1="${y-15}" y2="${y+15}"/>`;
+  });
+  return s+'</svg>';
+}
+function svgScatter(pts,{fx=fmtCurto,fy=fmtCurto,xlab='',ylab='',W=600,H=360,tend=false,x0,x1,y0,y1}={}){
+  if(!pts.length) return '';
+  const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
+  let a0=x0??Math.min(...xs), a1=x1??Math.max(...xs), b0=y0??Math.min(...ys), b1=y1??Math.max(...ys);
+  if(x0===undefined){const p=(a1-a0)*.05||1; a0-=p; a1+=p;} if(y0===undefined){const p=(b1-b0)*.08||1; b0-=p; b1+=p;}
+  const L=62,R=W-16,T=30,B=H-48, X=v=>L+(R-L)*(v-a0)/(a1-a0), Y=v=>B-(B-T)*(v-b0)/(b1-b0), id='cp'+(++_uid);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de dispersão"><defs><clipPath id="${id}"><rect x="${L}" y="${T}" width="${R-L}" height="${B-T}"/></clipPath></defs>`;
+  ticks(b0,b1,4).forEach(t=>{ if(t<b0||t>b1)return; s+=`<line class="eixo" style="opacity:.35" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${fy(t)}</text>`; });
+  ticks(a0,a1,5).forEach(t=>{ if(t<a0||t>a1)return; s+=`<text x="${X(t)}" y="${B+20}" text-anchor="middle">${fx(t)}</text>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/><line class="eixo" x1="${L}" x2="${L}" y1="${T}" y2="${B}"/>`;
+  pts.forEach(p=>{ s+=`<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="${p.r||5}" class="${p.cls||'ponto'}" style="opacity:${p.op??.75}"/>`; });
+  if(tend){ const r=reta(xs,ys); s+=`<line clip-path="url(#${id})" class="m-media" x1="${X(a0)}" x2="${X(a1)}" y1="${Y(r.a+r.b*a0)}" y2="${Y(r.a+r.b*a1)}"/>`; }
+  s+=`<text x="${(L+R)/2}" y="${H-6}" text-anchor="middle" class="t-forte">${xlab}</text><text x="${L}" y="16" class="t-forte">${ylab}</text>`;
+  return s+'</svg>';
+}
+function svgBarrasV(itens,{fv=v=>String(v),W=600,H=280,rot=false}={}){
+  if(!itens.length) return '';
+  const L=44,R=W-12,T=30,B=H-(rot?70:40), max=Math.max(...itens.map(i=>i.v),1), bw=(R-L)/itens.length, Y=v=>B-(B-T)*v/max;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de barras">`;
+  ticks(0,max,4).forEach(t=>{ if(t>max) return; s+=`<line class="eixo" style="opacity:.35" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${fv(t)}</text>`; });
+  itens.forEach((it,i)=>{ const x=L+i*bw+bw*.14, w=bw*.72; s+=`<rect class="barra ${it.cls||''}" x="${x}" y="${Y(it.v)}" width="${w}" height="${B-Y(it.v)}" rx="3"/><text x="${x+w/2}" y="${Y(it.v)-7}" text-anchor="middle" class="${it.cls?'t-forte':''}">${fv(it.v)}</text>`;
+    s+= rot ? `<text x="${x+w/2}" y="${B+14}" text-anchor="end" transform="rotate(-35 ${x+w/2} ${B+14})">${it.k}</text>` : `<text x="${x+w/2}" y="${B+20}" text-anchor="middle" class="${it.cls?'t-forte':''}">${it.k}</text>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>`;
+  return s+'</svg>';
+}
+function svgLinha(rotulos,vals,{fv=fmtCurto,W=600,H=280,destaque=[]}={}){
+  const L=70,R=W-34,T=30,B=H-42, max=Math.max(...vals)*1.1, min=0, X=i=>L+(R-L)*i/(vals.length-1), Y=v=>B-(B-T)*(v-min)/(max-min);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de linha">`;
+  ticks(0,max,4).forEach(t=>{ if(t>max) return; s+=`<line class="eixo" style="opacity:.35" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${fv(t)}</text>`; });
+  s+=`<path class="area-serie" d="M${X(0)} ${B} ${vals.map((v,i)=>`L${X(i)} ${Y(v)}`).join(' ')} L${X(vals.length-1)} ${B}Z"/><path class="linha-serie" d="${vals.map((v,i)=>`${i?'L':'M'}${X(i)} ${Y(v)}`).join(' ')}"/>`;
+  vals.forEach((v,i)=>{ const hi=destaque.includes(i); s+=`<circle cx="${X(i)}" cy="${Y(v)}" r="${hi?6:3.5}" class="marcador"/>`; if(hi) s+=`<text x="${X(i)}" y="${Y(v)-12}" text-anchor="${i===vals.length-1?'end':'middle'}" class="t-forte">${fv(v)}</text>`; });
+  rotulos.forEach((r,i)=>{ if(rotulos.length>14 && i%2) return; s+=`<text x="${X(i)}" y="${B+20}" text-anchor="middle" class="t-peq">${r}</text>`; });
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>`;
+  return s+'</svg>';
+}
+function montaQuiz({box,placar,itens,opcoes,limpar,mostrar,umaColuna=false}){
+  const est={};
+  function draw(rev=false){
+    const Bx=$(box); Bx.innerHTML=''; let ok=0;
+    itens.forEach((it,i)=>{
+      if(est[i]&&it.r.includes(est[i])) ok++;
+      const sel=rev?it.r[0]:est[i], certo=sel&&it.r.includes(sel);
+      const card=el('div',{class:'col-card'+(sel?(certo?' certo':' errado'):'')});
+      card.innerHTML=(it.ic?`<div class="r2-cab">${icone(it.ic)}<span style="font-weight:600;font-size:1.05rem">${it.t}</span></div>`:`<span style="font-weight:600;font-size:1.05rem">${it.t}</span>`)+(it.sub?`<span class="amostra">${it.sub}</span>`:'');
+      const op=el('div',{class:'opcoes'}); if(umaColuna) op.style.gridTemplateColumns='1fr';
+      opcoes.forEach(([k,v])=>{ const b=el('button',{class:sel===k?'marcado':''},v); b.onclick=()=>{est[i]=k;draw();}; op.appendChild(b); });
+      card.appendChild(op);
+      if(sel) card.appendChild(el('p',{class:'retorno '+(certo?'ok':'no')}, certo?`Isso. ${it.ok}`:`Ainda não. ${it.dica}`));
+      Bx.appendChild(card);
+    });
+    if(placar) $(placar).textContent=`${ok} de ${itens.length}`;
+  }
+  if(limpar) $(limpar).onclick=()=>{Object.keys(est).forEach(k=>delete est[k]);draw();};
+  if(mostrar) $(mostrar).onclick=()=>draw(true);
+  draw();
+}
+function guardaForm(chave,raiz){
+  const salvo=ler(chave)||{};
+  raiz.querySelectorAll('input[id],textarea[id],select[id]').forEach(e=>{ if(salvo[e.id]!==undefined){ if(e.type==='checkbox') e.checked=!!salvo[e.id]; else e.value=salvo[e.id]; } });
+  const g=()=>{ const o={}; raiz.querySelectorAll('input[id],textarea[id],select[id]').forEach(e=>{ o[e.id]= e.type==='checkbox'?e.checked:e.value; }); salvar(chave,o); };
+  raiz.addEventListener('input',g); raiz.addEventListener('change',g);
+}
+const limpaTxt = s => String(s??'').replace(/[\t\n\r]+/g,' ').trim();
+const dataBR = s => { if(!s||!/^\d{4}-\d{2}-\d{2}$/.test(s)) return s??''; const [y,m,d]=s.split('-'); return `${d}/${m}/${y}`; };
+
+const CLI=D.cli, NL=CLI.length;
+const COLS3=['id_cliente','email','cidade','canal','plano','idade','renda_mensal','gasto_mensal','satisfacao','data_cadastro','data_ultima_compra','telefone_2'];
+const CID=['Recife','Olinda','Jaboatão dos Guararapes','Paulista','Caruaru'], CAN=['App','WhatsApp','Loja','Telefone'];
+const HOJE='2026-10-23';
+const vazio=v=>v===null||v===undefined||v==='';
+function problema(r,c){ const v=r[c]; if(vazio(v)) return null;
+  switch(c){
+    case 'cidade': return CID.includes(v)?null:'grafia fora do padrão';
+    case 'canal': return CAN.includes(v)?null:'grafia fora do padrão';
+    case 'idade': return (v<1||v>110)?'idade impossível':null;
+    case 'renda_mensal': if(typeof v==='string') return 'número guardado como texto'; if(v<0) return 'renda negativa'; if(v>100000) return 'valor suspeito'; return null;
+    case 'satisfacao': return (v<1||v>5)?'fora da escala de 1 a 5':null;
+    case 'data_cadastro': return v>HOJE?'data no futuro':null;
+    case 'data_ultima_compra': return (r.data_cadastro&&v<r.data_cadastro)?'compra antes do cadastro':null;
+    default: return null; } }
+const nVazio=c=>CLI.filter(r=>vazio(r[c])).length;
+const chave=r=>JSON.stringify(COLS3.map(c=>r[c]));
+const DIMS=[['Completude','Todos os dados necessários estão lá?'],['Unicidade','Cada cliente aparece uma vez só?'],['Consistência','O mesmo dado é escrito sempre igual?'],['Precisão','Os valores representam a realidade?'],['Atualidade','Os dados são recentes o bastante?']];
+$('dimCards').innerHTML=DIMS.map(d=>`<div class="cartao barra"><h3>${d[0]}</h3><p>${d[1]}</p></div>`).join('');
+const fmtV=(c,v)=>vazio(v)?'(vazio)':((c==='renda_mensal'||c==='gasto_mensal')&&typeof v==='number'?brl(v):(c.startsWith('data')?dataBR(v):String(v).replace(/^ | $/g,'␣')));
+
+/* ================= LAB 1 · RAIO-X ================= */
+const RX=(()=>{
+  const cel=NL*COLS3.length, vz=sum(COLS3.map(nVazio));
+  const unicas=new Set(CLI.map(chave)).size;
+  let txt=0,txtOk=0; CLI.forEach(r=>['cidade','canal'].forEach(c=>{ if(!vazio(r[c])){ txt++; if(!problema(r,c)) txtOk++; } }));
+  let pr=0,prOk=0; CLI.forEach(r=>['idade','renda_mensal','satisfacao','data_cadastro','data_ultima_compra'].forEach(c=>{ if(!vazio(r[c])){ pr++; if(!problema(r,c)) prOk++; } }));
+  const comD=CLI.filter(r=>!vazio(r.data_ultima_compra)), rec=comD.filter(r=>r.data_ultima_compra>='2024-10-23').length;
+  const probs=sum(COLS3.map(c=>CLI.filter(r=>problema(r,c)).length));
+  return {cel,vz,unicas,dims:[1-vz/cel,unicas/NL,txtOk/txt,prOk/pr,rec/comD.length],probs};
+})();
+let rxSel='renda_mensal';
+const SUG={id_cliente:'Chave do cliente: use para achar duplicatas.',email:'Sem vazios. Também identifica o cliente.',cidade:'Padronizar a grafia (Laboratório 4).',canal:'Padronizar a grafia e decidir o que fazer com os vazios.',plano:'Coluna limpa.',idade:'Vazios a tratar; valores impossíveis serão tratados no Encontro 4.',renda_mensal:'Vazios a tratar, números como texto para converter e valores suspeitos para investigar.',gasto_mensal:'Poucos vazios.',satisfacao:'Vazios e notas fora da escala.',data_cadastro:'Datas no futuro são impossíveis.',data_ultima_compra:'Vazios e compras registradas antes do cadastro.',telefone_2:'Mais da metade vazia: o vazio provavelmente só quer dizer “não tem segundo telefone”.'};
+function desenhaRX(){
+  $('rxKpis').innerHTML=[['Linhas',inteiro(NL),''],['Colunas',COLS3.length,''],['Células vazias',`${nf(100*RX.vz/RX.cel,1)}%`,`${RX.vz} de ${inteiro(RX.cel)}`],['Linhas repetidas',NL-RX.unicas,'cópias exatas'],['Valores com problema',RX.probs,'fora do padrão ou impossíveis']].map(k=>`<div class="kpi"><span class="k">${k[0]}</span><div class="v">${k[1]}</div><span class="s">${k[2]}</span></div>`).join('');
+  $('rxDim').innerHTML=DIMS.map((d,i)=>{ const p=RX.dims[i]*100, cor=p>=95?'var(--good)':p>=85?'var(--warn)':'var(--bad)'; return `<div class="medidor"><div class="linha" style="grid-template-columns:110px minmax(0,1fr) 56px"><span>${d[0]}</span><div class="trilho"><div class="enche" style="width:${p}%;background:${cor}"></div></div><b class="num">${nf(p,0)}%</b></div></div>`; }).join('');
+  const W=600, cw=W/COLS3.length, top=96, rh=2, H=top+NL*rh+4;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Mapa de vazios e problemas por coluna">`;
+  COLS3.forEach((c,j)=>{ const x=j*cw, on=c===rxSel; s+=`<text x="${x+cw/2}" y="${top-8}" transform="rotate(-50 ${x+cw/2} ${top-8})" class="${on?'t-forte':''} t-peq">${c}</text>`;
+    let runs=''; CLI.forEach((r,i)=>{ const v=vazio(r[c]), p=!v&&problema(r,c); if(v||p) runs+=`<rect x="${x+2}" y="${top+i*rh}" width="${cw-4}" height="${rh}" class="${v?'vazio-cel':''}" style="${p?'fill:var(--bad)':''}"/>`; });
+    s+=`<rect x="${x+2}" y="${top}" width="${cw-4}" height="${NL*rh}" class="cheio-cel" ${on?'style="stroke:var(--orange);stroke-width:2.5"':''}/>`+runs+`<rect data-c="${c}" x="${x}" y="${top}" width="${cw}" height="${NL*rh}" style="fill:transparent;cursor:pointer"/>`; });
+  $('rxMapa').innerHTML=s+'</svg>';
+  $('rxMapa').querySelectorAll('rect[data-c]').forEach(r=>r.onclick=()=>{rxSel=r.dataset.c;desenhaRX();});
+  $('rxCols').innerHTML=''; COLS3.forEach(c=>{ const b=el('button',{class:'chip','aria-pressed':String(c===rxSel)},c); b.onclick=()=>{rxSel=c;desenhaRX();}; $('rxCols').appendChild(b); });
+  const c=rxSel, nv=nVazio(c), pv=CLI.filter(r=>problema(r,c)), ex=[...new Set(pv.map(r=>fmtV(c,r[c])))].slice(0,5), dist=new Set(CLI.filter(r=>!vazio(r[c])).map(r=>r[c])).size;
+  $('rxCol').innerHTML=`<div class="kpis" style="margin-top:8px"><div class="kpi ${nv/NL>.4?'ruim':nv?'alerta':'bom'}"><span class="k">Vazios</span><div class="v">${nv}</div><span class="s">${nf(100*nv/NL,1)}% das linhas</span></div><div class="kpi ${pv.length?'ruim':'bom'}"><span class="k">Com problema</span><div class="v">${pv.length}</div><span class="s">${pv.length?[...new Set(pv.map(r=>problema(r,c)))].join(', '):'nenhum'}</span></div><div class="kpi"><span class="k">Valores diferentes</span><div class="v">${dist}</div></div></div>${ex.length?`<p class="msg"><b>Exemplos:</b> ${ex.join(' · ')}</p>`:''}<p class="msg"><b>O que fazer:</b> ${SUG[c]}</p>`;
+}
+desenhaRX();
+
+/* ================= LOG compartilhado ================= */
+let LOG=ler('fad-e3-log')||[];
+function addLog(e,okId){ LOG=LOG.filter(x=>x.chave!==e.chave); LOG.push(e); salvar('fad-e3-log',LOG); desenhaLog(); const o=$(okId); o.hidden=false; setTimeout(()=>o.hidden=true,2500); }
+
+/* ================= LAB 2 · AUSENTES ================= */
+const AUS={idade:{tipo:'num',ok:v=>v>=1&&v<=110,f:v=>`${nf(v,0)} anos`,lo:18,hi:80},
+  renda_mensal:{tipo:'num',ok:v=>typeof v==='number'&&v>0,f:v=>brl(v),lo:0,hi:30000},
+  gasto_mensal:{tipo:'num',ok:v=>typeof v==='number',f:v=>brl(v),lo:0,hi:3000},
+  satisfacao:{tipo:'ord',ok:v=>v>=1&&v<=5,f:v=>nf(v,Number.isInteger(v)?0:1)},
+  canal:{tipo:'cat'}, data_ultima_compra:{tipo:'data'}, telefone_2:{tipo:'texto'}};
+const EST=[['manter','Manter vazio'],['mediana','Preencher com a mediana'],['media','Preencher com a média'],['moda','Preencher com a moda'],['remover','Remover as linhas'],['excluir','Excluir a coluna']];
+let aCol='renda_mensal', aEst='mediana';
+function svgPilha(valid,extraV,extraN,{bins=12,lo,hi,fv=fmtCurto}){
+  const W=600,H=280,L=44,R=W-16,T=30,B=H-36, bw=(hi-lo)/bins, c1=new Array(bins).fill(0), c2=new Array(bins).fill(0);
+  const bin=v=>Math.max(0,Math.min(bins-1,Math.floor((v-lo)/bw)));
+  valid.forEach(v=>{ if(v>=lo&&v<=hi) c1[bin(v)]++; }); if(extraN&&extraV!=null) c2[bin(extraV)]+=extraN;
+  const max=Math.max(...c1.map((c,i)=>c+c2[i]),1), X=v=>L+(R-L)*(v-lo)/(hi-lo), Y=c=>B-(B-T)*c/max;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Distribuição antes e depois do preenchimento">`;
+  ticks(0,max,4).forEach(t=>{ if(t>max) return; s+=`<line class="eixo" style="opacity:.4" x1="${L}" x2="${R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end">${t}</text>`; });
+  for(let i=0;i<bins;i++){ const x0=X(lo+i*bw)+1, w=Math.max((R-L)/bins-2,1); s+=`<rect class="barra" x="${x0}" y="${Y(c1[i])}" width="${w}" height="${B-Y(c1[i])}" rx="2"/>`; if(c2[i]) s+=`<rect class="barra hi" x="${x0}" y="${Y(c1[i]+c2[i])}" width="${w}" height="${Y(c1[i])-Y(c1[i]+c2[i])}" rx="2"/><text x="${x0+w/2}" y="${Y(c1[i]+c2[i])-6}" text-anchor="middle" class="t-forte">+${c2[i]}</text>`; }
+  s+=`<line class="eixo" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>`;
+  ticks(lo,hi,5).forEach(t=>{ if(t<lo||t>hi) return; s+=`<text x="${X(t)}" y="${B+20}" text-anchor="middle">${fv(t)}</text>`; });
+  return s+'</svg>';
+}
+function medidor(p){ const W=600,H=64, X=v=>14+(W-28)*v/100;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Percentual de vazios"><rect x="${X(0)}" y="14" width="${X(15)-X(0)}" height="20" class="faixa-ok"/><rect x="${X(15)}" y="14" width="${X(40)-X(15)}" height="20" style="fill:var(--warn-soft)"/><rect x="${X(40)}" y="14" width="${X(100)-X(40)}" height="20" class="faixa-alerta"/><text x="${X(7.5)}" y="56" text-anchor="middle" class="t-ok">até 15%</text><text x="${X(27.5)}" y="56" text-anchor="middle" style="fill:var(--warn);font-weight:700">15% a 40%</text><text x="${X(70)}" y="56" text-anchor="middle" class="t-alerta">acima de 40%</text><circle class="marcador" cx="${X(Math.min(p,99.5))}" cy="24" r="12"/><text x="${X(Math.min(p,99.5))}" y="28" text-anchor="middle" class="t-marc" style="font-size:11px">${nf(p,0)}%</text></svg>`; }
+function avaliaAus(){
+  const meta=AUS[aCol], vals=CLI.map(r=>r[aCol]), m=vals.filter(vazio).length, pct=100*m/NL;
+  const valid=meta.ok?vals.filter(v=>!vazio(v)&&meta.ok(v)):vals.filter(v=>!vazio(v));
+  const r={m,pct,valid,linhas:NL,fill:null,ver:'ok',msg:'',conta:'',kpis:[]};
+  const mediana=meta.tipo==='num'||meta.tipo==='ord'?median(valid):null, media=meta.tipo==='num'||meta.tipo==='ord'?mean(valid):null;
+  const cnt=contar(valid), moda=[...cnt.entries()].sort((a,b)=>b[1]-a[1])[0];
+  const faixa=pct<=15?'ok':pct<=40?'cuidado':'nao';
+  const nome=aCol;
+  switch(aEst){
+    case 'manter': r.ver=(aCol==='telefone_2'||aCol==='data_ultima_compra')?'ok':(pct<=5?'ok':'cuidado'); r.msg=aCol==='telefone_2'?'Boa escolha: o vazio aqui quer dizer “não tem segundo telefone”. É informativo.':aCol==='data_ultima_compra'?'Razoável: inventar uma data de compra distorceria qualquer análise de tempo. O vazio pode indicar quem nunca voltou a comprar.':`Os ${m} vazios continuam lá. Médias e gráficos vão ignorar esses clientes. Funciona quando o vazio tem significado.`; r.conta='Nada é calculado: os vazios ficam como estão.'; break;
+    case 'mediana': if(meta.tipo==='cat'||meta.tipo==='texto'){ r.ver='impossivel'; r.msg='Não existe mediana de texto sem ordem.'; break; } if(meta.tipo==='data'){ r.ver='cuidado'; r.msg='Dá para calcular uma “data do meio”, mas inventar datas distorce análises de tempo.'; break; }
+      r.fill=mediana; r.ver=faixa; r.msg=`Os ${m} vazios recebem ${meta.f(mediana)}. A mediana resiste a valores extremos. Repare na barra laranja: ${m} clientes com o mesmo valor que não existiam.`; r.conta=`Colocamos os ${valid.length} valores válidos em ordem e pegamos o do meio: ${meta.f(mediana)}. Os ${m} vazios recebem esse valor.`; break;
+    case 'media': if(meta.tipo==='cat'||meta.tipo==='texto'||meta.tipo==='data'){ r.ver='impossivel'; r.msg='Não dá para tirar média deste tipo de dado.'; break; }
+      r.fill=media; { const dif=Math.abs(media-mediana)/mediana; r.ver=dif>.15?'nao':faixa; r.msg=dif>.15?`A média (${meta.f(media)}) está bem longe da mediana (${meta.f(mediana)}): alguns valores extremos puxam a média. Preencher com ela inventa clientes mais ricos do que o típico.`:`Os ${m} vazios recebem ${meta.f(media)}. Aqui média e mediana estão próximas, então a escolha pouco muda.`; }
+      r.conta=`Somamos os ${valid.length} valores válidos e dividimos por ${valid.length}: ${meta.f(media)}.`; break;
+    case 'moda': if(meta.tipo==='texto'){ r.ver='nao'; r.msg='Preencher telefones com o telefone mais comum criaria contatos falsos.'; break; }
+      if(meta.tipo==='num'){ r.ver=aCol==='idade'?'cuidado':'nao'; r.msg=aCol==='idade'?`A idade mais comum (${moda[0]}) aparece só ${moda[1]} vezes: representa pouco o grupo.`:'Quase nenhum valor se repete: a moda não representa os clientes.'; r.fill=aCol==='idade'?moda[0]:null; break; }
+      if(meta.tipo==='data'){ r.ver='nao'; r.msg='Repetir a data mais comum não tem sentido.'; break; }
+      r.fill=moda[0]; r.ver=meta.tipo==='cat'?faixa:'ok'; r.msg=`Os ${m} vazios recebem “${moda[0]}”, a categoria mais comum (${moda[1]} clientes). É a escolha menos arriscada para dados categóricos.`; r.conta=`Contamos cada valor: “${moda[0]}” aparece ${moda[1]} vezes, mais que qualquer outro.`; break;
+    case 'remover': r.linhas=NL-m; r.ver=pct<5?'ok':pct<=15?'cuidado':'nao'; r.msg=`Você perde ${m} linhas (${nf(pct,1)}%) e, com elas, todas as outras informações desses clientes. Só vale com poucos vazios e quando o vazio não segue um padrão.`; r.conta=`${NL} linhas − ${m} linhas com ${nome} vazio = ${NL-m} linhas.`; break;
+    case 'excluir': r.ver=pct>40?'ok':'nao'; r.msg=pct>40?`Com ${nf(pct,0)}% de vazios, a coluna mais atrapalha do que ajuda. Excluir é razoável.`:`Você jogaria fora uma coluna inteira com só ${nf(pct,0)}% de vazios.`; r.conta=`A coluna ${nome} sai da base: ${COLS3.length} → ${COLS3.length-1} colunas.`; break;
+  }
+  if(aCol==='idade') r.conta+=' Os 4 valores impossíveis (−3, 0, 150 e 210) ficaram de fora: eles são assunto do Encontro 4.';
+  if(aCol==='renda_mensal') r.conta+=' Ficaram de fora 3 rendas guardadas como texto e 1 negativa. Os 2 valores acima de R$ 300 mil entraram nas contas, por isso a média fica alta.';
+  if(aCol==='satisfacao') r.conta+=' As 3 notas fora da escala (0, 7 e 10) ficaram de fora.';
+  return r;
+}
+const VER3={ok:'Boa escolha',cuidado:'Com cuidado',nao:'Não recomendado',impossivel:'Não se aplica'};
+function desenhaAus(){
+  $('ausCols').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===aCol));
+  $('ausEst').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===aEst));
+  const meta=AUS[aCol], r=avaliaAus();
+  $('ausMedidor').innerHTML=medidor(r.pct)+`<p class="msg">${r.m} de ${NL} linhas vazias em <b>${aCol}</b>. Até 15% costuma ser tranquilo; entre 15% e 40%, atenção; acima de 40%, pense em excluir a coluna.</p>`;
+  const v=$('ausVer'); v.className='veredito v-'+r.ver; v.textContent=VER3[r.ver]; $('ausMsg').textContent=r.msg; $('ausConta').textContent=r.conta||'—';
+  const fill=(r.fill!=null&&!['remover','excluir','manter'].includes(aEst))?r.fill:null;
+  let viz='', leg='';
+  if(aEst==='excluir'){ viz=`<p class="gran-kpi" style="font-family:var(--f-disp);font-weight:700;font-size:2.4rem">Coluna ${aCol} removida</p><p class="msg">A base passa a ter ${COLS3.length-1} colunas.</p>`; }
+  else if(meta.tipo==='num'){ const out=r.valid.filter(x=>x>meta.hi).length; viz=svgPilha(r.valid,fill,fill!=null?r.m:0,{lo:meta.lo,hi:meta.hi,fv:aCol==='idade'?(x=>nf(x,0)):fmtCurto})+(out?`<p class="nota-lab">${out} valores acima de ${meta.f(meta.hi)} não cabem no gráfico.</p>`:''); leg=`<span><i class="legenda-sw" style="background:var(--c3)"></i>Valores que já existiam</span>${fill!=null?'<span><i class="legenda-sw" style="background:var(--orange)"></i>Valores preenchidos</span>':''}`; }
+  else if(meta.tipo==='ord'||meta.tipo==='cat'){ const cnt=contar(r.valid); const ks=meta.tipo==='ord'?[1,2,3,4,5]:[...cnt.keys()].sort((a,b)=>cnt.get(b)-cnt.get(a)); const W=600,lh=meta.tipo==='cat'&&ks.length>8?22:30,H=ks.length*lh+12, max=Math.max(...ks.map(k=>(cnt.get(k)||0)+(k===fill?r.m:0)),1);
+    let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Contagem por valor">`; ks.forEach((k,i)=>{ const y=i*lh+6, a=cnt.get(k)||0, b=k===fill?r.m:0, wa=(W-200)*a/max, wb=(W-200)*b/max; s+=`<text x="120" y="${y+lh/2+1}" text-anchor="end">${k}</text><rect class="barra" x="130" y="${y}" width="${Math.max(wa,1)}" height="${lh-10}" rx="3"/>${b?`<rect class="barra hi" x="${130+wa}" y="${y}" width="${wb}" height="${lh-10}" rx="3"/>`:''}<text x="${138+wa+wb}" y="${y+lh/2+1}" class="${b?'t-forte':''}">${a}${b?' + '+b:''}</text>`; });
+    viz=s+'</svg>'; leg=`<span><i class="legenda-sw" style="background:var(--c3)"></i>Já existiam</span>${fill!=null?'<span><i class="legenda-sw" style="background:var(--orange)"></i>Preenchidos</span>':''}`; }
+  else if(meta.tipo==='data'){ const anos={}; r.valid.forEach(d=>{const a=d.slice(0,4); anos[a]=(anos[a]||0)+1;}); viz=svgBarrasV(Object.keys(anos).sort().map(a=>({k:a,v:anos[a]})),{fv:v=>inteiro(v)}); leg='<span>Compras por ano (só as preenchidas)</span>'; }
+  else { const p=NL-r.m; viz=svgBarrasV([{k:'Preenchido',v:p},{k:'Vazio',v:r.m,cls:'hi'}],{fv:v=>inteiro(v)}); }
+  $('ausViz').innerHTML=viz; $('ausLeg').innerHTML=leg;
+  const ks=[[`Vazios`,`${r.m}`,`${nf(r.pct,1)}%`],['Linhas na base',inteiro(r.linhas),aEst==='remover'?`eram ${NL}`:'']];
+  if(meta.tipo==='num'&&r.valid.length){ const antes=median(r.valid), dep=fill!=null?median([...r.valid,...new Array(r.m).fill(fill)]):antes, sd0=desvio(r.valid.filter(x=>x<=meta.hi)), sd1=fill!=null?desvio([...r.valid.filter(x=>x<=meta.hi),...new Array(r.m).fill(fill)]):sd0;
+    ks.push(['Valor típico (mediana)',meta.f(dep),fill!=null?`antes: ${meta.f(antes)}`:'']); if(fill!=null) ks.push(['Espalhamento dos dados',`${sd1<sd0?'−':'+'}${nf(Math.abs(100*(sd1-sd0)/sd0),0)}%`,'preencher com um só valor deixa tudo mais parecido']); }
+  $('ausKpis').innerHTML=ks.map(k=>`<div class="kpi"><span class="k">${k[0]}</span><div class="v">${k[1]}</div><span class="s">${k[2]}</span></div>`).join('');
+  $('ausLog').disabled = r.ver==='impossivel';
+  return r;
+}
+(function(){
+  Object.keys(AUS).forEach(c=>{ const b=el('button',{class:'chip','data-k':c},c); b.onclick=()=>{aCol=c;desenhaAus();}; $('ausCols').appendChild(b); });
+  EST.forEach(([k,v])=>{ const b=el('button',{class:'chip','data-k':k},v); b.onclick=()=>{aEst=k;desenhaAus();}; $('ausEst').appendChild(b); });
+  desenhaAus();
+  $('ausLog').onclick=()=>{ const r=avaliaAus(), meta=AUS[aCol], pct=nf(r.pct,1); const fv=r.fill!=null?(meta.f?meta.f(r.fill):r.fill):'';
+    const T={manter:[`Mantive vazios os ${r.m} registros de ${aCol}`,'O vazio tem significado ou a análise pode ignorá-lo.','Preencher inventaria valores que não existem.'],
+      mediana:[`Preenchi os ${r.m} vazios de ${aCol} com a mediana (${fv})`,`Coluna numérica com ${pct}% de vazios; a mediana resiste a valores extremos.`,'Cálculos usariam só parte dos clientes e poderiam distorcer comparações.'],
+      media:[`Preenchi os ${r.m} vazios de ${aCol} com a média (${fv})`,`Coluna numérica com ${pct}% de vazios e sem valores extremos fortes.`,'Cálculos usariam só parte dos clientes.'],
+      moda:[`Preenchi os ${r.m} vazios de ${aCol} com a moda (${fv})`,`Coluna categórica com ${pct}% de vazios; a categoria mais comum é a escolha menos arriscada.`,`Contagens por categoria ignorariam ${r.m} clientes.`],
+      remover:[`Removi as ${r.m} linhas sem ${aCol}`,`Poucos vazios (${pct}%) e sem padrão aparente.`,'Linhas incompletas atrapalhariam os cálculos dessa coluna.'],
+      excluir:[`Excluí a coluna ${aCol}`,`${pct}% de vazios: a coluna mais atrapalha do que ajuda.`,'Conclusões apoiadas numa coluna quase vazia seriam frágeis.']}[aEst];
+    addLog({chave:'aus-'+aCol,col:aCol,oque:T[0],porque:T[1],risco:T[2]},'ausLogOk'); };
+})();
+
+/* ================= LAB 3 · DUPLICATAS ================= */
+let dCrit='linha';
+function grupos(crit){ const m=new Map(); CLI.forEach((r,i)=>{ const k=crit==='linha'?chave(r):r.id_cliente; if(!m.has(k)) m.set(k,[]); m.get(k).push(i); }); return [...m.values()].filter(g=>g.length>1); }
+function desenhaDup(){
+  $('dupCrit').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===dCrit));
+  const G=grupos(dCrit), extra=sum(G.map(g=>g.length-1));
+  const extras=G.flatMap(g=>{ const ord=[...g].sort((a,b)=>(CLI[b].data_ultima_compra||'').localeCompare(CLI[a].data_ultima_compra||'')); return ord.slice(1); });
+  const infl=sum(extras.map(i=>CLI[i].gasto_mensal).filter(isNum));
+  $('dupKpis').innerHTML=[['Linhas repetidas',extra,dCrit==='linha'?'cópias exatas':'mesmo id_cliente'],['Linhas na base',`${NL} → ${NL-extra}`,''],['Clientes contados a mais',extra,''],['Gasto mensal inflado',brl(infl),'somado em dobro no total']].map(k=>`<div class="kpi ${k[0]==='Linhas repetidas'?'alerta':''}"><span class="k">${k[0]}</span><div class="v">${k[1]}</div><span class="s">${k[2]}</span></div>`).join('');
+  const cs=['id_cliente','cidade','canal','renda_mensal','gasto_mensal','data_ultima_compra'];
+  let h='<div class="tabela-wrap"><table><thead><tr><th>Linha</th>'+cs.map(c=>`<th>${c}</th>`).join('')+'</tr></thead><tbody>';
+  G.slice(0,10).forEach((g,gi)=>{ const dif=new Set(cs.filter(c=>new Set(g.map(i=>JSON.stringify(CLI[i][c]))).size>1)); const ord=[...g].sort((a,b)=>(CLI[b].data_ultima_compra||'').localeCompare(CLI[a].data_ultima_compra||''));
+    ord.forEach((i,k)=>{ h+=`<tr class="${k>0?'dup':''} ${k===0&&gi>0?'divisor':''}"><td>${i+2}${k>0?' · sai':' · fica'}</td>${cs.map(c=>`<td class="${dif.has(c)?'prob':''}">${fmtV(c,CLI[i][c])}</td>`).join('')}</tr>`; }); });
+  $('dupTab').innerHTML=h+'</tbody></table></div><p class="nota-lab">“Linha” é a posição no Excel (a linha 1 é o cabeçalho). Células em vermelho mudam entre as versões.</p>';
+  $('dupMsg').innerHTML=dCrit==='linha'?'São <b>cópias perfeitas</b>, provavelmente importadas duas vezes. Saem sem dúvida.':`Além das ${NL-new Set(CLI.map(chave)).size} cópias exatas, <b>${extra-(NL-new Set(CLI.map(chave)).size)} clientes aparecem com dados diferentes</b> (data da última compra ou cidade): o cadastro foi atualizado. Regra sugerida: manter o registro mais recente.`;
+}
+(function(){
+  [['linha','Linha inteira igual'],['id','Mesmo id_cliente']].forEach(([k,v])=>{ const b=el('button',{class:'chip','data-k':k},v); b.onclick=()=>{dCrit=k;desenhaDup();}; $('dupCrit').appendChild(b); });
+  desenhaDup();
+  $('dupLog').onclick=()=>{ const G=grupos(dCrit), ex=sum(G.map(g=>g.length-1)), ee=NL-new Set(CLI.map(chave)).size;
+    if(dCrit==='linha') addLog({chave:'dup-linha',col:'(linhas)',oque:`Removi ${ex} linhas duplicadas exatas`,porque:'Eram cópias idênticas, provavelmente importadas duas vezes.',risco:'Contagens e totais ficariam inflados.'},'dupLogOk');
+    else addLog({chave:'dup-id',col:'id_cliente',oque:`Removi ${ex-ee} duplicatas parciais por id_cliente, mantendo o registro mais recente`,porque:'O mesmo cliente aparecia com dados atualizados.',risco:'O cliente seria contado duas vezes e com dados desatualizados.'},'dupLogOk'); };
+})();
+
+/* ================= LAB 4 · TEXTO ================= */
+const DIC={'recife':'Recife','recfie':'Recife','olinda':'Olinda','caruaru':'Caruaru','paulista':'Paulista','jaboatão dos guararapes':'Jaboatão dos Guararapes','jaboatao dos guararapes':'Jaboatão dos Guararapes','app':'App','whatsapp':'WhatsApp','telefone':'Telefone','tel.':'Telefone','loja':'Loja'};
+const titulo=s=>s.toLowerCase().replace(/(^|\s)(\p{L})/gu,(m,a,b)=>a+b.toUpperCase());
+let tCol='cidade'; const tOn={trim:false,caixa:false,dic:false};
+function aplica(v){ let s=v; if(tOn.trim) s=s.replace(/\s+/g,' ').trim(); if(tOn.caixa) s=titulo(s); if(tOn.dic) s=DIC[s.toLowerCase().replace(/\s+/g,' ').trim()]||s; return s; }
+function desenhaTx(){
+  $('txCols').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===tCol));
+  $('txPassos').querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',!!tOn[b.dataset.k]));
+  const canon=tCol==='cidade'?CID:CAN, raw=CLI.map(r=>r[tCol]).filter(v=>!vazio(v)), n0=new Set(raw).size;
+  const cnt=contar(raw.map(aplica)), it=[...cnt.entries()].sort((a,b)=>b[1]-a[1]), fora=sum(it.filter(([k])=>!canon.includes(k)).map(e=>e[1]));
+  const W=600, lh=it.length>10?22:28, H=it.length*lh+12, max=Math.max(...it.map(e=>e[1]));
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Grafias e contagens">`;
+  it.forEach(([k,v],i)=>{ const y=i*lh+6, w=(W-260)*v/max, bad=!canon.includes(k); s+=`<text x="210" y="${y+lh/2+1}" text-anchor="end" class="${bad?'t-alerta':''}">${k.replace(/^ /,'␣').replace(/ $/,'␣')}</text><rect class="barra ${bad?'hi':''}" x="220" y="${y}" width="${Math.max(w,1.5)}" height="${lh-9}" rx="3"/><text x="${228+w}" y="${y+lh/2+1}">${v}</text>`; });
+  $('txViz').innerHTML=s+'</svg>'; $('txTit').textContent=`${tCol}: ${it.length} grafias diferentes`;
+  $('txKpis').innerHTML=[['Grafias diferentes',`${n0} → ${it.length}`,`o certo seria ${canon.length}`],['Linhas fora do padrão',fora,'em laranja no gráfico']].map(k=>`<div class="kpi ${k[1]===0||k[1]===`${n0} → ${canon.length}`?'bom':''}"><span class="k">${k[0]}</span><div class="v">${k[1]}</div><span class="s">${k[2]}</span></div>`).join('');
+  $('txMsg').textContent=it.length===canon.length?'Pronto: cada categoria tem uma grafia só. Agora contagens e gráficos por categoria estão corretos.':(tOn.caixa&&!tOn.dic?'Repare: padronizar maiúsculas criou grafias novas, como “Dos” e “Whatsapp”. Falta a correção final.':'Ainda há grafias diferentes para a mesma categoria. Ligue a próxima correção.');
+}
+(function(){
+  [['cidade','cidade'],['canal','canal']].forEach(([k,v])=>{ const b=el('button',{class:'chip','data-k':k},v); b.onclick=()=>{tCol=k;desenhaTx();}; $('txCols').appendChild(b); });
+  [['trim','1. Tirar espaços extras'],['caixa','2. Padronizar maiúsculas'],['dic','3. Corrigir digitação']].forEach(([k,v])=>{ const b=el('button',{class:'chip','data-k':k},v); b.onclick=()=>{tOn[k]=!tOn[k];desenhaTx();}; $('txPassos').appendChild(b); });
+  desenhaTx();
+  $('txLog').onclick=()=>{ const raw=CLI.map(r=>r[tCol]).filter(v=>!vazio(v)), n0=new Set(raw).size, n1=new Set(raw.map(aplica)).size;
+    addLog({chave:'tx-'+tCol,col:tCol,oque:`Padronizei ${tCol}: de ${n0} para ${n1} grafias (${['tirar espaços','maiúsculas','correção de digitação'].filter((x,i)=>tOn[['trim','caixa','dic'][i]]).join(', ')||'nenhuma correção ligada'})`,porque:'Cada grafia contava como uma categoria diferente.',risco:'Contagens e gráficos por categoria ficariam errados.'},'txLogOk'); };
+})();
+
+/* ================= LAB 5 · LOG ================= */
+function desenhaLog(){
+  $('logLista').innerHTML=LOG.length?LOG.map(e=>`<li><b>${e.oque}</b><span>Por quê: ${e.porque}</span><br><span>Risco de não fazer: ${e.risco}</span></li>`).join(''):'<li class="vazio-log">Nenhuma decisão registrada ainda. Use os botões “Registrar no log” dos laboratórios 2, 3 e 4.</li>';
+}
+(function(){
+  $('diagTab').innerHTML='<thead><tr><th>Coluna</th><th>Vazios</th><th>% vazio</th><th>Com problema</th><th>Tipo de problema</th></tr></thead><tbody>'+COLS3.map(c=>{ const v=nVazio(c), p=CLI.filter(r=>problema(r,c)); return `<tr><td>${c}</td><td class="${v?'vazio':''}">${v}</td><td>${nf(100*v/NL,1)}%</td><td class="${p.length?'prob':''}">${p.length}</td><td>${[...new Set(p.map(r=>problema(r,c)))].join(', ')||'—'}</td></tr>`; }).join('')+`<tr><td>(linhas)</td><td colspan="2">duplicadas exatas: ${NL-RX.unicas}</td><td colspan="2">mesmo id_cliente: ${NL-new Set(CLI.map(r=>r.id_cliente)).size}</td></tr></tbody>`;
+  desenhaLog();
+  $('logCopiar').onclick=()=>copiar(['Coluna\tO que foi feito\tPor que\tRisco de não fazer',...LOG.map(e=>[e.col,e.oque,e.porque,e.risco].join('\t'))].join('\n'),$('logOk'),$('logFallback'));
+  $('logLimpar').onclick=()=>{ LOG=[]; salvar('fad-e3-log',LOG); desenhaLog(); };
+})();
+
+/* ================= EXCEL ================= */
+(function(){
+  const rv=CLI.map(r=>r.renda_mensal).filter(v=>typeof v==='number'&&v>0), md=median(rv), ee=NL-RX.unicas, ei=NL-new Set(CLI.map(r=>r.id_cliente)).size;
+  const passos=[
+    ['Abra e formate.',`Dois cliques em clientes_encontro3.csv e depois <b>Página Inicial → Formatar como Tabela</b>. Confira: <b>${NL} linhas</b> de clientes e <b>12 colunas</b>.`],
+    ['Conte os vazios.',`Na seta do filtro de <b>renda_mensal</b>, deixe marcado só <b>(Vazias)</b>. A barra de status mostra <b>${nVazio('renda_mensal')} de ${NL} registros encontrados</b>. Repita para cada coluna e anote. Depois, <b>Limpar Filtro</b>.`],
+    ['Realce os vazios.',`Selecione a tabela, <b>Página Inicial → Formatação Condicional → Nova Regra → Formatar apenas células que contenham → Vazias</b> e escolha uma cor. O mapa da base aparece na sua tela.`],
+    ['Remova as cópias exatas.',`<b>Dados → Remover Duplicatas</b>, com todas as colunas marcadas. O Excel avisa: <b>${ee} valores duplicados removidos, ${NL-ee} permanecem</b>.`],
+    ['Remova as duplicatas por id.',`Primeiro ordene <b>data_ultima_compra</b> do mais novo para o mais antigo (assim a versão mais recente fica em cima). Depois <b>Remover Duplicatas</b> marcando só <b>id_cliente</b>: saem <b>${ei-ee}</b>, ficam <b>${NL-ei}</b>.`],
+    ['Padronize a cidade.',`<b>Página Inicial → Localizar e Selecionar → Substituir</b>, marque <b>Coincidir conteúdo da célula inteira</b> e troque, um por vez: recife → Recife (pega também RECIFE), Recfie → Recife, Jaboatao dos Guararapes → Jaboatão dos Guararapes, olinda → Olinda, caruaru → Caruaru. Para “ Recife” e “paulista ” com espaço, digite o espaço no campo Localizar. Confira numa Tabela Dinâmica: <b>5 cidades</b>.`],
+    ['Preencha os vazios da renda.',`Filtre <b>renda_mensal</b> por <b>(Vazias)</b>, selecione as células vazias visíveis, digite <b>${nf(md,2)}</b> (a mediana do Laboratório 2) e aperte <b>Ctrl+Enter</b>: todas recebem o valor de uma vez.`],
+    ['Exclua o que não serve.',`Clique com o botão direito na letra da coluna <b>telefone_2</b> e escolha <b>Excluir</b>.`]];
+  $('xlPassos').innerHTML=passos.map(p=>`<li><b>${p[0]}</b> ${p[1]}</li>`).join('');
+})();
+
+/* ================= ATIVIDADE ================= */
+(function(){
+  const cs=['canal','idade','renda_mensal','gasto_mensal','satisfacao','data_cadastro','data_ultima_compra','telefone_2'];
+  $('a3Tab').innerHTML='<thead><tr><th>Coluna</th><th>Vazios que encontrei</th><th>Decisão</th><th>Justificativa</th></tr></thead><tbody>'+cs.map((c,i)=>`<tr><td>${c}</td><td><input id="a3v${i}" type="number" min="0" style="width:6em;padding:6px;border-radius:8px;border:1.5px solid var(--line);background:var(--paper)" aria-label="Vazios em ${c}"></td><td><select id="a3d${i}" aria-label="Decisão para ${c}" style="padding:6px;border-radius:8px;border:1.5px solid var(--line);background:var(--paper)"><option value="">Escolha</option>${EST.map(e=>`<option>${e[1]}</option>`).join('')}</select></td><td><input id="a3j${i}" type="text" style="width:100%;min-width:220px;padding:6px;border-radius:8px;border:1.5px solid var(--line);background:var(--paper)" aria-label="Justificativa para ${c}"></td></tr>`).join('')+'</tbody>';
+  guardaForm('fad-e3-ativ',$('labAtiv'));
+  $('a3Copiar').onclick=()=>{
+    const L=[`Nome\t${limpaTxt($('a3Nome').value)}`,'','Coluna\tVazios\tDecisão\tJustificativa',...cs.map((c,i)=>`${c}\t${$('a3v'+i).value}\t${$('a3d'+i).value}\t${limpaTxt($('a3j'+i).value)}`),'',`Duplicatas exatas removidas\t${$('a3DupE').value}`,`Duplicatas por id removidas\t${$('a3DupP').value}`,`Grafias de cidade (antes → depois)\t${limpaTxt($('a3Cid').value)}`,'',`Pergunta 1\t${limpaTxt($('a3Q1').value)}`,`Pergunta 2\t${limpaTxt($('a3Q2').value)}`,'','Log de decisões',...LOG.map(e=>[e.col,e.oque,e.porque,e.risco].join('\t'))];
+    copiar(L.join('\n'),$('a3Ok'),$('a3Fallback'));
+  };
+})();
+
+/* ================= NAVEGAÇÃO / MODO AULA ================= */
+const cenas=[...document.querySelectorAll('.cena')];
+const sel=$('irpara');
+cenas.forEach((c,i)=>{ const o=el('option',{value:c.id},`${i+1}. ${c.dataset.nome}`); sel.appendChild(o); });
+let aula=false, atual=0;
+function mostrar(i){ atual=Math.max(0,Math.min(cenas.length-1,i)); cenas.forEach((c,j)=>c.classList.toggle('atual',j===atual)); $('contador').textContent=`${atual+1} / ${cenas.length}`; sel.value=cenas[atual].id; window.scrollTo(0,0); }
+function visivel(){ let best=0; cenas.forEach((c,i)=>{ if(c.getBoundingClientRect().top<window.innerHeight*0.4) best=i; }); return best; }
+sel.addEventListener('change',()=>{ const i=cenas.findIndex(c=>c.id===sel.value); if(aula) mostrar(i); else cenas[i].scrollIntoView({behavior:reduz?'auto':'smooth'}); });
+$('btnAula').onclick=()=>{
+  aula=!aula; document.body.classList.toggle('aula',aula); document.documentElement.classList.toggle('aula',aula); $('btnAula').setAttribute('aria-pressed',String(aula)); $('btnAula').textContent=aula?'Sair do modo aula':'Modo aula';
+  if(aula){ mostrar(visivel()); } else { cenas.forEach(c=>c.classList.remove('atual')); cenas[atual].scrollIntoView(); if(document.fullscreenElement) document.exitFullscreen().catch(()=>{}); }
+};
+$('antes').onclick=()=>mostrar(atual-1);
+$('depois').onclick=()=>mostrar(atual+1);
+$('cheia').onclick=()=>{ const d=document.documentElement; if(document.fullscreenElement){document.exitFullscreen().catch(()=>{});} else if(d.requestFullscreen){ d.requestFullscreen().catch(()=>{}); } };
+document.addEventListener('keydown',e=>{
+  if(!aula||e.defaultPrevented) return; if(e.target.closest && e.target.closest('input,select,textarea')) return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();mostrar(atual+1);}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();mostrar(atual-1);}
+  else if(e.key==='Escape'){ $('btnAula').click(); }
+});
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>{ if(aula) return; es.forEach(en=>{ if(en.isIntersecting) sel.value=en.target.id; }); },{rootMargin:'-40% 0px -55% 0px'});
+  cenas.forEach(c=>io.observe(c));
+}
+if(location.hash){ const alvo=document.getElementById(location.hash.slice(1)); if(alvo) setTimeout(()=>alvo.scrollIntoView(),50); }
+</script>
+
+</body>
+</html>
